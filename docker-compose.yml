@@ -1,0 +1,44 @@
+# Local stack mirroring AWS: API + worker + Redis, shared storage volume.
+#   cp .env.example .env   # add OPENAI_API_KEY and AWS credentials
+#   docker compose up --build
+services:
+  redis:
+    image: redis:7.4-alpine
+    ports: ["6379:6379"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      retries: 10
+
+  api:
+    build: .
+    image: upsell-poc:local
+    env_file: .env
+    environment:
+      QUEUE_BACKEND: rq
+      REDIS_URL: redis://redis:6379/0
+      STORAGE_BACKEND: ${STORAGE_BACKEND:-local}
+    ports: ["8000:8000"]
+    volumes:
+      - ./data:/app/data
+      - ${HOME}/.aws:/app/.aws:ro
+    depends_on:
+      redis:
+        condition: service_healthy
+
+  worker:
+    image: upsell-poc:local
+    command: ["python", "-m", "upsell_poc.worker"]
+    env_file: .env
+    environment:
+      QUEUE_BACKEND: rq
+      REDIS_URL: redis://redis:6379/0
+      STORAGE_BACKEND: ${STORAGE_BACKEND:-local}
+    volumes:
+      - ./data:/app/data
+      - ${HOME}/.aws:/app/.aws:ro
+    depends_on:
+      redis:
+        condition: service_healthy
+      api:
+        condition: service_started

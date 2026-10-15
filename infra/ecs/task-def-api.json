@@ -1,0 +1,44 @@
+{
+  "family": "upsell-poc-api",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "1024",
+  "memory": "2048",
+  "runtimePlatform": { "cpuArchitecture": "X86_64", "operatingSystemFamily": "LINUX" },
+  "executionRoleArn": "arn:aws:iam::${AWS_ACCOUNT_ID}:role/upsell-poc-execution-role",
+  "taskRoleArn": "arn:aws:iam::${AWS_ACCOUNT_ID}:role/upsell-poc-task-role",
+  "ephemeralStorage": { "sizeInGiB": 50 },
+  "containerDefinitions": [
+    {
+      "name": "api",
+      "image": "PLACEHOLDER",
+      "essential": true,
+      "portMappings": [{ "containerPort": 8000, "protocol": "tcp" }],
+      "environment": [
+        { "name": "APP_ENV", "value": "production" },
+        { "name": "AWS_REGION", "value": "${AWS_REGION}" },
+        { "name": "STORAGE_BACKEND", "value": "s3" },
+        { "name": "S3_BUCKET", "value": "${S3_BUCKET}" },
+        { "name": "QUEUE_BACKEND", "value": "rq" },
+        { "name": "REDIS_URL", "value": "${REDIS_URL}" },
+        { "name": "WEB_CONCURRENCY", "value": "2" }
+      ],
+      "secrets": [
+        { "name": "OPENAI_API_KEY", "valueFrom": "arn:aws:secretsmanager:${AWS_REGION}:${AWS_ACCOUNT_ID}:secret:upsell-poc/openai-api-key" }
+      ],
+      "healthCheck": {
+        "command": ["CMD-SHELL", "curl -fsS http://127.0.0.1:8000/health || exit 1"],
+        "interval": 30, "timeout": 5, "retries": 3, "startPeriod": 20
+      },
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/upsell-poc",
+          "awslogs-region": "${AWS_REGION}",
+          "awslogs-stream-prefix": "api",
+          "awslogs-create-group": "true"
+        }
+      }
+    }
+  ]
+}

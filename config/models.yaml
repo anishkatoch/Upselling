@@ -1,0 +1,86 @@
+# Model routing for every pipeline step. Verify IDs before deploying:
+#   OpenAI:  GET /v1/models
+#   Bedrock: model access must be enabled per region in the Bedrock console.
+
+transcription:
+  # Tried in order; the next one runs only if the previous one fails.
+  chain:
+    - provider: openai_diarize
+      model: gpt-4o-transcribe-diarize
+      chunk_minutes: 20
+      overlap_seconds: 2
+      max_parallel_chunks: 3
+      mp3_bitrate: 48k
+    - provider: aws_transcribe
+      languages: [en-IN, hi-IN]
+      max_speakers: 10
+      poll_seconds: 10
+      timeout_minutes: 90
+  # Optional second pass that re-transcribes each speaker turn for cleaner text.
+  quality_pass:
+    enabled: false
+    model: gpt-transcribe
+    min_segment_seconds: 1.0
+    max_parallel: 4
+    extra_params: {}
+
+llm:
+  sdk_max_retries: 3
+  timeout_seconds: 600
+  max_tokens: 16000
+  circuit_breaker:
+    failures: 5
+    window_seconds: 120
+    cooldown_seconds: 300
+  # Fallback chain shared by all LLM steps, tried in order.
+  chain:
+    - provider: openai
+      model: gpt-6.1-sol
+      reasoning: true
+    - provider: bedrock
+      model: anthropic.claude-sonnet-5-5
+      region: us-east-1
+    - provider: bedrock
+      model: anthropic.claude-sonnet-5-5
+      region: us-west-2
+  steps:
+    role_detection:
+      effort: low
+    conversation_splitting:
+      effort: medium
+    mood_fusion:
+      effort: medium
+    upsell_detection:
+      effort: high
+      escalate_below_confidence: 0.6
+      escalation:
+        provider: bedrock
+        model: anthropic.claude-opus-5-5
+        region: us-east-1
+    test_data_generation:
+      effort: medium
+
+mood:
+  # Voice-tone labels from a model that listens to the audio.
+  tone_model:
+    enabled: true
+    model: gpt-audio-1.5
+    max_clip_minutes: 10
+  acoustics:
+    enabled: true
+
+budget:
+  enabled: true
+  # Soft, best-effort cap in USD on the LLM steps we can price (see src/upsell_poc/cost.py
+  # for exactly what is and isn't included). A job that hits this stops at the next
+  # checkpoint and can be resumed with a higher budget via /retry.
+  max_usd_per_job: 4.0
+  # Independent per-conversation cap: only that conversation's remaining analysis steps are
+  # skipped if it's hit, other conversations keep going. Note: since this is higher than
+  # max_usd_per_job above, the job-level cap will bind first unless you raise it.
+  max_usd_per_conversation: 5.0
+
+tts:
+  # Used only by scripts/generate_test_data.py
+  model: gpt-4o-mini-tts
+  voices: [alloy, ash, coral, echo, nova, onyx, sage, shimmer]
