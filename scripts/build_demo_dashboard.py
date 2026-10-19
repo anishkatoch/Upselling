@@ -1,9 +1,13 @@
-"""Build the made-up team data behind the dashboard's "View demo dashboard" button.
+"""Build the made-up team data behind the dashboard's "View demo" button.
 
 Generates ten weeks of recordings for six invented salespeople with different trajectories
 (improving, slipping, steady, pushy, low effort, new joiner), saves them into a throwaway
 storage folder, and runs the real dashboard code over them - so the demo is computed exactly
 like live numbers. Nothing here touches your real data or any model API.
+
+Writes frontend/src/data/demo-dashboard.json, which the React app imports directly. Uses the
+sample conversation from build_dummy_report.py as its template, so run that one first if both
+need regenerating.
 
     uv run python scripts/build_demo_dashboard.py
 """
@@ -13,7 +17,7 @@ from __future__ import annotations
 import copy
 import json
 import random
-import re
+import sys
 import tempfile
 from dataclasses import dataclass
 from datetime import date, timedelta
@@ -25,9 +29,9 @@ from upsell_poc.schemas import ConversationResult, JobReport, UpsellAnalysis
 from upsell_poc.storage import LocalStorage
 
 ROOT = Path(__file__).resolve().parents[1]
-INDEX_HTML = ROOT / "src" / "upsell_poc" / "api" / "static" / "index.html"
-START = "    /* DEMO_DASH_START */"
-END = "    /* DEMO_DASH_END */"
+DATA_DIR = ROOT / "frontend" / "src" / "data"
+sys.path.insert(0, str(Path(__file__).parent))
+
 FIRST_MONDAY = date(2026, 8, 10)
 WEEKS = 10
 
@@ -197,8 +201,8 @@ def make_conversation(template: dict, p: Profile, t: float, rng: random.Random, 
 
 
 def build() -> dict:
-    html = INDEX_HTML.read_text(encoding="utf-8")
-    template_report = json.loads(re.search(r"const DUMMY_REPORT = (\{.*?\});\n", html, re.S).group(1))
+    from build_dummy_report import report as template_report
+
     template = template_report["conversations"][0]
     rng = random.Random(7)
     with tempfile.TemporaryDirectory() as tmp:
@@ -231,13 +235,11 @@ def build() -> dict:
 
 def main() -> None:
     demo = build()
-    block = f"{START}\nconst DEMO_DASHBOARD = {json.dumps(demo, ensure_ascii=False, separators=(',', ':'))};\n{END}"
-    html = INDEX_HTML.read_text(encoding="utf-8")
-    pattern = re.compile(re.escape(START) + r".*?" + re.escape(END), re.DOTALL)
-    if not pattern.search(html):
-        raise SystemExit(f"Could not find {START} ... {END} markers in {INDEX_HTML}")
-    INDEX_HTML.write_text(pattern.sub(lambda _: block, html), encoding="utf-8")
+    DATA_DIR.mkdir(parents=True, exist_ok=True)
+    out = DATA_DIR / "demo-dashboard.json"
+    out.write_text(json.dumps(demo, ensure_ascii=False, indent=2), encoding="utf-8")
     people = demo["week"]["people"]
+    print(f"wrote demo dashboard into {out}")
     print(f"wrote demo dashboard: {len(people)} people, {demo['week']['jobs_counted']} recordings")
     for person in people:
         a = person["assessment"]

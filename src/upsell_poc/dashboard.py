@@ -1,15 +1,22 @@
-"""Per-salesperson performance across all saved jobs, bucketed by day, week or month.
+"""Per-salesperson performance, bucketed by day, week or month.
 
 A diarized label ("A", "B") only means something inside one recording, so the same person in two
 recordings is linked by a name: assigned in the dashboard (stored in people/names.json), or given
 as a hint at upload time when the recording has exactly one salesperson. Anyone without a name
 is listed as unassigned instead of being guessed at.
+
+`PersonSummary.total` is the *current* period at the chosen granularity - today's numbers for
+"day", this week's for "week", this month's for "month" - not an all-time total, so switching
+between them actually changes the headline, the rating and the coaching notes, not just the
+trend chart underneath. `series` still covers every period in that person's history, oldest first,
+for the chart and for the trend direction in the assessment.
 """
 
 from __future__ import annotations
 
 import logging
 from collections import defaultdict
+from collections.abc import Iterator
 from datetime import datetime, timedelta
 from typing import Literal
 
@@ -18,7 +25,7 @@ from pydantic import BaseModel
 from upsell_poc import jobs
 from upsell_poc.analysis.scoring import effort_score
 from upsell_poc.outcomes import Sentiment, UpsellResult, call_outcome
-from upsell_poc.schemas import ConversationResult
+from upsell_poc.schemas import ConversationResult, JobReport
 from upsell_poc.storage import Storage
 
 log = logging.getLogger(__name__)
@@ -76,6 +83,15 @@ class RecentCall(BaseModel):
     upsell_result: UpsellResult
     tried: int
     accepted: int
+
+
+class RecordingSummary(BaseModel):
+    """One job a person appears in, with their own stats for that job (not period-bucketed, not capped)."""
+
+    job_id: str
+    filename: str
+    created_at: str
+    stats: Bucket  # same shape as Person.total / each entry of Person.series
 
 
 class PersonSummary(BaseModel):
@@ -202,6 +218,17 @@ class _Acc:
             calls_negative=self.sentiment["negative"],
             conversations_won=self.won,
         )
+
+
+def _resolve_name(names: dict[str, str], status: jobs.JobStatus, sales_people: list[str], sp: str) -> str | None:
+    """Who a diarized label ("A", "B") really is, in one job: an explicit assignment first, then
+    the upload-time hint but only when it's unambiguous (exactly one salesperson in the job).
+    Shared by `build_dashboard` and `build_person_recordings` so the two rules can't drift apart.
+    """
+    name = names.get(f"{status.job_id}:{sp}")
+    if not name and status.salesperson_name and len(sales_people) == 1:
+        name = status.salesperson_name
+    return name
 
 
 MIN_CONVERSATIONS = 3  # below this, say so rather than judge someone on a couple of calls
@@ -360,22 +387,57 @@ def assess(t: Bucket, series: list[Bucket]) -> Assessment:
     )
 
 
-def build_dashboard(storage: Storage, period: Period = "day") -> Dashboard:
-    names = load_names(storage)
-    per_person: dict[str, dict[str, _Acc]] = defaultdict(lambda: defaultdict(_Acc))
-    totals: dict[str, _Acc] = defaultdict(_Acc)
-    coaching: dict[str, list[tuple[str, str]]] = defaultdict(list)
-    calls: dict[str, list[RecentCall]] = defaultdict(list)
-    unassigned: dict[tuple[str, str], Unassigned] = {}
-    counted = 0
-    skipped = 0
+def _completed_reports(storage: Storage) -> Iterator[tuple[jobs.JobStatus, dict]]:
+    """Every completed job that has a saved report, oldest-storage-order - the traversal shared
+    by build_dashboard and build_person_recordings. Each caller still calls `jobs.parse_report`
+    itself and handles a failure differently (build_dashboard counts and logs it as skipped;
+    build_person_recordings just ignores that one recording), so this only factors out the
+    "find completed jobs with a saved report" part, not the parsing.
 
+    Both callers still do their own full O(n) scan+parse over every completed job - for this
+    POC's actual scale (a handful of recordings) that's milliseconds twice over, not worth a
+    cache. If this ever runs against thousands of real recordings, memoize by job_id here
+    instead of duplicating that fix in each caller.
+    """
     for status in jobs.list_statuses(storage, limit=10_000):
         if status.status != "completed":
             continue
         raw = storage.get_json(jobs.report_key(status.job_id))
         if not raw:
             continue
+        yield status, raw
+
+
+def _iter_person_labels(
+    report: JobReport, status: jobs.JobStatus, names: dict[str, str]
+) -> Iterator[tuple[ConversationResult, str, str | None]]:
+    """Every sales conversation in one parsed report, crossed with every salesperson label in it:
+    yields (conversation, label, resolved_name_or_None). The conversation/label walk shared by
+    build_dashboard and build_person_recordings, so they can't drift apart on *which* conversations
+    and labels count - only on what each caller does with the result.
+    """
+    sales_people = sorted({sp for c in report.conversations if c.is_sales_interaction for sp in c.salespeople})
+    for c in report.conversations:
+        if not c.is_sales_interaction:
+            continue
+        for sp in c.salespeople:
+            yield c, sp, _resolve_name(names, status, sales_people, sp)
+
+
+def build_dashboard(storage: Storage, period: Period = "day") -> Dashboard:
+    names = load_names(storage)
+    per_person: dict[str, dict[str, _Acc]] = defaultdict(lambda: defaultdict(_Acc))
+    # Flat per-name (not per-period-bucket): "recent" means the person's actual most recent
+    # activity regardless of which Daily/Weekly/Monthly tab is selected. Scoping these to only
+    # the latest bucket used to make Daily view show almost nothing for anyone who hadn't
+    # recorded a call literally today, even with plenty of calls earlier that same week.
+    coaching: dict[str, list[tuple[str, str]]] = defaultdict(list)
+    calls: dict[str, list[RecentCall]] = defaultdict(list)
+    unassigned: dict[tuple[str, str], Unassigned] = {}
+    counted = 0
+    skipped = 0
+
+    for status, raw in _completed_reports(storage):
         report = jobs.parse_report(raw)
         if report is None:
             log.warning("dashboard: skipping unreadable report for job %s", status.job_id)
@@ -384,52 +446,44 @@ def build_dashboard(storage: Storage, period: Period = "day") -> Dashboard:
         counted += 1
         when = datetime.fromisoformat(status.created_at)
         label = period_label(when, period)
-        sales_people = sorted({sp for c in report.conversations if c.is_sales_interaction for sp in c.salespeople})
-        for c in report.conversations:
-            if not c.is_sales_interaction:
-                continue
-            for sp in c.salespeople:
-                name = names.get(f"{status.job_id}:{sp}")
-                if not name and status.salesperson_name and len(sales_people) == 1:
-                    name = status.salesperson_name
-                if not name:
-                    key = (status.job_id, sp)
-                    entry = unassigned.setdefault(
-                        key,
-                        Unassigned(
-                            job_id=status.job_id,
-                            speaker=sp,
-                            filename=status.filename,
-                            created_at=status.created_at,
-                            conversations=0,
-                        ),
-                    )
-                    entry.conversations += 1
-                    continue
-                per_person[name][label].add(status.job_id, c, sp)
-                totals[name].add(status.job_id, c, sp)
-                o = call_outcome(c)
-                mine = [p for p in o.pitched if p.salesperson == sp]
-                calls[name].append(
-                    RecentCall(
-                        when=status.created_at,
+        for c, sp, name in _iter_person_labels(report, status, names):
+            if not name:
+                key = (status.job_id, sp)
+                entry = unassigned.setdefault(
+                    key,
+                    Unassigned(
                         job_id=status.job_id,
+                        speaker=sp,
                         filename=status.filename,
-                        conversation_id=c.conversation_id,
-                        topic=c.topic,
-                        sentiment=o.sentiment,
-                        upsell_result="won" if any(p.response == "accepted" for p in mine) else o.upsell_result,
-                        tried=len(mine),
-                        accepted=sum(p.response == "accepted" for p in mine),
-                    )
+                        created_at=status.created_at,
+                        conversations=0,
+                    ),
                 )
-                if c.upsell and c.upsell.coaching_feedback:
-                    coaching[name].append((status.created_at, c.upsell.coaching_feedback))
+                entry.conversations += 1
+                continue
+            per_person[name][label].add(status.job_id, c, sp)
+            o = call_outcome(c)
+            mine = [p for p in o.pitched if p.salesperson == sp]
+            calls[name].append(
+                RecentCall(
+                    when=status.created_at,
+                    job_id=status.job_id,
+                    filename=status.filename,
+                    conversation_id=c.conversation_id,
+                    topic=c.topic,
+                    sentiment=o.sentiment,
+                    upsell_result="won" if any(p.response == "accepted" for p in mine) else o.upsell_result,
+                    tried=len(mine),
+                    accepted=sum(p.response == "accepted" for p in mine),
+                )
+            )
+            if c.upsell and c.upsell.coaching_feedback:
+                coaching[name].append((status.created_at, c.upsell.coaching_feedback))
 
     people = []
     for name, buckets in per_person.items():
         series = [buckets[lbl].bucket(lbl) for lbl in sorted(buckets)]
-        total = totals[name].bucket("all")
+        total = series[-1]  # the most recent period at this granularity: "today" / "this week" / "this month"
         people.append(
             PersonSummary(
                 name=name,
@@ -448,3 +502,38 @@ def build_dashboard(storage: Storage, period: Period = "day") -> Dashboard:
         jobs_counted=counted,
         jobs_skipped=skipped,
     )
+
+
+def build_person_recordings(storage: Storage, name: str) -> list[RecordingSummary]:
+    """Every completed recording this person appears in, newest first - not period-bucketed and
+    not capped, unlike `PersonSummary.recent_calls`, so a UI can let someone jump to any of their
+    recordings rather than only the last 8 in the latest period.
+    """
+    names = load_names(storage)
+    per_job: dict[str, _Acc] = {}
+    meta: dict[str, tuple[str, str]] = {}  # job_id -> (filename, created_at)
+
+    for status, raw in _completed_reports(storage):
+        report = jobs.parse_report(raw)
+        if report is None:
+            continue
+        for c, sp, resolved in _iter_person_labels(report, status, names):
+            if resolved != name:
+                continue
+            per_job.setdefault(status.job_id, _Acc()).add(status.job_id, c, sp)
+            meta[status.job_id] = (status.filename, status.created_at)
+
+    recordings = [
+        RecordingSummary(
+            job_id=job_id,
+            filename=meta[job_id][0],
+            created_at=meta[job_id][1],
+            # `Bucket.period` is documented as a period_label()-shaped string ("2026-10-14",
+            # not a full timestamp) - this is a single job, not a period bucket, so the day it
+            # was recorded on is the closest equivalent, not the raw created_at.
+            stats=acc.bucket(period_label(datetime.fromisoformat(meta[job_id][1]), "day")),
+        )
+        for job_id, acc in per_job.items()
+    ]
+    recordings.sort(key=lambda r: r.created_at, reverse=True)
+    return recordings

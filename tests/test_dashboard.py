@@ -1,5 +1,4 @@
 import json
-import re
 from datetime import UTC, datetime
 from pathlib import Path
 
@@ -8,12 +7,11 @@ import pytest
 from upsell_poc import dashboard, jobs
 from upsell_poc.storage import LocalStorage
 
-INDEX = Path(__file__).parents[1] / "src/upsell_poc/api/static/index.html"
+DATA_DIR = Path(__file__).parents[1] / "frontend/src/data"
 
 
 def _sample_report() -> dict:
-    text = INDEX.read_text(encoding="utf-8")
-    return json.loads(re.search(r"const DUMMY_REPORT = (\{.*?\});\n", text, re.S).group(1))
+    return json.loads((DATA_DIR / "dummy-report.json").read_text(encoding="utf-8"))
 
 
 def _add_job(storage, tmp_path, created: str, name: str | None = None) -> str:
@@ -53,9 +51,12 @@ def test_naming_groups_recordings_across_days_and_weeks(tmp_path):
     assert [p.name for p in daily.people] == ["Rahul"] and not daily.unassigned
     person = daily.people[0]
     assert [b.period for b in person.series] == ["2026-10-12", "2026-10-21"]
-    assert person.total.recordings == 2
-    assert person.total.conversations == sum(b.conversations for b in person.series)
-    assert person.total.attempts == 2 * person.series[0].attempts > 0
+    # total is the most recent day, not summed across both - that's what makes "Daily" differ
+    # from "Weekly"/"Monthly" instead of showing the same all-time numbers under every tab.
+    assert person.total is person.series[-1]
+    assert person.total.recordings == 1
+    assert person.total.conversations == person.series[-1].conversations
+    assert person.total.attempts == person.series[-1].attempts > 0
 
     assert [b.period for b in dashboard.build_dashboard(storage, "week").people[0].series] == [
         "2026-10-12",
@@ -84,9 +85,45 @@ def test_ignores_jobs_that_are_not_completed(tmp_path, period):
     assert dashboard.build_dashboard(storage, period).jobs_counted == 0
 
 
-def test_embedded_demo_dashboard_is_valid_and_varied():
-    text = INDEX.read_text(encoding="utf-8")
-    demo = json.loads(re.search(r"const DEMO_DASHBOARD = (\{.*?\});\n", text, re.S).group(1))
+def test_build_person_recordings_lists_every_job_newest_first(tmp_path):
+    storage = LocalStorage(tmp_path / "s")
+    older = _add_job(storage, tmp_path, "2026-10-12T10:00:00+00:00")
+    newer = _add_job(storage, tmp_path, "2026-10-21T10:00:00+00:00")
+    for job_id in (older, newer):
+        dashboard.set_name(storage, job_id, "A", "Rahul")
+    other = _add_job(storage, tmp_path, "2026-10-15T10:00:00+00:00")
+    dashboard.set_name(storage, other, "A", "Someone Else")
+
+    recordings = dashboard.build_person_recordings(storage, "Rahul")
+    assert [r.job_id for r in recordings] == [newer, older]  # newest first
+
+    by_job = {r.job_id: r for r in recordings}
+    assert by_job[older].filename == "visit.wav"
+    assert by_job[older].created_at == "2026-10-12T10:00:00+00:00"
+    assert by_job[newer].created_at == "2026-10-21T10:00:00+00:00"
+
+    # same per-job numbers `build_dashboard` would compute for that one job's day bucket
+    daily = dashboard.build_dashboard(storage, "day")
+    rahul_today = next(p for p in daily.people if p.name == "Rahul")
+    assert by_job[newer].stats.conversations == rahul_today.total.conversations
+    assert by_job[newer].stats.attempts == rahul_today.total.attempts > 0
+
+    assert dashboard.build_person_recordings(storage, "Nobody") == []
+
+
+def test_build_dashboard_unchanged_by_resolve_name_refactor(tmp_path):
+    # `_resolve_name` factors out the name-resolution rule build_dashboard already used;
+    # this just re-confirms both call paths (explicit assignment and the upload-time hint)
+    # still behave identically after the refactor.
+    storage = LocalStorage(tmp_path / "s")
+    job_id = _add_job(storage, tmp_path, "2026-10-14T10:00:00+00:00", name="Priya")
+    assert [p.name for p in dashboard.build_dashboard(storage, "week").people] == ["Priya"]
+    dashboard.set_name(storage, job_id, "A", "Priya S")
+    assert [p.name for p in dashboard.build_dashboard(storage, "week").people] == ["Priya S"]
+
+
+def test_demo_dashboard_is_valid_and_varied():
+    demo = json.loads((DATA_DIR / "demo-dashboard.json").read_text(encoding="utf-8"))
     for period in ("day", "week", "month"):
         parsed = dashboard.Dashboard.model_validate(demo[period])
         assert len(parsed.people) >= 5 and not parsed.unassigned

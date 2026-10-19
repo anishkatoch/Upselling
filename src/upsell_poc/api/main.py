@@ -9,6 +9,7 @@ from typing import Annotated
 from fastapi import FastAPI, File, Form, HTTPException, UploadFile
 from fastapi.concurrency import run_in_threadpool
 from fastapi.responses import FileResponse, RedirectResponse, Response
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 from upsell_poc import __version__, dashboard, jobs, outcomes
@@ -24,15 +25,16 @@ app = FastAPI(title="Speaker Upsell POC", version=__version__)
 STATIC = Path(__file__).parent / "static"
 CHUNK = 1 << 20
 
+# The React app's built JS/CSS (src/upsell_poc/api/static/assets/, from `npm run build`
+# in frontend/). The page itself is served by the catch-all route at the bottom of this
+# file, which also handles client-side routes like /recordings/<id> and /team.
+if (STATIC / "assets").is_dir():
+    app.mount("/assets", StaticFiles(directory=STATIC / "assets"), name="assets")
+
 
 @app.get("/health")
 def health() -> dict[str, str]:
     return {"status": "ok", "version": __version__}
-
-
-@app.api_route("/", methods=["GET", "HEAD"], include_in_schema=False)
-def index() -> FileResponse:
-    return FileResponse(STATIC / "index.html")
 
 
 @app.get("/api/jobs", response_model=list[JobStatus])
@@ -167,6 +169,12 @@ def get_dashboard(period: dashboard.Period = "day") -> dashboard.Dashboard:
     return dashboard.build_dashboard(get_storage(settings), period)
 
 
+@app.get("/api/people/{name}/recordings", response_model=list[dashboard.RecordingSummary])
+def person_recordings(name: str) -> list[dashboard.RecordingSummary]:
+    """Every completed recording one person appears in - newest first, not period-capped."""
+    return dashboard.build_person_recordings(get_storage(settings), name)
+
+
 class PersonName(BaseModel):
     job_id: str
     speaker: str
@@ -194,3 +202,24 @@ def _artifact(job_id: str, key_fn) -> dict:  # type: ignore[no-untyped-def]
     if data is None:
         raise HTTPException(404, "not ready")
     return data
+
+
+# SPA fallback: anything not matched above (/, /team, /recordings/<id>, ...) gets the React
+# app's index.html, which then handles routing client-side. Registered last so it never
+# shadows /health or the /api/* routes above.
+#
+# A real static file at the root (favicon.svg, robots.txt, ...) is served directly rather
+# than falling through to index.html - only /assets is mounted via StaticFiles, so without
+# this check any such file would silently 200 with the SPA shell instead of its own content.
+# resolve() + the parents check guards against `_full_path` escaping STATIC via "..".
+#
+# no-store on index.html is deliberate: it references the current build's hashed
+# /assets/*.js file by name, so a cached shell pointing at a since-deleted bundle is a real
+# failure mode (stale JS 404s, or old and new code mixed) every time the frontend is
+# rebuilt. The hashed asset files (and other static-root files) are safe to cache normally.
+@app.api_route("/{_full_path:path}", methods=["GET", "HEAD"], include_in_schema=False)
+def spa(_full_path: str) -> FileResponse:
+    candidate = (STATIC / _full_path).resolve()
+    if candidate.is_file() and candidate.is_relative_to(STATIC.resolve()):
+        return FileResponse(candidate)
+    return FileResponse(STATIC / "index.html", headers={"Cache-Control": "no-store"})

@@ -1,16 +1,14 @@
 import json
-import re
 from pathlib import Path
 
 from upsell_poc import dashboard, outcomes
 from upsell_poc.schemas import JobReport
 
-INDEX = Path(__file__).parents[1] / "src/upsell_poc/api/static/index.html"
+DUMMY_REPORT = Path(__file__).parents[1] / "frontend/src/data/dummy-report.json"
 
 
 def _report() -> JobReport:
-    text = INDEX.read_text(encoding="utf-8")
-    return JobReport.model_validate(json.loads(re.search(r"const DUMMY_REPORT = (\{.*?\});\n", text, re.S).group(1)))
+    return JobReport.model_validate(json.loads(DUMMY_REPORT.read_text(encoding="utf-8")))
 
 
 def test_outcomes_count_what_was_pitched_and_how_it_went():

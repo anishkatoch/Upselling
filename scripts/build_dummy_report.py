@@ -2,8 +2,11 @@
 
 Built from the project's real schemas and real scoring/evidence functions (not hand-typed
 JSON), so it can never go invalid and the numbers it shows are computed the same way a real
-report's are. Run this after changing schemas.py or the scoring/evidence logic, and re-embed
-the output into index.html (see DUMMY_MARKER below).
+report's are. Run this after changing schemas.py or the scoring/evidence logic.
+
+Writes plain JSON files into frontend/src/data/, which the React app imports directly (bundled
+at build time - no extra request). scripts/build_demo_dashboard.py imports `report` from this
+module as its own template, so run this one first if both need regenerating.
 
     uv run python scripts/build_dummy_report.py
 """
@@ -11,7 +14,6 @@ the output into index.html (see DUMMY_MARKER below).
 from __future__ import annotations
 
 import json
-import re
 from pathlib import Path
 
 from upsell_poc.analysis.evidence import attach_evidence
@@ -34,9 +36,7 @@ from upsell_poc.schemas import (
 )
 
 ROOT = Path(__file__).resolve().parents[1]
-INDEX_HTML = ROOT / "src" / "upsell_poc" / "api" / "static" / "index.html"
-DUMMY_START = "    /* DUMMY_DATA_START */"
-DUMMY_END = "    /* DUMMY_DATA_END */"
+DATA_DIR = ROOT / "frontend" / "src" / "data"
 
 # ---------------------------------------------------------------- transcript
 
@@ -479,19 +479,15 @@ def main() -> None:
     from upsell_poc.schemas import JobReport
 
     outcomes_doc = job_outcomes(JobReport.model_validate(report)).model_dump(mode="json")
-    block = (
-        f"{DUMMY_START}\n"
-        f"const DUMMY_REPORT = {json.dumps(report, ensure_ascii=False)};\n"
-        f"const DUMMY_TRANSCRIPT = {json.dumps(transcript_doc, ensure_ascii=False)};\n"
-        f"const DUMMY_OUTCOMES = {json.dumps(outcomes_doc, ensure_ascii=False)};\n"
-        f"{DUMMY_END}"
+    DATA_DIR.mkdir(parents=True, exist_ok=True)
+    (DATA_DIR / "dummy-report.json").write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
+    (DATA_DIR / "dummy-transcript.json").write_text(
+        json.dumps(transcript_doc, ensure_ascii=False, indent=2), encoding="utf-8"
     )
-    html = INDEX_HTML.read_text(encoding="utf-8")
-    pattern = re.compile(re.escape(DUMMY_START) + r".*?" + re.escape(DUMMY_END), re.DOTALL)
-    if not pattern.search(html):
-        raise SystemExit(f"Could not find {DUMMY_START} ... {DUMMY_END} markers in {INDEX_HTML}")
-    INDEX_HTML.write_text(pattern.sub(block, html), encoding="utf-8")
-    print(f"wrote dummy report ({len(json.dumps(report))} bytes) + transcript into {INDEX_HTML}")
+    (DATA_DIR / "dummy-outcomes.json").write_text(
+        json.dumps(outcomes_doc, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
+    print(f"wrote dummy report/transcript/outcomes ({len(json.dumps(report))} bytes) into {DATA_DIR}")
 
 
 if __name__ == "__main__":
