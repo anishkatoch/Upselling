@@ -10,6 +10,7 @@ import { useLoad } from "../lib/hooks";
 
 export default function Team() {
   const [period, setPeriod] = useState<Period>("week");
+  const [view, setView] = useState<"table" | "map">("table");
   const { data, error } = useLoad(() => api.dashboard(period), [period]);
   const people = data?.people ?? [];
 
@@ -44,7 +45,7 @@ export default function Team() {
         <p className="sub small" style={{ margin: "0 0 12px" }}>
           {people.length} salesperson{people.length === 1 ? "" : "s"} · {data.jobs_counted} completed recording
           {data.jobs_counted === 1 ? "" : "s"}
-          {data.jobs_skipped > 0 && ` · ${data.jobs_skipped} skipped (reports can't be read)`} · placed by recording date
+          {data.jobs_skipped > 0 && ` · ${data.jobs_skipped} skipped (could not be read)`} · grouped by when each recording was made
         </p>
       )}
 
@@ -58,9 +59,19 @@ export default function Team() {
         </div>
       )}
 
-      {data && people.length > 0 && <QuadrantMap people={people} />}
+      {data && people.length > 0 && (
+        <div className="view-switch" role="tablist" aria-label="Choose how to see the team: as a table or as a map">
+          <button role="tab" aria-selected={view === "table"} className={view === "table" ? "on" : ""} onClick={() => setView("table")}>
+            Table
+          </button>
+          <button role="tab" aria-selected={view === "map"} className={view === "map" ? "on" : ""} onClick={() => setView("map")}>
+            Map
+          </button>
+        </div>
+      )}
 
-      {data && people.length > 0 && <TeamGlanceTable people={people} />}
+      {data && people.length > 0 && view === "map" && <QuadrantMap people={people} />}
+      {data && people.length > 0 && view === "table" && <TeamGlanceTable people={people} />}
     </>
   );
 }

@@ -25,14 +25,14 @@ export default function OutcomeBars({ people }: { people: Person[] }) {
     .filter((r) => r.n > 0)
     .sort((a, b) => b.accepted / b.n - a.accepted / a.n || b.n - a.n);
   const segs = [
-    { key: "accepted", label: "Accepted", cls: "ok" },
-    { key: "declined", label: "Declined", cls: "no" },
-    { key: "none", label: "No upsell tried", cls: "none" },
+    { key: "accepted", label: "Said yes", cls: "ok" },
+    { key: "declined", label: "Said no", cls: "no" },
+    { key: "none", label: "No upsell offered", cls: "none" },
   ] as const;
   return (
     <section className="card hbar-card" aria-label="How each conversation ended">
       <h3>How each conversation ended</h3>
-      <p className="hint">Latest month, per salesperson. Sorted by the share of conversations where a customer accepted.</p>
+      <p className="hint">This month, per salesperson, with the most "yes" results first.</p>
       <ul className="legend-inline" aria-hidden="true">
         {segs.map((s) => (
           <li key={s.key}>
@@ -42,7 +42,7 @@ export default function OutcomeBars({ people }: { people: Person[] }) {
         ))}
       </ul>
       {rows.length === 0 ? (
-        <p className="sub small">No analysed conversations yet.</p>
+        <p className="sub small">No conversations yet.</p>
       ) : (
         <ul className="ob-list">
           {rows.map((r) => (
@@ -53,7 +53,7 @@ export default function OutcomeBars({ people }: { people: Person[] }) {
               <div
                 className="ob-bar"
                 role="img"
-                aria-label={`${r.name}: ${r.accepted} accepted, ${r.declined} declined, ${r.none} with no upsell tried, out of ${r.n} conversations`}
+                aria-label={`${r.name}: ${r.accepted} said yes, ${r.declined} said no, ${r.none} with no upsell offered, out of ${r.n} conversations`}
               >
                 {segs.map((s) =>
                   r[s.key] > 0 ? (
@@ -68,7 +68,7 @@ export default function OutcomeBars({ people }: { people: Person[] }) {
                   ) : null,
                 )}
               </div>
-              <span className="ob-n">n = {r.n}</span>
+              <span className="ob-n">{r.n} {r.n === 1 ? "conversation" : "conversations"}</span>
             </li>
           ))}
         </ul>

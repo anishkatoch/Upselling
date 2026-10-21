@@ -1,29 +1,57 @@
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import type { Person } from "../../lib/api";
-import { analysedCount } from "../people/rating";
+import { analysedCount, RatingChip } from "../people/rating";
 import "./dashcharts.css";
 
-const W = 640, H = 320;
-const L = 52, R = 24, T = 16, B = 44;
-const PW = W - L - R, PH = H - T - B;
-const first = (n: string) => n.split(" ")[0];
+const W = 560,
+  H = 390;
+const L = 116,
+  R = 16,
+  T = 14,
+  B = 46;
+const PAD = 22; // keeps the avatar badges at 0% or 100% fully inside the frame
+const PW = W - L - R,
+  PH = H - T - B;
+const initials = (n: string) =>
+  n
+    .split(" ")
+    .map((w) => w[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
 const pc = (v: number) => `${Math.round(v * 100)}%`;
 
-interface Pt { name: string; x: number; y: number; n: number }
+interface Pt {
+  person: Person;
+  name: string;
+  x: number;
+  y: number | null;
+  n: number;
+}
 
-/** Who needs what: upsell rate (x) vs acceptance rate (y), split at the team average. */
+type Group = "closes" | "rarely_closes" | "selective" | "rarely_tries";
+
+const GROUPS: { key: Group; title: string; tone: string; advice: string }[] = [
+  { key: "closes", title: "Tries and closes", tone: "good", advice: "Offering often and customers say yes. Worth sharing what they do." },
+  { key: "rarely_closes", title: "Tries, rarely closes", tone: "bad", advice: "Coach on closing: tie the add-on to what the customer asked, and answer their questions first." },
+  { key: "selective", title: "Selective, closes well", tone: "accent", advice: "Offers are accepted but made less often. Encourage them to offer more." },
+  { key: "rarely_tries", title: "Below team on both", tone: "muted", advice: "Offers less often and closes less often than the team. Coach on making the offer once the customer's own request is handled, then on closing." },
+];
+
+/**
+ * Who needs what: upsell rate (across) vs acceptance rate (up), split at the team average. People are avatar badges;
+ * hovering or focusing a badge or a name highlights the other and shows a detail card.
+ */
 export default function QuadrantMap({ people }: { people: Person[] }) {
   const nav = useNavigate();
-  const pts: Pt[] = [];
-  const missing: string[] = [];
-  for (const p of people) {
+  const [active, setActive] = useState<string | null>(null);
+  const pts: Pt[] = people.map((p) => {
     const n = analysedCount(p.total);
-    const x = n > 0 ? p.total.conversations_with_upsell / n : null;
-    const y = p.total.acceptance_rate;
-    if (x == null || y == null) missing.push(p.name);
-    else pts.push({ name: p.name, x, y, n });
-  }
-  if (pts.length < 3) return null;
+    return { person: p, name: p.name, x: n > 0 ? p.total.conversations_with_upsell / n : 0, y: p.total.acceptance_rate, n };
+  });
+  const placed = pts.filter((p) => p.y != null);
+  if (placed.length < 3) return null;
 
   const convs = people.reduce((a, p) => a + analysedCount(p.total), 0);
   const withUp = people.reduce((a, p) => a + p.total.conversations_with_upsell, 0);
@@ -32,78 +60,168 @@ export default function QuadrantMap({ people }: { people: Person[] }) {
   const ax = convs ? withUp / convs : 0.5;
   const ay = att ? acc / att : 0.5;
 
-  const sx = (v: number) => L + v * PW;
-  const sy = (v: number) => T + (1 - v) * PH;
-  const label = (p: Pt) => {
-    const cx = sx(p.x), cy = sy(p.y);
-    const w = first(p.name).length * 6.6 + 4;
-    const flip = cx + 10 + w > W - 4;
-    const below = cy < T + 12;
-    return { x: flip ? cx - 10 : cx + 10, anchor: flip ? "end" : "start", y: below ? cy + 16 : cy > T + PH - 10 ? cy - 22 : cy + 4 };
+  // The map is centred on the team average: each person is plotted by how far they are from it, so the cross sits in
+  // the middle and the four corners are symmetrical. Axis ranges are rounded up to a tidy 10-point step.
+  const nice = (m: number) => Math.max(0.1, Math.ceil(m * 20 - 1e-9) / 20);
+  const Dx = nice(Math.max(...placed.map((p) => Math.abs(p.x - ax))));
+  const Dy = nice(Math.max(...placed.map((p) => Math.abs((p.y as number) - ay))));
+  const cx = L + PW / 2;
+  const cy = T + PH / 2;
+  const hx = PW / 2 - PAD;
+  const hy = PH / 2 - PAD;
+  const px = (p: Pt) => cx + ((p.x - ax) / Dx) * hx;
+  const py = (p: Pt) => cy - (((p.y as number) - ay) / Dy) * hy;
+
+  const groupOf = (p: Pt): Group => {
+    if (p.y == null) return "rarely_tries"; // no answered offers: has not really tried
+    const tries = p.x >= ax;
+    return tries ? (p.y >= ay ? "closes" : "rarely_closes") : p.y >= ay ? "selective" : "rarely_tries";
   };
-  const summary = `Map of upsell rate against acceptance rate. ${pts.map((p) => `${p.name}: upsell rate ${pc(p.x)}, acceptance rate ${pc(p.y)}`).join("; ")}. Team average: ${pc(ax)} upsell rate, ${pc(ay)} acceptance rate.`;
+  const toneOf = (p: Pt) => GROUPS.find((g) => g.key === groupOf(p))?.tone ?? "muted";
+  const byGroup = (g: Group) => pts.filter((p) => groupOf(p) === g);
+
+  const summary = `Map of how often each salesperson tries to upsell against how often customers say yes. ${placed.map((p) => `${p.name}: tries to upsell in ${pc(p.x)} of conversations, customers say yes to ${pc(p.y as number)} of offers`).join("; ")}. Team average: ${pc(ax)} of conversations, ${pc(ay)} of offers.`;
+  const act = active ? pts.find((p) => p.name === active) : undefined;
+  const dim = (name: string) => (active && active !== name ? " dim" : active === name ? " on" : "");
 
   return (
     <section className="card hbar-card quad" aria-label="Who needs what">
       <h3>Who needs what</h3>
-      <p className="hint">Each dot is a salesperson. Dashed lines mark the team average on each side.</p>
-      <svg viewBox={`0 0 ${W} ${H}`} className="quad-svg" role="group" aria-label={summary}>
-        <title>{summary}</title>
-        {[0, 0.25, 0.5, 0.75, 1].map((v) => (
-          <g key={v}>
-            <line x1={sx(v)} x2={sx(v)} y1={T} y2={T + PH} className="q-grid" />
-            <line x1={L} x2={L + PW} y1={sy(v)} y2={sy(v)} className="q-grid" />
-          </g>
-        ))}
-        {[0, 0.5, 1].map((v) => (
-          <g key={v} className="q-tick">
-            <text x={sx(v)} y={T + PH + 16} textAnchor={v === 0 ? "start" : v === 1 ? "end" : "middle"}>{pc(v)}</text>
-            <text x={L - 8} y={sy(v) + 4} textAnchor="end">{pc(v)}</text>
-          </g>
-        ))}
-        <rect x={L} y={T} width={PW} height={PH} className="q-frame" />
-        <line x1={sx(ax)} x2={sx(ax)} y1={T} y2={T + PH} className="q-avg" />
-        <line x1={L} x2={L + PW} y1={sy(ay)} y2={sy(ay)} className="q-avg" />
-        <text x={L + PW - 6} y={T + 14} textAnchor="end" className="q-corner">Tries and closes</text>
-        <text x={L + PW - 6} y={T + PH - 6} textAnchor="end" className="q-corner">Tries, rarely closes</text>
-        <text x={L + 6} y={T + 14} className="q-corner">Selective, closes well</text>
-        <text x={L + 6} y={T + PH - 6} className="q-corner">Rarely tries</text>
-        <text x={L + PW / 2} y={H - 6} textAnchor="middle" className="q-axis">Upsell rate (conversations where an upsell was tried)</text>
-        <text transform={`translate(12 ${T + PH / 2}) rotate(-90)`} textAnchor="middle" className="q-axis">Acceptance rate</text>
-        {pts.map((p) => {
-          const lb = label(p);
-          const go = () => nav(`/team/${encodeURIComponent(p.name)}`);
-          return (
-            <g
-              key={p.name}
-              className="q-pt"
-              tabIndex={0}
-              role="link"
-              aria-label={`${p.name}: upsell rate ${pc(p.x)}, acceptance rate ${pc(p.y)}. Open profile`}
-              onClick={go}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault();
-                  go();
-                }
+      <p className="hint">Each badge is a salesperson, placed against the team average (the dashed lines). Hover a badge or a name to see their figures.</p>
+      <div className="quad-grid">
+        <div className="quad-plot">
+          <svg viewBox={`0 0 ${W} ${H}`} className="quad-svg" role="img" aria-label={summary}>
+            <title>{summary}</title>
+            {/* quadrant panels, split at the team average */}
+            <rect x={cx + 1} y={T} width={PW / 2 - 1} height={PH / 2 - 1} rx="6" className="q-tint good" />
+            <rect x={cx + 1} y={cy + 1} width={PW / 2 - 1} height={PH / 2 - 1} rx="6" className="q-tint bad" />
+            <rect x={L} y={T} width={PW / 2 - 1} height={PH / 2 - 1} rx="6" className="q-tint accent" />
+            <rect x={L} y={cy + 1} width={PW / 2 - 1} height={PH / 2 - 1} rx="6" className="q-tint muted" />
+            {[-1, 0, 1].map((k) => (
+              <g key={k}>
+                <line x1={L} x2={L + PW} y1={cy - k * hy} y2={cy - k * hy} className={k === 0 ? "q-avg" : "q-grid-line"} />
+                <line x1={cx + k * hx} x2={cx + k * hx} y1={T} y2={T + PH} className={k === 0 ? "q-avg" : "q-grid-line"} />
+                <g className="q-tick">
+                  <text x={k === 0 ? cx : k > 0 ? L + PW : L} y={T + PH + 18} textAnchor={k === 0 ? "middle" : k > 0 ? "end" : "start"}>
+                    {k === 0 ? "Team average" : k > 0 ? "More often" : "Less often"}
+                  </text>
+                  <text x={L - 8} y={cy - k * hy + 4} textAnchor="end">
+                    {k === 0 ? "Team average" : k > 0 ? "More yeses" : "Fewer yeses"}
+                  </text>
+                </g>
+              </g>
+            ))}
+            <text x={L + PW - 10} y={T + 18} textAnchor="end" className="q-corner">
+              Tries and closes
+            </text>
+            <text x={L + PW - 10} y={T + PH - 10} textAnchor="end" className="q-corner">
+              Tries, rarely closes
+            </text>
+            <text x={L + 10} y={T + 18} className="q-corner">
+              Selective, closes well
+            </text>
+            <text x={L + 10} y={T + PH - 10} className="q-corner">
+              Below team on both
+            </text>
+            <text x={L + PW / 2} y={H - 8} textAnchor="middle" className="q-axis">
+              How often they offer an upsell
+            </text>
+            <text transform={`translate(12 ${T + PH / 2}) rotate(-90)`} textAnchor="middle" className="q-axis">
+              How often customers say yes
+            </text>
+            {placed.map((p, i) => {
+              const y = p.y as number;
+              const go = () => nav(`/team/${encodeURIComponent(p.name)}`);
+              return (
+                <g
+                  key={p.name}
+                  className={`q-pt ${toneOf(p)}${dim(p.name)}`}
+                  style={{ animationDelay: `${i * 70}ms` }}
+                  tabIndex={0}
+                  role="link"
+                  aria-label={`${p.name}: tries to upsell in ${pc(p.x)} of conversations, customers say yes to ${pc(y)} of offers. Open profile`}
+                  onClick={go}
+                  onMouseEnter={() => setActive(p.name)}
+                  onMouseLeave={() => setActive(null)}
+                  onFocus={() => setActive(p.name)}
+                  onBlur={() => setActive(null)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      go();
+                    }
+                  }}
+                >
+                  <circle cx={px(p)} cy={py(p)} r="22" fill="transparent" />
+                  <circle cx={px(p)} cy={py(p)} r="15" className="q-badge" />
+                  <text x={px(p)} y={py(p) + 4} textAnchor="middle" className="q-initials">
+                    {initials(p.name)}
+                  </text>
+                </g>
+              );
+            })}
+          </svg>
+
+          {act && act.y != null && (
+            <div
+              className="quad-tip"
+              role="status"
+              style={{
+                left: `${(px(act) / W) * 100}%`,
+                top: `${(py(act) / H) * 100}%`,
+                // above the badge, or below it when the badge is near the top of the map so the card isn't clipped
+                transform: `translate(${px(act) > cx + hx * 0.5 ? "-85%" : "-50%"}, ${py(act) < cy - hy * 0.4 ? "22px" : "calc(-100% - 22px)"})`,
               }}
             >
-              <title>{`${p.name}: upsell rate ${pc(p.x)}, acceptance ${pc(p.y)} (${p.n} conversations)`}</title>
-              <circle cx={sx(p.x)} cy={sy(p.y)} r="14" fill="transparent" />
-              <circle cx={sx(p.x)} cy={sy(p.y)} r="6" className="q-dot" />
-              <text x={lb.x} y={lb.y} textAnchor={lb.anchor as "start" | "end"} className="q-name">{first(p.name)}</text>
-            </g>
-          );
-        })}
-      </svg>
-      <ul className="sr-only">
-        {pts.map((p) => (
-          <li key={p.name}>
-            <Link to={`/team/${encodeURIComponent(p.name)}`}>{p.name}</Link>: upsell rate {pc(p.x)}, acceptance rate {pc(p.y)}
-          </li>
-        ))}
-      </ul>
-      {missing.length > 0 && <p className="hbar-foot">Not shown (no answered offers yet): {missing.join(", ")}</p>}
+              <div className="quad-tip-head">
+                <b>{act.name}</b>
+                <RatingChip person={act.person} short />
+              </div>
+              <div className="quad-tip-row">
+                <span>Tries to upsell</span>
+                <b>{pc(act.x)} of conversations</b>
+              </div>
+              <div className="quad-tip-row">
+                <span>Customers say yes</span>
+                <b>{pc(act.y)} of offers</b>
+              </div>
+              <div className="quad-tip-n">{act.n} conversation{act.n === 1 ? "" : "s"}</div>
+            </div>
+          )}
+        </div>
+
+        <div className="quad-read">
+          {GROUPS.map((g) => {
+            const members = byGroup(g.key);
+            if (members.length === 0) return null;
+            return (
+              <div className={`quad-group ${g.tone}`} key={g.key}>
+                <div className="quad-group-title">{g.title}</div>
+                <div className="quad-chips">
+                  {members.map((m) => (
+                    <Link
+                      key={m.name}
+                      to={`/team/${encodeURIComponent(m.name)}`}
+                      className={`quad-chip${dim(m.name)}`}
+                      onMouseEnter={() => setActive(m.name)}
+                      onMouseLeave={() => setActive(null)}
+                      onFocus={() => setActive(m.name)}
+                      onBlur={() => setActive(null)}
+                    >
+                      <span className="quad-chip-av" aria-hidden="true">
+                        {initials(m.name)}
+                      </span>
+                      {m.name}
+                      {m.y == null && <span className="quad-note">no answered offers yet</span>}
+                    </Link>
+                  ))}
+                </div>
+                <p className="quad-advice">{g.advice}</p>
+              </div>
+            );
+          })}
+        </div>
+      </div>
     </section>
   );
 }

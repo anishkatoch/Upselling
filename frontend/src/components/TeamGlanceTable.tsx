@@ -4,6 +4,7 @@ import { Minus, TrendDown, TrendUp } from "../icons/Icons";
 import type { Person } from "../lib/api";
 import { pct } from "../lib/format";
 import { METRIC_INFO } from "../lib/metricInfo";
+import { EFFORT, EFFORT_TONE, moodFromFrustration } from "../lib/teamLabels";
 import { analysedCount, isNotRated, RatingChip, seriesDelta, StalePeriodBadge } from "./people/rating";
 import { DeltaChip, InfoTip } from "./ui";
 import "./people/people.css";
@@ -91,8 +92,8 @@ export default function TeamGlanceTable({ people, collapsedRows }: { people: Per
   return (
     <section className="card tg team-glance" style={{ marginBottom: 16 }}>
       <div className="tg-head">
-        <h2>Team at a glance</h2>
-        <span className="sub small">Click a row for the full breakdown</span>
+        <h2>Salespeople</h2>
+        <span className="sub small">Select a person to see their full profile</span>
       </div>
       <div className="table-wrap">
         <table>
@@ -106,19 +107,19 @@ export default function TeamGlanceTable({ people, collapsedRows }: { people: Per
                 Rating
               </Th>
               <Th sort={sort} onSort={toggle} num sortKey="upsell" info={METRIC_INFO.upsell_rate}>
-                Upsell rate
+                Tries to upsell
               </Th>
               <Th sort={sort} onSort={toggle} num sortKey="accepted" info={METRIC_INFO.acceptance_rate}>
-                Acceptance rate
+                Customers say yes
               </Th>
               <Th sort={sort} onSort={toggle} num info={METRIC_INFO.greeting_rate}>
-                Greeted
+                Greets customers
               </Th>
-              <Th sort={sort} onSort={toggle} num info={METRIC_INFO.frustration}>
-                Avg frustration
+              <Th sort={sort} onSort={toggle} info={METRIC_INFO.frustration}>
+                Customer mood
               </Th>
-              <Th sort={sort} onSort={toggle} num info={METRIC_INFO.effort}>
-                Effort
+              <Th sort={sort} onSort={toggle} info={METRIC_INFO.effort}>
+                Selling effort
               </Th>
               <Th sort={sort} onSort={toggle}>
                 Trend
@@ -134,6 +135,7 @@ export default function TeamGlanceTable({ people, collapsedRows }: { people: Per
               const justRevealed = expanded && collapsedRows != null && i >= collapsedRows;
               const href = `/team/${encodeURIComponent(p.name)}`;
               const shared = t.shared_conversations ?? 0;
+              const mood = moodFromFrustration(t.avg_customer_frustration);
               return (
                 <tr
                   key={p.name}
@@ -152,11 +154,12 @@ export default function TeamGlanceTable({ people, collapsedRows }: { people: Per
                       className="sub small"
                       title={
                         shared > 0
-                          ? `${shared} conversation(s) with more than one salesperson are not counted in greeting, pushy and unanswered-question figures.`
+                          ? `${shared} conversation${shared === 1 ? " had" : "s had"} more than one salesperson and ${shared === 1 ? "is" : "are"} left out of the greeting figures.`
                           : undefined
                       }
                     >
-                      {analysedCount(t)} analysed{shared > 0 ? " *" : ""}
+                      {analysedCount(t)} conversation{analysedCount(t) === 1 ? "" : "s"}
+                      {shared > 0 ? " *" : ""}
                     </div>
                   </th>
                   <td>
@@ -165,23 +168,32 @@ export default function TeamGlanceTable({ people, collapsedRows }: { people: Per
                   <td className="num">
                     {pct(t.upsell_rate)}
                     <div className="cell-sub">
-                      <DeltaChip value={seriesDelta(p.series, "upsell_rate", 100)} unit="pt" />
+                      <DeltaChip value={seriesDelta(p.series, "upsell_rate", 100)} />
                     </div>
                   </td>
                   <td className="num">
                     {pct(t.acceptance_rate)}
                     <div className="cell-sub">
-                      <DeltaChip value={seriesDelta(p.series, "acceptance_rate", 100)} unit="pt" />
+                      <DeltaChip value={seriesDelta(p.series, "acceptance_rate", 100)} />
                     </div>
                   </td>
                   <td className="num">{pct(t.greeting_rate)}</td>
-                  <td className="num">
-                    {t.avg_customer_frustration ?? "–"}
-                    {t.avg_customer_frustration != null && <span className="muted-unit"> /10</span>}
+                  <td>
+                    <span
+                      className={`wd wd-${mood.tone}`}
+                      title={t.avg_customer_frustration != null ? `Average tension score: ${t.avg_customer_frustration} out of 10 (0 is calm)` : undefined}
+                    >
+                      {mood.label}
+                    </span>
                   </td>
-                  <td className="num">
-                    {t.avg_effort ?? "–"}
-                    {t.avg_effort != null && <span className="muted-unit"> /10</span>}
+                  <td>
+                    {t.avg_effort != null ? (
+                      <span className="wd wd-muted" data-tone={EFFORT_TONE[p.assessment.effort_level]} title={`Effort score: ${t.avg_effort} out of 10`}>
+                        {EFFORT[p.assessment.effort_level].short}
+                      </span>
+                    ) : (
+                      <span className="sub small">–</span>
+                    )}
                   </td>
                   <td>
                     <span className="trend-cell">
@@ -206,9 +218,9 @@ export default function TeamGlanceTable({ people, collapsedRows }: { people: Per
         </button>
       )}
       <p className="sub small tg-note">
-        &ldquo;Analysed&rdquo; is the number of conversations the figures are based on. Changes compare with the previous period.
+        Arrows show the change compared with the previous period.
         {people.some((p) => (p.total.shared_conversations ?? 0) > 0) &&
-          " * Conversations with more than one salesperson are not counted in greeting, pushy and unanswered-question figures."}
+          " * Some conversations had more than one salesperson and are left out of the greeting figures."}
       </p>
     </section>
   );

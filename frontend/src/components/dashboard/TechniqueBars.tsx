@@ -13,7 +13,7 @@ export default function TechniqueBars({ stats }: { stats: TechniqueStat[] }) {
   return (
     <section className="card hbar-card" aria-label="Which approaches get a yes">
       <h3>Which approaches get a yes</h3>
-      <p className="hint">Share of answered offers the customer accepted, by approach, across all recordings.</p>
+      <p className="hint">How often customers said yes to each approach, across all recordings.</p>
       {rated.length === 0 ? (
         <p className="sub small">Not enough offers yet to compare approaches.</p>
       ) : (
@@ -23,14 +23,14 @@ export default function TechniqueBars({ stats }: { stats: TechniqueStat[] }) {
               <div className="hbar-top">
                 <span className="lbl">{technique(s.technique)}</span>
                 <span className="val">
-                  {Math.round((s.acceptance_rate ?? 0) * 100)}%<small>{s.accepted} of {s.accepted + s.rejected} accepted</small>
+                  {Math.round((s.acceptance_rate ?? 0) * 100)}%<small>{s.accepted} of {s.accepted + s.rejected} said yes</small>
                 </span>
               </div>
               <div className="hbar-track" aria-hidden="true">
                 <div className="hbar-fill" style={{ width: `${(s.acceptance_rate ?? 0) * 100}%` }} />
               </div>
               <div className="hbar-sub">
-                Tried {s.attempts} time{s.attempts === 1 ? "" : "s"} by {s.people} {s.people === 1 ? "person" : "people"}
+                Tried {s.attempts} time{s.attempts === 1 ? "" : "s"}
               </div>
             </li>
           ))}
@@ -38,8 +38,8 @@ export default function TechniqueBars({ stats }: { stats: TechniqueStat[] }) {
       )}
       {rare.length > 0 && (
         <p className="hbar-foot hbar-other">
-          Other approaches ({rare.map((s) => technique(s.technique).toLowerCase()).join(", ")}): {rareAttempts} offer{rareAttempts === 1 ? "" : "s"}, {rareAccepted} accepted
-          - too few to compare. Rates are shown for approaches tried at least {MIN_ATTEMPTS} times.
+          Other approaches ({rare.map((s) => technique(s.technique).toLowerCase()).join(", ")}): {rareAttempts} offer{rareAttempts === 1 ? "" : "s"}, {rareAccepted} said yes
+          - too few to compare. Percentages are shown for approaches tried at least {MIN_ATTEMPTS} times.
         </p>
       )}
     </section>

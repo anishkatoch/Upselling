@@ -1,28 +1,36 @@
 import "./ui.css";
 
 /**
- * "▲ 4.2 pt" / "▼ 1.1": the change since the previous period. Green is good, red is bad, grey is no change.
- * `value` is in the metric's own unit (percentage points for rates); `lowerIsBetter` flips the colours.
+ * "▲ 25 points" / "▼ 10 points" / "– no change": how a figure moved since the previous period.
+ * Green is good, red is bad, grey is no change. `value` is in the metric's own unit (percentage points for
+ * percent figures); `lowerIsBetter` flips the colours. `upText` / `downText` replace the number with words
+ * (used where the number would mean nothing to a reader, e.g. customer mood).
  */
 export default function DeltaChip({
   value,
-  unit = "pt",
-  decimals = 1,
+  unit = "points",
   lowerIsBetter = false,
+  upText,
+  downText,
 }: {
   value: number | null | undefined;
   unit?: string;
-  decimals?: number;
   lowerIsBetter?: boolean;
+  upText?: string;
+  downText?: string;
 }) {
   if (value == null || !Number.isFinite(value)) return null;
-  const flat = Math.abs(value) < Math.pow(10, -decimals) / 2;
+  const whole = Math.round(Math.abs(value));
+  const flat = whole === 0;
   const good = lowerIsBetter ? value < 0 : value > 0;
   const cls = flat ? "flat" : good ? "up" : "down";
   const arrow = flat ? "–" : value > 0 ? "▲" : "▼";
+  const words = value > 0 ? upText : downText;
+  const unitText = unit === "points" && whole === 1 ? "point" : unit;
+  const text = flat ? "no change" : (words ?? `${whole}${unitText ? ` ${unitText}` : ""}`);
   return (
-    <span className={`delta ${cls}`} title="Change since the previous period">
-      {arrow} {flat ? "no change" : `${Math.abs(value).toFixed(decimals)}${unit ? ` ${unit}` : ""}`}
+    <span className={`delta ${cls}`} title="Compared with the previous period">
+      <span className="ar">{arrow}</span> {text}
     </span>
   );
 }

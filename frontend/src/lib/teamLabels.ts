@@ -14,6 +14,7 @@ export const EFFORT: Record<EffortLevel, { label: string; short: string; tone: "
 };
 // A bare "3.8" means nothing without knowing the scale or which way is good - so the glance
 // table shows this as a plain word instead, the same way the rest of the table already does.
+export const EFFORT_TONE: Record<EffortLevel, "neutral" | "muted"> = { high: "neutral", moderate: "neutral", low: "muted", none: "muted" };
 export function moodFromFrustration(v: number | null): { label: string; tone: "good" | "warn" | "bad" | "neutral" } {
   if (v == null) return { label: "No data", tone: "neutral" };
   if (v <= 3) return { label: "Calm", tone: "good" };
@@ -21,9 +22,9 @@ export function moodFromFrustration(v: number | null): { label: string; tone: "g
   return { label: "Frustrated", tone: "bad" };
 }
 export const TREND_SENTENCE: Record<NonNullable<Person["assessment"]["trend"]>, string> = {
-  improving: "effort improving vs. earlier periods",
-  steady: "effort steady vs. earlier periods",
-  declining: "effort dropping vs. earlier periods",
+  improving: "effort is improving",
+  steady: "effort is steady",
+  declining: "effort is dropping",
 };
 // The numbers below are scoped to the selected period (today / this week / this month), not
 // all-time - this says so wherever a bare count could otherwise read as "ever".

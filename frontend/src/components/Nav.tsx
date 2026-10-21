@@ -1,29 +1,40 @@
 import { Link, useLocation } from "react-router-dom";
 import { Grid, Headset, Mic, Users } from "../icons/Icons";
+import "./topnav.css";
 
 const ITEMS = [
   { to: "/", label: "Dashboard", icon: Grid, match: (p: string) => p === "/" },
-  { to: "/team", label: "Team", icon: Users, match: (p: string) => p.startsWith("/team") },
-  { to: "/recordings", label: "Recordings", icon: Mic, match: (p: string) => p.startsWith("/recordings") },
+  { to: "/team", label: "Team", icon: Users, match: (p: string) => p === "/team" || p.startsWith("/team/") },
+  { to: "/recordings", label: "Recordings", icon: Mic, match: (p: string) => p === "/recordings" || p.startsWith("/recordings/") },
 ];
 
 export default function Nav() {
   const { pathname } = useLocation();
   return (
-    <aside className="sidebar">
-      <Link to="/" className="brand">
-        <span className="brand-mark">
-          <Headset size={15} />
-        </span>
-        Upsell Insights
-      </Link>
-      <nav className="side-nav">
-        {ITEMS.map((item) => (
-          <Link key={item.to} to={item.to} className={item.match(pathname) ? "on" : ""}>
-            <item.icon size={16} /> {item.label}
+    <>
+      <a href="#main" className="skip-link">
+        Skip to content
+      </a>
+      <header className="topbar">
+        <div className="topbar-in">
+          <Link to="/" className="brand" aria-label="Upsell Insights home">
+            <span className="brand-mark">
+              <Headset size={15} />
+            </span>
+            <span className="brand-text">Upsell Insights</span>
           </Link>
-        ))}
-      </nav>
-    </aside>
+          <nav className="top-nav" aria-label="Primary">
+            {ITEMS.map((item) => {
+              const on = item.match(pathname);
+              return (
+                <Link key={item.to} to={item.to} className={on ? "on" : ""} aria-current={on ? "page" : undefined}>
+                  <item.icon size={15} /> <span>{item.label}</span>
+                </Link>
+              );
+            })}
+          </nav>
+        </div>
+      </header>
+    </>
   );
 }

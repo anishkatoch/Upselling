@@ -8,7 +8,7 @@ import { pct } from "../lib/format";
 import { useLoad } from "../lib/hooks";
 import { METRIC_INFO } from "../lib/metricInfo";
 import { DeltaChip, Metric, MetricRow } from "../components/ui";
-import { PERIOD_LABEL } from "../lib/teamLabels";
+import { EFFORT, moodFromFrustration, PERIOD_LABEL } from "../lib/teamLabels";
 import VsTeamBars from "../components/people/VsTeamBars";
 import PersonSentiment from "../components/people/PersonSentiment";
 import RecentConversations from "../components/people/RecentConversations";
@@ -79,14 +79,12 @@ function PersonDetail({
   const [showAllStrengths, setShowAllStrengths] = useState(false);
   const [showAllImprovements, setShowAllImprovements] = useState(false);
 
-  // The sample size is stated once in the caption under the headline (SampleNote), not on every tile.
-  const vs = (value: number | null | undefined, unit: string, lowerIsBetter = false) =>
-    value == null ? null : (
-      <>
-        <DeltaChip value={value} unit={unit} lowerIsBetter={lowerIsBetter} />
-        <span>vs previous {period}</span>
-      </>
-    );
+  // The sample size is stated once in the caption under the headline (SampleNote), and "compared with ..." once above the tiles.
+  const vs = (value: number | null | undefined) => (value == null ? null : <DeltaChip value={value} />);
+  const mood = moodFromFrustration(t.avg_customer_frustration);
+  const moodChange = seriesDelta(p.series, "avg_customer_frustration");
+  const comparedWith = period === "day" ? "yesterday" : period === "week" ? "last week" : "last month";
+  const hasChange = p.series.length >= 2;
   const shownStrengths = showAllStrengths ? a.strengths : a.strengths.slice(0, 2);
   const shownImprovements = showAllImprovements ? a.improvements : a.improvements.slice(0, 2);
 
@@ -124,30 +122,39 @@ function PersonDetail({
 
         <p style={{ marginTop: 12 }}>
           {a.headline}
-          {a.low_sample && <span className="sub"> (based on very little data so far)</span>}
+          {a.low_sample && <span className="sub"> (based on very few conversations so far)</span>}
         </p>
-        <SampleNote bucket={t} />
+        <SampleNote bucket={t} when={PERIOD_LABEL[period]} />
       </div>
 
       <div className="metric-group">
+        {hasChange && <p className="sub small metric-caption">Arrows show the change compared with {comparedWith}.</p>}
         <MetricRow>
-          <Metric label="Upsell rate" info={METRIC_INFO.upsell_rate} value={pct(t.upsell_rate)} foot={vs(seriesDelta(p.series, "upsell_rate", 100), "pt")} />
-          <Metric label="Acceptance rate" info={METRIC_INFO.acceptance_rate} value={pct(t.acceptance_rate)} foot={vs(seriesDelta(p.series, "acceptance_rate", 100), "pt")} />
-          <Metric label="Greeted" info={METRIC_INFO.greeting_rate} value={pct(t.greeting_rate)} foot={vs(seriesDelta(p.series, "greeting_rate", 100), "pt")} />
+          <Metric label="Tries to upsell" info={METRIC_INFO.upsell_rate} value={pct(t.upsell_rate)} unit={t.upsell_rate != null ? "of conversations" : undefined} foot={vs(seriesDelta(p.series, "upsell_rate", 100))} />
+          <Metric label="Customers say yes" info={METRIC_INFO.acceptance_rate} value={pct(t.acceptance_rate)} unit={t.acceptance_rate != null ? "of offers" : undefined} foot={vs(seriesDelta(p.series, "acceptance_rate", 100))} />
+          <Metric label="Greets customers" info={METRIC_INFO.greeting_rate} value={pct(t.greeting_rate)} unit={t.greeting_rate != null ? "of conversations" : undefined} foot={vs(seriesDelta(p.series, "greeting_rate", 100))} />
           <Metric
-            label="Customer frustration"
-            info={METRIC_INFO.frustration}
-            value={t.avg_customer_frustration ?? "–"}
-            unit="/ 10"
-            foot={vs(seriesDelta(p.series, "avg_customer_frustration"), "", true)}
+            label="Customer mood"
+            info={
+              <>
+                {METRIC_INFO.frustration}
+                {t.avg_customer_frustration != null && ` Average tension score: ${t.avg_customer_frustration} out of 10 (0 is calm).`}
+              </>
+            }
+            value={mood.label}
+            foot={moodChange == null ? null : <DeltaChip value={moodChange} lowerIsBetter upText="more tense" downText="calmer" />}
           />
         </MetricRow>
         <div className="metric-compact" aria-label="More detail">
           <MetricRow>
-            <Metric label="Effort score" info={METRIC_INFO.effort} value={t.avg_effort ?? "–"} unit="/ 10" />
-            <Metric label="Offers per conversation" info={METRIC_INFO.offers_per_conversation} value={t.attempts_per_conversation ?? "–"} />
-            <Metric label="Selling approaches used" info={METRIC_INFO.techniques} value={t.techniques.length} />
-            <Metric label="Re-offers after a no" info={METRIC_INFO.reoffers} value={t.re_offers} />
+            <Metric
+              label="Selling effort"
+              info={<>{METRIC_INFO.effort}{t.avg_effort != null && ` Effort score: ${t.avg_effort} out of 10.`}</>}
+              value={t.avg_effort != null ? EFFORT[a.effort_level].short : "–"}
+            />
+            <Metric label="Offers per conversation" info={METRIC_INFO.offers_per_conversation} value={t.attempts_per_conversation != null ? Math.round(t.attempts_per_conversation * 10) / 10 : "–"} />
+            <Metric label="Different approaches used" info={METRIC_INFO.techniques} value={t.techniques.length} />
+            <Metric label="Offers repeated after a 'no'" info={METRIC_INFO.reoffers} value={t.re_offers} />
           </MetricRow>
         </div>
       </div>
@@ -162,12 +169,12 @@ function PersonDetail({
       {p.series.length > 2 && (
         <div className="two">
           <div>
-            <div className="sub small chart-title">Upsell attempts over time</div>
+            <div className="sub small chart-title">Offers made over time</div>
             <LineChart data={p.series} value={(b) => b.attempts} label={(b) => formatPeriod(b.period)} xTitle="Date" yTitle="Offers made" />
           </div>
           <div>
-            <div className="sub small chart-title">Acceptance rate over time</div>
-            <LineChart data={p.series} value={(b) => b.acceptance_rate} label={(b) => formatPeriod(b.period)} format={pct} xTitle="Date" yTitle="Acceptance rate" />
+            <div className="sub small chart-title">How often customers said yes over time</div>
+            <LineChart data={p.series} value={(b) => b.acceptance_rate} label={(b) => formatPeriod(b.period)} format={pct} xTitle="Date" yTitle="Customers say yes" />
           </div>
         </div>
       )}

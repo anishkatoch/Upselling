@@ -11,18 +11,18 @@ export default function PersonSentiment({ total }: { total: Bucket }) {
   const n = good + okay + bad;
   if (n === 0) return null;
   const parts = [
-    { label: "Went well", count: good, color: "var(--good)" },
-    { label: "Okay", count: okay, color: "#a3b1c2" },
-    { label: "Needs attention", count: bad, color: "var(--bad)" },
+    { label: "Went well", count: good, color: "var(--accent)" },
+    { label: "Okay", count: okay, color: "#c3cbe0" },
+    { label: "Needs attention", count: bad, color: "#b0605a" },
   ];
   let offset = 0;
-  const aria = `Customer mood across ${n} calls: ${parts.map((p) => `${p.count} ${p.label.toLowerCase()}`).join(", ")}`;
+  const aria = `How customers felt across ${n} calls: ${parts.map((p) => `${p.count} ${p.label.toLowerCase()}`).join(", ")}`;
   return (
     <section className="flat-card sentiment" aria-label="How their customers felt">
       <h3>How their customers felt</h3>
       <div className="sent-body">
         <svg className="sent-donut" viewBox="0 0 100 100" role="img" aria-label={aria}>
-          <circle cx="50" cy="50" r={R} fill="none" stroke="var(--line-soft)" strokeWidth="9" />
+          <circle cx="50" cy="50" r={R} fill="none" stroke="var(--line-soft)" strokeWidth="6" />
           {parts.map((p) => {
             if (p.count === 0) return null;
             const len = (p.count / n) * C;
@@ -34,7 +34,7 @@ export default function PersonSentiment({ total }: { total: Bucket }) {
                 r={R}
                 fill="none"
                 stroke={p.color}
-                strokeWidth="9"
+                strokeWidth="6"
                 strokeDasharray={`${len} ${C - len}`}
                 strokeDashoffset={-offset}
                 transform="rotate(-90 50 50)"

@@ -28,7 +28,7 @@ export default function RecentConversations({ calls }: { calls: RecentCall[] }) 
   return (
     <div>
       <h3 className="section-title">Recent conversations</h3>
-      <p className="sub small recent-hint">Open one to read the transcript and the evidence behind the figures above.</p>
+      <p className="sub small recent-hint">Open one to read the conversation and see what the figures above are based on.</p>
 
       {calls.length === 0 ? (
         <p className="sub small">No conversations to show for this period yet.</p>
@@ -47,7 +47,7 @@ export default function RecentConversations({ calls }: { calls: RecentCall[] }) 
                     <span className={`pill ${res.tone}`}>{res.label}</span>
                   </span>
                   <span className="recent-offers sub small">
-                    tried {c.tried} · accepted {c.accepted}
+                    offered {c.tried} · said yes {c.accepted}
                   </span>
                   <ChevronRight size={15} className="icon-muted recent-go" />
                 </>

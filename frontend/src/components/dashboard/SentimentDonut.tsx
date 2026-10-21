@@ -9,9 +9,9 @@ const GAP = 3;
 export default function SentimentDonut({ people }: { people: Person[] }) {
   const sum = (k: "calls_positive" | "calls_neutral" | "calls_negative") => people.reduce((a, p) => a + (p.total[k] ?? 0), 0);
   const parts = [
-    { label: "Went well", n: sum("calls_positive"), color: "var(--good)" },
-    { label: "Okay", n: sum("calls_neutral"), color: "#8794a8" },
-    { label: "Needs attention", n: sum("calls_negative"), color: "var(--bad)" },
+    { label: "Went well", n: sum("calls_positive"), color: "var(--accent)" },
+    { label: "Okay", n: sum("calls_neutral"), color: "#c3cbe0" },
+    { label: "Needs attention", n: sum("calls_negative"), color: "#b0605a" },
   ];
   const total = parts.reduce((a, p) => a + p.n, 0);
   const pc = (n: number) => `${Math.round((n / total) * 100)}%`;
@@ -21,13 +21,13 @@ export default function SentimentDonut({ people }: { people: Person[] }) {
   return (
     <section className="card hbar-card" aria-label="How customers felt">
       <h3>How customers felt</h3>
-      <p className="hint">Latest month, share of calls by the customer's mood.</p>
+      <p className="hint">This month, how the customers felt on their calls.</p>
       {total === 0 ? (
         <p className="sub small">No calls rated yet.</p>
       ) : (
         <div className="donut-wrap">
           <svg className="donut" viewBox="0 0 140 140" role="img" aria-label={summary}>
-            <circle cx="70" cy="70" r={R} fill="none" stroke="var(--line-soft)" strokeWidth="14" />
+            <circle cx="70" cy="70" r={R} fill="none" stroke="var(--line-soft)" strokeWidth="9" />
             <g transform="rotate(-90 70 70)">
               {visible.map((p) => {
                 const len = (p.n / total) * C;
@@ -40,7 +40,7 @@ export default function SentimentDonut({ people }: { people: Person[] }) {
                     r={R}
                     fill="none"
                     stroke={p.color}
-                    strokeWidth="14"
+                    strokeWidth="9"
                     strokeDasharray={`${dash} ${C - dash}`}
                     strokeDashoffset={-offset}
                   >

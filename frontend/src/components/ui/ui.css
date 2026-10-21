@@ -9,15 +9,16 @@
 .infotip-pop {
   position: absolute; z-index: 30; left: 50%; bottom: calc(100% + 8px); transform: translateX(-50%); width: max-content; max-width: 260px;
   padding: 8px 10px; border-radius: 6px; background: var(--ink); color: var(--card); font: 400 12.5px/1.45 var(--font);
-  text-align: left; text-transform: none; letter-spacing: 0; font-weight: 400; box-shadow: var(--shadow-md); pointer-events: none;
+  text-align: left; text-transform: none; letter-spacing: 0; font-weight: 400; box-shadow: 0 2px 6px rgba(10,37,64,.12); pointer-events: none;
   opacity: 0; visibility: hidden; transition: opacity 0.12s;
 }
 .infotip:hover .infotip-pop, .infotip:focus-within .infotip-pop { opacity: 1; visibility: visible; }
 
 .delta { display: inline-flex; align-items: center; gap: 3px; font: 500 12px/1 var(--font); font-variant-numeric: tabular-nums; white-space: nowrap; }
-.delta.up { color: var(--good); }
-.delta.down { color: var(--bad); }
-.delta.flat { color: var(--muted); }
+.delta { color: var(--muted); font-weight: 400; }
+.delta .ar { font-size: 9px; }
+.delta.up .ar { color: var(--good); }
+.delta.down .ar { color: var(--bad); }
 
 .metric { background: var(--card); padding: 16px 20px; min-width: 0; }
 .metric-label { display: flex; align-items: center; gap: 6px; color: var(--muted); font: 500 13px/1.3 var(--font); }

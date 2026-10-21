@@ -14,7 +14,7 @@ createRoot(document.getElementById("root")!).render(
     <BrowserRouter>
       <div className="shell">
         <Nav />
-        <main className="content">
+        <main className="content" id="main">
           <div className="page">
             <Routes>
               <Route path="/" element={<Dashboard />} />
