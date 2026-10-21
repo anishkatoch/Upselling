@@ -1,0 +1,372 @@
+{
+  "employee": "Arjun Mehta",
+  "date": "2026-09-29",
+  "encounters": [
+    {
+      "industry": "electronics retail",
+      "language": "english",
+      "scenario": "A customer buys a specific wired mouse. The salesperson provides the requested item without suggesting any extras or upgrades.",
+      "turns": [
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "Hello, sir. What are you looking for?",
+          "emotion": "neutral",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "Do you have the Logitech B100 wired mouse? I need one in black.",
+          "emotion": "neutral",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "Yes, black is available. One minute, I'll get it from the shelf.",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "What's the price?",
+          "emotion": "neutral",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "It's ₹349, including GST.",
+          "emotion": "neutral",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "This has the regular USB connector, right? Not Type-C?",
+          "emotion": "neutral",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "Correct, sir. It has a USB-A connector. You can see it here on the box.",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "Okay, that's the one I need. Please bill it.",
+          "emotion": "neutral",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "Sure. How would you like to pay?",
+          "emotion": "neutral",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "UPI. Shall I scan this code on the counter?",
+          "emotion": "neutral",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "Yes, that one. The amount is ₹349.",
+          "emotion": "neutral",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "Done. It's showing successful.",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "Received, sir. Here's your mouse and the bill.",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "Thank you.",
+          "emotion": "happy",
+          "is_upsell_attempt": false,
+          "technique": null
+        }
+      ],
+      "expected_attempted_upsell": false,
+      "expected_attempts": 0,
+      "notes": "The salesperson only supplies the exact item requested, answers price and connector questions, and completes payment. No additional products, upgrades, or paid services are offered."
+    },
+    {
+      "industry": "electronics retail",
+      "language": "english",
+      "scenario": "A customer shopping for a phone asks, 'Anything else good?' The salesperson shows another phone within the original budget and requirements, without offering extras or an upgrade.",
+      "turns": [
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "Hello, sir. What are you looking for?",
+          "emotion": "neutral",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "A phone for my father. Under twenty thousand, mainly calls, WhatsApp and some videos.",
+          "emotion": "neutral",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "Okay. Any particular brand, or shall I show you something with a bigger screen?",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "Brand is flexible. Yes, a big screen and decent battery. Nothing complicated.",
+          "emotion": "neutral",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "This one is eighteen thousand five hundred. Here's the display piece. You can check the screen and how it feels in the hand.",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "Screen looks fine, but it's a little heavy. Anything else good?",
+          "emotion": "neutral",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "Yes, this other model is nineteen thousand. It's lighter, and the screen is almost the same size. Have a look.",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "This feels better. Can the text be made bigger?",
+          "emotion": "neutral",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "Yes, sir. Under display settings, you can increase the font size like this.",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "Good. And nineteen thousand is the final price, including GST?",
+          "emotion": "neutral",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "Yes, including GST. That's the price for the phone.",
+          "emotion": "neutral",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "Okay, I'll take this one. Do you have it in black?",
+          "emotion": "happy",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "Yes, black is available. I'll bring a sealed box. Shall I make the bill in your name?",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "Yes, please. I'll give you the details.",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        }
+      ],
+      "expected_attempted_upsell": false,
+      "expected_attempts": 0,
+      "notes": "The customer's 'Anything else good?' explicitly requests another phone option. Showing a slightly higher-priced alternative within the stated budget fulfills that request; it is not a proactive upsell. No additional products, services or upgrades are offered."
+    },
+    {
+      "industry": "electronics retail",
+      "language": "hinglish",
+      "scenario": "A customer buying a laptop accepts an optional laptop bag and wireless mouse bundle offered at a discounted price.",
+      "turns": [
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "Hello sir, kya dikhaun aapko?",
+          "emotion": "happy",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "Office work ke liye laptop chahiye. Excel, video calls, bas normal use hai. Budget forty-five thousand tak hai.",
+          "emotion": "neutral",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "Yeh wala dekh lijiye sir. Sixteen GB RAM, five-twelve GB SSD hai. Aapke kaam ke liye sahi rahega, price forty-two thousand nine ninety hai.",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "Keyboard try kar sakta hoon? Kaafi typing rehti hai meri.",
+          "emotion": "neutral",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "Haan bilkul, baith ke check kar lijiye. Yeh document khula hai, ismein type karke dekh sakte hain.",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "Haan, comfortable hai. Theek hai, yehi laptop le leta hoon.",
+          "emotion": "happy",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "Sir, iske saath laptop bag aur wireless mouse ka optional combo bhi hai. Alag se bag twelve ninety-nine aur mouse seven ninety-nine ka hai. Laptop ke saath dono lenge toh fourteen ninety-nine mein padenge, five ninety-nine bach jayenge. Add kar doon?",
+          "emotion": "calm",
+          "is_upsell_attempt": true,
+          "technique": "bundle"
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "Bag dikhao zara. Aur combo mila ke final kitna hoga?",
+          "emotion": "neutral",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "Yeh raha bag, laptop is padded section mein aayega. Laptop aur combo mila ke forty-four thousand four eighty-nine hoga, GST included.",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "Achha, budget ke andar hi hai. Bag bhi theek lag raha hai. Haan, mouse aur bag wala combo add kar do.",
+          "emotion": "happy",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "Ji sir. Bill kis naam se banana hai?",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "Rahul Sharma. Payment card se karunga.",
+          "emotion": "neutral",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "Sure sir. Bill mein laptop aur discounted combo dono listed hain. Total forty-four thousand four eighty-nine hai. Machine pe amount check karke card insert kar dijiye.",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "Haan, amount sahi hai. Payment ho gaya, bill bag mein rakh dena please.",
+          "emotion": "happy",
+          "is_upsell_attempt": false,
+          "technique": null
+        }
+      ],
+      "expected_attempted_upsell": true,
+      "expected_attempts": 1,
+      "notes": "Turn 7 is the single proactive upsell: a discounted bag-and-mouse bundle added to the laptop purchase. The customer accepts in turn 10. Showing the requested laptop, answering the bundle-price question, and confirming the bill are not additional upsell attempts."
+    }
+  ]
+}

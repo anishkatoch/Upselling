@@ -92,3 +92,9 @@ export const STEPS = [
   { key: "analyzing_conversations", label: "Looking for upsell attempts and mood" },
   { key: "building_report", label: "Putting the report together" },
 ] as const;
+
+/** A readable name for a recording: who it belongs to and when, instead of the file name. */
+export function recordingTitle(j: { salesperson_name?: string | null; created_at: string }): string {
+  const when = new Date(j.created_at).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+  return j.salesperson_name ? `${j.salesperson_name} - ${when}` : `Recording - ${when}`;
+}

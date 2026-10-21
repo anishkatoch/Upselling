@@ -1,0 +1,63 @@
+/* Flat horizontal bar charts for the Dashboard (funnel + selling approaches). Colours come from the app tokens. */
+.hbar-card h3 { margin: 0 0 2px; font-size: 14px; font-weight: 600; }
+.hbar-card .hint { margin: 0 0 14px; color: var(--muted); font-size: 12.5px; }
+.hbar-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.hbar-row { display: grid; gap: 6px; }
+.hbar-top { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; font-size: 13.5px; }
+.hbar-top .lbl { color: var(--ink); }
+.hbar-top .val { font-variant-numeric: tabular-nums; color: var(--ink); font-weight: 600; white-space: nowrap; }
+.hbar-top .val small { font-weight: 400; color: var(--muted); margin-left: 6px; }
+.hbar-track { height: 8px; border-radius: 4px; background: var(--line-soft); overflow: hidden; }
+.hbar-fill { height: 100%; border-radius: 4px; background: var(--accent); min-width: 2px; }
+.hbar-fill.dim { background: color-mix(in srgb, var(--accent) 45%, white); }
+.hbar-sub { color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; }
+.hbar-foot { margin: 14px 0 0; color: var(--muted); font-size: 12px; }
+.hbar-other { padding-top: 12px; border-top: 1px solid var(--line-soft); }
+
+/* Outcome bars */
+.legend-inline { list-style: none; margin: 0 0 14px; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 12.5px; color: var(--muted); }
+.legend-inline li { display: inline-flex; align-items: center; gap: 6px; }
+.sw { width: 8px; height: 8px; border-radius: 2px; display: inline-block; flex: none; background: var(--line); }
+.sw.ok, .ob-seg.ok { background: var(--good); }
+.sw.no, .ob-seg.no { background: var(--bad); opacity: .75; }
+.sw.none, .ob-seg.none { background: var(--line); }
+.ob-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.ob-row { display: grid; grid-template-columns: minmax(84px, 128px) 1fr 52px; align-items: center; gap: 12px; font-size: 13.5px; }
+.ob-name { color: var(--ink); text-decoration: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ob-name:hover { color: var(--accent-ink); text-decoration: underline; }
+.ob-bar { display: flex; gap: 2px; height: 22px; }
+.ob-seg { display: flex; align-items: center; justify-content: center; min-width: 3px; font-size: 11.5px; font-weight: 600; color: #fff; font-variant-numeric: tabular-nums; border-radius: 3px; }
+.ob-seg.none { color: var(--faint); font-weight: 500; }
+.ob-n { color: var(--faint); font-size: 12px; font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
+
+/* Sentiment donut */
+.donut-wrap { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
+.donut { width: 150px; height: 150px; flex: none; }
+.donut-num { font-size: 26px; font-weight: 600; fill: var(--ink); font-variant-numeric: tabular-nums; }
+.donut-cap { font-size: 11px; fill: var(--faint); }
+.donut-legend { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; flex: 1; min-width: 180px; }
+.donut-legend li { display: flex; align-items: center; gap: 8px; font-size: 13.5px; }
+.donut-legend .lbl { flex: 1; }
+.donut-legend .val { font-weight: 600; font-variant-numeric: tabular-nums; }
+.donut-legend .val small { font-weight: 400; color: var(--muted); margin-left: 8px; display: inline-block; min-width: 34px; text-align: right; }
+.dash-row { display: grid; grid-template-columns: 3fr 2fr; gap: 16px; margin-bottom: 24px; }
+.dash-row > * { min-width: 0; }
+@media (max-width: 900px) { .dash-row { grid-template-columns: 1fr; } .ob-row { grid-template-columns: minmax(70px, 100px) 1fr 44px; gap: 8px; } }
+
+/* Quadrant map */
+.quad { margin-bottom: 16px; }
+.quad-svg { width: 100%; height: auto; display: block; overflow: visible; }
+.q-grid { stroke: var(--line-soft); stroke-width: 1; stroke-dasharray: 1 4; }
+.q-frame { fill: none; stroke: var(--line); }
+.q-avg { stroke: var(--faint); stroke-width: 1; stroke-dasharray: 4 3; }
+.q-tick text { font-size: 11px; fill: var(--faint); font-variant-numeric: tabular-nums; }
+.q-corner { font-size: 11px; fill: var(--faint); }
+.q-axis { font-size: 11.5px; fill: var(--muted); }
+.q-pt { cursor: pointer; outline: none; }
+.q-dot { fill: var(--accent); stroke: #fff; stroke-width: 1.5; }
+.q-name { font-size: 12px; fill: var(--ink); paint-order: stroke; stroke: #fff; stroke-width: 3px; stroke-linejoin: round; }
+.q-pt:hover .q-name { fill: var(--accent-ink); }
+.q-pt:focus-visible .q-dot { stroke: var(--accent-ink); stroke-width: 3; }
+.q-pt:focus-visible .q-name { text-decoration: underline; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; margin: 0; padding: 0; list-style: none; }
+@media (max-width: 520px) { .q-corner { font-size: 17px; } .q-name { font-size: 20px; } .q-tick text, .q-axis { font-size: 18px; } }

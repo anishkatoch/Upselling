@@ -253,6 +253,10 @@ export interface Transcript {
 /** One day/week/month (or the special "all" bucket) of a salesperson's numbers - every
  * field the backend tracks, since `total` and each entry of `series` share this one shape. */
 export interface Bucket {
+  /** Conversations where the upsell analysis actually ran (the denominator of the upsell rate). */
+  analysed_conversations?: number;
+  /** Conversations with 2+ salespeople: conversation-level findings (greeting, pushy, unanswered) are NOT charged to anyone. */
+  shared_conversations?: number;
   period: string;
   recordings: number;
   conversations: number;
@@ -307,6 +311,8 @@ export interface Person {
     rating: "strong" | "solid" | "needs_work";
     headline: string;
     low_sample: boolean;
+    /** True when too few analysed conversations to rate this person; do not show the rating label. */
+    insufficient_data?: boolean;
     effort_level: EffortLevel;
     effort_summary: string;
     trend: "improving" | "steady" | "declining" | null;
@@ -315,13 +321,30 @@ export interface Person {
   };
   recent_coaching: string[];
   recent_calls: RecentCall[];
+  /** False when `total` is the person's latest period but not the CURRENT day/week/month (no calls in the current one). */
+  is_current?: boolean;
 }
+
+/** How often each selling approach was tried across all recordings, and how often the customer said yes. */
+export interface TechniqueStat {
+  technique: string;
+  attempts: number;
+  accepted: number;
+  rejected: number;
+  /** accepted / (accepted + rejected); null when no offer was clearly answered. */
+  acceptance_rate: number | null;
+  /** Distinct salespeople who used it. */
+  people: number;
+}
+
 export interface Dashboard {
   period: "day" | "week" | "month";
   people: Person[];
-  unassigned: { job_id: string; speaker: string; filename: string; conversations: number }[];
+  /** Label of the current day/week/month for this period, e.g. "2026-10-19". */
+  current_period?: string;
   jobs_counted: number;
   jobs_skipped: number;
+  technique_stats?: TechniqueStat[];
 }
 
 async function req<T>(path: string, init?: RequestInit): Promise<T> {
@@ -349,34 +372,4 @@ export const api = {
   cancel: (id: string) => req<Job>(`/jobs/${id}/cancel`, { method: "POST" }),
   dashboard: (period: string) => req<Dashboard>(`/dashboard?period=${period}`),
   personRecordings: (name: string) => req<RecordingSummary[]>(`/people/${encodeURIComponent(name)}/recordings`),
-  nameSpeaker: (job_id: string, speaker: string, name: string) =>
-    req<void>("/people/name", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ job_id, speaker, name }),
-    }),
-  upload(file: File, details: { industry?: string; salesperson?: string }, onProgress: (p: number) => void) {
-    return new Promise<Job>((resolve, reject) => {
-      const form = new FormData();
-      form.append("file", file);
-      if (details.industry) form.append("industry", details.industry);
-      if (details.salesperson) form.append("salesperson_name", details.salesperson);
-      const xhr = new XMLHttpRequest();
-      xhr.open("POST", "/api/jobs");
-      xhr.upload.onprogress = (e) => e.lengthComputable && onProgress(e.loaded / e.total);
-      xhr.onload = () => {
-        if (xhr.status < 300) return resolve(JSON.parse(xhr.responseText));
-        let msg = "Upload failed. Please try again.";
-        try {
-          const d = JSON.parse(xhr.responseText).detail;
-          if (typeof d === "string") msg = d;
-        } catch {
-          /* no JSON body */
-        }
-        reject(new Error(msg));
-      };
-      xhr.onerror = () => reject(new Error("Could not reach the server."));
-      xhr.send(form);
-    });
-  },
 };

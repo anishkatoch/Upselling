@@ -1,0 +1,111 @@
+/* Styles for the people rating components - same tokens as index.css, nothing new. */
+.notice { background: var(--warn-soft); color: #6b4d0c; padding: 11px 14px; border-radius: var(--radius-md); font-size: 14px; font-weight: 500; }
+.ai-note { color: var(--faint); font-size: 12.5px; }
+.sample-note { margin-top: 4px; }
+.stale-badge, .not-rated { text-transform: none; letter-spacing: 0; }
+.not-rated.long { white-space: normal; text-align: left; line-height: 1.3; }
+
+/* Recent conversations list on the person page. */
+.recent-hint { margin: -4px 0 10px; }
+.recent-list { list-style: none; margin: 0; padding: 0; border: 1px solid var(--line); border-radius: var(--radius-md); overflow: hidden; background: var(--card); }
+.recent-list li + li { border-top: 1px solid var(--line-soft); }
+.recent-row { display: grid; grid-template-columns: 96px minmax(0, 1fr) auto auto 18px; align-items: center; gap: 6px 14px; padding: 12px 14px; color: var(--ink); text-decoration: none; }
+a.recent-row:hover { background: var(--paper); }
+.recent-list { border-radius: var(--radius-md); }
+a.recent-row:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; background: var(--paper); }
+.recent-date { font-size: 13px; color: var(--muted); white-space: nowrap; }
+.recent-topic { font-weight: 600; min-width: 0; overflow-wrap: anywhere; }
+.recent-pills { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+.recent-offers { white-space: nowrap; }
+.recent-go { justify-self: end; }
+@media (max-width: 720px) {
+  .recent-row { grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "date go" "topic topic" "pills pills" "offers offers"; }
+  .recent-date { grid-area: date; }
+  .recent-topic { grid-area: topic; }
+  .recent-pills { grid-area: pills; justify-content: flex-start; }
+  .recent-offers { grid-area: offers; }
+  .recent-go { grid-area: go; }
+  .recent-row.static { grid-template-columns: minmax(0, 1fr); grid-template-areas: "date" "topic" "pills" "offers"; }
+}
+
+/* ---- Stripe-style flat table, team page and person page ---- */
+.sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.tg .tg-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+.tg .tg-head h2 { margin: 0; font-size: 15px; }
+.tg table { font-size: 13.5px; }
+.tg th { text-transform: none; letter-spacing: 0; font-size: 12.5px; font-weight: 500; color: var(--muted); background: none; padding: 9px 12px; }
+.tg th .th-in { display: inline-flex; align-items: center; gap: 5px; }
+.tg th.num .th-in { justify-content: flex-end; }
+.tg th button.sort { all: unset; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; border-radius: 4px; }
+.tg th button.sort:hover { color: var(--ink); }
+.tg th button.sort:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.tg th[aria-sort="ascending"] button.sort, .tg th[aria-sort="descending"] button.sort { color: var(--ink); }
+.tg td { vertical-align: middle; }
+.tg td.num, .tg th.num { text-align: right; font-variant-numeric: tabular-nums; }
+.tg td .cell-sub { margin-top: 3px; display: flex; justify-content: flex-end; }
+.tg tbody tr.rowlink { cursor: pointer; }
+.tg tbody tr.rowlink:hover { background: var(--paper); }
+.tg .name-link { font-weight: 600; color: var(--ink); text-decoration: none; }
+.tg .name-link:hover { text-decoration: underline; }
+.tg .name-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+.tg .trend-cell { display: inline-flex; align-items: center; gap: 8px; }
+.tg .muted-unit { color: var(--muted); font-size: 12px; }
+.tg-note { margin-top: 10px; }
+
+/* Person page */
+.person-flat { display: grid; gap: 24px; }
+.person-flat .person-hero { border-left: 0; padding-left: 0; }
+.person-flat .metric-group { display: grid; gap: 12px; }
+.person-flat .metric-compact .metric { padding: 10px 18px; }
+.person-flat .metric-compact .metric-value { font-size: 17px; margin-top: 4px; }
+.person-flat .metric-compact .metric-foot { display: none; }
+.person-flat .person-head h1 { margin: 0; font-size: 22px; }
+.flat-card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-md); padding: 16px 18px; }
+.flat-card h3 { margin: 0 0 10px; display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: var(--ink); text-transform: none; letter-spacing: 0; }
+.flat-card h3::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--neutral, var(--muted)); flex: none; }
+.flat-card.good h3::before { background: var(--good); }
+.flat-card.warn h3::before { background: var(--warn, #b7791f); }
+.flat-card ul { margin: 0; padding-left: 18px; list-style: disc; display: grid; gap: 6px; }
+.flat-card ul li::marker { color: var(--faint); }
+.flat-card.coaching { border-left: 3px solid var(--accent); }
+.person-flat .two { gap: 12px; }
+.chart-title { margin-bottom: 7px; font-weight: 600; }
+.recent-row .recent-go { color: var(--faint); }
+.tg tbody th.rowhead { background: none; text-align: left; text-transform: none; letter-spacing: 0; font-size: inherit; font-weight: inherit; color: inherit; padding: 11px 12px; border-bottom: 1px solid var(--line-soft); }
+.tg tbody tr:last-child th.rowhead { border-bottom: 0; }
+.section-title { margin: 0 0 4px; font-size: 15px; font-weight: 600; color: var(--ink); text-transform: none; letter-spacing: 0; }
+.recent-offers { font-variant-numeric: tabular-nums; }
+.recent-list { box-shadow: none; }
+
+/* Person page: compared with the team + customer mood */
+.person-flat .insight-row { display: grid; grid-template-columns: 2fr 1fr; gap: 12px; align-items: start; }
+.vs-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.vs-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 12px; row-gap: 6px; align-items: center; }
+.vs-top { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-size: 13.5px; }
+.vs-lbl { color: var(--ink); display: inline-flex; align-items: center; gap: 6px; }
+.vs-val { font-weight: 600; font-variant-numeric: tabular-nums; color: var(--ink); }
+.vs-mid { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.vs-track { position: relative; flex: 1; height: 6px; border-radius: 3px; background: var(--line-soft); }
+.vs-fill { height: 100%; border-radius: 3px; background: var(--accent); min-width: 2px; }
+.vs-tick { position: absolute; top: -4px; width: 2px; height: 14px; margin-left: -1px; background: var(--ink); border-radius: 1px; }
+.vs-team { flex: none; min-width: 74px; white-space: nowrap; font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.vs-verdict-line { display: flex; align-items: center; justify-content: flex-end; min-width: 92px; }
+.vs-verdict { font-size: 12px; font-weight: 500; color: var(--muted); white-space: nowrap; }
+.vs-verdict.good { color: var(--good); }
+.vs-verdict.bad { color: var(--bad); }
+.vs-cap { margin: 14px 0 0; font-size: 12px; color: var(--muted); }
+.sent-body { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+.sent-donut { width: 112px; height: 112px; flex: none; }
+.sent-n { font-size: 22px; font-weight: 600; fill: var(--ink); font-variant-numeric: tabular-nums; }
+.sent-w { font-size: 9.5px; fill: var(--muted); }
+.sent-legend { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; flex: 1; min-width: 140px; font-size: 13px; }
+.sent-legend li { display: flex; align-items: center; gap: 8px; }
+.sent-legend i { width: 9px; height: 9px; border-radius: 50%; flex: none; }
+.sent-legend span { flex: 1; color: var(--ink); }
+.sent-legend b { font-variant-numeric: tabular-nums; }
+.person-flat .flat-card.vs-card h3::before, .person-flat .flat-card.sentiment h3::before { display: none; }
+@media (max-width: 760px) {
+  .person-flat .insight-row { grid-template-columns: 1fr; }
+  .vs-row { grid-template-columns: 1fr; }
+  .vs-verdict-line { justify-content: flex-start; }
+}

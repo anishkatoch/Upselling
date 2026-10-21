@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import StatusPill from "../components/StatusPill";
-import { AlertTriangle, ChevronRight, Headset, Plus } from "../icons/Icons";
+import { AlertTriangle, ChevronRight, Headset } from "../icons/Icons";
 import { api, type Job } from "../lib/api";
-import { ago } from "../lib/format";
+import { ago, recordingTitle } from "../lib/format";
 import { useLoad } from "../lib/hooks";
 
 const busy = (jobs: Job[]) => jobs.some((j) => j.status === "queued" || j.status === "running");
@@ -14,11 +14,8 @@ export default function Recordings() {
       <div className="head row">
         <div className="grow">
           <h1>Recordings</h1>
-          <p className="sub">Every recording you&apos;ve uploaded, and what we found.</p>
+          <p className="sub">Every recording, and what we found.</p>
         </div>
-        <Link to="/upload" className="btn">
-          <Plus size={16} /> New recording
-        </Link>
       </div>
 
       <div className="card">
@@ -33,26 +30,15 @@ export default function Recordings() {
             <div className="icon-wrap">
               <Headset size={20} />
             </div>
-            <p style={{ marginBottom: 14 }}>Nothing here yet.</p>
-            <Link to="/upload" className="btn">
-              <Plus size={16} /> Upload your first recording
-            </Link>
+            <p>No recordings to show yet.</p>
           </div>
         )}
         {jobs && jobs.length > 0 && (
           <ul className="list">
             {jobs.map((j) => (
               <Link key={j.job_id} to={`/recordings/${j.job_id}`} className="item">
-                <div className="item-icon">
-                  <Headset size={17} />
-                </div>
-                <div className="grow">
-                  <div className="name">{j.filename}</div>
-                  <div className="sub small">
-                    {ago(j.created_at)}
-                    {j.salesperson_name ? ` · ${j.salesperson_name}` : ""}
-                  </div>
-                </div>
+                <div className="grow name">{recordingTitle(j)}</div>
+                <span className="sub small">{ago(j.created_at)}</span>
                 <StatusPill job={j} />
                 <ChevronRight size={16} className="item-chev" />
               </Link>

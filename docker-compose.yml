@@ -20,7 +20,7 @@ services:
       STORAGE_BACKEND: ${STORAGE_BACKEND:-local}
     ports: ["8000:8000"]
     volumes:
-      - ./data:/app/data
+      - ./sample_data/store:/app/data
       - ${HOME}/.aws:/app/.aws:ro
     depends_on:
       redis:
@@ -35,7 +35,7 @@ services:
       REDIS_URL: redis://redis:6379/0
       STORAGE_BACKEND: ${STORAGE_BACKEND:-local}
     volumes:
-      - ./data:/app/data
+      - ./sample_data/store:/app/data
       - ${HOME}/.aws:/app/.aws:ro
     depends_on:
       redis:

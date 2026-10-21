@@ -1,0 +1,1141 @@
+{
+  "job_id": "813574f1d3254da68ef561ba1bbd270b",
+  "source_filename": "2026-10-20_priya_floor_session.mp3",
+  "duration_s": 387.7,
+  "transcription_provider": "openai:gpt-4o-transcribe-diarize",
+  "speakers": [
+    {
+      "speaker": "A",
+      "role": "salesperson",
+      "title": "Electronics store salesperson",
+      "talk_time_s": 122.7
+    },
+    {
+      "speaker": "D",
+      "role": "salesperson",
+      "title": "Laptop salesperson; later label also captures phone buyer",
+      "talk_time_s": 103.2
+    },
+    {
+      "speaker": "B",
+      "role": "customer",
+      "title": "TV buyer",
+      "talk_time_s": 53.2
+    },
+    {
+      "speaker": "C",
+      "role": "customer",
+      "title": "Laptop buyer",
+      "talk_time_s": 40.4
+    }
+  ],
+  "has_sales_activity": true,
+  "conversations": [
+    {
+      "conversation_id": 1,
+      "start": 0.10000000000000009,
+      "end": 143.994,
+      "topic": "Smart TV and extended warranty purchase",
+      "language": "english",
+      "is_sales_interaction": true,
+      "salespeople": [
+        "A"
+      ],
+      "customers": [
+        "B"
+      ],
+      "mood": {
+        "speakers": [
+          {
+            "speaker": "A",
+            "overall_mood": "calm",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Consistently polite, professional, and informative. Explains pricing, product differences, and warranty exclusions without pressure or signs of irritation."
+          },
+          {
+            "speaker": "B",
+            "overall_mood": "neutral",
+            "frustration_level": 1,
+            "trend": "stable",
+            "summary": "Measured and cooperative throughout, with mild concern about the additional costs rather than clear frustration. Questions about the price increase and warranty are delivered steadily. The pitch spike on 'Another three thousand?' suggests surprise, but does not establish agitation given the neutral tone, normal pace, and absence of interruptions. Accepts the explanations and calmly completes the purchase."
+          }
+        ],
+        "frustration_moments": []
+      },
+      "upsell": {
+        "customer_requested": [
+          "A basic forty three inch smart tv, around twenty five thousand, mainly for news and cricket.",
+          "Advice on daytime picture visibility with a window opposite the TV.",
+          "An explanation of the premium model's other features and the extended warranty's coverage.",
+          "Home delivery tomorrow afternoon and the warranty document included with the bill."
+        ],
+        "upsell_attempts": [
+          {
+            "salesperson": "A",
+            "segment_id": 4,
+            "quote": "Some reflection will be there. You could consider this premium forty three inch model at thirty thousand nine hundred ninety instead. It has a brighter panel and better reflection handling. Shall I show you the same cricket clip on both?",
+            "technique": "upgrade",
+            "offered_item": "premium forty three inch model at thirty thousand nine hundred ninety",
+            "salesperson_initiated": true,
+            "after_customer_rejection": false,
+            "handled_objection": true,
+            "customer_response": "accepted",
+            "customer_mood": "neutral"
+          },
+          {
+            "salesperson": "A",
+            "segment_id": 9,
+            "quote": "Sure, sir, would you also like an extended warranty for two thousand nine hundred ninety nine rupees? It adds two years of coverage after the manufacturer's first year. So the total coverage period becomes three years.",
+            "technique": "warranty_protection",
+            "offered_item": "extended warranty for two thousand nine hundred ninety nine rupees",
+            "salesperson_initiated": true,
+            "after_customer_rejection": false,
+            "handled_objection": false,
+            "customer_response": "accepted",
+            "customer_mood": "neutral"
+          }
+        ],
+        "excluded_candidates": [
+          "This one is twenty three thousand nine hundred ninety; it's a forty three inch smart tv, and the usual streaming apps are included. -> Presents the main item requested within the customer's budget, without an upgrade or add-on.",
+          "The premium one also has stronger built in speakers and an extra HDMI port; both have the apps you asked about, and both come with a one year manufacturer's warranty. -> Answers the customer's question about differences beyond the screen; this is not a separate upgrade attempt.",
+          "This plan covers electrical and mechanical failures, including panel failure, subject to the written terms. -> Answers the customer's coverage question rather than making another warranty offer.",
+          "Accidental damage and a cracked screen aren't covered. -> Clarifies warranty exclusions, not an additional sales attempt.",
+          "That makes thirty three thousand nine hundred eighty nine for the T_V_ and extended warranty together-I'll list them separately on the bill. Shall I arrange delivery to your home? -> Confirms the accepted purchases and offers routine delivery arrangements; no paid delivery upgrade or bundle discount is proposed."
+        ],
+        "pushy_upsell": false,
+        "pushy_reason": "Neither offer followed an upsell rejection. When the customer questioned the additional costs, the salesperson explained features and coverage, provided written terms, and allowed time to consider without pressure.",
+        "confidence": 0.99,
+        "summary": "The salesperson made two upsell attempts: a premium TV above the customer's original budget to address daytime reflections, followed by an extended warranty. The customer accepted both after asking about the added value and coverage; neither attempt was pushy.",
+        "greeting_given": true,
+        "greeting_quote": "Good evening, sir; what are you looking for to day?",
+        "greeting_segment_id": 0,
+        "products_discussed": [
+          "forty three inch smart tv",
+          "premium forty three inch model",
+          "extended warranty"
+        ],
+        "customer_feedback": "The customer expressed mild cost concern with 'seven thousand extra is quite a jump' and 'Another three thousand?', asking what the extra spending provided rather than rejecting either offer.",
+        "customer_feedback_segment_id": 10,
+        "unanswered_questions": [
+          {
+            "segment_id": 17,
+            "speaker": "B",
+            "question": "Tomorrow afternoon would be good; I'll give you the address and please include the warranty document with the bill.",
+            "note": "The transcript ends without the salesperson confirming tomorrow-afternoon delivery or acknowledging the request to include the warranty document."
+          }
+        ],
+        "coaching_feedback": "You tied the premium TV's brighter panel to the customer's window concern and supported the upgrade with a same-clip comparison. You also clearly explained that a cracked screen was excluded and provided written warranty terms before the customer accepted. Before closing, explicitly confirm the requested 'Tomorrow afternoon' delivery and inclusion of the warranty document, since neither received a recorded acknowledgment."
+      },
+      "attempted_upsell": true,
+      "effort_score": 5.3,
+      "analyzed_by": "openai:gpt-6.1-sol",
+      "escalated": false,
+      "budget_note": null
+    },
+    {
+      "conversation_id": 2,
+      "start": 152.81,
+      "end": 268.04200000000003,
+      "topic": "Laptop with mouse and sleeve bundle",
+      "language": "hinglish",
+      "is_sales_interaction": true,
+      "salespeople": [
+        "A",
+        "D"
+      ],
+      "customers": [
+        "C"
+      ],
+      "mood": {
+        "speakers": [
+          {
+            "speaker": "A",
+            "overall_mood": "calm",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Polite and steady when greeting the customer, explaining the price, and confirming packing. No signs of frustration."
+          },
+          {
+            "speaker": "C",
+            "overall_mood": "neutral",
+            "frustration_level": 0,
+            "trend": "improving",
+            "summary": "Makes straightforward requests and calmly clarifies the bundle price and sleeve fit. Becomes mildly upbeat by the final payment request, saying “Haan, perfect.” No complaints, impatience, or frustrated tone; brief replies and acoustic variations are consistent with routine purchase coordination."
+          },
+          {
+            "speaker": "D",
+            "overall_mood": "calm",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Consistently helpful, relaxed, and reassuring while demonstrating the laptop, explaining accessories, and arranging billing. No evidence of frustration."
+          }
+        ],
+        "frustration_moments": []
+      },
+      "upsell": {
+        "customer_requested": [
+          "Lenovo laptop with 16 GB RAM and 512 GB SSD; asked its price.",
+          "Check the keyboard and screen for Excel and video-call use.",
+          "Finalize the selected laptop.",
+          "Confirm whether the bundle includes both accessories and whether the sleeve fits; then add both.",
+          "Make the bill in the customer's name and accept UPI payment.",
+          "Show the payment QR code."
+        ],
+        "upsell_attempts": [
+          {
+            "salesperson": "D",
+            "segment_id": 24,
+            "quote": "बिलकुल सर, इसके साथ वावलेस माउस और पैडेड स्लीव का बंडल भी है. अलग लेंगे तो दोनों दो हजार अठानवे के है. लैपटोप के साथ एक हजार चार सो नानवे में पड़ेंगे. आड करना चाहेंगे?",
+            "technique": "bundle",
+            "offered_item": "Mouse and padded sleeve bundle at a reduced price with the laptop",
+            "salesperson_initiated": true,
+            "after_customer_rejection": false,
+            "handled_objection": false,
+            "customer_response": "accepted",
+            "customer_mood": "neutral"
+          }
+        ],
+        "excluded_candidates": [
+          "Sir, yeh forty two thousand nine ninety ka hai, g s t included. Same configuration ka sealed piece available hai. -> Answers the requested laptop's price and offers the same configuration sealed, not a higher-tier product.",
+          "हां सर, आराम से ये डेमो यूनिट पे एक्सल खोल देता हूं आप टाइपिंग भी चेक कर लीजे -> Provides the demonstration the customer requested.",
+          "Ji, dono included hain-yeh isi size ki sleeve hai. Dekhiye, laptop easily fit ho raha hai aur zip thee properly bandh ho rahi hai. -> Answers the customer's bundle-content and fit questions; this continues the existing offer rather than creating another attempt.",
+          "Mouse aur sleeve bhi saath pack kar denge. -> Confirms packing accessories the customer has already accepted."
+        ],
+        "pushy_upsell": false,
+        "pushy_reason": "D made one optional bundle offer. The customer asked for clarification and accepted; neither salesperson pushed after a refusal or showed pressure.",
+        "confidence": 0.99,
+        "summary": "D proactively offered a discounted mouse-and-sleeve bundle after the customer finalized the laptop. The customer accepted after confirming the bundle contents and seeing the sleeve fit demonstrated. There was no rejection or pushy follow-up.",
+        "greeting_given": true,
+        "greeting_quote": "Hello, sir; bataye kya dikhaun?",
+        "greeting_segment_id": 18,
+        "products_discussed": [
+          "Lenovo laptop",
+          "वावलेस माउस",
+          "पैडेड स्लीव"
+        ],
+        "customer_feedback": null,
+        "customer_feedback_segment_id": null,
+        "unanswered_questions": [
+          {
+            "segment_id": 33,
+            "speaker": "C",
+            "question": "Haan, perfect. QR dikha do, payment kar deta hoon.",
+            "note": "The transcript ends immediately after this request; no salesperson response or confirmation of showing the QR is recorded."
+          }
+        ],
+        "coaching_feedback": "D explained the bundle savings and demonstrated the sleeve fit when the customer asked, helping secure acceptance without pressure. Before collecting payment, verify and clearly state the itemized total: the spoken final amount does not reconcile with the quoted laptop and bundle prices."
+      },
+      "attempted_upsell": true,
+      "effort_score": 2.2,
+      "analyzed_by": "openai:gpt-6.1-sol",
+      "escalated": false,
+      "budget_note": null
+    },
+    {
+      "conversation_id": 3,
+      "start": 276.992,
+      "end": 378.97400000000005,
+      "topic": "Phone and tempered glass purchase",
+      "language": "hindi",
+      "is_sales_interaction": true,
+      "salespeople": [
+        "A"
+      ],
+      "customers": [
+        "D"
+      ],
+      "mood": {
+        "speakers": [
+          {
+            "speaker": "A",
+            "overall_mood": "calm",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Polite and accommodating throughout; accepts the declined combo, offers a cheaper option, and reassures the customer that installation is included. Isolated acoustic elevations do not indicate frustration given the calm wording and tone."
+          },
+          {
+            "speaker": "D",
+            "overall_mood": "calm",
+            "frustration_level": 1,
+            "trend": "stable",
+            "summary": "Predominantly the customer, although segments 36 and 45 contain mixed customer and salesperson dialogue. Firmly declines additional spending and checks whether glass installation costs extra, but remains composed and cooperative. Faster delivery during price clarification is not accompanied by irritated language or tone; proceeds with payment and installation calmly."
+          }
+        ],
+        "frustration_moments": []
+      },
+      "upsell": {
+        "customer_requested": [
+          "The previously viewed 128 GB phone in blue.",
+          "A bill in the name Rajesh Kumar.",
+          "Open the phone and switch it on.",
+          "Include the phone's box."
+        ],
+        "upsell_attempts": [
+          {
+            "salesperson": "A",
+            "segment_id": 36,
+            "quote": "इसके साथ कवर और टेमपर ग्लास का पोंबो लगा दू",
+            "technique": "bundle",
+            "offered_item": "Cover and tempered-glass combo, quoted at ₹690.",
+            "salesperson_initiated": true,
+            "after_customer_rejection": false,
+            "handled_objection": false,
+            "customer_response": "rejected",
+            "customer_mood": "calm"
+          },
+          {
+            "salesperson": "A",
+            "segment_id": 39,
+            "quote": "ठीक है, कॉंबो छोड़ दीजिए, सिर्फ साधारन टैंपर्ड ग्लास लगवा लीजिए, वन नाइन्टी नाइन का है, कवर फिर कभी ले लेना।",
+            "technique": "cross_sell",
+            "offered_item": "Basic tempered glass for ₹199, with installation included.",
+            "salesperson_initiated": true,
+            "after_customer_rejection": true,
+            "handled_objection": true,
+            "customer_response": "accepted",
+            "customer_mood": "calm"
+          }
+        ],
+        "excluded_candidates": [
+          "हाँ जी नीला है ये रहा सीलबन डिब्बा -> Providing the blue phone the customer requested, not suggesting an upgrade.",
+          "नहीं जी, लगाने समेत एक सो उन्यानवे है, आपके सामने साफ करके लगा दूँगा. -> Answers the customer's installation-charge questions; this is not another upsell.",
+          "जी, सिर्फ फोन और एक टैंपर्ड ग्लास -> Confirms the agreed purchase rather than proposing another item."
+        ],
+        "pushy_upsell": true,
+        "pushy_reason": "After the customer explicitly said “अभी बस फोन ही दीजिये,” the salesperson immediately proposed the cheaper glass-only add-on. This continued selling after a clear refusal, although the tone remained calm and the customer ultimately accepted.",
+        "confidence": 0.58,
+        "summary": "Two upsell attempts occurred: the cover-and-glass combo was rejected, then the ₹199 glass-only offer was accepted after installation was confirmed as included. The second offer followed an explicit phone-only request. Mixed-speaker turns and inconsistent labels make attribution less certain.",
+        "greeting_given": true,
+        "greeting_quote": "Ji bhaisahab, bataye kaunsa phone dekhna hai?",
+        "greeting_segment_id": 34,
+        "products_discussed": [
+          "ekso athais GB wala phone",
+          "कवर",
+          "टैंपर्ड ग्लास"
+        ],
+        "customer_feedback": "The customer did not want to spend more on the combo and explicitly requested “अभी बस फोन ही दीजिये.”",
+        "customer_feedback_segment_id": 38,
+        "unanswered_questions": [
+          {
+            "segment_id": 46,
+            "speaker": "D",
+            "question": "डिब्बा भी साथ रख देना",
+            "note": "The transcript ends without an acknowledgment or confirmation that the box will be included."
+          }
+        ],
+        "coaching_feedback": "You clearly explained that ₹199 included installation and confirmed “सिर्फ फोन और एक टैंपर्ड ग्लास,” respecting the customer's decision not to buy a cover. After “अभी बस फोन ही दीजिये,” acknowledge that boundary and ask permission before suggesting a cheaper add-on instead of immediately pitching again."
+      },
+      "attempted_upsell": true,
+      "effort_score": 6.3,
+      "analyzed_by": "openai:gpt-6.1-sol",
+      "escalated": false,
+      "budget_note": null
+    }
+  ],
+  "salespeople": [
+    {
+      "speaker": "A",
+      "conversations": 3,
+      "conversations_with_upsell": 2,
+      "upsell_rate": 0.667,
+      "attempts_total": 4,
+      "attempts_per_conversation": 1.33,
+      "avg_effort_score": 3.9,
+      "upsell_talk_time_share": 0.479,
+      "acceptance_rate": 0.75,
+      "pushy_conversations": 1,
+      "techniques_used": [
+        "bundle",
+        "cross_sell",
+        "upgrade",
+        "warranty_protection"
+      ]
+    },
+    {
+      "speaker": "D",
+      "conversations": 1,
+      "conversations_with_upsell": 1,
+      "upsell_rate": 1.0,
+      "attempts_total": 1,
+      "attempts_per_conversation": 1.0,
+      "avg_effort_score": 2.2,
+      "upsell_talk_time_share": 0.309,
+      "acceptance_rate": 1.0,
+      "pushy_conversations": 0,
+      "techniques_used": [
+        "bundle"
+      ]
+    }
+  ],
+  "calls": [
+    {
+      "step": "transcription",
+      "provider": "openai:gpt-4o-transcribe-diarize",
+      "model": "gpt-4o-transcribe-diarize",
+      "ok": true,
+      "latency_s": 183.75,
+      "input_tokens": null,
+      "output_tokens": null,
+      "cost_usd": null,
+      "error": null,
+      "fallback_index": 0
+    },
+    {
+      "step": "role_detection",
+      "provider": "openai:gpt-6.1-sol",
+      "model": "gpt-6.1-sol",
+      "ok": true,
+      "latency_s": 11.203,
+      "input_tokens": 2523,
+      "output_tokens": 399,
+      "cost_usd": null,
+      "error": null,
+      "fallback_index": 0
+    },
+    {
+      "step": "conversation_splitting",
+      "provider": "openai:gpt-6.1-sol",
+      "model": "gpt-6.1-sol",
+      "ok": true,
+      "latency_s": 7.64,
+      "input_tokens": 2327,
+      "output_tokens": 283,
+      "cost_usd": null,
+      "error": null,
+      "fallback_index": 0
+    },
+    {
+      "step": "tone",
+      "provider": "openai:gpt-audio-1.5",
+      "model": "gpt-audio-1.5",
+      "ok": true,
+      "latency_s": 8.485,
+      "input_tokens": 1755,
+      "output_tokens": 539,
+      "cost_usd": 0.090656,
+      "error": null,
+      "fallback_index": 0
+    },
+    {
+      "step": "tone",
+      "provider": "openai:gpt-audio-1.5",
+      "model": "gpt-audio-1.5",
+      "ok": true,
+      "latency_s": 8.968,
+      "input_tokens": 2296,
+      "output_tokens": 557,
+      "cost_usd": 0.10912,
+      "error": null,
+      "fallback_index": 0
+    },
+    {
+      "step": "tone",
+      "provider": "openai:gpt-audio-1.5",
+      "model": "gpt-audio-1.5",
+      "ok": true,
+      "latency_s": 9.063,
+      "input_tokens": 1969,
+      "output_tokens": 680,
+      "cost_usd": 0.106528,
+      "error": null,
+      "fallback_index": 0
+    },
+    {
+      "step": "mood_fusion",
+      "provider": "openai:gpt-6.1-sol",
+      "model": "gpt-6.1-sol",
+      "ok": true,
+      "latency_s": 6.875,
+      "input_tokens": 2080,
+      "output_tokens": 208,
+      "cost_usd": null,
+      "error": null,
+      "fallback_index": 0
+    },
+    {
+      "step": "mood_fusion",
+      "provider": "openai:gpt-6.1-sol",
+      "model": "gpt-6.1-sol",
+      "ok": true,
+      "latency_s": 7.328,
+      "input_tokens": 1761,
+      "output_tokens": 215,
+      "cost_usd": null,
+      "error": null,
+      "fallback_index": 0
+    },
+    {
+      "step": "mood_fusion",
+      "provider": "openai:gpt-6.1-sol",
+      "model": "gpt-6.1-sol",
+      "ok": true,
+      "latency_s": 7.531,
+      "input_tokens": 1963,
+      "output_tokens": 259,
+      "cost_usd": null,
+      "error": null,
+      "fallback_index": 0
+    },
+    {
+      "step": "upsell_detection",
+      "provider": "openai:gpt-6.1-sol",
+      "model": "gpt-6.1-sol",
+      "ok": true,
+      "latency_s": 41.375,
+      "input_tokens": 2862,
+      "output_tokens": 1720,
+      "cost_usd": null,
+      "error": null,
+      "fallback_index": 0
+    },
+    {
+      "step": "upsell_detection",
+      "provider": "openai:gpt-6.1-sol",
+      "model": "gpt-6.1-sol",
+      "ok": true,
+      "latency_s": 47.875,
+      "input_tokens": 2836,
+      "output_tokens": 1800,
+      "cost_usd": null,
+      "error": null,
+      "fallback_index": 0
+    },
+    {
+      "step": "upsell_detection",
+      "provider": "openai:gpt-6.1-sol",
+      "model": "gpt-6.1-sol",
+      "ok": true,
+      "latency_s": 70.375,
+      "input_tokens": 2739,
+      "output_tokens": 2879,
+      "cost_usd": null,
+      "error": null,
+      "fallback_index": 0
+    },
+    {
+      "step": "upsell_detection",
+      "provider": "bedrock:anthropic.claude-opus-5-5@us-east-1",
+      "model": "anthropic.claude-opus-5-5",
+      "ok": false,
+      "latency_s": 0.031,
+      "input_tokens": null,
+      "output_tokens": null,
+      "cost_usd": null,
+      "error": "unexpected RuntimeError: Could not resolve AWS credentials from session",
+      "fallback_index": 0
+    }
+  ],
+  "evidence": [
+    {
+      "kind": "upsell_attempt",
+      "conversation_id": 1,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 4,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 2,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 11.9,
+          "end": 20.55,
+          "text": "This one is twenty three thousand nine hundred ninety; it's a forty three inch smart tv, and the usual streaming apps are included.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 3,
+          "speaker": "B",
+          "role": "customer",
+          "start": 21.55,
+          "end": 28.862,
+          "text": "Looks okay from here. We have a window opposite the tv though. Will the picture look dull during the day?",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 4,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 29.912,
+          "end": 43.762,
+          "text": "Some reflection will be there. You could consider this premium forty three inch model at thirty thousand nine hundred ninety instead. It has a brighter panel and better reflection handling. Shall I show you the same cricket clip on both?",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 5,
+          "speaker": "B",
+          "role": "customer",
+          "start": 44.662,
+          "end": 50.712,
+          "text": "Yes, please; seven thousand extra is quite a jump. Apart from the screen, what changes?",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 6,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 51.836000000000006,
+          "end": 62.836000000000006,
+          "text": "The premium one also has stronger built in speakers and an extra HDMI port; both have the apps you asked about, and both come with a one year manufacturer's warranty.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "upsell_attempt",
+      "conversation_id": 1,
+      "index": 1,
+      "speaker": "A",
+      "segment_id": 9,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 7,
+          "speaker": "B",
+          "role": "customer",
+          "start": 63.336000000000006,
+          "end": 68.936,
+          "text": "Let me watch for a minute. Yes, I can see the difference on the grass and the players' faces.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 8,
+          "speaker": "B",
+          "role": "customer",
+          "start": 69.786,
+          "end": 75.236,
+          "text": "We keep our T_V_s for years. Okay, I'll take the thirty thousand nine hundred ninety one.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 9,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 76.028,
+          "end": 89.628,
+          "text": "Sure, sir, would you also like an extended warranty for two thousand nine hundred ninety nine rupees? It adds two years of coverage after the manufacturer's first year. So the total coverage period becomes three years.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 10,
+          "speaker": "B",
+          "role": "customer",
+          "start": 90.72800000000001,
+          "end": 97.128,
+          "text": "Another three thousand? Let me understand it first; does it cover the panel or only the smaller parts?",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 11,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 98.31400000000001,
+          "end": 105.464,
+          "text": "This plan covers electrical and mechanical failures, including panel failure, subject to the written terms.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "unanswered_question",
+      "conversation_id": 1,
+      "index": 0,
+      "speaker": "B",
+      "segment_id": 17,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 15,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 125.59400000000001,
+          "end": 135.594,
+          "text": "That makes thirty three thousand nine hundred eighty nine for the T_V_ and extended warranty together-I'll list them separately on the bill. Shall I arrange delivery to your home?",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 16,
+          "speaker": "B",
+          "role": "customer",
+          "start": 136.294,
+          "end": 137.544,
+          "text": "Yes, please.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 17,
+          "speaker": "B",
+          "role": "customer",
+          "start": 138.44400000000002,
+          "end": 143.994,
+          "text": "Tomorrow afternoon would be good; I'll give you the address and please include the warranty document with the bill.",
+          "is_highlighted": true
+        }
+      ]
+    },
+    {
+      "kind": "greeting",
+      "conversation_id": 1,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 0,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 0,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 0.10000000000000009,
+          "end": 2.95,
+          "text": "Good evening, sir; what are you looking for to day?",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 1,
+          "speaker": "B",
+          "role": "customer",
+          "start": 5.0,
+          "end": 10.75,
+          "text": "A basic forty three inch smart tv, around twenty five thousand, mainly for news and cricket.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 2,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 11.9,
+          "end": 20.55,
+          "text": "This one is twenty three thousand nine hundred ninety; it's a forty three inch smart tv, and the usual streaming apps are included.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "customer_feedback",
+      "conversation_id": 1,
+      "index": 0,
+      "speaker": "B",
+      "segment_id": 10,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 8,
+          "speaker": "B",
+          "role": "customer",
+          "start": 69.786,
+          "end": 75.236,
+          "text": "We keep our T_V_s for years. Okay, I'll take the thirty thousand nine hundred ninety one.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 9,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 76.028,
+          "end": 89.628,
+          "text": "Sure, sir, would you also like an extended warranty for two thousand nine hundred ninety nine rupees? It adds two years of coverage after the manufacturer's first year. So the total coverage period becomes three years.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 10,
+          "speaker": "B",
+          "role": "customer",
+          "start": 90.72800000000001,
+          "end": 97.128,
+          "text": "Another three thousand? Let me understand it first; does it cover the panel or only the smaller parts?",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 11,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 98.31400000000001,
+          "end": 105.464,
+          "text": "This plan covers electrical and mechanical failures, including panel failure, subject to the written terms.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 12,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 106.464,
+          "end": 109.76400000000001,
+          "text": "Accidental damage and a cracked screen aren't covered.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "upsell_attempt",
+      "conversation_id": 2,
+      "index": 0,
+      "speaker": "D",
+      "segment_id": 24,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 22,
+          "speaker": "D",
+          "role": "salesperson",
+          "start": 180.42000000000002,
+          "end": 187.07,
+          "text": "हां सर, आराम से ये डेमो यूनिट पे एक्सल खोल देता हूं आप टाइपिंग भी चेक कर लीजे",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 23,
+          "speaker": "C",
+          "role": "customer",
+          "start": 188.57,
+          "end": 193.32,
+          "text": "हाँ, कीबोर्ड ठीक लग रहा है यही लैपटॉप फाइनल कर दो",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 24,
+          "speaker": "D",
+          "role": "salesperson",
+          "start": 194.406,
+          "end": 209.05599999999998,
+          "text": "बिलकुल सर, इसके साथ वावलेस माउस और पैडेड स्लीव का बंडल भी है. अलग लेंगे तो दोनों दो हजार अठानवे के है. लैपटोप के साथ एक हजार चार सो नानवे में पड़ेंगे. आड करना चाहेंगे?",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 25,
+          "speaker": "C",
+          "role": "customer",
+          "start": 210.036,
+          "end": 218.936,
+          "text": "Acha, matlab ek hazaar chaar sau ninyaanve mein mouse aur sleeve dono, sleeve is laptop ko fit aayegi.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 26,
+          "speaker": "D",
+          "role": "salesperson",
+          "start": 219.336,
+          "end": 229.536,
+          "text": "Ji, dono included hain-yeh isi size ki sleeve hai. Dekhiye, laptop easily fit ho raha hai aur zip thee properly bandh ho rahi hai.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "unanswered_question",
+      "conversation_id": 2,
+      "index": 0,
+      "speaker": "C",
+      "segment_id": 33,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 31,
+          "speaker": "D",
+          "role": "salesperson",
+          "start": 253.836,
+          "end": 260.386,
+          "text": "Ji, sir. Details le leta hoon. Phir sealed box ka serial number bill se match karwa deta hoon.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 32,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 260.942,
+          "end": 263.342,
+          "text": "Mouse aur sleeve bhi saath pack kar denge.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 33,
+          "speaker": "C",
+          "role": "customer",
+          "start": 263.892,
+          "end": 268.04200000000003,
+          "text": "Haan, perfect. QR dikha do, payment kar deta hoon.",
+          "is_highlighted": true
+        }
+      ]
+    },
+    {
+      "kind": "greeting",
+      "conversation_id": 2,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 18,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 18,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 152.81,
+          "end": 155.85999999999999,
+          "text": "Hello, sir; bataye kya dikhaun?",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 19,
+          "speaker": "C",
+          "role": "customer",
+          "start": 156.85999999999999,
+          "end": 164.26,
+          "text": "Ye displaywala Lenovo laptop chahiye, sola Gb RAM aur paanch sou baara s s d wala. Kya price hai?",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 20,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 165.01,
+          "end": 173.41,
+          "text": "Sir, yeh forty two thousand nine ninety ka hai, g s t included. Same configuration ka sealed piece available hai.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "upsell_attempt",
+      "conversation_id": 3,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 36,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 34,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 276.992,
+          "end": 280.742,
+          "text": "Ji bhaisahab, bataye kaunsa phone dekhna hai?",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 35,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 282.092,
+          "end": 287.492,
+          "text": "Kal jo ekso athais GB wala phone dekha tha, chaarahazar nauson nabhe ka.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 36,
+          "speaker": "D",
+          "role": "salesperson",
+          "start": 288.468,
+          "end": 310.51800000000003,
+          "text": "वही लेना है नील रंग में है हाँ जी नीला है ये रहा सीलबन डिब्बा बिल इसी नाम से बना दू जो आपने कल बताया था हाँ राजेश कुमार फोन खोल कर एक बार चालू भी कर दीजियेगा बिल्कुल इसके साथ कवर और टेमपर ग्लास का पोंबो लगा दू",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 37,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 310.996,
+          "end": 313.796,
+          "text": "दोनों मिलाकर छे सो नब्बे रुपए पड़ेंगे।",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 38,
+          "speaker": "D",
+          "role": "salesperson",
+          "start": 314.096,
+          "end": 320.14599999999996,
+          "text": "नहीं भईया, छः नाइन नाइन और नहीं खर्च करने, अभी बस फोन ही दीजिये.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "upsell_attempt",
+      "conversation_id": 3,
+      "index": 1,
+      "speaker": "A",
+      "segment_id": 39,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 37,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 310.996,
+          "end": 313.796,
+          "text": "दोनों मिलाकर छे सो नब्बे रुपए पड़ेंगे।",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 38,
+          "speaker": "D",
+          "role": "salesperson",
+          "start": 314.096,
+          "end": 320.14599999999996,
+          "text": "नहीं भईया, छः नाइन नाइन और नहीं खर्च करने, अभी बस फोन ही दीजिये.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 39,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 321.296,
+          "end": 330.546,
+          "text": "ठीक है, कॉंबो छोड़ दीजिए, सिर्फ साधारन टैंपर्ड ग्लास लगवा लीजिए, वन नाइन्टी नाइन का है, कवर फिर कभी ले लेना।",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 40,
+          "speaker": "D",
+          "role": "salesperson",
+          "start": 331.346,
+          "end": 334.39599999999996,
+          "text": "वन हंड्रेड नाइन्टी नाइन में लगा कर देंगे न?",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 41,
+          "speaker": "D",
+          "role": "salesperson",
+          "start": 335.42400000000004,
+          "end": 336.97400000000005,
+          "text": "लगाने का अलग से तो नहीं है?",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "unanswered_question",
+      "conversation_id": 3,
+      "index": 0,
+      "speaker": "D",
+      "segment_id": 46,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 44,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 350.574,
+          "end": 358.574,
+          "text": "जी, सिर्फ फोन और एक टैंपर्ड ग्लास, कोई पंद्रह हजार एक सो अठानवे रुपए हुए, भुक्तान कैसे करेंगे?",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 45,
+          "speaker": "D",
+          "role": "salesperson",
+          "start": 359.374,
+          "end": 373.47400000000005,
+          "text": "युपिआइ कर देता हूं यह सामने वाला क्यूआर है हां जी इसी पर भुक्तान आ गया है यह आपका बिल और फोन भी चालू हो गया है अब ग्लास लगा देता हूं",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 46,
+          "speaker": "D",
+          "role": "salesperson",
+          "start": 374.374,
+          "end": 378.97400000000005,
+          "text": "ठीक है भाईया लगादेजिये डिब्बा भी साथ रख देना",
+          "is_highlighted": true
+        }
+      ]
+    },
+    {
+      "kind": "greeting",
+      "conversation_id": 3,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 34,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 34,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 276.992,
+          "end": 280.742,
+          "text": "Ji bhaisahab, bataye kaunsa phone dekhna hai?",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 35,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 282.092,
+          "end": 287.492,
+          "text": "Kal jo ekso athais GB wala phone dekha tha, chaarahazar nauson nabhe ka.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 36,
+          "speaker": "D",
+          "role": "salesperson",
+          "start": 288.468,
+          "end": 310.51800000000003,
+          "text": "वही लेना है नील रंग में है हाँ जी नीला है ये रहा सीलबन डिब्बा बिल इसी नाम से बना दू जो आपने कल बताया था हाँ राजेश कुमार फोन खोल कर एक बार चालू भी कर दीजियेगा बिल्कुल इसके साथ कवर और टेमपर ग्लास का पोंबो लगा दू",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "customer_feedback",
+      "conversation_id": 3,
+      "index": 0,
+      "speaker": "D",
+      "segment_id": 38,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 36,
+          "speaker": "D",
+          "role": "salesperson",
+          "start": 288.468,
+          "end": 310.51800000000003,
+          "text": "वही लेना है नील रंग में है हाँ जी नीला है ये रहा सीलबन डिब्बा बिल इसी नाम से बना दू जो आपने कल बताया था हाँ राजेश कुमार फोन खोल कर एक बार चालू भी कर दीजियेगा बिल्कुल इसके साथ कवर और टेमपर ग्लास का पोंबो लगा दू",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 37,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 310.996,
+          "end": 313.796,
+          "text": "दोनों मिलाकर छे सो नब्बे रुपए पड़ेंगे।",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 38,
+          "speaker": "D",
+          "role": "salesperson",
+          "start": 314.096,
+          "end": 320.14599999999996,
+          "text": "नहीं भईया, छः नाइन नाइन और नहीं खर्च करने, अभी बस फोन ही दीजिये.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 39,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 321.296,
+          "end": 330.546,
+          "text": "ठीक है, कॉंबो छोड़ दीजिए, सिर्फ साधारन टैंपर्ड ग्लास लगवा लीजिए, वन नाइन्टी नाइन का है, कवर फिर कभी ले लेना।",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 40,
+          "speaker": "D",
+          "role": "salesperson",
+          "start": 331.346,
+          "end": 334.39599999999996,
+          "text": "वन हंड्रेड नाइन्टी नाइन में लगा कर देंगे न?",
+          "is_highlighted": false
+        }
+      ]
+    }
+  ],
+  "spent_usd": 0.306304,
+  "budget_usd": 4.0,
+  "unpriced_calls": 9
+}

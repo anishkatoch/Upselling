@@ -17,7 +17,7 @@ from __future__ import annotations
 import logging
 from collections import defaultdict
 from collections.abc import Iterator
-from datetime import datetime, timedelta
+from datetime import UTC, datetime, timedelta
 from typing import Literal
 
 from pydantic import BaseModel
@@ -35,6 +35,9 @@ Rating = Literal["strong", "solid", "needs_work"]
 EffortLevel = Literal["high", "moderate", "low", "none"]
 Trend = Literal["improving", "steady", "declining"]
 NAMES_KEY = "people/names.json"
+ROSTER_KEY = "people/roster.json"  # {casefolded name: display name}; the first spelling seen wins
+ALIASES_KEY = "people/aliases.json"  # {casefolded name: display name it was merged into}
+SAMPLE_LINES = 3
 
 
 class Bucket(BaseModel):
@@ -60,12 +63,20 @@ class Bucket(BaseModel):
     calls_neutral: int = 0
     calls_negative: int = 0
     conversations_won: int = 0  # conversations where the customer accepted at least one upsell
+    # Conversations where the upsell analysis ran: the denominator of upsell_rate and attempts_per_conversation.
+    analysed_conversations: int = 0
+    # Conversations with 2+ salespeople. Greeting / pushy / unanswered / customer frustration are
+    # conversation-level findings, so they are not charged to any one person in these.
+    shared_conversations: int = 0
+    # Analysed conversations with exactly one salesperson: the denominator of greeting, pushy and unanswered stats.
+    solo_analysed_conversations: int = 0
 
 
 class Assessment(BaseModel):
     rating: Rating
     headline: str
     low_sample: bool
+    insufficient_data: bool = False  # too few analysed conversations to rate; the UI should not show the rating
     effort_level: EffortLevel
     effort_summary: str
     trend: Trend | None
@@ -101,6 +112,12 @@ class PersonSummary(BaseModel):
     assessment: Assessment
     recent_coaching: list[str]
     recent_calls: list[RecentCall]
+    is_current: bool = True  # False: `total` is their latest period, but nothing was recorded in the current one
+
+
+class SampleLine(BaseModel):
+    start: float
+    text: str
 
 
 class Unassigned(BaseModel):
@@ -109,14 +126,35 @@ class Unassigned(BaseModel):
     filename: str
     created_at: str
     conversations: int
+    title: str | None = None  # role title from role detection, e.g. "Sales associate"
+    talk_time_s: float = 0.0
+    first_start_s: float | None = None
+    sample_lines: list[SampleLine] = []
+
+
+class RosterEntry(BaseModel):
+    name: str
+    recordings: int
+
+
+class TechniqueStat(BaseModel):
+    technique: str
+    attempts: int
+    accepted: int
+    rejected: int
+    acceptance_rate: float | None  # accepted / (accepted + rejected); None when neither happened
+    people: int  # distinct named salespeople who used it
 
 
 class Dashboard(BaseModel):
     period: Period
     people: list[PersonSummary]
     unassigned: list[Unassigned]
+    unassigned_conversations: int = 0
+    current_period: str = ""
     jobs_counted: int
     jobs_skipped: int = 0  # completed jobs whose saved report couldn't be read
+    technique_stats: list[TechniqueStat] = []  # over all readable recordings, not just the period
 
 
 def period_label(when: datetime, period: Period) -> str:
@@ -128,31 +166,130 @@ def period_label(when: datetime, period: Period) -> str:
     return d.isoformat()
 
 
+# ------------------------------------------------------------------ identity
+
+
+def normalise_name(name: str | None) -> str:
+    """Trim and collapse internal whitespace: 'Priya   S ' -> 'Priya S'."""
+    return " ".join((name or "").split())
+
+
 def load_names(storage: Storage) -> dict[str, str]:
     return storage.get_json(NAMES_KEY) or {}
 
 
+class _Identity:
+    """Who a typed name really is. Identity is case-insensitive and ignores stray whitespace; the
+    first spelling seen wins (the stored roster first, then older assignments, then upload hints),
+    and merges (aliases) are followed, so 'rahul', 'Rahul ' and a merged 'Rahul K' all become one
+    person. This is the single place names are resolved - dashboard, recordings and roster all use it.
+    """
+
+    def __init__(self, roster: dict[str, str], aliases: dict[str, str], names: dict[str, str]) -> None:
+        self.names = names  # raw "job_id:speaker" -> name, exactly as stored
+        self.aliases = {k: v for k, v in aliases.items() if isinstance(v, str)}
+        self.display: dict[str, str] = {}
+        for shown in roster.values():
+            if isinstance(shown, str) and normalise_name(shown):
+                self.display.setdefault(normalise_name(shown).casefold(), normalise_name(shown))
+        for stored in names.values():
+            self.canon(stored)
+
+    @classmethod
+    def load(cls, storage: Storage, statuses: list[jobs.JobStatus] | None = None) -> _Identity:
+        identity = cls(storage.get_json(ROSTER_KEY) or {}, storage.get_json(ALIASES_KEY) or {}, load_names(storage))
+        for status in sorted(statuses or [], key=lambda s: s.created_at):
+            identity.canon(status.salesperson_name)
+        return identity
+
+    def _chase(self, name: str | None) -> str:
+        """The name after following merges (cycle-safe)."""
+        current = normalise_name(name)
+        seen: set[str] = set()
+        while current and (slug := current.casefold()) in self.aliases and slug not in seen:
+            seen.add(slug)
+            current = normalise_name(self.aliases[slug])
+        return current
+
+    def canon(self, name: str | None) -> str:
+        """The display name this belongs to, registering it as the spelling if it is new. '' if empty."""
+        target = self._chase(name)
+        if not target:
+            return ""
+        return self.display.setdefault(target.casefold(), target)
+
+    def known(self, name: str | None) -> bool:
+        target = self._chase(name)
+        return bool(target) and target.casefold() in self.display
+
+    def resolve(self, status: jobs.JobStatus, sales_people: list[str], sp: str) -> str | None:
+        """Who a diarized label ("A", "B") really is, in one job: an explicit assignment first, then
+        the upload-time hint but only when it's unambiguous (exactly one salesperson in the job).
+        """
+        name = self.canon(self.names.get(f"{status.job_id}:{sp}"))
+        if not name and len(sales_people) == 1:
+            name = self.canon(status.salesperson_name)
+        return name or None
+
+    def save_roster(self, storage: Storage) -> None:
+        storage.put_json(ROSTER_KEY, self.display)
+
+
+def register_name(storage: Storage, name: str | None) -> str | None:
+    """Canonical display name for a typed name (an upload hint, say), remembered in the roster."""
+    identity = _Identity.load(storage)
+    shown = identity.canon(name)
+    if shown:
+        identity.save_roster(storage)
+    return shown or None
+
+
 def set_name(storage: Storage, job_id: str, speaker: str, name: str) -> None:
-    names = load_names(storage)
+    identity = _Identity.load(storage)
+    names = identity.names
     key = f"{job_id}:{speaker}"
-    if name.strip():
-        names[key] = name.strip()
+    shown = identity.canon(name)
+    if shown:
+        names[key] = shown
+        identity.save_roster(storage)
     else:
         names.pop(key, None)
     storage.put_json(NAMES_KEY, names)
+
+
+def merge_people(storage: Storage, from_name: str, into_name: str) -> None:
+    """Make `from_name` another spelling/duplicate of `into_name`. ValueError if either is empty,
+    KeyError if either is not a known person. Merging a person into themselves does nothing."""
+    if not normalise_name(from_name) or not normalise_name(into_name):
+        raise ValueError("both names are required")
+    identity = _Identity.load(storage, _all_statuses(storage))
+    for n in (from_name, into_name):
+        if not identity.known(n):
+            raise KeyError(normalise_name(n))
+    source, target = identity.canon(from_name), identity.canon(into_name)
+    if source.casefold() == target.casefold():
+        return
+    identity.aliases[source.casefold()] = target
+    storage.put_json(ALIASES_KEY, identity.aliases)
+    identity.save_roster(storage)
+
+
+# ------------------------------------------------------------------ metrics
 
 
 class _Acc:
     def __init__(self) -> None:
         self.recordings: set[str] = set()
         self.convs = 0
+        self.analysed = 0
+        self.shared = 0
+        self.solo_analysed = 0
         self.with_upsell = 0
         self.attempts = 0
         self.accepted = 0
         self.decided = 0
         self.efforts: list[float] = []
         self.greeted = 0
-        self.greeting_known = 0
         self.unanswered = 0
         self.pushy = 0
         self.frustration: list[float] = []
@@ -165,8 +302,13 @@ class _Acc:
     def add(self, job_id: str, conv: ConversationResult, person: str) -> None:
         self.recordings.add(job_id)
         self.convs += 1
+        # Greeting, pushiness, unanswered questions and customer frustration describe the whole
+        # conversation, not one salesperson: with two salespeople we can't say whose they are.
+        shared = len(set(conv.salespeople)) > 1
+        self.shared += shared
         u = conv.upsell
         if u:
+            self.analysed += 1
             mine = [a for a in u.upsell_attempts if a.salesperson == person]
             self.attempts += len(mine)
             self.with_upsell += bool(mine)
@@ -174,17 +316,18 @@ class _Acc:
             self.decided += len(decided)
             self.accepted += sum(a.customer_response == "accepted" for a in decided)
             self.efforts.append(effort_score(u, person))
-            self.greeting_known += 1
-            self.greeted += bool(u.greeting_given)
-            self.unanswered += len(u.unanswered_questions)
-            self.pushy += bool(u.pushy_upsell)
             self.re_offers += sum(a.after_customer_rejection for a in mine)
             self.objections += sum(a.handled_objection for a in mine)
             self.techniques |= {a.technique for a in mine}
+            if not shared:
+                self.solo_analysed += 1
+                self.greeted += bool(u.greeting_given)
+                self.unanswered += len(u.unanswered_questions)
+                self.pushy += bool(u.pushy_upsell)
         outcome = call_outcome(conv)
         self.sentiment[outcome.sentiment] += 1
         self.won += any(p.response == "accepted" and p.salesperson == person for p in outcome.pitched)
-        if conv.mood:
+        if conv.mood and not shared:
             self.frustration += [m.frustration_level for m in conv.mood.speakers if m.speaker in conv.customers]
 
     def bucket(self, label: str) -> Bucket:
@@ -199,17 +342,17 @@ class _Acc:
             recordings=len(self.recordings),
             conversations=self.convs,
             conversations_with_upsell=self.with_upsell,
-            upsell_rate=ratio(self.with_upsell, self.convs),
+            upsell_rate=ratio(self.with_upsell, self.analysed),
             attempts=self.attempts,
             accepted=self.accepted,
             acceptance_rate=ratio(self.accepted, self.decided),
             avg_effort=mean(self.efforts),
             greeted=self.greeted,
-            greeting_rate=ratio(self.greeted, self.greeting_known),
+            greeting_rate=ratio(self.greeted, self.solo_analysed),
             unanswered_questions=self.unanswered,
             pushy_conversations=self.pushy,
             avg_customer_frustration=mean(self.frustration),
-            attempts_per_conversation=round(self.attempts / self.convs, 2) if self.convs else None,
+            attempts_per_conversation=round(self.attempts / self.analysed, 2) if self.analysed else None,
             re_offers=self.re_offers,
             objections_handled=self.objections,
             techniques=sorted(self.techniques),
@@ -217,18 +360,10 @@ class _Acc:
             calls_neutral=self.sentiment["neutral"],
             calls_negative=self.sentiment["negative"],
             conversations_won=self.won,
+            analysed_conversations=self.analysed,
+            shared_conversations=self.shared,
+            solo_analysed_conversations=self.solo_analysed,
         )
-
-
-def _resolve_name(names: dict[str, str], status: jobs.JobStatus, sales_people: list[str], sp: str) -> str | None:
-    """Who a diarized label ("A", "B") really is, in one job: an explicit assignment first, then
-    the upload-time hint but only when it's unambiguous (exactly one salesperson in the job).
-    Shared by `build_dashboard` and `build_person_recordings` so the two rules can't drift apart.
-    """
-    name = names.get(f"{status.job_id}:{sp}")
-    if not name and status.salesperson_name and len(sales_people) == 1:
-        name = status.salesperson_name
-    return name
 
 
 MIN_CONVERSATIONS = 3  # below this, say so rather than judge someone on a couple of calls
@@ -238,17 +373,66 @@ def _pct(v: float | None) -> str:
     return "n/a" if v is None else f"{round(v * 100)}%"
 
 
+TREND_MARGIN = 0.10  # a signal "moved" when it changes by 10 percentage points (1 point of frustration)
+
+
+def _outcome_trend(series: list[Bucket]) -> Trend | None:
+    """Direction of results, judged on outcomes only - never on effort (trying harder while being pushy and
+    getting refused is not improvement).
+
+    Compares the latest period with >= MIN_CONVERSATIONS analysed conversations against the closest earlier
+    period that also has that many; fewer than two such periods -> None. Signals compared:
+    acceptance rate (only if both periods have answered offers), upsell rate, pushy share of solo conversations
+    (lower is better) and average customer frustration (lower is better, 1 point = 10 points).
+    'improving' when at least two signals got better by the margin and none got worse by it; 'declining' is
+    the mirror image; anything else (mixed, or small moves) is 'steady'.
+    """
+    enough = [b for b in series if b.analysed_conversations >= MIN_CONVERSATIONS]
+    if len(enough) < 2:
+        return None
+    prev, cur = enough[-2], enough[-1]
+
+    def pushy(b: Bucket) -> float | None:
+        return b.pushy_conversations / b.solo_analysed_conversations if b.solo_analysed_conversations else None
+
+    moves: list[float] = []  # positive = better
+    for a, b, higher_is_better, scale in (
+        (prev.acceptance_rate, cur.acceptance_rate, True, 1.0),
+        (prev.upsell_rate, cur.upsell_rate, True, 1.0),
+        (pushy(prev), pushy(cur), False, 1.0),
+        (prev.avg_customer_frustration, cur.avg_customer_frustration, False, 10.0),
+    ):
+        if a is None or b is None:
+            continue
+        diff = (b - a) / scale
+        moves.append(diff if higher_is_better else -diff)
+    better = sum(m >= TREND_MARGIN - 1e-9 for m in moves)
+    worse = sum(m <= -TREND_MARGIN + 1e-9 for m in moves)
+    if better >= 2 and worse == 0:
+        return "improving"
+    if worse >= 2 and better == 0:
+        return "declining"
+    return "steady"
+
+
 def assess(t: Bucket, series: list[Bucket]) -> Assessment:
-    """Plain, explainable rules over the totals - no model call. Every line cites the number behind it."""
-    n = t.conversations
+    """Plain, explainable rules over the totals - no model call. Every line cites the number behind it.
+
+    Points are only awarded for categories that have data; the rating is points over the points
+    that were available (>= 75% strong, >= 50% solid), so missing analysis never helps or hurts.
+    """
+    n = t.analysed_conversations
+    d = t.solo_analysed_conversations  # denominator for conversation-level findings
     strengths: list[str] = []
     improvements: list[str] = []
     points = 0
-    pushy_share = t.pushy_conversations / n if n else 0.0
-    unanswered_per = t.unanswered_questions / n if n else 0.0
+    available = 0
+    pushy_share = t.pushy_conversations / d if d else 0.0
+    unanswered_per = t.unanswered_questions / d if d else 0.0
 
     # greeting
     if t.greeting_rate is not None:
+        available += 2
         if t.greeting_rate >= 0.8:
             points += 2
             strengths.append(f"Greets customers consistently ({_pct(t.greeting_rate)} of conversations).")
@@ -261,6 +445,7 @@ def assess(t: Bucket, series: list[Bucket]) -> Assessment:
             improvements.append(f"Start each conversation with a greeting - only {_pct(t.greeting_rate)} had one.")
     # upsell reach
     if t.upsell_rate is not None:
+        available += 2
         if t.upsell_rate >= 0.6:
             points += 2
             strengths.append(f"Looks for add-on sales in most conversations ({_pct(t.upsell_rate)}).")
@@ -271,45 +456,51 @@ def assess(t: Bucket, series: list[Bucket]) -> Assessment:
             improvements.append(
                 f"Rarely attempts an upsell ({_pct(t.upsell_rate)} of conversations); suggest a relevant add-on once the customer's own request is handled."
             )
-    # conversion
-    if t.acceptance_rate is None:
-        points += 1
-    elif t.acceptance_rate >= 0.4:
-        points += 2
-        strengths.append(f"Customers accept {_pct(t.acceptance_rate)} of the offers that get an answer.")
-    elif t.acceptance_rate >= 0.2:
-        points += 1
-    elif t.attempts >= 3:
-        improvements.append(
-            f"Only {_pct(t.acceptance_rate)} of offers are accepted - tie the add-on to what the customer just asked for and pitch it after answering their questions."
-        )
-    # pushiness
-    if pushy_share <= 0.1:
-        points += 2
-        if t.attempts:
-            strengths.append("Accepts a 'no' without pressuring the customer.")
-    elif pushy_share <= 0.3:
-        points += 1
-        improvements.append(f"Pushy in {t.pushy_conversations} of {n} conversations - drop the offer after a clear no.")
-    else:
-        improvements.append(
-            f"Pushy in {t.pushy_conversations} of {n} conversations - stop re-offering once the customer has declined."
-        )
-    # listening
-    if unanswered_per <= 0.1:
-        points += 2
-        strengths.append("Answers what customers ask.")
-    elif unanswered_per <= 0.3:
-        points += 1
-        improvements.append(
-            f"{t.unanswered_questions} customer question(s) went unanswered - answer first, then pitch."
-        )
-    else:
-        improvements.append(
-            f"{t.unanswered_questions} customer questions went unanswered across {n} conversations - answer every question before pitching."
-        )
+    # conversion (no answered offers = nothing to judge, not a free point)
+    if t.acceptance_rate is not None:
+        available += 2
+        if t.acceptance_rate >= 0.4:
+            points += 2
+            strengths.append(f"Customers accept {_pct(t.acceptance_rate)} of the offers that get an answer.")
+        elif t.acceptance_rate >= 0.2:
+            points += 1
+        elif t.attempts >= 3:
+            improvements.append(
+                f"Only {_pct(t.acceptance_rate)} of offers are accepted - tie the add-on to what the customer just asked for and pitch it after answering their questions."
+            )
+    if d:
+        # pushiness
+        available += 2
+        if pushy_share <= 0.1:
+            points += 2
+            if t.attempts:
+                strengths.append("Accepts a 'no' without pressuring the customer.")
+        elif pushy_share <= 0.3:
+            points += 1
+            improvements.append(
+                f"Pushy in {t.pushy_conversations} of {d} conversations - drop the offer after a clear no."
+            )
+        else:
+            improvements.append(
+                f"Pushy in {t.pushy_conversations} of {d} conversations - stop re-offering once the customer has declined."
+            )
+        # listening
+        available += 2
+        if unanswered_per <= 0.1:
+            points += 2
+            strengths.append("Answers what customers ask.")
+        elif unanswered_per <= 0.3:
+            points += 1
+            improvements.append(
+                f"{t.unanswered_questions} customer question(s) went unanswered - answer first, then pitch."
+            )
+        else:
+            improvements.append(
+                f"{t.unanswered_questions} customer questions went unanswered across {d} conversations - answer every question before pitching."
+            )
     # customer mood
     if t.avg_customer_frustration is not None:
+        available += 2
         if t.avg_customer_frustration <= 3:
             points += 2
             strengths.append(f"Customers stay calm (average frustration {t.avg_customer_frustration}/10).")
@@ -332,21 +523,40 @@ def assess(t: Bucket, series: list[Bucket]) -> Assessment:
             f"Answered customer objections while offering ({t.objections_handled} time{'s' if t.objections_handled != 1 else ''})."
         )
 
-    rating: Rating = "strong" if points >= 9 else "solid" if points >= 6 else "needs_work"
     low_sample = n < MIN_CONVERSATIONS
-    headline = {
-        "strong": "Strong results across the board",
-        "solid": "Solid, with a few things to tighten up",
-        "needs_work": "Several areas to work on with them",
-    }[rating]
+    insufficient = low_sample or available == 0
+    rating: Rating
+    if available == 0:
+        rating = "solid"  # nothing to judge; insufficient_data is what tells the reader so
+    else:
+        rating = "strong" if points * 4 >= available * 3 else "solid" if points * 2 >= available else "needs_work"
+        # Upselling is what this product measures: someone who rarely tries can't be rated well just because they
+        # did nothing wrong elsewhere (no pressure, greeted, answered questions).
+        if t.upsell_rate is not None:
+            if t.upsell_rate < 0.3:
+                rating = "needs_work"
+            elif t.upsell_rate < 0.6 and rating == "strong":
+                rating = "solid"
+    if insufficient:
+        headline = (
+            f"Not enough analysed data to rate this person yet ({n} of {MIN_CONVERSATIONS} conversations analysed)."
+        )
+    else:
+        headline = {
+            "strong": "Excelling across the board",
+            "solid": "On track, with a few things to tighten up",
+            "needs_work": "Several areas where they could use support",
+        }[rating]
 
     # effort: how actively and persistently they sell
     efforts = t.avg_effort
     level: EffortLevel
-    if t.attempts == 0 or efforts is None:
+    if n == 0:
+        level, summary = "none", "No analysed conversations, so selling effort can't be measured."
+    elif t.attempts == 0 or efforts is None:
         level, summary = (
             "none",
-            f"No upsell attempts in {n} conversation{'s' if n != 1 else ''} - little selling effort beyond what customers asked for.",
+            f"No upsell attempts in {n} analysed conversation{'s' if n != 1 else ''} - little selling effort beyond what customers asked for.",
         )
     else:
         level = "high" if efforts >= 4.5 else "moderate" if efforts >= 2.5 else "low"
@@ -365,26 +575,29 @@ def assess(t: Bucket, series: list[Bucket]) -> Assessment:
             "low": "Low effort so far",
         }[level]
         summary = f"{label}: " + ", ".join(bits) + "."
-    trend: Trend | None = None
-    scored = [b.avg_effort for b in series if b.avg_effort is not None]
-    if len(scored) >= 2:
-        half = (
-            len(scored) // 2
-        )  # first half of the periods against the last half, so one odd day or week doesn't flip it
-        delta = sum(scored[-half:]) / half - sum(scored[:half]) / half
-        trend = "improving" if delta >= 0.5 else "declining" if delta <= -0.5 else "steady"
+    trend = _outcome_trend(series)
     if low_sample:
-        improvements.append(f"Only {n} conversation{'s' if n != 1 else ''} so far - treat this as a first impression.")
+        if n:
+            improvements.append(
+                f"Only {n} analysed conversation{'s' if n != 1 else ''} so far - treat this as a first impression."
+            )
+        else:
+            improvements.append(f"None of the {t.conversations} conversation(s) could be analysed yet.")
     return Assessment(
         rating=rating,
         headline=headline,
         low_sample=low_sample,
+        insufficient_data=insufficient,
         effort_level=level,
         effort_summary=summary,
         trend=trend,
         strengths=strengths,
         improvements=improvements,
     )
+
+
+def _all_statuses(storage: Storage) -> list[jobs.JobStatus]:
+    return jobs.list_statuses(storage, limit=10_000)
 
 
 def _completed_reports(storage: Storage) -> Iterator[tuple[jobs.JobStatus, dict]]:
@@ -399,7 +612,7 @@ def _completed_reports(storage: Storage) -> Iterator[tuple[jobs.JobStatus, dict]
     cache. If this ever runs against thousands of real recordings, memoize by job_id here
     instead of duplicating that fix in each caller.
     """
-    for status in jobs.list_statuses(storage, limit=10_000):
+    for status in _all_statuses(storage):
         if status.status != "completed":
             continue
         raw = storage.get_json(jobs.report_key(status.job_id))
@@ -409,23 +622,40 @@ def _completed_reports(storage: Storage) -> Iterator[tuple[jobs.JobStatus, dict]
 
 
 def _iter_person_labels(
-    report: JobReport, status: jobs.JobStatus, names: dict[str, str]
+    report: JobReport, status: jobs.JobStatus, identity: _Identity
 ) -> Iterator[tuple[ConversationResult, str, str | None]]:
     """Every sales conversation in one parsed report, crossed with every salesperson label in it:
     yields (conversation, label, resolved_name_or_None). The conversation/label walk shared by
-    build_dashboard and build_person_recordings, so they can't drift apart on *which* conversations
-    and labels count - only on what each caller does with the result.
+    build_dashboard, build_person_recordings and build_roster, so they can't drift apart on *which*
+    conversations and labels count - only on what each caller does with the result.
     """
     sales_people = sorted({sp for c in report.conversations if c.is_sales_interaction for sp in c.salespeople})
     for c in report.conversations:
         if not c.is_sales_interaction:
             continue
         for sp in c.salespeople:
-            yield c, sp, _resolve_name(names, status, sales_people, sp)
+            yield c, sp, identity.resolve(status, sales_people, sp)
 
 
-def build_dashboard(storage: Storage, period: Period = "day") -> Dashboard:
-    names = load_names(storage)
+def _speaker_lines(storage: Storage, job_id: str) -> dict[str, list[tuple[float, str]]]:
+    """speaker -> [(start, text)] from the job's stored transcript; {} if it is missing or unreadable."""
+    try:
+        raw = storage.get_json(jobs.transcript_key(job_id))
+        doc = raw.get("transcript", raw) if isinstance(raw, dict) else {}
+        out: dict[str, list[tuple[float, str]]] = {}
+        for seg in doc.get("segments") or []:
+            speaker, start = seg.get("speaker"), seg.get("start")
+            if isinstance(speaker, str) and isinstance(start, int | float):
+                out.setdefault(speaker, []).append((float(start), str(seg.get("text") or "").strip()))
+        return {k: sorted(v) for k, v in out.items()}
+    except Exception:  # noqa: BLE001 - a bad transcript must never break the dashboard
+        log.warning("dashboard: couldn't read transcript for job %s", job_id)
+        return {}
+
+
+def build_dashboard(storage: Storage, period: Period = "day", now: datetime | None = None) -> Dashboard:
+    identity = _Identity.load(storage, _all_statuses(storage))
+    current = period_label(now or datetime.now(UTC), period)
     per_person: dict[str, dict[str, _Acc]] = defaultdict(lambda: defaultdict(_Acc))
     # Flat per-name (not per-period-bucket): "recent" means the person's actual most recent
     # activity regardless of which Daily/Weekly/Monthly tab is selected. Scoping these to only
@@ -434,6 +664,8 @@ def build_dashboard(storage: Storage, period: Period = "day") -> Dashboard:
     coaching: dict[str, list[tuple[str, str]]] = defaultdict(list)
     calls: dict[str, list[RecentCall]] = defaultdict(list)
     unassigned: dict[tuple[str, str], Unassigned] = {}
+    tech_acc: dict[str, list[int]] = {}  # technique -> [attempts, accepted, rejected], all periods
+    tech_people: dict[str, set[str]] = {}
     counted = 0
     skipped = 0
 
@@ -446,22 +678,38 @@ def build_dashboard(storage: Storage, period: Period = "day") -> Dashboard:
         counted += 1
         when = datetime.fromisoformat(status.created_at)
         label = period_label(when, period)
-        for c, sp, name in _iter_person_labels(report, status, names):
+        lines: dict[str, list[tuple[float, str]]] | None = None  # read the transcript at most once per job
+        for c, sp, name in _iter_person_labels(report, status, identity):
             if not name:
                 key = (status.job_id, sp)
-                entry = unassigned.setdefault(
-                    key,
-                    Unassigned(
+                entry = unassigned.get(key)
+                if entry is None:
+                    if lines is None:
+                        lines = _speaker_lines(storage, status.job_id)
+                    info = next((s for s in report.speakers if s.speaker == sp), None)
+                    spoken = lines.get(sp, [])
+                    entry = unassigned[key] = Unassigned(
                         job_id=status.job_id,
                         speaker=sp,
                         filename=status.filename,
                         created_at=status.created_at,
                         conversations=0,
-                    ),
-                )
+                        title=info.title if info else None,
+                        talk_time_s=info.talk_time_s if info else 0.0,
+                        first_start_s=spoken[0][0] if spoken else None,
+                        sample_lines=[SampleLine(start=t, text=x[:140]) for t, x in spoken if x][:SAMPLE_LINES],
+                    )
                 entry.conversations += 1
                 continue
             per_person[name][label].add(status.job_id, c, sp)
+            for a in c.upsell.upsell_attempts if c.upsell else []:
+                if a.salesperson != sp:
+                    continue
+                tech = tech_acc.setdefault(a.technique, [0, 0, 0])
+                tech[0] += 1
+                tech[1] += a.customer_response == "accepted"
+                tech[2] += a.customer_response == "rejected"
+                tech_people.setdefault(a.technique, set()).add(name)
             o = call_outcome(c)
             mine = [p for p in o.pitched if p.salesperson == sp]
             calls[name].append(
@@ -483,7 +731,7 @@ def build_dashboard(storage: Storage, period: Period = "day") -> Dashboard:
     people = []
     for name, buckets in per_person.items():
         series = [buckets[lbl].bucket(lbl) for lbl in sorted(buckets)]
-        total = series[-1]  # the most recent period at this granularity: "today" / "this week" / "this month"
+        total = series[-1]  # the person's latest period at this granularity (see is_current)
         people.append(
             PersonSummary(
                 name=name,
@@ -492,16 +740,55 @@ def build_dashboard(storage: Storage, period: Period = "day") -> Dashboard:
                 assessment=assess(total, series),
                 recent_coaching=[t for _, t in sorted(coaching[name], reverse=True)[:3]],
                 recent_calls=sorted(calls[name], key=lambda x: (x.when, x.conversation_id), reverse=True)[:8],
+                is_current=total.period == current,
             )
         )
     people.sort(key=lambda p: (-p.total.conversations, p.name.lower()))
+    technique_stats = [
+        TechniqueStat(
+            technique=t,
+            attempts=n,
+            accepted=acc,
+            rejected=rej,
+            acceptance_rate=round(acc / (acc + rej), 3) if acc + rej else None,
+            people=len(tech_people[t]),
+        )
+        for t, (n, acc, rej) in tech_acc.items()
+    ]
+    technique_stats.sort(key=lambda s: (-s.attempts, s.technique))
     return Dashboard(
+        technique_stats=technique_stats,
         period=period,
         people=people,
         unassigned=sorted(unassigned.values(), key=lambda u: u.created_at, reverse=True),
+        unassigned_conversations=sum(u.conversations for u in unassigned.values()),
+        current_period=current,
         jobs_counted=counted,
         jobs_skipped=skipped,
     )
+
+
+def build_roster(storage: Storage) -> list[RosterEntry]:
+    """Every known employee (display names, merged duplicates folded together) with the number of
+    distinct completed recordings they appear in. Names that only exist as an upload hint or a
+    stored assignment are included, with 0 if no readable report mentions them yet."""
+    identity = _Identity.load(storage, _all_statuses(storage))
+    seen: dict[str, set[str]] = {}
+    for status, raw in _completed_reports(storage):
+        report = jobs.parse_report(raw)
+        if report is None:
+            continue
+        for _c, _sp, name in _iter_person_labels(report, status, identity):
+            if name:
+                seen.setdefault(name, set()).add(status.job_id)
+    names: dict[str, str] = {}  # casefolded -> display, after following merges
+    for shown in list(identity.display.values()):
+        canonical = identity.canon(shown)
+        names.setdefault(canonical.casefold(), canonical)
+    return [
+        RosterEntry(name=n, recordings=len(seen.get(n, ())))
+        for n in sorted(names.values(), key=lambda v: (v.casefold(), v))
+    ]
 
 
 def build_person_recordings(storage: Storage, name: str) -> list[RecordingSummary]:
@@ -509,7 +796,8 @@ def build_person_recordings(storage: Storage, name: str) -> list[RecordingSummar
     not capped, unlike `PersonSummary.recent_calls`, so a UI can let someone jump to any of their
     recordings rather than only the last 8 in the latest period.
     """
-    names = load_names(storage)
+    identity = _Identity.load(storage, _all_statuses(storage))
+    wanted = identity.canon(name).casefold()
     per_job: dict[str, _Acc] = {}
     meta: dict[str, tuple[str, str]] = {}  # job_id -> (filename, created_at)
 
@@ -517,8 +805,8 @@ def build_person_recordings(storage: Storage, name: str) -> list[RecordingSummar
         report = jobs.parse_report(raw)
         if report is None:
             continue
-        for c, sp, resolved in _iter_person_labels(report, status, names):
-            if resolved != name:
+        for c, sp, resolved in _iter_person_labels(report, status, identity):
+            if not wanted or not resolved or resolved.casefold() != wanted:
                 continue
             per_job.setdefault(status.job_id, _Acc()).add(status.job_id, c, sp)
             meta[status.job_id] = (status.filename, status.created_at)

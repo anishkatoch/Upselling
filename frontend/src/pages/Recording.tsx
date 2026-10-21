@@ -1,11 +1,9 @@
-import { useRef, useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import AudioPlayer from "../components/AudioPlayer";
+import { useState } from "react";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 import { AlertTriangle, ArrowLeft, Check } from "../icons/Icons";
 import { api, type Job, type Report, type Segment } from "../lib/api";
-import { clock, money, STEPS } from "../lib/format";
+import { clock, recordingTitle, STEPS } from "../lib/format";
 import { useLoad } from "../lib/hooks";
-import Calls from "./recording/Calls";
 import Conversations from "./recording/Conversations";
 import Evidence from "./recording/Evidence";
 import Outcomes from "./recording/Outcomes";
@@ -35,7 +33,7 @@ export default function Recording() {
         <ArrowLeft size={15} /> All recordings
       </Link>
       <div className="head" style={{ marginTop: 14 }}>
-        <h1 style={{ wordBreak: "break-word" }}>{job.filename}</h1>
+        <h1 style={{ wordBreak: "break-word" }}>{recordingTitle(job)}</h1>
       </div>
       {active(job) && <Progress job={job} onChange={reload} />}
       {job.status === "failed" && <Failed job={job} onChange={reload} />}
@@ -99,12 +97,25 @@ function Failed({ job, onChange, stopped }: { job: Job; onChange: () => void; st
   );
 }
 
-function speakerName(r: Report) {
+/** `employee` is the salesperson this recording was filed under (when exactly one person sells in it). */
+function speakerName(r: Report, employee?: string | null) {
   const count: Record<string, number> = {};
   r.speakers.forEach((s) => (count[s.role] = (count[s.role] ?? 0) + 1));
   const map = new Map<string, string>();
+  // Voices are labelled A, B, C by the transcription service in order of appearance. Show customers as
+  // "Customer 1, 2, 3" in that same order instead of exposing those letters.
+  const customerOrder = r.speakers.filter((s) => s.role === "customer").map((s) => s.speaker).sort();
   r.speakers.forEach((s) => {
-    const base = s.role === "salesperson" ? "Salesperson" : s.role === "customer" ? "Customer" : "Other person";
+    if (s.role === "customer") {
+      map.set(s.speaker, customerOrder.length > 1 ? `Customer ${customerOrder.indexOf(s.speaker) + 1}` : "Customer");
+      return;
+    }
+    const onlySeller = s.role === "salesperson" && count.salesperson === 1 && employee;
+    if (onlySeller) {
+      map.set(s.speaker, employee);
+      return;
+    }
+    const base = s.role === "salesperson" ? "Salesperson" : "Other person";
     map.set(s.speaker, count[s.role] > 1 ? `${base} ${s.speaker}` : base);
   });
   // Some analysis steps echo back a role-annotated label ("A (salesperson)") instead of the
@@ -115,7 +126,7 @@ function speakerName(r: Report) {
   };
 }
 
-const TABS = ["overview", "summary", "outcomes", "evidence", "conversations", "transcript", "calls"] as const;
+const TABS = ["overview", "summary", "outcomes", "evidence", "conversations", "transcript"] as const;
 type Tab = (typeof TABS)[number];
 
 function Results({ job }: { job: Job }) {
@@ -123,16 +134,20 @@ function Results({ job }: { job: Job }) {
   const outcomes = useLoad(() => api.outcomes(id), [id]);
   const report = useLoad(() => api.report(id), [id]);
   const transcript = useLoad(() => api.transcript(id), [id]);
-  const [tab, setTab] = useState<Tab>("overview");
-  const [scrollConv, setScrollConv] = useState<number | null>(null);
+  // Optional deep link, read once on load: ?tab=conversations&conv=<conversation_id>.
+  const [params] = useSearchParams();
+  const [initial] = useState(() => {
+    const t = params.get("tab");
+    const c = params.get("conv");
+    const tab = (TABS as readonly string[]).includes(t ?? "") ? (t as Tab) : null;
+    const conv = c !== null && /^\d{1,9}$/.test(c) ? Number(c) : null;
+    return { tab: tab ?? (conv !== null ? "conversations" : "overview"), conv };
+  });
+  const [tab, setTab] = useState<Tab>(initial.tab);
+  const [scrollConv, setScrollConv] = useState<number | null>(initial.tab === "conversations" ? initial.conv : null);
   const [scrollSeg, setScrollSeg] = useState<number | null>(null);
-  const audio = useRef<HTMLAudioElement>(null);
-
-  const seek = (t: number) => {
-    if (!audio.current) return;
-    audio.current.currentTime = Math.max(0, t - 1);
-    audio.current.play().catch(() => {});
-  };
+  // The POC shows transcripts and findings only; there is no audio playback, so times are just labels.
+  const seek = () => {};
 
   if (outcomes.error || report.error)
     return (
@@ -147,7 +162,7 @@ function Results({ job }: { job: Job }) {
   const segments: Segment[] = transcript.data?.transcript.segments ?? [];
   const segById = new Map(segments.map((s) => [s.id, s]));
   const evBy = evidenceIndex(r.evidence);
-  const who = speakerName(r);
+  const who = speakerName(r, job.salesperson_name);
   const sales = r.conversations.filter((c) => c.is_sales_interaction);
 
   const ctx: RecCtx = {
@@ -175,14 +190,13 @@ function Results({ job }: { job: Job }) {
     evidence: `Evidence (${r.evidence.length})`,
     conversations: `Conversations (${r.conversations.length})`,
     transcript: "Full transcript",
-    calls: "API calls",
   };
 
   return (
     <>
       <div className="card">
         <div className="row">
-          <h2 style={{ marginBottom: 0, flex: 1 }}>{r.source_filename}</h2>
+          <h2 style={{ marginBottom: 0, flex: 1 }}>Shift recording</h2>
           <span className="pill good">
             <Check size={12} /> completed
           </span>
@@ -197,26 +211,7 @@ function Results({ job }: { job: Job }) {
           <span className="chip">
             <b>{sales.length}</b> sales conversation{sales.length === 1 ? "" : "s"}
           </span>
-          <span className="chip" title="Transcription provider">
-            {r.transcription_provider}
-          </span>
-          <span
-            className="chip"
-            title={r.unpriced_calls ? `${r.unpriced_calls} call(s) have no confirmed price and aren't included` : "Estimated from priced model calls"}
-          >
-            est. spend <b>{money(r.spent_usd)}</b>
-            {r.unpriced_calls > 0 && " *"}
-            {r.budget_usd != null && ` of ${money(r.budget_usd)}`}
-          </span>
-          <a className="chip link" href={`/api/jobs/${id}/report`} target="_blank" rel="noreferrer">
-            JSON
-          </a>
         </div>
-      </div>
-
-      <div className="listen-bar">
-        <div className="listen-label">Listen to the recording</div>
-        <AudioPlayer ref={audio} src={`/api/jobs/${id}/audio`} />
       </div>
 
       <div className="tabs" style={{ flexWrap: "wrap" }}>
@@ -235,7 +230,6 @@ function Results({ job }: { job: Job }) {
         <Conversations ctx={ctx} scrollTo={scrollConv} onScrolled={() => setScrollConv(null)} />
       )}
       {tab === "transcript" && <TranscriptTab ctx={ctx} scrollTo={scrollSeg} onScrolled={() => setScrollSeg(null)} />}
-      {tab === "calls" && <Calls ctx={ctx} />}
     </>
   );
 }

@@ -1,0 +1,17 @@
+{
+  "job_id": "0c1d9d135a4c4eb7b2b7ccc222b3fe4c",
+  "status": "completed",
+  "stage": "done",
+  "progress": 1.0,
+  "error": null,
+  "filename": "2026-09-29_vikram_floor_session.mp3",
+  "input_key": "jobs/0c1d9d135a4c4eb7b2b7ccc222b3fe4c/input/2026-09-29_vikram_floor_session.mp3",
+  "industry": "electronics retail",
+  "product_catalog": null,
+  "salesperson_name": "Vikram Singh",
+  "created_at": "2026-09-29T10:30:00+00:00",
+  "updated_at": "2026-10-21T01:24:04+00:00",
+  "spent_usd": 0.26208,
+  "budget_usd": 4.0,
+  "cancel_requested": false
+}

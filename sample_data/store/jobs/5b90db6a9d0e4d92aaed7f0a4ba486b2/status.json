@@ -1,0 +1,17 @@
+{
+  "job_id": "5b90db6a9d0e4d92aaed7f0a4ba486b2",
+  "status": "completed",
+  "stage": "done",
+  "progress": 1.0,
+  "error": null,
+  "filename": "2026-10-20_rahul_floor_session.mp3",
+  "input_key": "jobs/5b90db6a9d0e4d92aaed7f0a4ba486b2/input/2026-10-20_rahul_floor_session.mp3",
+  "industry": "electronics retail",
+  "product_catalog": null,
+  "salesperson_name": "Rahul Verma",
+  "created_at": "2026-10-20T10:30:00+00:00",
+  "updated_at": "2026-10-21T01:25:03+00:00",
+  "spent_usd": 0.30368,
+  "budget_usd": 4.0,
+  "cancel_requested": false
+}

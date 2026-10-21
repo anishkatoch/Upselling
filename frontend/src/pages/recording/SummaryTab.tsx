@@ -23,7 +23,7 @@ export default function SummaryTab({ ctx }: { ctx: RecCtx }) {
   }
   sales.forEach((c) => {
     const t = `#${c.conversation_id} ${c.topic}`;
-    if (c.budget_note) notes.push({ sev: "warn", title: "Analysis stopped early", conv: c.conversation_id, text: `${t}: ${c.budget_note}` });
+    if (c.budget_note) notes.push({ sev: "warn", title: "Analysis incomplete", conv: c.conversation_id, text: `${t}: this conversation could not be fully analysed, so upsell findings are missing.` });
     if (c.upsell?.pushy_upsell) notes.push({ sev: "bad", title: "Pushy upselling", conv: c.conversation_id, text: `${t}: ${c.upsell.pushy_reason}` });
     (c.upsell?.unanswered_questions ?? []).forEach((q) =>
       notes.push({ sev: "warn", title: `Unanswered question from ${who(q.speaker)}`, conv: c.conversation_id, text: `${t}: "${q.question}"` }),
@@ -101,7 +101,7 @@ export default function SummaryTab({ ctx }: { ctx: RecCtx }) {
           const text =
             c.upsell?.summary ??
             (c.budget_note
-              ? "Mood was assessed, but analysis stopped before upsell detection - see Points to note above."
+              ? "Mood was assessed, but the upsell analysis is incomplete - see Points to note above."
               : c.is_sales_interaction
                 ? "No upsell activity to report."
                 : "Not a sales interaction.");

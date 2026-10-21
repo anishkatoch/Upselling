@@ -42,7 +42,7 @@ Each stage's result is saved under `cache/<audio sha256>/`, so a failed job resu
 
 ```
 src/upsell_poc/
-  api/main.py            FastAPI app (+ static/index.html upload & report page)
+  api/main.py            FastAPI app (+ the built React dashboard in static/)
   worker.py              RQ worker entry point
   cli.py                 `upsell-poc analyze <file>`
   pipeline.py            stage orchestration + checkpoints
@@ -67,6 +67,12 @@ uv run uvicorn upsell_poc.api.main:app --reload
 # open http://localhost:8000
 ```
 
+The app has no upload flow in the UI. It ships with analysed sample recordings in
+`sample_data/` (`audio/` = the recordings, `store/` = the app's storage with reports and
+transcripts) and reads them by default. To use other data, point `LOCAL_STORAGE_DIR` at
+another storage directory. To rebuild the sample data (needs `OPENAI_API_KEY` and the
+provider access above): `uv run python scripts/build_sample_data.py`.
+
 Or analyze a file from the command line:
 
 ```bash
@@ -76,19 +82,21 @@ uv run upsell-poc analyze recording.mp4 --industry "electronics retail" --out re
 ### With Docker (API + worker + Redis, like AWS)
 
 ```bash
-docker compose up --build        # http://localhost:8000
+docker compose up --build        # http://localhost:8000 (mounts sample_data/store)
 ```
 
 ## API
 
 | Method | Path | Description |
 |---|---|---|
-| POST | `/api/jobs` | multipart: `file`, optional `industry`, `product_catalog` → `202` with job status |
+| POST | `/api/jobs` | multipart: `file`, optional `industry`, `product_catalog` → `202` with job status (not used by the UI; kept for a future ingestion pipeline) |
 | GET | `/api/jobs/{id}` | status, stage, progress, error |
-| GET | `/api/jobs/{id}/report` | full report (conversations, upsell attempts, mood, metrics, API call log) |
-| GET | `/api/jobs/{id}/transcript` | speaker-labelled transcript, roles, voice measurements |
+| GET | `/api/jobs/{id}/report` | full report (conversations, upsell attempts, mood, metrics) |
+| GET | `/api/jobs/{id}/transcript` | speaker-labelled transcript |
 | POST | `/api/jobs/{id}/retry` | re-run a failed job (finished stages come from checkpoints) |
 | GET | `/health` | health check |
+
+Responses omit internals (spend, per-call logs, provider/model names); those stay in the stored files.
 
 ## Tests and quality
 

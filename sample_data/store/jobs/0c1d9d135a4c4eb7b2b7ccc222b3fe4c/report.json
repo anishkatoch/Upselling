@@ -1,0 +1,683 @@
+{
+  "job_id": "0c1d9d135a4c4eb7b2b7ccc222b3fe4c",
+  "source_filename": "2026-09-29_vikram_floor_session.mp3",
+  "duration_s": 300.4,
+  "transcription_provider": "openai:gpt-4o-transcribe-diarize",
+  "speakers": [
+    {
+      "speaker": "A",
+      "role": "salesperson",
+      "title": "Electronics store salesperson",
+      "talk_time_s": 178.4
+    },
+    {
+      "speaker": "C",
+      "role": "customer",
+      "title": "Phone charging cable buyer",
+      "talk_time_s": 39.6
+    },
+    {
+      "speaker": "B",
+      "role": "customer",
+      "title": "Laptop mouse buyer",
+      "talk_time_s": 20.1
+    }
+  ],
+  "has_sales_activity": true,
+  "conversations": [
+    {
+      "conversation_id": 1,
+      "start": 0.0,
+      "end": 70.52799999999999,
+      "topic": "Wired mouse purchase",
+      "language": "english",
+      "is_sales_interaction": true,
+      "salespeople": [
+        "A"
+      ],
+      "customers": [
+        "B"
+      ],
+      "mood": {
+        "speakers": [
+          {
+            "speaker": "A",
+            "overall_mood": "calm",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Polite, composed, and helpful throughout, answering compatibility questions and demonstrating the mouse without signs of irritation."
+          },
+          {
+            "speaker": "B",
+            "overall_mood": "neutral",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Straightforward and cooperative throughout. Compatibility questions and the request to test the mouse are routine checks, not signs of frustration. Accepts the product, completes payment, and ends politely."
+          }
+        ],
+        "frustration_moments": []
+      },
+      "upsell": {
+        "customer_requested": [
+          "A basic wired mouse for a laptop under five hundred rupees, with a regular USB connector.",
+          "Confirmation that it works with Windows eleven.",
+          "A functionality check before purchase."
+        ],
+        "upsell_attempts": [],
+        "excluded_candidates": [
+          "This one is three hundred ninety nine rupees, wired, with the regular usb connector. -> Recommends the requested basic wired mouse within the customer's budget, not an upgrade or add-on.",
+          "Yes, sir; just plug it in-no separate installation needed. -> Answers the customer's Windows eleven compatibility question.",
+          "Yes, I'll connect it to our laptop here-see, the pointer is moving-and both buttons and the scroll wheel are working. -> Performs the functionality check the customer requested."
+        ],
+        "pushy_upsell": false,
+        "pushy_reason": "The salesperson offered only the requested mouse and made no additional purchase suggestions.",
+        "confidence": 1.0,
+        "summary": "The salesperson sold a three hundred ninety nine rupee wired mouse within the customer's budget, confirmed compatibility, and demonstrated its operation. The customer accepted and paid by UPI; no upsell was attempted.",
+        "greeting_given": true,
+        "greeting_quote": "Hello, sir; what are you looking for?",
+        "greeting_segment_id": 0,
+        "products_discussed": [
+          "wired mouse"
+        ],
+        "customer_feedback": null,
+        "customer_feedback_segment_id": null,
+        "unanswered_questions": [],
+        "coaching_feedback": "You matched the customer's request for a simple mouse under five hundred rupees and addressed both compatibility and testing, demonstrating the pointer, buttons, and scroll wheel before purchase. At handover, briefly explain any applicable warranty or return terms so the customer knows what to do if a problem arises."
+      },
+      "attempted_upsell": false,
+      "effort_score": 0.0,
+      "analyzed_by": "openai:gpt-6.1-sol",
+      "escalated": false,
+      "budget_note": null
+    },
+    {
+      "conversation_id": 2,
+      "start": 79.508,
+      "end": 183.032,
+      "topic": "Budget smartphone purchase",
+      "language": "hindi",
+      "is_sales_interaction": true,
+      "salespeople": [
+        "A"
+      ],
+      "customers": [
+        "A"
+      ],
+      "mood": {
+        "speakers": [
+          {
+            "speaker": "A (salesperson)",
+            "overall_mood": "calm",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Politely explains the options, invites hands-on comparison, and handles billing. The delivery remains steady and relaxed, with no signs of frustration."
+          },
+          {
+            "speaker": "Customer (Amit Sharma; also labelled A in the transcript)",
+            "overall_mood": "calm",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "The diarization merges the customer's turns with the salesperson's. The customer asks ordinary comparison questions, checks battery capacity, chooses a phone, and offers UPI payment without impatience or dissatisfaction. Asking for another option is routine shopping, not frustration."
+          }
+        ],
+        "frustration_moments": []
+      },
+      "upsell": {
+        "customer_requested": [
+          "A phone under ₹15,000 for everyday use, prioritizing battery life for WhatsApp, videos, and occasional photos.",
+          "Another phone option within the same budget and clarification about its battery capacity.",
+          "A hands-on comparison of both phones.",
+          "The second model in blue, billed to Amit Sharma, with payment by UPI."
+        ],
+        "upsell_attempts": [],
+        "excluded_candidates": [
+          "ये वाला देखिये तेरा हजार नौ सौ निन्यानवे का है पाँच हजार की बैटरी है छ जीबी रैम और एक सो अठाइस जीबी स्टोरेज -> The salesperson presented the requested main product within the customer's budget.",
+          "हाँ जी ये दूसरा मॉडल है इसका भी वही दाम है रैम और स्टोरेज बराबर है बस स्क्रीन थोड़ी छोटी है और हाथ में हलका लगता है -> The customer requested another option; this alternative cost the same and was not an upgrade.",
+          "इसमें भी पाँच हजार की है, आपके बताए इस्तेमाल में दोनों की बैटरी करीब एक जैसी चलेगी. -> This directly answered the customer's battery comparison question.",
+          "बिलकुल, ये लीजिए, दोनों चालू हैं, स्क्रीन भी इस्तेमाल करके देख लीजिए. -> This fulfilled the customer's request to handle both phones, without suggesting an additional purchase."
+        ],
+        "pushy_upsell": false,
+        "pushy_reason": "No additional purchase was suggested. The request for another same-budget phone was routine comparison shopping, not rejection of an upsell.",
+        "confidence": 0.59,
+        "summary": "No upsell was attempted. The salesperson compared two ₹13,999 phones, answered the battery question, allowed hands-on testing, and prepared billing for the blue second model. Confidence is limited because both participants' speech is merged under the same speaker label.",
+        "greeting_given": false,
+        "greeting_quote": null,
+        "greeting_segment_id": null,
+        "products_discussed": [
+          "फोन — छ जीबी रैम, एक सो अठाइस जीबी स्टोरेज, पाँच हजार की बैटरी",
+          "दूसरा मॉडल — छोटी स्क्रीन, हलका, नीला रंग"
+        ],
+        "customer_feedback": null,
+        "customer_feedback_segment_id": null,
+        "unanswered_questions": [],
+        "coaching_feedback": "You addressed the battery-first requirement by explaining that both phones had “पाँच हजार” batteries and letting the customer handle both before choosing. After the customer said “YAHEEN NEELA RANG MEIN DE DO,” a useful next step would be one optional screen-protector offer with its separate price, without delaying billing or pushing if declined."
+      },
+      "attempted_upsell": false,
+      "effort_score": 0.0,
+      "analyzed_by": "openai:gpt-6.1-sol",
+      "escalated": false,
+      "budget_note": null
+    },
+    {
+      "conversation_id": 3,
+      "start": 190.332,
+      "end": 224.608,
+      "topic": "Rain and parking small talk",
+      "language": "hindi",
+      "is_sales_interaction": false,
+      "salespeople": [
+        "A"
+      ],
+      "customers": [
+        "C"
+      ],
+      "mood": {
+        "speakers": [
+          {
+            "speaker": "A",
+            "overall_mood": "calm",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Calm, friendly, and considerate, acknowledging the rain and offering a seat away from the direct AC. No signs of frustration."
+          },
+          {
+            "speaker": "C",
+            "overall_mood": "neutral",
+            "frustration_level": 3,
+            "trend": "improving",
+            "summary": "Shows mild, situational frustration about the rain-related travel delay, then shifts to a matter-of-fact, mildly resigned tone about parking and leaving the umbrella in the car. No frustration directed at the salesperson."
+          }
+        ],
+        "frustration_moments": [
+          {
+            "segment_id": 24,
+            "speaker": "C",
+            "quote": "हाँ, थोड़ी हलकी हुई है; सिगनल से यहां तक आने में ही पन्द्रह मिनट लग गए।",
+            "evidence_source": "both",
+            "evidence": "The complaint about taking fifteen minutes just to get from the signal indicates mild situational frustration. The voice label reports a slightly strained, exasperated delivery; acoustics do not suggest strong agitation."
+          }
+        ]
+      },
+      "upsell": null,
+      "attempted_upsell": false,
+      "effort_score": 0.0,
+      "analyzed_by": null,
+      "escalated": false,
+      "budget_note": null
+    },
+    {
+      "conversation_id": 4,
+      "start": 224.90800000000002,
+      "end": 291.82800000000003,
+      "topic": "USB charging cable purchase",
+      "language": "hindi",
+      "is_sales_interaction": true,
+      "salespeople": [
+        "A"
+      ],
+      "customers": [
+        "C"
+      ],
+      "mood": {
+        "speakers": [
+          {
+            "speaker": "C",
+            "overall_mood": "neutral",
+            "frustration_level": 0,
+            "trend": "improving",
+            "summary": "Straightforward and cooperative throughout. Declines the extra adapter politely, without impatience, and ends with a pleasant thank-you."
+          },
+          {
+            "speaker": "A",
+            "overall_mood": "calm",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Calm and helpful while clarifying requirements, suggesting an adapter, and processing payment. Accepts the customer's refusal without pressure; isolated elevated loudness does not indicate frustration."
+          }
+        ],
+        "frustration_moments": []
+      },
+      "upsell": {
+        "customer_requested": [
+          "A one-meter USB-A to Type-C charging cable for under ₹300.",
+          "Bill only the cable and accept UPI payment."
+        ],
+        "upsell_attempts": [
+          {
+            "salesperson": "A",
+            "segment_id": 35,
+            "quote": "इसके साथ एक एक्स्ट्रा यूएसबी चार्जर अडाप्टर भी ले लेंगे, चार सौउन्नानवे का है, आफिस में रखने के काम आ जाएगा।",
+            "technique": "cross_sell",
+            "offered_item": "Extra USB charger adapter for ₹499",
+            "salesperson_initiated": true,
+            "after_customer_rejection": false,
+            "handled_objection": false,
+            "customer_response": "rejected",
+            "customer_mood": "neutral"
+          }
+        ],
+        "excluded_candidates": [
+          "ये यूएसबी ए टाइप सी है. एक मेत्र, -> Shows the cable matching the customer's requested connectors and length, not an add-on or upgrade.",
+          "दो सौउंचास की पड़ेगी। -> Gives the requested cable's price within the customer's budget, not an upsell."
+        ],
+        "pushy_upsell": false,
+        "pushy_reason": "After the customer declined the adapter and requested only the cable, A immediately confirmed “जी सिर्फ केबल” and proceeded with payment.",
+        "confidence": 0.99,
+        "summary": "A made one proactive cross-sell attempt, offering an extra USB charger adapter for office use. The customer politely declined because they already had an adapter, and A completed the cable-only purchase without further pressure.",
+        "greeting_given": false,
+        "greeting_quote": null,
+        "greeting_segment_id": null,
+        "products_discussed": [
+          "यूएसबी ए टाइप सी केबल",
+          "यूएसबी चार्जर अडाप्टर"
+        ],
+        "customer_feedback": "The customer politely pushed back: “एडाप्टर है मेरे पास। सिर्फ केबल का बिल कर दो,” without expressing frustration.",
+        "customer_feedback_segment_id": 36,
+        "unanswered_questions": [],
+        "coaching_feedback": "You clarified both connector types, offered a cable within the ₹300 budget, and respected “सिर्फ केबल” by moving straight to QR payment after the adapter refusal. Next time, check whether the customer needs a spare adapter before pitching one, since they had already described an existing USB charger."
+      },
+      "attempted_upsell": true,
+      "effort_score": 2.2,
+      "analyzed_by": "openai:gpt-6.1-sol",
+      "escalated": false,
+      "budget_note": null
+    }
+  ],
+  "salespeople": [
+    {
+      "speaker": "A",
+      "conversations": 3,
+      "conversations_with_upsell": 1,
+      "upsell_rate": 0.333,
+      "attempts_total": 1,
+      "attempts_per_conversation": 0.33,
+      "avg_effort_score": 0.7,
+      "upsell_talk_time_share": 0.061,
+      "acceptance_rate": 0.0,
+      "pushy_conversations": 0,
+      "techniques_used": [
+        "cross_sell"
+      ]
+    }
+  ],
+  "calls": [
+    {
+      "step": "transcription",
+      "provider": "openai:gpt-4o-transcribe-diarize",
+      "model": "gpt-4o-transcribe-diarize",
+      "ok": true,
+      "latency_s": 102.641,
+      "input_tokens": null,
+      "output_tokens": null,
+      "cost_usd": null,
+      "error": null,
+      "fallback_index": 0
+    },
+    {
+      "step": "role_detection",
+      "provider": "openai:gpt-6.1-sol",
+      "model": "gpt-6.1-sol",
+      "ok": true,
+      "latency_s": 5.718,
+      "input_tokens": 2125,
+      "output_tokens": 163,
+      "cost_usd": null,
+      "error": null,
+      "fallback_index": 0
+    },
+    {
+      "step": "conversation_splitting",
+      "provider": "openai:gpt-6.1-sol",
+      "model": "gpt-6.1-sol",
+      "ok": true,
+      "latency_s": 11.531,
+      "input_tokens": 1910,
+      "output_tokens": 424,
+      "cost_usd": null,
+      "error": null,
+      "fallback_index": 0
+    },
+    {
+      "step": "tone",
+      "provider": "openai:gpt-audio-1.5",
+      "model": "gpt-audio-1.5",
+      "ok": true,
+      "latency_s": 3.796,
+      "input_tokens": 760,
+      "output_tokens": 267,
+      "cost_usd": 0.041408,
+      "error": null,
+      "fallback_index": 0
+    },
+    {
+      "step": "tone",
+      "provider": "openai:gpt-audio-1.5",
+      "model": "gpt-audio-1.5",
+      "ok": true,
+      "latency_s": 5.218,
+      "input_tokens": 1708,
+      "output_tokens": 382,
+      "cost_usd": 0.079104,
+      "error": null,
+      "fallback_index": 0
+    },
+    {
+      "step": "tone",
+      "provider": "openai:gpt-audio-1.5",
+      "model": "gpt-audio-1.5",
+      "ok": true,
+      "latency_s": 5.437,
+      "input_tokens": 1283,
+      "output_tokens": 435,
+      "cost_usd": 0.068896,
+      "error": null,
+      "fallback_index": 0
+    },
+    {
+      "step": "tone",
+      "provider": "openai:gpt-audio-1.5",
+      "model": "gpt-audio-1.5",
+      "ok": true,
+      "latency_s": 6.265,
+      "input_tokens": 1247,
+      "output_tokens": 512,
+      "cost_usd": 0.072672,
+      "error": null,
+      "fallback_index": 0
+    },
+    {
+      "step": "mood_fusion",
+      "provider": "openai:gpt-6.1-sol",
+      "model": "gpt-6.1-sol",
+      "ok": true,
+      "latency_s": 5.687,
+      "input_tokens": 1630,
+      "output_tokens": 170,
+      "cost_usd": null,
+      "error": null,
+      "fallback_index": 0
+    },
+    {
+      "step": "mood_fusion",
+      "provider": "openai:gpt-6.1-sol",
+      "model": "gpt-6.1-sol",
+      "ok": true,
+      "latency_s": 7.641,
+      "input_tokens": 1155,
+      "output_tokens": 290,
+      "cost_usd": null,
+      "error": null,
+      "fallback_index": 0
+    },
+    {
+      "step": "mood_fusion",
+      "provider": "openai:gpt-6.1-sol",
+      "model": "gpt-6.1-sol",
+      "ok": true,
+      "latency_s": 5.875,
+      "input_tokens": 1475,
+      "output_tokens": 174,
+      "cost_usd": null,
+      "error": null,
+      "fallback_index": 0
+    },
+    {
+      "step": "mood_fusion",
+      "provider": "openai:gpt-6.1-sol",
+      "model": "gpt-6.1-sol",
+      "ok": true,
+      "latency_s": 9.187,
+      "input_tokens": 1530,
+      "output_tokens": 261,
+      "cost_usd": null,
+      "error": null,
+      "fallback_index": 0
+    },
+    {
+      "step": "upsell_detection",
+      "provider": "openai:gpt-6.1-sol",
+      "model": "gpt-6.1-sol",
+      "ok": true,
+      "latency_s": 17.25,
+      "input_tokens": 2533,
+      "output_tokens": 612,
+      "cost_usd": null,
+      "error": null,
+      "fallback_index": 0
+    },
+    {
+      "step": "upsell_detection",
+      "provider": "openai:gpt-6.1-sol",
+      "model": "gpt-6.1-sol",
+      "ok": true,
+      "latency_s": 27.531,
+      "input_tokens": 2524,
+      "output_tokens": 1057,
+      "cost_usd": null,
+      "error": null,
+      "fallback_index": 0
+    },
+    {
+      "step": "upsell_detection",
+      "provider": "openai:gpt-6.1-sol",
+      "model": "gpt-6.1-sol",
+      "ok": true,
+      "latency_s": 40.547,
+      "input_tokens": 2654,
+      "output_tokens": 1492,
+      "cost_usd": null,
+      "error": null,
+      "fallback_index": 0
+    },
+    {
+      "step": "upsell_detection",
+      "provider": "bedrock:anthropic.claude-opus-5-5@us-east-1",
+      "model": "anthropic.claude-opus-5-5",
+      "ok": false,
+      "latency_s": 0.047,
+      "input_tokens": null,
+      "output_tokens": null,
+      "cost_usd": null,
+      "error": "unexpected RuntimeError: Could not resolve AWS credentials from session",
+      "fallback_index": 0
+    }
+  ],
+  "evidence": [
+    {
+      "kind": "greeting",
+      "conversation_id": 1,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 0,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 0,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 0.0,
+          "end": 3.05,
+          "text": "Hello, sir; what are you looking for?",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 1,
+          "speaker": "B",
+          "role": "customer",
+          "start": 4.7,
+          "end": 9.350000000000001,
+          "text": "I need a basic wired mouse for my laptop-something under five hundred rupees.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 2,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 10.55,
+          "end": 15.95,
+          "text": "Sure; your laptop has the regular usb port, or only type c?",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "frustration",
+      "conversation_id": 3,
+      "index": 0,
+      "speaker": "C",
+      "segment_id": 24,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 23,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 190.332,
+          "end": 194.982,
+          "text": "नमस्ते भाया, बाहर अभी भी बारिश हो रही है",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 24,
+          "speaker": "C",
+          "role": "customer",
+          "start": 195.93200000000002,
+          "end": 203.132,
+          "text": "हाँ, थोड़ी हलकी हुई है; सिगनल से यहां तक आने में ही पन्द्रह मिनट लग गए।",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 25,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 205.258,
+          "end": 210.308,
+          "text": "हाँ, उस सिग्नल पे पानी भढ जाता है; पारकिंग मिल गई ठीक से।",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 26,
+          "speaker": "C",
+          "role": "customer",
+          "start": 211.058,
+          "end": 216.758,
+          "text": "मिल गई, बस थोड़ा दूर लगानी पड़ी छाता भी गारी में ही रह गया।",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "upsell_attempt",
+      "conversation_id": 4,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 35,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 33,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 255.146,
+          "end": 257.39599999999996,
+          "text": "दो सौउंचास की पड़ेगी।",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 34,
+          "speaker": "C",
+          "role": "customer",
+          "start": 257.996,
+          "end": 260.296,
+          "text": "हाँ, यही दे दीजिये।",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 35,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 261.096,
+          "end": 270.996,
+          "text": "इसके साथ एक एक्स्ट्रा यूएसबी चार्जर अडाप्टर भी ले लेंगे, चार सौउन्नानवे का है, आफिस में रखने के काम आ जाएगा।",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 36,
+          "speaker": "C",
+          "role": "customer",
+          "start": 271.39599999999996,
+          "end": 278.19599999999997,
+          "text": "नहीं, एडाप्टर है मेरे पास। सिर्फ केबल का बिल कर दो, युपी आई करूंगा।",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 37,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 279.028,
+          "end": 287.228,
+          "text": "जी सिर्फ केबल। ये क्यू आर स्कैन कर लीजिए, दो सौ उन चास बिल बैकेट में रख दिया है।",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "customer_feedback",
+      "conversation_id": 4,
+      "index": 0,
+      "speaker": "C",
+      "segment_id": 36,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 34,
+          "speaker": "C",
+          "role": "customer",
+          "start": 257.996,
+          "end": 260.296,
+          "text": "हाँ, यही दे दीजिये।",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 35,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 261.096,
+          "end": 270.996,
+          "text": "इसके साथ एक एक्स्ट्रा यूएसबी चार्जर अडाप्टर भी ले लेंगे, चार सौउन्नानवे का है, आफिस में रखने के काम आ जाएगा।",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 36,
+          "speaker": "C",
+          "role": "customer",
+          "start": 271.39599999999996,
+          "end": 278.19599999999997,
+          "text": "नहीं, एडाप्टर है मेरे पास। सिर्फ केबल का बिल कर दो, युपी आई करूंगा।",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 37,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 279.028,
+          "end": 287.228,
+          "text": "जी सिर्फ केबल। ये क्यू आर स्कैन कर लीजिए, दो सौ उन चास बिल बैकेट में रख दिया है।",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 38,
+          "speaker": "C",
+          "role": "customer",
+          "start": 288.12800000000004,
+          "end": 291.82800000000003,
+          "text": "हो गया पेमेंट। ठीक है, थैंक यू भईया।",
+          "is_highlighted": false
+        }
+      ]
+    }
+  ],
+  "spent_usd": 0.26208,
+  "budget_usd": 4.0,
+  "unpriced_calls": 10
+}

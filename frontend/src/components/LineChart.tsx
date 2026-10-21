@@ -44,15 +44,15 @@ export default function LineChart<T>({
     <>
       <svg viewBox="0 0 100 100" preserveAspectRatio="none">
         {!compact && ticks.map((t) => (
-          <line key={t} x1="0" x2="100" y1={y(t)} y2={y(t)} stroke="var(--line-soft)" strokeWidth={1} vectorEffect="non-scaling-stroke" />
+          <line key={t} x1="0" x2="100" y1={y(t)} y2={y(t)} stroke="var(--line)" strokeWidth={1} strokeDasharray="1 3" vectorEffect="non-scaling-stroke" />
         ))}
-        {areaPath && <path d={areaPath} fill="var(--accent-soft)" stroke="none" />}
+        {areaPath && <path d={areaPath} fill="var(--accent)" fillOpacity={0.08} stroke="none" />}
         {linePath && (
           <path
             d={linePath}
             fill="none"
             stroke="var(--accent)"
-            strokeWidth={compact ? 2.5 : 2}
+            strokeWidth={compact ? 1.5 : 1.75}
             strokeLinecap="round"
             strokeLinejoin="round"
             vectorEffect="non-scaling-stroke"
@@ -76,6 +76,15 @@ export default function LineChart<T>({
 
   // Show at most ~6 x labels so they never collide; always keep the first and last.
   const step = Math.max(1, Math.ceil(points.length / 6));
+  const shown = new Set<number>();
+  for (let i = 0; i < points.length; i += step) shown.add(i);
+  const last = points.length - 1;
+  if (last >= 0 && !shown.has(last)) {
+    // Keep the last label, and drop the one before it if it would sit on top of it.
+    const prev = Math.max(...shown);
+    if (last - prev < step) shown.delete(prev);
+    shown.add(last);
+  }
   return (
     <div className="chart-axes">
       {yTitle && <div className="chart-ytitle">{yTitle}</div>}
@@ -87,9 +96,7 @@ export default function LineChart<T>({
       <div className="linechart">{svg}</div>
       <div className="chart-xlabels">
         {points.map((p, i) =>
-          i % step === 0 || i === points.length - 1 ? (
-            <span key={p.x} style={{ left: `${p.x}%` }}>{p.label}</span>
-          ) : null,
+          shown.has(i) ? <span key={p.x} style={{ left: `${p.x}%` }}>{p.label}</span> : null,
         )}
       </div>
       {xTitle && <div className="chart-xtitle">{xTitle}</div>}

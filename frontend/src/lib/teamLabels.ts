@@ -1,10 +1,10 @@
 import type { EffortLevel, Person } from "./api";
-import type { Period } from "./demo";
+import type { Period } from "./period";
 
 export const RATING: Record<Person["assessment"]["rating"], { label: string; tone: "good" | "accent" | "bad" }> = {
-  strong: { label: "Strong", tone: "good" },
-  solid: { label: "Solid", tone: "accent" },
-  needs_work: { label: "Needs coaching", tone: "bad" },
+  strong: { label: "Excelling", tone: "good" },
+  solid: { label: "On track", tone: "accent" },
+  needs_work: { label: "Needs support", tone: "bad" },
 };
 export const EFFORT: Record<EffortLevel, { label: string; short: string; tone: "good" | "warn" | "bad" }> = {
   high: { label: "High effort", short: "High", tone: "good" },

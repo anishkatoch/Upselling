@@ -1,6 +1,6 @@
 """System prompts. Bump PROMPT_VERSION on any change so cached stage results refresh."""
 
-PROMPT_VERSION = "2026-10-14.3"
+PROMPT_VERSION = "2026-10-21.1"
 
 _TRANSCRIPT_NOTE = """\
 Transcript lines look like: [#<segment_id> <start>-<end> <speaker>] <text>
@@ -125,7 +125,9 @@ if none.
 THIS conversation - what they did well and the single most useful thing to change next time. \
 Point to concrete moments (a specific line, a missed objection, an unanswered question, a \
 good recovery), not generic sales advice. Give this even when the call went well - say what \
-worked and why."""
+worked and why. In coaching_feedback, summary and every other free-text field, describe a \
+moment by what was said or done (quote a few words) - NEVER by segment number or a "#12"-style \
+reference: the manager reading it cannot see those numbers."""
 
 MOOD_FUSION = f"""\
 You assess the mood of each speaker in one sales conversation, focusing on customer \

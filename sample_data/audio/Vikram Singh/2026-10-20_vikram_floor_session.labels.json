@@ -1,0 +1,356 @@
+{
+  "employee": "Vikram Singh",
+  "date": "2026-10-20",
+  "encounters": [
+    {
+      "industry": "electronics retail",
+      "language": "hindi",
+      "scenario": "ग्राहक यूएसबी वाला तार का माउस खरीदने आता है। विक्रेता केवल माँगा गया सामान देता है और कोई अतिरिक्त वस्तु या सेवा नहीं सुझाता।",
+      "turns": [
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "जी, बताइए, क्या चाहिए?",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "लैपटॉप के लिए तार वाला यूएसबी माउस चाहिए, साधारण सा।",
+          "emotion": "neutral",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "जी, ये वाला है। दो बटन हैं और बीच में स्क्रॉल व्हील है।",
+          "emotion": "neutral",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "कितने का है?",
+          "emotion": "neutral",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "तीन सौ निन्यानवे रुपये का है, टैक्स मिलाकर।",
+          "emotion": "neutral",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "ठीक है। एक बार चलाकर दिखा देंगे?",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "हाँ जी, इस लैपटॉप में लगा देता हूँ। लीजिए, आप क्लिक और स्क्रॉल करके देख लें।",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "हाँ, सही चल रहा है। यही दे दीजिए।",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "जी, इसी को वापस डिब्बे में रख देता हूँ। बिल किस नाम से बनाऊँ?",
+          "emotion": "neutral",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "अमित कुमार के नाम से। भुगतान यूपीआई से कर दूँ?",
+          "emotion": "neutral",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "जी, सामने वाला क्यूआर स्कैन कर लीजिए। तीन सौ निन्यानवे रुपये।",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "कर दिया, ये देखिए।",
+          "emotion": "neutral",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "जी, भुगतान आ गया। ये आपका माउस और बिल।",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "ठीक है, धन्यवाद।",
+          "emotion": "happy",
+          "is_upsell_attempt": false,
+          "technique": null
+        }
+      ],
+      "expected_attempted_upsell": false,
+      "expected_attempts": 0,
+      "notes": "विक्रेता केवल माँगा गया माउस दिखाता है, ग्राहक के अनुरोध पर उसे जाँचने देता है और भुगतान लेकर बिल देता है। कोई अतिरिक्त सामान, महँगा विकल्प या सशुल्क सेवा पेश नहीं की जाती।"
+    },
+    {
+      "industry": "electronics retail",
+      "language": "english",
+      "scenario": "A customer shopping for a phone asks, 'Anything else good?' The salesperson shows another option within the original requirements without proactively offering extras or an upgrade.",
+      "turns": [
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "Hello, sir. What are you looking for today?",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "A phone under fifteen thousand. Mainly calls, WhatsApp and videos. Battery should be good.",
+          "emotion": "neutral",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "This one is ₹13,999. It has a 5,000 mAh battery and 128 GB storage. The demo piece is here.",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "Okay. Anything else good? Another phone in the same budget, I mean.",
+          "emotion": "neutral",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "Yes, this model here is also ₹13,999. Same battery capacity and storage, but the screen is slightly smaller.",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "Smaller is fine. My current phone barely fits in my pocket. How is the camera?",
+          "emotion": "neutral",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "Decent for daytime photos. Indoors, you will see some grain. You can take a photo on the demo and check.",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "Can you open the same video on both? I want to compare the screens.",
+          "emotion": "neutral",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "Sure. Same video, and I have put both at the same brightness. Here you go.",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "The smaller one looks fine to me. Is the black colour available?",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "Yes, we have a sealed black piece. This same 128 GB version.",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "I'll take that. ₹13,999 is the final amount, including GST?",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "Yes, including GST. Shall I make the bill in your name?",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "Yes, please. I'll give you the details.",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        }
+      ],
+      "expected_attempted_upsell": false,
+      "expected_attempts": 0,
+      "notes": "The customer's 'Anything else good?' explicitly requests another phone within the same budget. Showing that alternative fulfills the request; it is not a proactive upsell. No extras, upgrades or paid add-ons are offered."
+    },
+    {
+      "industry": "electronics retail",
+      "language": "english",
+      "scenario": "A customer asks for a specific HDMI cable, and the salesperson provides it without offering any additional products or upgrades.",
+      "turns": [
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "Good evening. What are you looking for?",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "I need a two-metre HDMI cable to connect my laptop to the TV.",
+          "emotion": "neutral",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "Sure. Your laptop has the regular HDMI port, correct?",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "Yes, the regular one. I checked before coming.",
+          "emotion": "neutral",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "Here you go. This is a two-metre HDMI cable. It's ₹399.",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "Is that the final price, including GST?",
+          "emotion": "neutral",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "Yes, ₹399 including GST.",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "Okay, I'll take this. Can I pay by UPI?",
+          "emotion": "neutral",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "Yes, please scan this QR code at the counter.",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "Done. It's showing successful on my side.",
+          "emotion": "neutral",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "Received, thank you. Here's your cable and bill.",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "Great, thanks.",
+          "emotion": "happy",
+          "is_upsell_attempt": false,
+          "technique": null
+        }
+      ],
+      "expected_attempted_upsell": false,
+      "expected_attempts": 0,
+      "notes": "The salesperson only clarifies compatibility, supplies the requested cable, confirms the price, and processes payment. No additional item, upgrade, or paid service is offered."
+    }
+  ]
+}

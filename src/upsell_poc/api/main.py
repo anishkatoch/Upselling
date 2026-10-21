@@ -13,9 +13,9 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 from upsell_poc import __version__, dashboard, jobs, outcomes
+from upsell_poc.api import public
 from upsell_poc.config import get_settings
 from upsell_poc.logging_setup import setup_logging
-from upsell_poc.schemas import JobStatus
 from upsell_poc.storage import get_storage
 
 settings = get_settings()
@@ -37,19 +37,21 @@ def health() -> dict[str, str]:
     return {"status": "ok", "version": __version__}
 
 
-@app.get("/api/jobs", response_model=list[JobStatus])
-def list_jobs(limit: int = 50) -> list[JobStatus]:
+# Job status / report / transcript responses go through `public` so spend, per-call logs and
+# provider/model names stay in the stored files but never reach a client.
+@app.get("/api/jobs")
+def list_jobs(limit: int = 50) -> list[dict]:
     """All saved jobs, newest first - the 'Recent jobs' list is built from this, not the browser."""
-    return jobs.list_statuses(get_storage(settings), max(1, min(limit, 200)))
+    return [public.public_status(s) for s in jobs.list_statuses(get_storage(settings), max(1, min(limit, 200)))]
 
 
-@app.post("/api/jobs", response_model=JobStatus, status_code=202)
+@app.post("/api/jobs", status_code=202)
 async def create_job(
     file: Annotated[UploadFile, File(description="Audio or video recording")],
     industry: Annotated[str | None, Form()] = None,
     product_catalog: Annotated[str | None, Form()] = None,
     salesperson_name: Annotated[str | None, Form()] = None,
-) -> JobStatus:
+) -> dict:
     limit = settings.max_upload_mb * CHUNK
     size = 0
     with tempfile.NamedTemporaryFile(delete=False, suffix=Path(file.filename or "").suffix) as tmp:
@@ -67,6 +69,8 @@ async def create_job(
     try:
         # Storage writes (S3 upload of a large file) are blocking: keep them off the event loop.
         storage = get_storage(settings)
+        # 'rahul' / 'Rahul ' become the one existing 'Rahul' instead of a second person.
+        hint = await run_in_threadpool(dashboard.register_name, storage, (salesperson_name or "")[:80])
         status = await run_in_threadpool(
             jobs.create_job,
             storage,
@@ -74,25 +78,25 @@ async def create_job(
             file.filename or "upload.bin",
             industry,
             product_catalog,
-            salesperson_name,
+            hint,
         )
     finally:
         tmp_path.unlink(missing_ok=True)
     await run_in_threadpool(jobs.enqueue, status.job_id, settings)
-    return status
+    return public.public_status(status)
 
 
-@app.get("/api/jobs/{job_id}", response_model=JobStatus)
-def job_status(job_id: str) -> JobStatus:
+@app.get("/api/jobs/{job_id}")
+def job_status(job_id: str) -> dict:
     status = jobs.get_status(get_storage(settings), _check_id(job_id))
     if status is None:
         raise HTTPException(404, "job not found")
-    return status
+    return public.public_status(status)
 
 
 @app.get("/api/jobs/{job_id}/report")
 def job_report(job_id: str) -> dict:
-    return _artifact(job_id, jobs.report_key)
+    return public.public_report(_artifact(job_id, jobs.report_key))
 
 
 @app.get("/api/jobs/{job_id}/outcomes", response_model=outcomes.JobOutcomes)
@@ -106,7 +110,7 @@ def job_outcomes(job_id: str) -> outcomes.JobOutcomes:
 
 @app.get("/api/jobs/{job_id}/transcript")
 def job_transcript(job_id: str) -> dict:
-    return _artifact(job_id, jobs.transcript_key)
+    return public.public_transcript(_artifact(job_id, jobs.transcript_key))
 
 
 @app.get("/api/jobs/{job_id}/audio")
@@ -124,8 +128,8 @@ def job_audio(job_id: str) -> Response:
     return FileResponse(location, filename=status.filename)
 
 
-@app.post("/api/jobs/{job_id}/retry", response_model=JobStatus, status_code=202)
-def retry_job(job_id: str) -> JobStatus:
+@app.post("/api/jobs/{job_id}/retry", status_code=202)
+def retry_job(job_id: str) -> dict:
     """Re-run a failed, cancelled or completed job; finished stages are reused from checkpoints."""
     storage = get_storage(settings)
     status = jobs.get_status(storage, _check_id(job_id))
@@ -144,11 +148,11 @@ def retry_job(job_id: str) -> JobStatus:
         spent_usd=0.0,
     )
     jobs.enqueue(job_id, settings)
-    return status
+    return public.public_status(status)
 
 
-@app.post("/api/jobs/{job_id}/cancel", response_model=JobStatus, status_code=202)
-def cancel_job(job_id: str) -> JobStatus:
+@app.post("/api/jobs/{job_id}/cancel", status_code=202)
+def cancel_job(job_id: str) -> dict:
     """Ask a queued or running job to stop at its next checkpoint.
 
     Cooperative: a provider call already in flight finishes first. Finished stages are
@@ -160,13 +164,19 @@ def cancel_job(job_id: str) -> JobStatus:
         raise HTTPException(404, "job not found")
     if status.status not in ("queued", "running"):
         raise HTTPException(409, f"job is {status.status}, nothing to cancel")
-    return jobs.update_status(storage, job_id, cancel_requested=True)
+    return public.public_status(jobs.update_status(storage, job_id, cancel_requested=True))
 
 
 @app.get("/api/dashboard", response_model=dashboard.Dashboard)
 def get_dashboard(period: dashboard.Period = "day") -> dashboard.Dashboard:
     """Per-salesperson performance across every saved job, by day, week or month."""
     return dashboard.build_dashboard(get_storage(settings), period)
+
+
+@app.get("/api/people/roster", response_model=list[dashboard.RosterEntry])
+def people_roster() -> list[dashboard.RosterEntry]:
+    """Known employees (merged duplicates folded together) and how many recordings each appears in."""
+    return dashboard.build_roster(get_storage(settings))
 
 
 @app.get("/api/people/{name}/recordings", response_model=list[dashboard.RecordingSummary])
@@ -188,6 +198,23 @@ def name_person(body: PersonName) -> Response:
     if jobs.get_status(storage, _check_id(body.job_id)) is None:
         raise HTTPException(404, "job not found")
     dashboard.set_name(storage, body.job_id, body.speaker, body.name[:80])
+    return Response(status_code=204)
+
+
+class PersonMerge(BaseModel):
+    from_name: str
+    into_name: str
+
+
+@app.post("/api/people/merge", status_code=204)
+def merge_people(body: PersonMerge) -> Response:
+    """Treat `from_name` as another spelling of `into_name`: everything under it now counts for `into_name`."""
+    try:
+        dashboard.merge_people(get_storage(settings), body.from_name[:80], body.into_name[:80])
+    except ValueError as e:
+        raise HTTPException(422, str(e)) from e
+    except KeyError as e:
+        raise HTTPException(404, f"unknown person: {e.args[0]}") from e
     return Response(status_code=204)
 
 

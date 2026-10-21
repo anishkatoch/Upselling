@@ -1,0 +1,1327 @@
+{
+  "job_id": "b0c97325fecc411b8ad5eebc1fb91684",
+  "source_filename": "2026-09-29_neha_floor_session.mp3",
+  "duration_s": 392.2,
+  "transcription_provider": "openai:gpt-4o-transcribe-diarize",
+  "speakers": [
+    {
+      "speaker": "B",
+      "role": "customer",
+      "title": "Phone buyer",
+      "talk_time_s": 139.1
+    },
+    {
+      "speaker": "A",
+      "role": "salesperson",
+      "title": "Electronics showroom sales associate",
+      "talk_time_s": 135.5
+    },
+    {
+      "speaker": "C",
+      "role": "customer",
+      "title": "TV buyer",
+      "talk_time_s": 52.8
+    }
+  ],
+  "has_sales_activity": true,
+  "conversations": [
+    {
+      "conversation_id": 1,
+      "start": 0.0,
+      "end": 113.22,
+      "topic": "Phone purchase with cover and screen protector",
+      "language": "hinglish",
+      "is_sales_interaction": true,
+      "salespeople": [
+        "A"
+      ],
+      "customers": [
+        "B"
+      ],
+      "mood": {
+        "speakers": [
+          {
+            "speaker": "A",
+            "overall_mood": "calm",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Warm, professional, and helpful throughout. Explains the phone and accessory pricing without irritation. Occasional elevated loudness or pitch is not accompanied by frustrated wording, agitated tone, or interruptions."
+          },
+          {
+            "speaker": "B",
+            "overall_mood": "calm",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Matter-of-fact and cooperative, asking routine questions about battery life and installation charges before agreeing to purchase and pay. The pricing question is clarification, not frustration. Segments 4–5 appear to be salesperson replies mislabelled as B; neither shows irritation."
+          }
+        ],
+        "frustration_moments": []
+      },
+      "upsell": {
+        "customer_requested": [
+          "A phone within ₹15,000 with 128 GB storage, mainly for calls and WhatsApp.",
+          "Blue colour."
+        ],
+        "upsell_attempts": [
+          {
+            "salesperson": "A",
+            "segment_id": 7,
+            "quote": "इसके साथ कवर और टेम्पर्ड ग्लास का कॉंबो भी ले सकते हैं अलग अलग लेंगे तो दोनों के नौसों रुपए है फोन के साथ दोनों छैसों में पड़ेंगे लदा कर भी दे देंगे",
+            "technique": "bundle",
+            "offered_item": "Cover and tempered-glass combo for ₹600 with the phone, versus ₹900 separately, including fitting.",
+            "salesperson_initiated": true,
+            "after_customer_rejection": false,
+            "handled_objection": false,
+            "customer_response": "accepted",
+            "customer_mood": "calm"
+          }
+        ],
+        "excluded_candidates": [
+          "Ji, ye model dekhiye, chaudah hazar nau sau ninyanve ka hai. Ismein chhe GB RAM aur ek sau athais GB storage hai. -> Matches the customer's requested budget and storage; no higher-tier upgrade.",
+          "Aapke is istemal mein aam tar par din nikal jana chahiye. Baaki network aur istemal par bhi nirbhar karega. -> Answers the battery-life question rather than suggesting an additional purchase; this salesperson reply appears mislabelled as B.",
+          "नहीं सर छैसों में दोनों है और लदाना भी शामिल है Phone mila kar kul pandrah hazar paanch sau ninyaanve honge. -> Clarifies the existing combo's fitting charges and total price; not a separate upsell attempt or objection counter.",
+          "Cover mein paardarshi wala rakhoon, ya ye kaala wala? -> Asks for a colour choice after the customer has accepted the combo; no additional purchase or premium option is proposed."
+        ],
+        "pushy_upsell": false,
+        "pushy_reason": "A offered the combo once, answered the fitting-charge clarification, and proceeded after acceptance. The customer remained calm and never declined.",
+        "confidence": 0.59,
+        "summary": "A made one proactive bundle upsell: a cover and tempered glass for ₹600 including fitting. The customer accepted after checking installation charges, with no pressure or dissatisfaction. The battery explanations appear to be salesperson replies mislabelled as B.",
+        "greeting_given": true,
+        "greeting_quote": "Namaste, sir! batayiye kya dikhaun?",
+        "greeting_segment_id": 0,
+        "products_discussed": [
+          "phone",
+          "कवर",
+          "टेम्पर्ड ग्लास"
+        ],
+        "customer_feedback": null,
+        "customer_feedback_segment_id": null,
+        "unanswered_questions": [
+          {
+            "segment_id": 14,
+            "speaker": "B",
+            "question": "आप तब तक ग्लास लगा दीजिये",
+            "note": "The transcript ends immediately after this request, so there is no recorded acknowledgment of fitting the glass while the customer pays; it is not evidence of deliberate ignoring."
+          }
+        ],
+        "coaching_feedback": "You matched the ₹15,000 budget and 128 GB requirement, then clearly explained the combo's savings and confirmed that fitting was included when the customer asked. At checkout, explicitly acknowledge 'आप तब तक ग्लास लगा दीजिये' and confirm that you will fit it while they complete the UPI payment."
+      },
+      "attempted_upsell": true,
+      "effort_score": 2.2,
+      "analyzed_by": "openai:gpt-6.1-sol",
+      "escalated": false,
+      "budget_note": null
+    },
+    {
+      "conversation_id": 2,
+      "start": 122.28200000000001,
+      "end": 270.994,
+      "topic": "Smart TV purchase with extended warranty",
+      "language": "hinglish",
+      "is_sales_interaction": true,
+      "salespeople": [
+        "A",
+        "B"
+      ],
+      "customers": [
+        "C"
+      ],
+      "mood": {
+        "speakers": [
+          {
+            "speaker": "A",
+            "overall_mood": "calm",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Patient and informative throughout, explaining product differences and warranty coverage without pressure or irritation."
+          },
+          {
+            "speaker": "B",
+            "overall_mood": "calm",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Polite and composed when presenting the TV and explaining warranty exclusions. Although labelled customer, these turns function as sales assistance."
+          },
+          {
+            "speaker": "C",
+            "overall_mood": "neutral",
+            "frustration_level": 1,
+            "trend": "stable",
+            "summary": "Shows mild uncertainty about picture quality and concern about the extra cost, but remains composed. Requests time to think, asks practical coverage questions, and finishes calmly by confirming the purchase. No clear frustration or escalation."
+          }
+        ],
+        "frustration_moments": []
+      },
+      "upsell": {
+        "customer_requested": [
+          "A 43-inch smart TV within ₹30,000, mainly for Netflix and cricket.",
+          "Clarification about the picture quality and differences beyond the picture.",
+          "Billing for the selected premium TV.",
+          "Details about panel coverage and accidental screen breakage under the offered warranty."
+        ],
+        "upsell_attempts": [
+          {
+            "salesperson": "A",
+            "segment_id": 20,
+            "quote": "लाइट का भी इफेक्ट है, लेकिन साइड एंगल से कलर थोड़ा चेंज होता है इसमें. आप चाहें तो यह प्रीमियम तैंतालीस इंच क्यू एल ई बी consider कर सकते हैं, चौबीस हजार नौसो नब्बे का. इसका साइड एंगल व्यू और कलर्स बेटर है. दोनों पर सेम वीडियो चला देता हूं.",
+            "technique": "upgrade",
+            "offered_item": "Premium 43-inch TV with better viewing angles and colours",
+            "salesperson_initiated": true,
+            "after_customer_rejection": false,
+            "handled_objection": true,
+            "customer_response": "accepted",
+            "customer_mood": "neutral"
+          },
+          {
+            "salesperson": "A",
+            "segment_id": 27,
+            "quote": "जी, इसके साथ आप्शनल टू ईयर एक्स्टेंडेड वारंटी भी है-तीन हजार की जो स्टैंडर्ड वन ईयर वारंटी के बाद शुरू होगी.",
+            "technique": "warranty_protection",
+            "offered_item": "Optional two-year extended warranty for ₹3,000 after the standard one-year warranty",
+            "salesperson_initiated": true,
+            "after_customer_rejection": false,
+            "handled_objection": false,
+            "customer_response": "accepted",
+            "customer_mood": "neutral"
+          }
+        ],
+        "excluded_candidates": [
+          "जी, ये फॉर्टी त्री इंच एलेडी आपके बज़ट में है, अठाइस हजार नौसन नब्बे का। नेटफ्लिक्स और बाकी स्ट्रीमिंग एप्स हैं, रिमोट भी ट्राइ कर लीजिए। -> B recommends the main TV matching the customer's requested size, budget and streaming needs.",
+          "Is model mein speakers bhi better hain aur menu thoda faster respond karta hai. Apps dono mein same milenge. Aapke Netflix aur Cricket dono basic wale par bhi chal jayenge. -> Answers the customer's question about differences beyond picture quality; not a separate upgrade attempt.",
+          "हां जी, आराम से, मैं दोनों पर क्रिकेट लगा देता हूँ, आप सोफावाली डिस्टन्स से देख लीजिये। -> Continues the existing comparison and respects the request for time; does not introduce or renew an offer after rejection.",
+          "इस प्लान में पैनल का एलेक्ट्रिकल या मेकेनिकल फॉल्ट कवरड है. -> Answers the customer's warranty-coverage question rather than making another offer.",
+          "Terms के हिसाब से-Accidental breakage or liquid damage गवर नहीं है-ये coverage sheet है-exclusions or claim process यहीं लिखे हैं- -> B clarifies exclusions and the claims information; this is not an additional warranty pitch."
+        ],
+        "pushy_upsell": false,
+        "pushy_reason": "There was no clear rejection. When the customer said “एक मिनट सोचने दो,” A allowed time and offered a viewing comparison without pressure.",
+        "confidence": 0.94,
+        "summary": "A made two accepted upsell attempts: a premium TV addressing the customer's viewing-angle concern, followed by an optional extended warranty. Neither attempt was pushy. The quoted prices and totals are inconsistent, but the premium-upgrade intent is clear from “Six thousand extra” and the customer's concern about increasing the budget.",
+        "greeting_given": true,
+        "greeting_quote": "हेलो जी, टी वी देख रहे हैं? क्या साइज और बज़ट सोचा है?",
+        "greeting_segment_id": 15,
+        "products_discussed": [
+          "फॉर्टी त्री इंच एलेडी",
+          "प्रीमियम तैंतालीस इंच क्यू एल ई बी",
+          "टू ईयर एक्स्टेंडेड वारंटी"
+        ],
+        "customer_feedback": "The customer said “बस बजट बढ़ाना पड़ेगा; एक मिनट सोचने दो,” expressing concern about stretching the budget for the premium TV.",
+        "customer_feedback_segment_id": 24,
+        "unanswered_questions": [],
+        "coaching_feedback": "You addressed the side-angle concern with a same-video comparison and respected “एक मिनट सोचने दो” rather than pressing for a decision. You and B also clearly distinguished covered panel faults from excluded accidental breakage and liquid damage. Next time, reconcile the inconsistent TV prices and totals, then explicitly confirm the TV price, ₹3,000 warranty charge and final payable amount before billing."
+      },
+      "attempted_upsell": true,
+      "effort_score": 5.3,
+      "analyzed_by": "openai:gpt-6.1-sol",
+      "escalated": false,
+      "budget_note": null
+    },
+    {
+      "conversation_id": 3,
+      "start": 279.246,
+      "end": 383.494,
+      "topic": "Phone purchase with screen protector; earbuds declined",
+      "language": "hinglish",
+      "is_sales_interaction": true,
+      "salespeople": [
+        "A"
+      ],
+      "customers": [
+        "B"
+      ],
+      "mood": {
+        "speakers": [
+          {
+            "speaker": "A (salesperson)",
+            "overall_mood": "calm",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Polite and composed throughout the sale. Continues offering accessories after the initial refusal but accepts the customer's firmer boundary without irritation. Some sales lines labelled B appear to be diarization errors."
+          },
+          {
+            "speaker": "B (customer)",
+            "overall_mood": "neutral",
+            "frustration_level": 3,
+            "trend": "improving",
+            "summary": "Initially straightforward and calm, with brief mild irritation when earbuds are offered again after a refusal. Firmly limits additional purchases, then returns to calm payment and installation instructions and sounds pleased at completion. Several salesperson lines are mislabelled B, and segment 46 appears to contain both speakers."
+          }
+        ],
+        "frustration_moments": [
+          {
+            "segment_id": 42,
+            "speaker": "B (customer)",
+            "quote": "अरे नहीं भाईया, मेरे पास पहले से है कोई भी ईयरबड्स मत जोड़ना",
+            "evidence_source": "both",
+            "evidence": "Repeats the refusal more emphatically after another earbuds offer and explicitly says not to add any. The voice label indicates mild irritation and a firmer stance. Acoustic measurements do not indicate substantial agitation."
+          },
+          {
+            "segment_id": 44,
+            "speaker": "B (customer)",
+            "quote": "चलो एक सौन निन्यानवे वाला ग्लास लदा दो उसके अलावा कुछ नहीं चाहिए",
+            "evidence_source": "words",
+            "evidence": "Accepts the glass but reiterates that nothing else is wanted, reinforcing the boundary after repeated upselling. The neutral voice suggests residual firmness rather than escalating frustration."
+          }
+        ]
+      },
+      "upsell": {
+        "customer_requested": [
+          "The roughly ₹16,000 phone seen previously, with 128 GB storage in blue, in a sealed pack.",
+          "Initially only the phone, with no earbuds.",
+          "Later, one ₹199 tempered glass and no other extras.",
+          "UPI payment, straight and bubble-free glass installation, and the bill placed inside the box."
+        ],
+        "upsell_attempts": [
+          {
+            "salesperson": "A",
+            "segment_id": 38,
+            "quote": "इसके साथ वायरलेस इयरबड्स भी ले लीजिए. चौदा सो निन्यानवे के है.",
+            "technique": "cross_sell",
+            "offered_item": "₹1,499 wireless earbuds",
+            "salesperson_initiated": true,
+            "after_customer_rejection": false,
+            "handled_objection": false,
+            "customer_response": "rejected",
+            "customer_mood": "neutral"
+          },
+          {
+            "salesperson": "A",
+            "segment_id": 41,
+            "quote": "अच्छा, एक सस्ता वाला भी है. वो सात सो निन्यानवे का पडेगा. बज़ट की वज़े से मना कर रहे हैं तो वो लगा दो.",
+            "technique": "cross_sell",
+            "offered_item": "₹799 earbuds",
+            "salesperson_initiated": true,
+            "after_customer_rejection": true,
+            "handled_objection": true,
+            "customer_response": "rejected",
+            "customer_mood": "irritated"
+          },
+          {
+            "salesperson": "A",
+            "segment_id": 43,
+            "quote": "ठीक है जी, ईयर बड्स नहीं जोड़ूंगा, बस स्क्रीन पर टेमपर्ड ग्लास लगवा लीजिए, एक सो निन्यानवे का है, नडाने का अलग से कुछ नहीं लगेगा",
+            "technique": "cross_sell",
+            "offered_item": "₹199 tempered glass with installation at no additional charge",
+            "salesperson_initiated": true,
+            "after_customer_rejection": true,
+            "handled_objection": false,
+            "customer_response": "accepted",
+            "customer_mood": "irritated"
+          }
+        ],
+        "excluded_candidates": [
+          "Ji, ye raha. Neela rang upalabd hai. -> Providing the blue phone the customer requested, not suggesting an additional or higher-tier product.",
+          "Keemat pandrah hazaar nau sau navve hai. -> Stating the requested phone's price, not an upsell.",
+          "जी, सिर्फ फोन और एक टेम्पर्ड ग्लास, कुल सोलह हजार एक सौ अठानवे रुपए हुए। -> Recapping already agreed purchases and the total, not making another offer.",
+          "जी, ये कोड स्कैन कर लीजिए, आपके सामने ही ग्लास लगाकर दिखा देता हूँ, फिर फोन और बिल साथ रख दूंगा। -> Payment and fulfillment instructions for the agreed purchase, not an additional sale."
+        ],
+        "pushy_upsell": true,
+        "pushy_reason": "After the customer said “नहीं, इयरबड्स नहीं चाहिए,” the salesperson offered a cheaper pair instead of accepting the refusal. This prompted “कोई भी ईयरबड्स मत जोड़ना”; the salesperson then stopped offering earbuds, although another accessory was suggested and accepted.",
+        "confidence": 0.59,
+        "summary": "There were three accessory upsell attempts: ₹1,499 earbuds, ₹799 earbuds after rejection, and ₹199 tempered glass. The customer rejected both earbuds offers and accepted only the glass. Several sales lines are labelled B; their wording and the supplied mood notes support attributing them to A, but the diarization errors reduce confidence.",
+        "greeting_given": true,
+        "greeting_quote": "Namasteji, batayiye, kaun sa phone dekhna hai?",
+        "greeting_segment_id": 33,
+        "products_discussed": [
+          "phone",
+          "वायरलेस इयरबड्स",
+          "टेम्पर्ड ग्लास"
+        ],
+        "customer_feedback": "फोन पर ही काफी खर्च हो रहा है, मेरे पास पहले से ईयरबड्स हैं, कोई भी ईयरबड्स मत जोड़ना और ₹199 वाले ग्लास के अलावा कुछ नहीं चाहिए।",
+        "customer_feedback_segment_id": 42,
+        "unanswered_questions": [
+          {
+            "segment_id": 37,
+            "speaker": "B",
+            "question": "Seal pack nikal do? Haan, nikal dijiye.",
+            "note": "No explicit confirmation that a sealed handset would be taken out is recorded; the next sales turn instead offers earbuds."
+          },
+          {
+            "segment_id": 47,
+            "speaker": "B",
+            "question": "Bill dibbe mein hi rakh dena.",
+            "note": "The transcript ends without acknowledging the specific request to put the bill inside the box; the earlier promise only mentioned keeping the phone and bill together."
+          }
+        ],
+        "coaching_feedback": "Your “Namasteji” opening, prompt confirmation of the blue phone and price, and final “सिर्फ फोन और एक टेम्पर्ड ग्लास” recap kept the purchase clear. After “नहीं, इयरबड्स नहीं चाहिए,” accept the refusal rather than pitching a cheaper pair; ask permission before introducing another paid accessory so the customer does not have to repeat their boundary."
+      },
+      "attempted_upsell": true,
+      "effort_score": 7.2,
+      "analyzed_by": "openai:gpt-6.1-sol",
+      "escalated": false,
+      "budget_note": null
+    }
+  ],
+  "salespeople": [
+    {
+      "speaker": "A",
+      "conversations": 3,
+      "conversations_with_upsell": 3,
+      "upsell_rate": 1.0,
+      "attempts_total": 6,
+      "attempts_per_conversation": 2.0,
+      "avg_effort_score": 4.9,
+      "upsell_talk_time_share": 0.475,
+      "acceptance_rate": 0.667,
+      "pushy_conversations": 1,
+      "techniques_used": [
+        "bundle",
+        "cross_sell",
+        "upgrade",
+        "warranty_protection"
+      ]
+    },
+    {
+      "speaker": "B",
+      "conversations": 1,
+      "conversations_with_upsell": 0,
+      "upsell_rate": 0.0,
+      "attempts_total": 0,
+      "attempts_per_conversation": 0.0,
+      "avg_effort_score": 0.0,
+      "upsell_talk_time_share": 0.0,
+      "acceptance_rate": null,
+      "pushy_conversations": 0,
+      "techniques_used": []
+    }
+  ],
+  "calls": [
+    {
+      "step": "transcription",
+      "provider": "openai:gpt-4o-transcribe-diarize",
+      "model": "gpt-4o-transcribe-diarize",
+      "ok": true,
+      "latency_s": 180.281,
+      "input_tokens": null,
+      "output_tokens": null,
+      "cost_usd": null,
+      "error": null,
+      "fallback_index": 0
+    },
+    {
+      "step": "role_detection",
+      "provider": "openai:gpt-6.1-sol",
+      "model": "gpt-6.1-sol",
+      "ok": true,
+      "latency_s": 5.0,
+      "input_tokens": 2685,
+      "output_tokens": 155,
+      "cost_usd": null,
+      "error": null,
+      "fallback_index": 0
+    },
+    {
+      "step": "conversation_splitting",
+      "provider": "openai:gpt-6.1-sol",
+      "model": "gpt-6.1-sol",
+      "ok": true,
+      "latency_s": 11.672,
+      "input_tokens": 2480,
+      "output_tokens": 444,
+      "cost_usd": null,
+      "error": null,
+      "fallback_index": 0
+    },
+    {
+      "step": "tone",
+      "provider": "openai:gpt-audio-1.5",
+      "model": "gpt-audio-1.5",
+      "ok": true,
+      "latency_s": 7.391,
+      "input_tokens": 1835,
+      "output_tokens": 633,
+      "cost_usd": 0.099232,
+      "error": null,
+      "fallback_index": 0
+    },
+    {
+      "step": "tone",
+      "provider": "openai:gpt-audio-1.5",
+      "model": "gpt-audio-1.5",
+      "ok": true,
+      "latency_s": 8.703,
+      "input_tokens": 1916,
+      "output_tokens": 640,
+      "cost_usd": 0.102272,
+      "error": null,
+      "fallback_index": 0
+    },
+    {
+      "step": "tone",
+      "provider": "openai:gpt-audio-1.5",
+      "model": "gpt-audio-1.5",
+      "ok": true,
+      "latency_s": 9.5,
+      "input_tokens": 2484,
+      "output_tokens": 769,
+      "cost_usd": 0.128704,
+      "error": null,
+      "fallback_index": 0
+    },
+    {
+      "step": "mood_fusion",
+      "provider": "openai:gpt-6.1-sol",
+      "model": "gpt-6.1-sol",
+      "ok": true,
+      "latency_s": 6.89,
+      "input_tokens": 1884,
+      "output_tokens": 206,
+      "cost_usd": null,
+      "error": null,
+      "fallback_index": 0
+    },
+    {
+      "step": "mood_fusion",
+      "provider": "openai:gpt-6.1-sol",
+      "model": "gpt-6.1-sol",
+      "ok": true,
+      "latency_s": 6.859,
+      "input_tokens": 2213,
+      "output_tokens": 237,
+      "cost_usd": null,
+      "error": null,
+      "fallback_index": 0
+    },
+    {
+      "step": "mood_fusion",
+      "provider": "openai:gpt-6.1-sol",
+      "model": "gpt-6.1-sol",
+      "ok": true,
+      "latency_s": 12.5,
+      "input_tokens": 1888,
+      "output_tokens": 466,
+      "cost_usd": null,
+      "error": null,
+      "fallback_index": 0
+    },
+    {
+      "step": "upsell_detection",
+      "provider": "openai:gpt-6.1-sol",
+      "model": "gpt-6.1-sol",
+      "ok": true,
+      "latency_s": 53.125,
+      "input_tokens": 2998,
+      "output_tokens": 2183,
+      "cost_usd": null,
+      "error": null,
+      "fallback_index": 0
+    },
+    {
+      "step": "upsell_detection",
+      "provider": "openai:gpt-6.1-sol",
+      "model": "gpt-6.1-sol",
+      "ok": true,
+      "latency_s": 55.172,
+      "input_tokens": 2775,
+      "output_tokens": 2227,
+      "cost_usd": null,
+      "error": null,
+      "fallback_index": 0
+    },
+    {
+      "step": "upsell_detection",
+      "provider": "openai:gpt-6.1-sol",
+      "model": "gpt-6.1-sol",
+      "ok": true,
+      "latency_s": 76.265,
+      "input_tokens": 2864,
+      "output_tokens": 3251,
+      "cost_usd": null,
+      "error": null,
+      "fallback_index": 0
+    }
+  ],
+  "evidence": [
+    {
+      "kind": "upsell_attempt",
+      "conversation_id": 1,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 7,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 5,
+          "speaker": "B",
+          "role": "customer",
+          "start": 33.222,
+          "end": 41.522,
+          "text": "Aapke is istemal mein aam tar par din nikal jana chahiye. Baaki network aur istemal par bhi nirbhar karega.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 6,
+          "speaker": "B",
+          "role": "customer",
+          "start": 42.772,
+          "end": 47.672,
+          "text": "Theek hai, yahi pack kar dijiye. Meelay rang mein hai naa?",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 7,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 48.372,
+          "end": 62.822,
+          "text": "जी, नीला है इसके साथ कवर और टेम्पर्ड ग्लास का कॉंबो भी ले सकते हैं अलग अलग लेंगे तो दोनों के नौसों रुपए है फोन के साथ दोनों छैसों में पड़ेंगे लदा कर भी दे देंगे नहीं",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 8,
+          "speaker": "B",
+          "role": "customer",
+          "start": 62.822,
+          "end": 68.77199999999999,
+          "text": "छैसों में कवर और ग्लास दोनों लदाने का अलग से तो नहीं लगेगा?",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 9,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 69.672,
+          "end": 78.526,
+          "text": "नहीं सर छैसों में दोनों है और लदाना भी शामिल है Phone mila kar kul pandrah hazar paanch sau ninyaanve honge.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "unanswered_question",
+      "conversation_id": 1,
+      "index": 0,
+      "speaker": "B",
+      "segment_id": 14,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 12,
+          "speaker": "B",
+          "role": "customer",
+          "start": 92.376,
+          "end": 97.27600000000001,
+          "text": "Kala wala lada dijiye ... pakad bhi theek lag rahi hai iski.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 13,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 97.62,
+          "end": 107.47,
+          "text": "जी सर, बिल में फोम और छै सो वाला कॉम्बो दोनो डाल दिया है, कुल पन्द्रह हजार पाच्चो निन्यानवे, भुगतान कैसे करेंगे?",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 14,
+          "speaker": "B",
+          "role": "customer",
+          "start": 108.57000000000001,
+          "end": 113.22,
+          "text": "यू पी आई कर देता हूँ आप तब तक ग्लास लगा दीजिये",
+          "is_highlighted": true
+        }
+      ]
+    },
+    {
+      "kind": "greeting",
+      "conversation_id": 1,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 0,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 0,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 0.0,
+          "end": 2.999999999999999,
+          "text": "Namaste, sir! batayiye kya dikhaun?",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 1,
+          "speaker": "B",
+          "role": "customer",
+          "start": 4.299999999999999,
+          "end": 9.850000000000001,
+          "text": "Pandra hazar takka phone chahiye; ek sau athais g b storagevala dikhana.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 2,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 10.750000000000002,
+          "end": 21.900000000000002,
+          "text": "Ji, ye model dekhiye, chaudah hazar nau sau ninyanve ka hai. Ismein chhe GB RAM aur ek sau athais GB storage hai.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "upsell_attempt",
+      "conversation_id": 2,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 20,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 18,
+          "speaker": "C",
+          "role": "customer",
+          "start": 148.394,
+          "end": 149.694,
+          "text": "ठीक लग रहा है,",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 19,
+          "speaker": "C",
+          "role": "customer",
+          "start": 150.494,
+          "end": 155.644,
+          "text": "साहब से देखने पर पिक्चर थोड़ी हलकी लग रही है या शोरूम की लाइट है।",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 20,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 156.494,
+          "end": 173.994,
+          "text": "लाइट का भी इफेक्ट है, लेकिन साइड एंगल से कलर थोड़ा चेंज होता है इसमें. आप चाहें तो यह प्रीमियम तैंतालीस इंच क्यू एल ई बी consider कर सकते हैं, चौबीस हजार नौसो नब्बे का. इसका साइड एंगल व्यू और कलर्स बेटर है. दोनों पर सेम वीडियो चला देता हूं.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 21,
+          "speaker": "C",
+          "role": "customer",
+          "start": 174.606,
+          "end": 179.406,
+          "text": "Six thousand extra hai!\" Picture ke alawa kya difference hai?",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 22,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 181.356,
+          "end": 193.656,
+          "text": "Is model mein speakers bhi better hain aur menu thoda faster respond karta hai. Apps dono mein same milenge. Aapke Netflix aur Cricket dono basic wale par bhi chal jayenge.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "upsell_attempt",
+      "conversation_id": 2,
+      "index": 1,
+      "speaker": "A",
+      "segment_id": 27,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 25,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 203.96,
+          "end": 210.76,
+          "text": "हां जी, आराम से, मैं दोनों पर क्रिकेट लगा देता हूँ, आप सोफावाली डिस्टन्स से देख लीजिये।",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 26,
+          "speaker": "C",
+          "role": "customer",
+          "start": 211.01,
+          "end": 220.86,
+          "text": "अच्छा, प्रीमियम वाला ही ले लेता हूँ। घर में साइट पर भी सीटिंग है, तो वो डिफरेंस काम आएगा। बिल बना दीजिए।",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 27,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 221.404,
+          "end": 229.654,
+          "text": "जी, इसके साथ आप्शनल टू ईयर एक्स्टेंडेड वारंटी भी है-तीन हजार की जो स्टैंडर्ड वन ईयर वारंटी के बाद शुरू होगी.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 28,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 230.454,
+          "end": 235.454,
+          "text": "टोटल सत्रह हजार नौसो निन्यानवे हो जायेगा. उसका कवर भी देखना चाहेंगे?",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 29,
+          "speaker": "C",
+          "role": "customer",
+          "start": 236.304,
+          "end": 240.604,
+          "text": "उस में पैनल कवर है और गलती से स्क्रीन टूट गई तो?",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "greeting",
+      "conversation_id": 2,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 15,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 15,
+          "speaker": "B",
+          "role": "customer",
+          "start": 122.28200000000001,
+          "end": 126.682,
+          "text": "हेलो जी, टी वी देख रहे हैं? क्या साइज और बज़ट सोचा है?",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 16,
+          "speaker": "C",
+          "role": "customer",
+          "start": 128.032,
+          "end": 135.532,
+          "text": "Forty three inch smart T_V_ चाहिए! बज़ट thirty thousand तक है-मोस्ली नेटफ्लिक्स और क्रिकेट के लिए.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 17,
+          "speaker": "B",
+          "role": "customer",
+          "start": 136.582,
+          "end": 147.482,
+          "text": "जी, ये फॉर्टी त्री इंच एलेडी आपके बज़ट में है, अठाइस हजार नौसन नब्बे का। नेटफ्लिक्स और बाकी स्ट्रीमिंग एप्स हैं, रिमोट भी ट्राइ कर लीजिए।",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "customer_feedback",
+      "conversation_id": 2,
+      "index": 0,
+      "speaker": "C",
+      "segment_id": 24,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 22,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 181.356,
+          "end": 193.656,
+          "text": "Is model mein speakers bhi better hain aur menu thoda faster respond karta hai. Apps dono mein same milenge. Aapke Netflix aur Cricket dono basic wale par bhi chal jayenge.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 23,
+          "speaker": "C",
+          "role": "customer",
+          "start": 195.906,
+          "end": 198.456,
+          "text": "Picture ka difference to dikh raha hai!",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 24,
+          "speaker": "C",
+          "role": "customer",
+          "start": 199.36,
+          "end": 203.71,
+          "text": "बस बजट बढ़ाना पड़ेगा; एक मिनट सोचने दो।",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 25,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 203.96,
+          "end": 210.76,
+          "text": "हां जी, आराम से, मैं दोनों पर क्रिकेट लगा देता हूँ, आप सोफावाली डिस्टन्स से देख लीजिये।",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 26,
+          "speaker": "C",
+          "role": "customer",
+          "start": 211.01,
+          "end": 220.86,
+          "text": "अच्छा, प्रीमियम वाला ही ले लेता हूँ। घर में साइट पर भी सीटिंग है, तो वो डिफरेंस काम आएगा। बिल बना दीजिए।",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "frustration",
+      "conversation_id": 3,
+      "index": 0,
+      "speaker": "B (customer)",
+      "segment_id": 42,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 40,
+          "speaker": "B",
+          "role": "customer",
+          "start": 315.038,
+          "end": 319.238,
+          "text": "नहीं, इयरबड्स नहीं चाहिए, फोन पर ही काफी खर्च हो रहा है.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 41,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 319.83799999999997,
+          "end": 328.238,
+          "text": "अच्छा, एक सस्ता वाला भी है. वो सात सो निन्यानवे का पडेगा. बज़ट की वज़े से मना कर रहे हैं तो वो लगा दो.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 42,
+          "speaker": "B",
+          "role": "customer",
+          "start": 329.134,
+          "end": 334.834,
+          "text": "अरे नहीं भाईया, मेरे पास पहले से है कोई भी ईयरबड्स मत जोड़ना",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 43,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 336.134,
+          "end": 346.634,
+          "text": "ठीक है जी, ईयर बड्स नहीं जोड़ूंगा, बस स्क्रीन पर टेमपर्ड ग्लास लगवा लीजिए, एक सो निन्यानवे का है, नडाने का अलग से कुछ नहीं लगेगा",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 44,
+          "speaker": "B",
+          "role": "customer",
+          "start": 347.184,
+          "end": 352.434,
+          "text": "चलो एक सौन निन्यानवे वाला ग्लास लदा दो उसके अलावा कुछ नहीं चाहिए",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "frustration",
+      "conversation_id": 3,
+      "index": 1,
+      "speaker": "B (customer)",
+      "segment_id": 44,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 42,
+          "speaker": "B",
+          "role": "customer",
+          "start": 329.134,
+          "end": 334.834,
+          "text": "अरे नहीं भाईया, मेरे पास पहले से है कोई भी ईयरबड्स मत जोड़ना",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 43,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 336.134,
+          "end": 346.634,
+          "text": "ठीक है जी, ईयर बड्स नहीं जोड़ूंगा, बस स्क्रीन पर टेमपर्ड ग्लास लगवा लीजिए, एक सो निन्यानवे का है, नडाने का अलग से कुछ नहीं लगेगा",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 44,
+          "speaker": "B",
+          "role": "customer",
+          "start": 347.184,
+          "end": 352.434,
+          "text": "चलो एक सौन निन्यानवे वाला ग्लास लदा दो उसके अलावा कुछ नहीं चाहिए",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 45,
+          "speaker": "B",
+          "role": "customer",
+          "start": 353.5,
+          "end": 361.2,
+          "text": "जी, सिर्फ फोन और एक टेम्पर्ड ग्लास, कुल सोलह हजार एक सौ अठानवे रुपए हुए।",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 46,
+          "speaker": "B",
+          "role": "customer",
+          "start": 362.0,
+          "end": 378.55,
+          "text": "ठीक है यूपियाई कर देता हूँ। ग्लास सीधा लगाईएगा, बुलबुले न रह जायें। जी, ये कोड स्कैन कर लीजिए, आपके सामने ही ग्लास लगाकर दिखा देता हूँ, फिर फोन और बिल साथ रख दूंगा।",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "upsell_attempt",
+      "conversation_id": 3,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 38,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 36,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 295.496,
+          "end": 298.39599999999996,
+          "text": "Keemat pandrah hazaar nau sau navve hai.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 37,
+          "speaker": "B",
+          "role": "customer",
+          "start": 299.346,
+          "end": 304.688,
+          "text": "Seal pack nikal do? Haan, nikal dijiye. बस यही फोन चाहिए.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 38,
+          "speaker": "B",
+          "role": "customer",
+          "start": 305.488,
+          "end": 310.688,
+          "text": "इसके साथ वायरलेस इयरबड्स भी ले लीजिए. चौदा सो निन्यानवे के है.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 39,
+          "speaker": "B",
+          "role": "customer",
+          "start": 311.488,
+          "end": 314.188,
+          "text": "कॉल करने और गाने सुनने में काम आएंगे.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 40,
+          "speaker": "B",
+          "role": "customer",
+          "start": 315.038,
+          "end": 319.238,
+          "text": "नहीं, इयरबड्स नहीं चाहिए, फोन पर ही काफी खर्च हो रहा है.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "upsell_attempt",
+      "conversation_id": 3,
+      "index": 1,
+      "speaker": "A",
+      "segment_id": 41,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 39,
+          "speaker": "B",
+          "role": "customer",
+          "start": 311.488,
+          "end": 314.188,
+          "text": "कॉल करने और गाने सुनने में काम आएंगे.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 40,
+          "speaker": "B",
+          "role": "customer",
+          "start": 315.038,
+          "end": 319.238,
+          "text": "नहीं, इयरबड्स नहीं चाहिए, फोन पर ही काफी खर्च हो रहा है.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 41,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 319.83799999999997,
+          "end": 328.238,
+          "text": "अच्छा, एक सस्ता वाला भी है. वो सात सो निन्यानवे का पडेगा. बज़ट की वज़े से मना कर रहे हैं तो वो लगा दो.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 42,
+          "speaker": "B",
+          "role": "customer",
+          "start": 329.134,
+          "end": 334.834,
+          "text": "अरे नहीं भाईया, मेरे पास पहले से है कोई भी ईयरबड्स मत जोड़ना",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 43,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 336.134,
+          "end": 346.634,
+          "text": "ठीक है जी, ईयर बड्स नहीं जोड़ूंगा, बस स्क्रीन पर टेमपर्ड ग्लास लगवा लीजिए, एक सो निन्यानवे का है, नडाने का अलग से कुछ नहीं लगेगा",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "upsell_attempt",
+      "conversation_id": 3,
+      "index": 2,
+      "speaker": "A",
+      "segment_id": 43,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 41,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 319.83799999999997,
+          "end": 328.238,
+          "text": "अच्छा, एक सस्ता वाला भी है. वो सात सो निन्यानवे का पडेगा. बज़ट की वज़े से मना कर रहे हैं तो वो लगा दो.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 42,
+          "speaker": "B",
+          "role": "customer",
+          "start": 329.134,
+          "end": 334.834,
+          "text": "अरे नहीं भाईया, मेरे पास पहले से है कोई भी ईयरबड्स मत जोड़ना",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 43,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 336.134,
+          "end": 346.634,
+          "text": "ठीक है जी, ईयर बड्स नहीं जोड़ूंगा, बस स्क्रीन पर टेमपर्ड ग्लास लगवा लीजिए, एक सो निन्यानवे का है, नडाने का अलग से कुछ नहीं लगेगा",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 44,
+          "speaker": "B",
+          "role": "customer",
+          "start": 347.184,
+          "end": 352.434,
+          "text": "चलो एक सौन निन्यानवे वाला ग्लास लदा दो उसके अलावा कुछ नहीं चाहिए",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 45,
+          "speaker": "B",
+          "role": "customer",
+          "start": 353.5,
+          "end": 361.2,
+          "text": "जी, सिर्फ फोन और एक टेम्पर्ड ग्लास, कुल सोलह हजार एक सौ अठानवे रुपए हुए।",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "unanswered_question",
+      "conversation_id": 3,
+      "index": 0,
+      "speaker": "B",
+      "segment_id": 37,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 35,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 291.246,
+          "end": 294.64599999999996,
+          "text": "Ji, ye raha. Neela rang upalabd hai.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 36,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 295.496,
+          "end": 298.39599999999996,
+          "text": "Keemat pandrah hazaar nau sau navve hai.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 37,
+          "speaker": "B",
+          "role": "customer",
+          "start": 299.346,
+          "end": 304.688,
+          "text": "Seal pack nikal do? Haan, nikal dijiye. बस यही फोन चाहिए.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 38,
+          "speaker": "B",
+          "role": "customer",
+          "start": 305.488,
+          "end": 310.688,
+          "text": "इसके साथ वायरलेस इयरबड्स भी ले लीजिए. चौदा सो निन्यानवे के है.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 39,
+          "speaker": "B",
+          "role": "customer",
+          "start": 311.488,
+          "end": 314.188,
+          "text": "कॉल करने और गाने सुनने में काम आएंगे.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "unanswered_question",
+      "conversation_id": 3,
+      "index": 1,
+      "speaker": "B",
+      "segment_id": 47,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 45,
+          "speaker": "B",
+          "role": "customer",
+          "start": 353.5,
+          "end": 361.2,
+          "text": "जी, सिर्फ फोन और एक टेम्पर्ड ग्लास, कुल सोलह हजार एक सौ अठानवे रुपए हुए।",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 46,
+          "speaker": "B",
+          "role": "customer",
+          "start": 362.0,
+          "end": 378.55,
+          "text": "ठीक है यूपियाई कर देता हूँ। ग्लास सीधा लगाईएगा, बुलबुले न रह जायें। जी, ये कोड स्कैन कर लीजिए, आपके सामने ही ग्लास लगाकर दिखा देता हूँ, फिर फोन और बिल साथ रख दूंगा।",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 47,
+          "speaker": "B",
+          "role": "customer",
+          "start": 379.594,
+          "end": 383.494,
+          "text": "Hol gaya payment-ha! Bill dibbe mein hi rakh dena.",
+          "is_highlighted": true
+        }
+      ]
+    },
+    {
+      "kind": "greeting",
+      "conversation_id": 3,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 33,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 33,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 279.246,
+          "end": 282.846,
+          "text": "Namasteji, batayiye, kaun sa phone dekhna hai?",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 34,
+          "speaker": "B",
+          "role": "customer",
+          "start": 283.846,
+          "end": 290.746,
+          "text": "Kal jo solah hazaar wala phone dekha tha, wahi lena hai. Ek sau athaees GB wala neele rang mein.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 35,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 291.246,
+          "end": 294.64599999999996,
+          "text": "Ji, ye raha. Neela rang upalabd hai.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "customer_feedback",
+      "conversation_id": 3,
+      "index": 0,
+      "speaker": "B",
+      "segment_id": 42,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 40,
+          "speaker": "B",
+          "role": "customer",
+          "start": 315.038,
+          "end": 319.238,
+          "text": "नहीं, इयरबड्स नहीं चाहिए, फोन पर ही काफी खर्च हो रहा है.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 41,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 319.83799999999997,
+          "end": 328.238,
+          "text": "अच्छा, एक सस्ता वाला भी है. वो सात सो निन्यानवे का पडेगा. बज़ट की वज़े से मना कर रहे हैं तो वो लगा दो.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 42,
+          "speaker": "B",
+          "role": "customer",
+          "start": 329.134,
+          "end": 334.834,
+          "text": "अरे नहीं भाईया, मेरे पास पहले से है कोई भी ईयरबड्स मत जोड़ना",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 43,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 336.134,
+          "end": 346.634,
+          "text": "ठीक है जी, ईयर बड्स नहीं जोड़ूंगा, बस स्क्रीन पर टेमपर्ड ग्लास लगवा लीजिए, एक सो निन्यानवे का है, नडाने का अलग से कुछ नहीं लगेगा",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 44,
+          "speaker": "B",
+          "role": "customer",
+          "start": 347.184,
+          "end": 352.434,
+          "text": "चलो एक सौन निन्यानवे वाला ग्लास लदा दो उसके अलावा कुछ नहीं चाहिए",
+          "is_highlighted": false
+        }
+      ]
+    }
+  ],
+  "spent_usd": 0.330208,
+  "budget_usd": 4.0,
+  "unpriced_calls": 9
+}

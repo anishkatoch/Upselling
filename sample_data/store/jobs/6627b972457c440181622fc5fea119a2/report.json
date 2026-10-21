@@ -1,0 +1,516 @@
+{
+  "job_id": "6627b972457c440181622fc5fea119a2",
+  "source_filename": "2026-10-20_vikram_floor_session.mp3",
+  "duration_s": 251.9,
+  "transcription_provider": "openai:gpt-4o-transcribe-diarize",
+  "speakers": [
+    {
+      "speaker": "A",
+      "role": "salesperson",
+      "title": "Electronics store salesperson",
+      "talk_time_s": 107.5
+    },
+    {
+      "speaker": "C",
+      "role": "customer",
+      "title": "Smartphone buyer",
+      "talk_time_s": 27.9
+    },
+    {
+      "speaker": "B",
+      "role": "customer",
+      "title": "Electronics shopper",
+      "talk_time_s": 23.8
+    },
+    {
+      "speaker": "D",
+      "role": "customer",
+      "title": "HDMI cable buyer",
+      "talk_time_s": 16.9
+    }
+  ],
+  "has_sales_activity": true,
+  "conversations": [
+    {
+      "conversation_id": 1,
+      "start": 0.0,
+      "end": 68.398,
+      "topic": "Wired USB mouse purchase",
+      "language": "hindi",
+      "is_sales_interaction": true,
+      "salespeople": [
+        "A"
+      ],
+      "customers": [
+        "B"
+      ],
+      "mood": {
+        "speakers": [
+          {
+            "speaker": "A",
+            "overall_mood": "calm",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Polite and helpful throughout, explaining the mouse, demonstrating it, and completing payment without any signs of frustration. Voice remains calm and steady."
+          },
+          {
+            "speaker": "B",
+            "overall_mood": "neutral",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Matter-of-fact and cooperative throughout; confirms the mouse works, completes payment, and closes politely. The louder payment question is not accompanied by frustrated wording or tone."
+          }
+        ],
+        "frustration_moments": []
+      },
+      "upsell": {
+        "customer_requested": [
+          "A simple wired USB mouse for a laptop.",
+          "A demonstration before purchase.",
+          "A bill in the name अमित कुमार.",
+          "Payment by UPI."
+        ],
+        "upsell_attempts": [],
+        "excluded_candidates": [
+          "जी ये वाला है, दो बटन है और बीच में स्क्रॉल व्हील है. -> Shows the simple mouse the customer requested; no premium alternative or add-on.",
+          "तीन सौ निन्यानवे रुपये का है, टैक्स मिलाकर. -> Answers the customer's price question; not an offer conditional on buying more.",
+          "खान जी, इस लैपटाप में लगा देता हूं. लीजिए, आप क्लिक और स्क्रोल करके देख लें. -> Demonstrates the requested mouse in response to the customer's request."
+        ],
+        "pushy_upsell": false,
+        "pushy_reason": "The salesperson only supplied, demonstrated, and billed the requested mouse without suggesting additional purchases.",
+        "confidence": 0.99,
+        "summary": "No upsell was attempted. The salesperson fulfilled the request for a simple wired USB mouse, quoted ₹399 including tax, demonstrated it, and completed UPI payment.",
+        "greeting_given": true,
+        "greeting_quote": "जी बताये क्या चाहिये?",
+        "greeting_segment_id": 0,
+        "products_discussed": [
+          "तार वाला यू एस बी माउस"
+        ],
+        "customer_feedback": null,
+        "customer_feedback_segment_id": null,
+        "unanswered_questions": [],
+        "coaching_feedback": "You matched the request for a “साधारण सा” wired mouse, gave the tax-inclusive price, and let the customer test clicking and scrolling before purchase. Before handing over the mouse and bill, briefly explain any applicable warranty or return terms to complete the otherwise clear checkout."
+      },
+      "attempted_upsell": false,
+      "effort_score": 0.0,
+      "analyzed_by": "openai:gpt-6.1-sol",
+      "escalated": false,
+      "budget_note": null
+    },
+    {
+      "conversation_id": 2,
+      "start": 80.5,
+      "end": 177.48600000000002,
+      "topic": "Budget smartphone comparison and purchase",
+      "language": "english",
+      "is_sales_interaction": true,
+      "salespeople": [
+        "A"
+      ],
+      "customers": [
+        "B",
+        "C"
+      ],
+      "mood": {
+        "speakers": [
+          {
+            "speaker": "A",
+            "overall_mood": "calm",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Polite, steady, and helpful throughout, explaining options and accommodating the screen comparison without signs of frustration."
+          },
+          {
+            "speaker": "B",
+            "overall_mood": "neutral",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "States the budget and requirements straightforwardly, then acknowledges the recommendation neutrally. Neither words nor voice indicate frustration."
+          },
+          {
+            "speaker": "C",
+            "overall_mood": "happy",
+            "frustration_level": 0,
+            "trend": "improving",
+            "summary": "Begins with calm, engaged questions and becomes upbeat when choosing the phone and providing billing details. Requests about alternatives, screen comparison, and final pricing are ordinary purchase checks, not frustration."
+          }
+        ],
+        "frustration_moments": []
+      },
+      "upsell": {
+        "customer_requested": [
+          "A phone under fifteen thousand for calls, WhatsApp and videos, with good battery life.",
+          "Another phone in the same budget.",
+          "Camera information and a side-by-side screen comparison using the same video.",
+          "The smaller phone in black, with one hundred twenty eight gigabyte storage.",
+          "Confirmation that thirteen thousand nine hundred ninety nine includes GST."
+        ],
+        "upsell_attempts": [],
+        "excluded_candidates": [
+          "This one is thirteen thousand nine hundred ninety nine, it has a five thousand m a h battery and one hundred twenty eight gigabyte storage. The demo piece is here. -> Recommendation of the main product within the customer's stated budget, not an upgrade or add-on.",
+          "Yes; this model here is also thirteen thousand nine hundred ninety nine; same battery capacity and storage, but the screen is slightly smaller. -> Direct response to the customer's request for another phone in the same budget.",
+          "Decent for daytime photos; indoors you will see some grain. You can take a photo on the demo and check. -> Answers the camera question and offers a demonstration, not an additional purchase.",
+          "Yes, we have a sealed black piece-this same one hundred twenty eight gigabyte version. -> Confirms availability of the requested color and version without increasing the purchase."
+        ],
+        "pushy_upsell": false,
+        "pushy_reason": "The salesperson stayed within the requested budget and showed the second phone only after the customer asked for another option; no additional purchase was pushed.",
+        "confidence": 0.99,
+        "summary": "No upsell was attempted. Both phones cost thirteen thousand nine hundred ninety nine, and the salesperson helped compare them before confirming availability and the GST-inclusive price of the selected black phone.",
+        "greeting_given": true,
+        "greeting_quote": "What are you looking for to day?",
+        "greeting_segment_id": 16,
+        "products_discussed": [
+          "phone"
+        ],
+        "customer_feedback": null,
+        "customer_feedback_segment_id": null,
+        "unanswered_questions": [],
+        "coaching_feedback": "You kept both recommendations within budget and put the demos at the same brightness, making the requested screen comparison useful and fair. Next time, connect the “five thousand m a h battery” specification to expected battery life for calls, WhatsApp and videos, using reliable model-specific information to address the customer's main requirement more directly."
+      },
+      "attempted_upsell": false,
+      "effort_score": 0.0,
+      "analyzed_by": "openai:gpt-6.1-sol",
+      "escalated": false,
+      "budget_note": null
+    },
+    {
+      "conversation_id": 3,
+      "start": 186.21800000000002,
+      "end": 242.64600000000002,
+      "topic": "HDMI cable purchase",
+      "language": "english",
+      "is_sales_interaction": true,
+      "salespeople": [
+        "A"
+      ],
+      "customers": [
+        "D"
+      ],
+      "mood": {
+        "speakers": [
+          {
+            "speaker": "A",
+            "overall_mood": "calm",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Polite, helpful, and composed throughout, with cheerful greeting and closing tones. No signs of frustration."
+          },
+          {
+            "speaker": "D",
+            "overall_mood": "calm",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Matter-of-fact and cooperative throughout, ending with an upbeat thank-you. The GST question is routine price clarification, not a complaint; the louder payment acceptance is consistent with a positive response rather than agitation."
+          }
+        ],
+        "frustration_moments": []
+      },
+      "upsell": {
+        "customer_requested": [
+          "A two meter hdmi cable to connect a laptop to the t v."
+        ],
+        "upsell_attempts": [],
+        "excluded_candidates": [
+          "Here you go. This is a two meter hdmi cable. It's three hundred ninety nine. -> Provides exactly the cable the customer requested, without proposing an upgrade or add-on.",
+          "Yes; three hundred ninety nine rupees, including g s t -> Answers the customer's question about the final price; no additional purchase is suggested."
+        ],
+        "pushy_upsell": false,
+        "pushy_reason": "The salesperson supplied the requested cable and completed payment without suggesting any additional purchase.",
+        "confidence": 1.0,
+        "summary": "No upsell was attempted. The salesperson confirmed HDMI compatibility, provided the requested two meter cable for 399 rupees including GST, and completed the UPI payment.",
+        "greeting_given": true,
+        "greeting_quote": "Good evening! What are you looking for?",
+        "greeting_segment_id": 33,
+        "products_discussed": [
+          "two meter hdmi cable"
+        ],
+        "customer_feedback": null,
+        "customer_feedback_segment_id": null,
+        "unanswered_questions": [],
+        "coaching_feedback": "You checked compatibility with “the regular hdmi port, correct?” and answered both the GST and UPI questions directly, keeping the purchase straightforward. Next time, state “399 rupees, including GST” when first presenting the cable so the customer does not need to ask whether the quoted price is final."
+      },
+      "attempted_upsell": false,
+      "effort_score": 0.0,
+      "analyzed_by": "openai:gpt-6.1-sol",
+      "escalated": false,
+      "budget_note": null
+    }
+  ],
+  "salespeople": [
+    {
+      "speaker": "A",
+      "conversations": 3,
+      "conversations_with_upsell": 0,
+      "upsell_rate": 0.0,
+      "attempts_total": 0,
+      "attempts_per_conversation": 0.0,
+      "avg_effort_score": 0.0,
+      "upsell_talk_time_share": 0.0,
+      "acceptance_rate": null,
+      "pushy_conversations": 0,
+      "techniques_used": []
+    }
+  ],
+  "calls": [
+    {
+      "step": "transcription",
+      "provider": "openai:gpt-4o-transcribe-diarize",
+      "model": "gpt-4o-transcribe-diarize",
+      "ok": true,
+      "latency_s": 92.594,
+      "input_tokens": null,
+      "output_tokens": null,
+      "cost_usd": null,
+      "error": null,
+      "fallback_index": 0
+    },
+    {
+      "step": "role_detection",
+      "provider": "openai:gpt-6.1-sol",
+      "model": "gpt-6.1-sol",
+      "ok": true,
+      "latency_s": 5.828,
+      "input_tokens": 1953,
+      "output_tokens": 198,
+      "cost_usd": null,
+      "error": null,
+      "fallback_index": 0
+    },
+    {
+      "step": "conversation_splitting",
+      "provider": "openai:gpt-6.1-sol",
+      "model": "gpt-6.1-sol",
+      "ok": true,
+      "latency_s": 4.5,
+      "input_tokens": 1746,
+      "output_tokens": 157,
+      "cost_usd": null,
+      "error": null,
+      "fallback_index": 0
+    },
+    {
+      "step": "tone",
+      "provider": "openai:gpt-audio-1.5",
+      "model": "gpt-audio-1.5",
+      "ok": true,
+      "latency_s": 5.985,
+      "input_tokens": 1081,
+      "output_tokens": 516,
+      "cost_usd": 0.067616,
+      "error": null,
+      "fallback_index": 0
+    },
+    {
+      "step": "tone",
+      "provider": "openai:gpt-audio-1.5",
+      "model": "gpt-audio-1.5",
+      "ok": true,
+      "latency_s": 7.235,
+      "input_tokens": 1311,
+      "output_tokens": 683,
+      "cost_usd": 0.085664,
+      "error": null,
+      "fallback_index": 0
+    },
+    {
+      "step": "tone",
+      "provider": "openai:gpt-audio-1.5",
+      "model": "gpt-audio-1.5",
+      "ok": true,
+      "latency_s": 7.86,
+      "input_tokens": 1665,
+      "output_tokens": 715,
+      "cost_usd": 0.09904,
+      "error": null,
+      "fallback_index": 0
+    },
+    {
+      "step": "mood_fusion",
+      "provider": "openai:gpt-6.1-sol",
+      "model": "gpt-6.1-sol",
+      "ok": true,
+      "latency_s": 5.984,
+      "input_tokens": 1498,
+      "output_tokens": 176,
+      "cost_usd": null,
+      "error": null,
+      "fallback_index": 0
+    },
+    {
+      "step": "mood_fusion",
+      "provider": "openai:gpt-6.1-sol",
+      "model": "gpt-6.1-sol",
+      "ok": true,
+      "latency_s": 5.922,
+      "input_tokens": 1776,
+      "output_tokens": 174,
+      "cost_usd": null,
+      "error": null,
+      "fallback_index": 0
+    },
+    {
+      "step": "mood_fusion",
+      "provider": "openai:gpt-6.1-sol",
+      "model": "gpt-6.1-sol",
+      "ok": true,
+      "latency_s": 7.265,
+      "input_tokens": 1871,
+      "output_tokens": 237,
+      "cost_usd": null,
+      "error": null,
+      "fallback_index": 0
+    },
+    {
+      "step": "upsell_detection",
+      "provider": "openai:gpt-6.1-sol",
+      "model": "gpt-6.1-sol",
+      "ok": true,
+      "latency_s": 8.969,
+      "input_tokens": 2472,
+      "output_tokens": 342,
+      "cost_usd": null,
+      "error": null,
+      "fallback_index": 0
+    },
+    {
+      "step": "upsell_detection",
+      "provider": "openai:gpt-6.1-sol",
+      "model": "gpt-6.1-sol",
+      "ok": true,
+      "latency_s": 23.89,
+      "input_tokens": 2592,
+      "output_tokens": 838,
+      "cost_usd": null,
+      "error": null,
+      "fallback_index": 0
+    },
+    {
+      "step": "upsell_detection",
+      "provider": "openai:gpt-6.1-sol",
+      "model": "gpt-6.1-sol",
+      "ok": true,
+      "latency_s": 41.734,
+      "input_tokens": 2696,
+      "output_tokens": 1476,
+      "cost_usd": null,
+      "error": null,
+      "fallback_index": 0
+    }
+  ],
+  "evidence": [
+    {
+      "kind": "greeting",
+      "conversation_id": 1,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 0,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 0,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 0.0,
+          "end": 3.05,
+          "text": "जी बताये क्या चाहिये?",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 1,
+          "speaker": "B",
+          "role": "customer",
+          "start": 4.2,
+          "end": 8.05,
+          "text": "लैपटॉप के लिए तार वाला यू एस बी माउस चाहिये-साधारण सा.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 2,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 9.0,
+          "end": 14.250000000000002,
+          "text": "जी ये वाला है, दो बटन है और बीच में स्क्रॉल व्हील है.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "greeting",
+      "conversation_id": 2,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 16,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 16,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 80.5,
+          "end": 82.3,
+          "text": "What are you looking for to day?",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 17,
+          "speaker": "B",
+          "role": "customer",
+          "start": 83.9,
+          "end": 90.35,
+          "text": "A phone under fifteen thousand, mainly calls, whatsapp and videos; batteries should be good.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 18,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 91.2,
+          "end": 102.5,
+          "text": "This one is thirteen thousand nine hundred ninety nine, it has a five thousand m a h battery and one hundred twenty eight gigabyte storage. The demo piece is here.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "greeting",
+      "conversation_id": 3,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 33,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 33,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 186.21800000000002,
+          "end": 188.768,
+          "text": "Good evening! What are you looking for?",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 34,
+          "speaker": "D",
+          "role": "customer",
+          "start": 189.918,
+          "end": 194.11800000000002,
+          "text": "I need a two meter hdmi cable to connect my laptop to the t v",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 35,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 196.918,
+          "end": 201.068,
+          "text": "Sure! Your laptop has the regular hdmi port, correct?",
+          "is_highlighted": false
+        }
+      ]
+    }
+  ],
+  "spent_usd": 0.25232,
+  "budget_usd": 4.0,
+  "unpriced_calls": 9
+}

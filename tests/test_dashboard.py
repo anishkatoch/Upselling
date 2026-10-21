@@ -130,3 +130,297 @@ def test_demo_dashboard_is_valid_and_varied():
     people = {p.name: p for p in dashboard.Dashboard.model_validate(demo["week"]).people}
     assert len({p.assessment.rating for p in people.values()}) >= 2  # not everyone looks the same
     assert all(p.recent_calls for p in people.values())
+
+
+# ---------------------------------------------------------------- identity, periods, missing data
+
+NOW = datetime(2026, 10, 21, 12, tzinfo=UTC)  # a Wednesday; its week starts 2026-10-19
+
+
+def _sales_convs(report: dict) -> list[dict]:
+    return [c for c in report["conversations"] if c["is_sales_interaction"]]
+
+
+def _add_custom_job(storage, tmp_path, created: str, report: dict, name: str | None = None) -> str:
+    audio = tmp_path / "a.wav"
+    audio.write_bytes(b"x")
+    st = jobs.create_job(storage, audio, "visit.wav", salesperson_name=name)
+    jobs.update_status(storage, st.job_id, status="completed", created_at=created)
+    report = {**report, "job_id": st.job_id}
+    storage.put_json(jobs.report_key(st.job_id), report)
+    return st.job_id
+
+
+def test_names_differing_in_case_or_whitespace_are_one_person(tmp_path):
+    storage = LocalStorage(tmp_path / "s")
+    ids = [_add_job(storage, tmp_path, f"2026-10-1{i}T10:00:00+00:00") for i in (4, 5, 6, 7)]
+    for job_id, typed in zip(ids, ["Rahul", "rahul", "Rahul ", "  RAHUL   "], strict=True):
+        dashboard.set_name(storage, job_id, "A", typed)
+    people = dashboard.build_dashboard(storage, "month", NOW).people
+    assert [p.name for p in people] == ["Rahul"]  # first spelling wins
+    assert people[0].total.recordings == 4
+    assert [r.job_id for r in dashboard.build_person_recordings(storage, "rahul")] == ids[::-1]
+
+
+def test_old_mixed_case_data_is_merged_without_migration(tmp_path):
+    storage = LocalStorage(tmp_path / "s")
+    a = _add_job(storage, tmp_path, "2026-10-14T10:00:00+00:00")
+    _add_job(storage, tmp_path, "2026-10-15T10:00:00+00:00", name="priya  s")
+    c = _add_job(storage, tmp_path, "2026-10-16T10:00:00+00:00")
+    storage.put_json(dashboard.NAMES_KEY, {f"{a}:A": "Priya S", f"{c}:A": "PRIYA S "})
+    people = dashboard.build_dashboard(storage, "month", NOW).people
+    assert [p.name for p in people] == ["Priya S"]
+    assert people[0].total.recordings == 3
+
+
+def test_upload_hint_resolves_to_existing_spelling_and_empty_name_clears(tmp_path):
+    storage = LocalStorage(tmp_path / "s")
+    job_id = _add_job(storage, tmp_path, "2026-10-14T10:00:00+00:00")
+    dashboard.set_name(storage, job_id, "A", "Rahul")
+    assert dashboard.register_name(storage, "  rahul ") == "Rahul"
+    assert dashboard.register_name(storage, "   ") is None
+    dashboard.set_name(storage, job_id, "A", "  ")
+    assert dashboard.build_dashboard(storage, "month", NOW).people == []
+
+
+def test_merge_people_follows_chains_and_rejects_bad_input(tmp_path):
+    storage = LocalStorage(tmp_path / "s")
+    ids = [_add_job(storage, tmp_path, f"2026-10-1{i}T10:00:00+00:00") for i in (4, 5, 6)]
+    for job_id, typed in zip(ids, ["Rahul", "Rahul K", "Rahul Kumar"], strict=True):
+        dashboard.set_name(storage, job_id, "A", typed)
+    assert [r.name for r in dashboard.build_roster(storage)] == ["Rahul", "Rahul K", "Rahul Kumar"]
+
+    dashboard.merge_people(storage, "Rahul K", "Rahul Kumar")
+    dashboard.merge_people(storage, "rahul kumar", "Rahul")  # chain: K -> Kumar -> Rahul
+    dashboard.merge_people(storage, "Rahul", "RAHUL")  # self-merge is a no-op
+    people = dashboard.build_dashboard(storage, "month", NOW).people
+    assert [p.name for p in people] == ["Rahul"] and people[0].total.recordings == 3
+    assert [(r.name, r.recordings) for r in dashboard.build_roster(storage)] == [("Rahul", 3)]
+    assert len(dashboard.build_person_recordings(storage, "Rahul K")) == 3  # an alias finds the same person
+    dashboard.set_name(storage, ids[0], "A", "rahul k")  # typing a merged-away name lands on the survivor
+    assert [p.name for p in dashboard.build_dashboard(storage, "month", NOW).people] == ["Rahul"]
+
+    with pytest.raises(KeyError):
+        dashboard.merge_people(storage, "Nobody", "Rahul")
+    with pytest.raises(ValueError):
+        dashboard.merge_people(storage, "", "Rahul")
+
+
+def test_roster_counts_distinct_recordings_and_includes_hint_only_names(tmp_path):
+    storage = LocalStorage(tmp_path / "s")
+    a = _add_job(storage, tmp_path, "2026-10-14T10:00:00+00:00")
+    dashboard.set_name(storage, a, "A", "zoe")
+    _add_job(storage, tmp_path, "2026-10-15T10:00:00+00:00", name="Amit")
+    audio = tmp_path / "q.wav"
+    audio.write_bytes(b"x")
+    jobs.create_job(storage, audio, "queued.wav", salesperson_name="Bela")  # not completed yet
+    assert [(r.name, r.recordings) for r in dashboard.build_roster(storage)] == [
+        ("Amit", 1),
+        ("Bela", 0),
+        ("zoe", 1),
+    ]
+
+
+def test_roster_and_merge_endpoints(settings, tmp_path, monkeypatch):
+    from fastapi.testclient import TestClient
+
+    from upsell_poc.api import main
+
+    # `main.settings` is bound at import time, so without this the test would write into the real default store.
+    monkeypatch.setattr(main, "settings", settings)
+    storage = main.get_storage(main.settings)
+    ids = []
+    for typed in ("Rahul", "Rahul K"):
+        ids.append(_add_job(storage, tmp_path, "2026-10-14T10:00:00+00:00"))
+        dashboard.set_name(storage, ids[-1], "A", typed)
+    client = TestClient(main.app)
+    assert client.get("/api/people/roster").json() == [
+        {"name": "Rahul", "recordings": 1},
+        {"name": "Rahul K", "recordings": 1},
+    ]
+    assert client.post("/api/people/merge", json={"from_name": "Nobody", "into_name": "Rahul"}).status_code == 404
+    assert client.post("/api/people/merge", json={"from_name": "", "into_name": "Rahul"}).status_code == 422
+    assert client.post("/api/people/merge", json={"from_name": "rahul k", "into_name": "Rahul"}).status_code == 204
+    assert client.get("/api/people/roster").json() == [{"name": "Rahul", "recordings": 2}]
+    assert client.post("/api/people/name", json={"job_id": ids[0], "speaker": "A", "name": ""}).status_code == 204
+
+
+def test_unassigned_items_carry_title_talk_time_and_sample_lines(tmp_path):
+    storage = LocalStorage(tmp_path / "s")
+    job_id = _add_job(storage, tmp_path, "2026-10-14T10:00:00+00:00")
+    segs = [{"id": i, "speaker": "A", "start": 5.0 + i, "end": 6.0 + i, "text": f" line {i} "} for i in range(5)]
+    storage.put_json(jobs.transcript_key(job_id), {"transcript": {"segments": segs}})
+    result = dashboard.build_dashboard(storage, "day", NOW)
+    item = result.unassigned[0]
+    assert item.title == "Senior Sales Associate" and item.talk_time_s == 54.5
+    assert item.first_start_s == 5.0
+    assert [(s.start, s.text) for s in item.sample_lines] == [(5.0, "line 0"), (6.0, "line 1"), (7.0, "line 2")]
+    assert result.unassigned_conversations == item.conversations > 0
+
+    storage.put_json(jobs.transcript_key(job_id), {"segments": "garbage"})  # unreadable: must not break the dashboard
+    broken = dashboard.build_dashboard(storage, "day", NOW).unassigned[0]
+    assert broken.sample_lines == [] and broken.first_start_s is None
+
+
+def test_stale_latest_period_is_flagged_not_current(tmp_path):
+    storage = LocalStorage(tmp_path / "s")
+    old = _add_job(storage, tmp_path, "2026-09-01T10:00:00+00:00")
+    dashboard.set_name(storage, old, "A", "Asha")
+    stale = dashboard.build_dashboard(storage, "week", NOW)
+    assert stale.current_period == "2026-10-19"
+    assert stale.people[0].total.period == "2026-08-31" and stale.people[0].is_current is False
+
+    recent = _add_job(storage, tmp_path, "2026-10-20T10:00:00+00:00")
+    dashboard.set_name(storage, recent, "A", "Asha")
+    fresh = dashboard.build_dashboard(storage, "week", NOW)
+    assert fresh.people[0].total.period == "2026-10-19" and fresh.people[0].is_current is True
+    assert dashboard.build_dashboard(storage, "month", NOW).current_period == "2026-10"
+
+
+def test_shared_conversation_findings_are_not_charged_to_anyone(tmp_path):
+    report = _sample_report()
+    conv = _sales_convs(report)[0]
+    first = conv["salespeople"][0]
+    conv["salespeople"] = [first, "Z"]
+    conv["upsell"].update(
+        pushy_upsell=True,
+        greeting_given=True,
+        unanswered_questions=[{"segment_id": 1, "speaker": "x", "question": "q?", "note": "ignored"}],
+    )
+    other = _sales_convs(report)[1]["upsell"]  # the one solo conversation: nothing wrong in it
+    other.update(pushy_upsell=False, unanswered_questions=[])
+    storage = LocalStorage(tmp_path / "s")
+    job_id = _add_custom_job(storage, tmp_path, "2026-10-14T10:00:00+00:00", report)
+    dashboard.set_name(storage, job_id, first, "Asha")
+    dashboard.set_name(storage, job_id, "Z", "Ravi")
+    by = {p.name: p.total for p in dashboard.build_dashboard(storage, "month", NOW).people}
+    ravi, asha = by["Ravi"], by["Asha"]
+    assert (ravi.pushy_conversations, ravi.unanswered_questions, ravi.greeted) == (0, 0, 0)
+    assert ravi.shared_conversations == 1 and ravi.solo_analysed_conversations == 0
+    assert ravi.greeting_rate is None  # nothing left to judge a greeting on
+    assert asha.pushy_conversations == 0 and asha.unanswered_questions == 0
+    assert asha.shared_conversations == 1
+    assert asha.solo_analysed_conversations == asha.analysed_conversations - 1
+    # per-attempt numbers still belong to whoever made the attempts
+    assert asha.attempts > 0 and ravi.attempts == 0
+
+
+def test_unanalysed_conversations_do_not_dilute_rates_or_earn_points(tmp_path):
+    totals = {}
+    partial = _sample_report()
+    _sales_convs(partial)[1]["upsell"] = None
+    for label, rep in (("full", _sample_report()), ("partial", partial)):
+        storage = LocalStorage(tmp_path / label)
+        job_id = _add_custom_job(storage, tmp_path, "2026-10-14T10:00:00+00:00", rep)
+        dashboard.set_name(storage, job_id, "A", "Meena")
+        totals[label] = dashboard.build_dashboard(storage, "month", NOW).people[0].total
+    p = totals["partial"]
+    assert p.conversations == 3 and p.analysed_conversations == 1  # the sample already has one unanalysed call
+    assert totals["full"].analysed_conversations == 2
+    assert p.upsell_rate == totals["full"].upsell_rate == 1.0  # an unanalysed call is not a "no upsell"
+    assert p.attempts_per_conversation == round(p.attempts / 1, 2)
+
+    nothing = _sample_report()
+    for c in nothing["conversations"]:
+        c["upsell"] = None
+    storage = LocalStorage(tmp_path / "none")
+    job_id = _add_custom_job(storage, tmp_path, "2026-10-14T10:00:00+00:00", nothing)
+    dashboard.set_name(storage, job_id, "A", "Meena")
+    a = dashboard.build_dashboard(storage, "month", NOW).people[0].assessment
+    assert a.insufficient_data and a.low_sample
+    assert a.strengths == []  # absent data is not a strength, e.g. "Answers what customers ask."
+    assert "Not enough analysed" in a.headline
+
+
+def test_assess_scores_only_categories_with_data():
+    base = {"period": "p", "conversations": 5, "analysed_conversations": 5}
+    # no answered offers = no free point; no solo conversations = no pushy/listening points
+    sparse = dashboard.assess(dashboard.Bucket(**base, upsell_rate=0.0), [])
+    assert sparse.rating == "needs_work" and not sparse.insufficient_data
+    assert not any("Answers what customers ask" in s for s in sparse.strengths)
+
+    full = dashboard.Bucket(
+        **base, solo_analysed_conversations=5, greeting_rate=1.0, upsell_rate=0.8, acceptance_rate=0.5
+    )
+    assert dashboard.assess(full, []).rating == "strong"  # 10 of 10 available points, not 10 of a fixed 12
+
+    few = dashboard.Bucket(period="p", conversations=2, analysed_conversations=2, solo_analysed_conversations=2)
+    assert dashboard.assess(few, []).insufficient_data
+
+
+def test_rarely_upselling_is_never_rated_strong_or_solid():
+    # Greeted, no pressure, questions answered - but never tries an upsell: that is the one thing being measured.
+    base = {
+        "period": "p",
+        "conversations": 5,
+        "analysed_conversations": 5,
+        "solo_analysed_conversations": 5,
+        "greeting_rate": 1.0,
+    }
+    assert dashboard.assess(dashboard.Bucket(**base, upsell_rate=0.0), []).rating == "needs_work"
+    assert dashboard.assess(dashboard.Bucket(**base, upsell_rate=0.2), []).rating == "needs_work"
+    # a middling upsell rate can't be "strong" even if every other category is perfect
+    mid = dashboard.Bucket(**base, upsell_rate=0.5, acceptance_rate=0.9)
+    assert dashboard.assess(mid, []).rating in ("solid", "needs_work")
+
+
+def _set_first_conversation_attempts(storage, job_id: str, attempts: list[tuple[str, str]]) -> None:
+    key = jobs.report_key(job_id)
+    report = storage.get_json(key)
+    template = report["conversations"][0]["upsell"]["upsell_attempts"][0]
+    report["conversations"][0]["upsell"]["upsell_attempts"] = [
+        {**template, "technique": technique, "customer_response": response} for technique, response in attempts
+    ]
+    storage.put_json(key, report)
+
+
+def test_technique_stats_empty_storage(tmp_path):
+    storage = LocalStorage(tmp_path / "s")
+    assert dashboard.build_dashboard(storage, "month").technique_stats == []
+
+
+def test_technique_stats_counts_rates_people_and_excludes_unassigned(tmp_path):
+    storage = LocalStorage(tmp_path / "s")
+    # Rahul: the sample as-is: bundle rejected, cross_sell accepted, plan_upgrade rejected, social_proof rejected
+    rahul = _add_job(storage, tmp_path, "2026-10-12T10:00:00+00:00")
+    dashboard.set_name(storage, rahul, "A", "Rahul")
+    priya = _add_job(storage, tmp_path, "2026-10-14T10:00:00+00:00")
+    dashboard.set_name(storage, priya, "A", "Priya")
+    _set_first_conversation_attempts(
+        storage,
+        priya,
+        [
+            ("bundle", "accepted"),
+            ("bundle", "undecided"),
+            ("cross_sell", "no_response"),
+            ("discount_offer", "undecided"),
+        ],
+    )
+    # an unassigned recording must not count towards any technique
+    other = _add_job(storage, tmp_path, "2026-10-15T10:00:00+00:00")
+    _set_first_conversation_attempts(storage, other, [("bundle", "accepted")] * 5)
+
+    stats = dashboard.build_dashboard(storage, "month").technique_stats
+    got = {s.technique: (s.attempts, s.accepted, s.rejected, s.acceptance_rate, s.people) for s in stats}
+    assert got == {
+        "bundle": (3, 1, 1, 0.5, 2),
+        "cross_sell": (2, 1, 0, 1.0, 2),
+        "plan_upgrade": (2, 0, 2, 0.0, 2),
+        "social_proof": (2, 0, 2, 0.0, 2),
+        "discount_offer": (1, 0, 0, None, 1),
+    }
+    # attempts desc, then technique name
+    assert [s.technique for s in stats] == ["bundle", "cross_sell", "plan_upgrade", "social_proof", "discount_offer"]
+    assert all(s.attempts >= s.accepted + s.rejected for s in stats)
+
+
+def test_technique_stats_agree_with_people_totals_and_ignore_period(tmp_path):
+    storage = LocalStorage(tmp_path / "s")
+    for created, name in [("2026-10-02T10:00:00+00:00", "Rahul"), ("2026-10-20T10:00:00+00:00", "Priya")]:
+        job_id = _add_job(storage, tmp_path, created)
+        dashboard.set_name(storage, job_id, "A", name)
+    month = dashboard.build_dashboard(storage, "month")
+    assert sum(s.attempts for s in month.technique_stats) == sum(p.total.attempts for p in month.people) > 0
+    # same all-recordings numbers whichever period is requested
+    day = dashboard.build_dashboard(storage, "day")
+    assert day.technique_stats == month.technique_stats

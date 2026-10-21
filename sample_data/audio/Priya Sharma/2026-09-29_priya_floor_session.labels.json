@@ -1,0 +1,372 @@
+{
+  "employee": "Priya Sharma",
+  "date": "2026-09-29",
+  "encounters": [
+    {
+      "industry": "electronics retail",
+      "language": "hinglish",
+      "scenario": "Customer phone khareedta hai. Salesperson ke pehle do accessory offers mana karne ke baad customer ek sasta back cover lene ko maan jaata hai.",
+      "turns": [
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "Haan ji, kya dikhaun aapko?",
+          "emotion": "neutral",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "Phone chahiye, thirteen thousand tak. WhatsApp aur calls ke liye, battery achhi honi chahiye.",
+          "emotion": "neutral",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "Yeh wala dekh lijiye, twelve thousand nine ninety-nine ka hai. Battery five thousand mAh hai, aapke use ke liye theek rahega.",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "Haan, haath mein bhi theek lag raha hai. Ismein blue colour milega?",
+          "emotion": "neutral",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "Ji, blue sealed piece hai. Wahi nikaal ke bill bana doon?",
+          "emotion": "neutral",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "Haan, blue hi kar do.",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "Saath mein cover aur tempered glass ka combo laga doon? Nine ninety-nine extra padega, dono cheezein ho jayengi.",
+          "emotion": "neutral",
+          "is_upsell_attempt": true,
+          "technique": "bundle"
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "Nahi bhai, thousand aur nahi kharch karna. Phone ka hi bill banao.",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "Combo chhod dijiye, sirf tempered glass kar doon? Four ninety-nine ka hai, abhi yahin laga denge.",
+          "emotion": "neutral",
+          "is_upsell_attempt": true,
+          "technique": "cross_sell"
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "Arre nahi, glass bhi abhi nahi chahiye. Budget already poora ho gaya.",
+          "emotion": "impatient",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "Achha, ek basic transparent back cover hai, one ninety-nine ka. Bas woh rakh doon? Mehenga wala nahi.",
+          "emotion": "calm",
+          "is_upsell_attempt": true,
+          "technique": "cross_sell"
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "Dikhao... haan, yeh theek hai. Chalo, sirf yeh cover de do. Glass mat lagana.",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "Ji, phone aur yeh cover hi. Total thirteen thousand one ninety-eight hua.",
+          "emotion": "neutral",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "Theek hai, QR dikha do, UPI kar deta hoon.",
+          "emotion": "neutral",
+          "is_upsell_attempt": false,
+          "technique": null
+        }
+      ],
+      "expected_attempted_upsell": true,
+      "expected_attempts": 3,
+      "notes": "Turns 7, 9, and 11 are proactive accessory upsell attempts. The customer rejects the bundle and standalone tempered glass, then accepts only the smaller ₹199 back-cover add-on. Recommending the requested phone within budget and confirming the final bill are not upsell attempts."
+    },
+    {
+      "industry": "electronics retail",
+      "language": "english",
+      "scenario": "A customer buying a laptop accepts a discounted bundle of a wireless mouse and laptop sleeve.",
+      "turns": [
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "Good afternoon. What are you looking for today?",
+          "emotion": "happy",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "I need a laptop for office work. Mostly Excel, video calls and browsing. Budget is around fifty-five thousand.",
+          "emotion": "neutral",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "This one is ₹52,990, including GST. It has 16 GB RAM and a 512 GB SSD. For that kind of work, this will suit you.",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "Is it very heavy? I have to carry it to office three days a week.",
+          "emotion": "neutral",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "It's 1.4 kilos. You can lift the display piece and check. The charger is here also.",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "Yes, this is manageable. Okay, I'll take this laptop.",
+          "emotion": "happy",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "With this laptop, we can add a wireless mouse and a padded sleeve together for ₹1,499. Separately, those two come to ₹2,498. The bundle price applies only when you buy them with the laptop. Shall I add it?",
+          "emotion": "calm",
+          "is_upsell_attempt": true,
+          "technique": "bundle"
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "Can I see the sleeve? My backpack doesn't have a separate laptop section.",
+          "emotion": "neutral",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "Sure, this is the sleeve included in that bundle. There's padding on both sides. Let me put the display laptop inside so you can check the fit.",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "That fits properly. Fine, add the mouse and sleeve bundle for ₹1,499.",
+          "emotion": "happy",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "Done. Your total is ₹54,489, including the laptop and both accessories. Will you pay by card or UPI?",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "Card. Please put my name on the bill, not my company name.",
+          "emotion": "neutral",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "Certainly. Please check your name here before I generate the bill. Then we'll open the laptop at the counter and check it with you.",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "The name is correct. Yes, let's check it before packing. Thanks.",
+          "emotion": "happy",
+          "is_upsell_attempt": false,
+          "technique": null
+        }
+      ],
+      "expected_attempted_upsell": true,
+      "expected_attempts": 1,
+      "notes": "Turn 7 is the sole proactive upsell: a discounted accessory bundle beyond the requested laptop. The customer explicitly accepts it in turn 10. Showing the requested sleeve and billing the accepted items are not additional upsell attempts."
+    },
+    {
+      "industry": "electronics retail",
+      "language": "hindi",
+      "scenario": "ग्राहक सात किलो की फ्रंट लोड वॉशिंग मशीन लेने आता है। विक्रेता अधिक क्षमता वाला प्रीमियम मॉडल और अतिरिक्त वारंटी पेश करता है। ग्राहक दोनों प्रस्तावों पर सोच-विचार करके स्वीकार करता है।",
+      "turns": [
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "नमस्ते जी, क्या दिखाऊँ आपको?",
+          "emotion": "happy",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "सात किलो की फ्रंट लोड वॉशिंग मशीन चाहिए। बजट बत्तीस हज़ार तक है।",
+          "emotion": "neutral",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "जी, ये सात किलो वाला मॉडल इकतीस हज़ार नौ सौ नब्बे का है। आपके बजट में आ जाएगा।",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "घर में चार लोग हैं। सात किलो ठीक रहेगा ना? कभी चादरें भी धोनी होती हैं।",
+          "emotion": "neutral",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "रोज़ के कपड़ों के लिए सात किलो ठीक रहेगा जी। वैसे आप पाँच हज़ार और लगा सकें तो ये आठ किलो वाला प्रीमियम मॉडल भी देख लीजिए। छत्तीस हज़ार नौ सौ नब्बे का है, ड्रम बड़ा है और इसमें कम आवाज़ वाली मोटर भी है।",
+          "emotion": "calm",
+          "is_upsell_attempt": true,
+          "technique": "upgrade"
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "हम्म, पाँच हज़ार ऊपर जा रहा है। थोड़ा सोचने दीजिए। इसमें बिजली की बचत भी होगी या बस जगह ज़्यादा है?",
+          "emotion": "neutral",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "दोनों की ऊर्जा रेटिंग पाँच स्टार है। बिल में कितनी बचत होगी, वो इस्तेमाल और चुने हुए प्रोग्राम पर निर्भर करेगा। मुख्य फर्क क्षमता, मोटर की आवाज़ और धुलाई के कुछ अतिरिक्त प्रोग्राम का है।",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "अच्छा… हमारे यहाँ कपड़े इकट्ठे हो ही जाते हैं। चलिए, आठ किलो वाला ले लेते हैं। इसकी वारंटी कितनी है?",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "इसमें दो साल की मशीन वारंटी और मोटर पर दस साल की सीमित वारंटी है। चाहें तो दो हज़ार नौ सौ निन्यानवे में तीन साल की अतिरिक्त वारंटी भी जोड़ सकते हैं। वो मशीन की दो साल वाली वारंटी खत्म होने के बाद शुरू होगी।",
+          "emotion": "calm",
+          "is_upsell_attempt": true,
+          "technique": "warranty_protection"
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "तीन हज़ार और लगेंगे लगभग। उस अतिरिक्त वारंटी में क्या-क्या आएगा? बाद में सर्विस वाले अलग पैसे तो नहीं माँगेंगे?",
+          "emotion": "confused",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "इस योजना में कवर होने वाली यांत्रिक और इलेक्ट्रिकल खराबियों के पुर्ज़े, मज़दूरी और घर पर सर्विस का शुल्क शामिल है। टूट-फूट, गलत इस्तेमाल और वोल्टेज बढ़ने से हुआ नुकसान शामिल नहीं है। ये लिखित शर्तें हैं, आप पढ़ लीजिए।",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "एक मिनट, देख लूँ… हाँ, ठीक है। मशीन लंबे समय चलानी है, तो ये अतिरिक्त वारंटी भी जोड़ दीजिए। कुल कितना बनेगा?",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "मशीन छत्तीस हज़ार नौ सौ नब्बे और अतिरिक्त वारंटी दो हज़ार नौ सौ निन्यानवे, कुल उनतालीस हज़ार नौ सौ नवासी रुपये। टैक्स शामिल है और इस पते पर डिलीवरी व सामान्य इंस्टॉलेशन का अलग शुल्क नहीं है। बिल में वारंटी अलग से लिख दूँगा।",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "ठीक है, बिल बना दीजिए। यूपीआई से भुगतान कर दूँगा। वारंटी की शर्तों की कॉपी भी साथ दे दीजिएगा।",
+          "emotion": "happy",
+          "is_upsell_attempt": false,
+          "technique": null
+        }
+      ],
+      "expected_attempted_upsell": true,
+      "expected_attempts": 2,
+      "notes": "दो सक्रिय अपसेल प्रयास हैं: टर्न 5 में बजट से महँगा प्रीमियम मॉडल और टर्न 9 में सशुल्क अतिरिक्त वारंटी। ग्राहक के सवालों के जवाब, शर्तों की जानकारी और अंतिम बिल की पुष्टि अलग अपसेल प्रयास नहीं हैं। ग्राहक विचार करने के बाद दोनों प्रस्ताव स्वीकार करता है।"
+    }
+  ]
+}

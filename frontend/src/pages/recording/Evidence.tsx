@@ -73,7 +73,7 @@ export default function EvidenceTab({ ctx }: { ctx: RecCtx }) {
           </button>
         </div>
         <p className="sub small" style={{ marginTop: 10 }}>
-          Every finding, grouped by type. Open a card&apos;s evidence to read the transcript lines; click a time to play that moment.
+          Every finding, grouped by type. Open a card&apos;s evidence to read the transcript lines around it.
         </p>
       </div>
 

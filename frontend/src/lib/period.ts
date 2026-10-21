@@ -1,3 +1,5 @@
+export type Period = "day" | "week" | "month";
+
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 /** "2026-08" -> "Aug 2026"; "2026-08-14" -> "14 Aug 2026". Anything else is returned untouched. */

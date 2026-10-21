@@ -20,7 +20,7 @@ import random
 import sys
 import tempfile
 from dataclasses import dataclass
-from datetime import date, timedelta
+from datetime import UTC, date, datetime, timedelta
 from pathlib import Path
 
 from upsell_poc import dashboard, jobs
@@ -34,6 +34,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 
 FIRST_MONDAY = date(2026, 8, 10)
 WEEKS = 10
+DEMO_NOW = datetime(2026, 10, 14, 12, tzinfo=UTC)  # the demo data ends Wednesday 14 Oct
 
 TOPICS = ["Running shoes purchase", "Phone bill payment", "Laptop enquiry", "Mobile plan renewal", "Insurance renewal",
           "Television purchase", "Wireless headphones", "Credit card offer"]  # fmt: skip
@@ -228,7 +229,7 @@ def build() -> dict:
                     storage.put_json(jobs.report_key(status.job_id), report)
                     dashboard.set_name(storage, status.job_id, "A", p.name)
         return {
-            period: dashboard.build_dashboard(storage, period).model_dump(mode="json")
+            period: dashboard.build_dashboard(storage, period, now=DEMO_NOW).model_dump(mode="json")
             for period in ("day", "week", "month")
         }
 

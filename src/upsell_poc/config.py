@@ -25,7 +25,8 @@ class Settings(BaseSettings):
     log_level: str = "INFO"
 
     storage_backend: Literal["local", "s3"] = "local"
-    local_storage_dir: Path = PROJECT_ROOT / "data"
+    # The committed sample data (see scripts/build_sample_data.py); LOCAL_STORAGE_DIR overrides.
+    local_storage_dir: Path = PROJECT_ROOT / "sample_data" / "store"
     s3_bucket: str | None = None
     s3_prefix: str = "upsell-poc"
 

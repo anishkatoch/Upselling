@@ -1,5 +1,7 @@
 import type { Evidence, Mood, Report, ReplyKind, Segment } from "../../lib/api";
 import { clock, MOOD_TONE, nice } from "../../lib/format";
+import { ChatBubble, ChatGroup } from "./chat";
+import { sideOf } from "./chatUtils";
 
 /**
  * The mood-fusion model occasionally echoes back the role-annotated label it was shown
@@ -35,11 +37,30 @@ export function Spk({ speaker, report, who }: { speaker: string; report: Report;
   );
 }
 
-export function TimeBtn({ t, seek }: { t: number; seek: (t: number) => void }) {
+/** Muted role text beside a speaker, only when it adds something (not "Customer customer"). */
+/**
+ * The speaker-name function to use INSIDE one conversation: a conversation has a single customer, so they are
+ * just "Customer" there; the numbered names only matter when the whole recording is listed.
+ */
+export function convWho(report: Report, who: (s: string) => string, conversationId: number | undefined): (s: string) => string {
+  const customers = report.conversations.find((c) => c.conversation_id === conversationId)?.customers ?? [];
+  const only = customers.length === 1 ? canon(customers[0]) : null;
+  return (s) => (only && canon(s) === only ? "Customer" : who(s));
+}
+
+export function RoleNote({ speaker, report, who, role }: { speaker: string; report: Report; who?: (s: string) => string; role?: string | null }) {
+  const r = role ?? report.speakers.find((s) => s.speaker === canon(speaker))?.role;
+  const shown = (who ? who(canon(speaker)) : speaker).trim().toLowerCase();
+  if (!r || r.trim().toLowerCase() === shown) return null;
+  return <span className="sub small"> {r}</span>;
+}
+
+/** A timestamp label (there is no audio playback in this app, so it is not clickable). */
+export function TimeBtn({ t }: { t: number; seek?: (t: number) => void }) {
   return (
-    <button className="chip link" onClick={() => seek(t)} style={{ fontVariantNumeric: "tabular-nums" }}>
+    <span className="chip" style={{ fontVariantNumeric: "tabular-nums" }}>
       {clock(t)}
-    </button>
+    </span>
   );
 }
 
@@ -60,6 +81,17 @@ const EVIDENCE_LABEL: Record<string, string> = {
   customer_feedback: "customer feedback",
 };
 
+/** Split lines into runs of consecutive lines by the same speaker. */
+function groupLines<T extends { speaker: string }>(lines: T[]): T[][] {
+  const out: T[][] = [];
+  for (const l of lines) {
+    const last = out[out.length - 1];
+    if (last && canon(last[0].speaker) === canon(l.speaker)) last.push(l);
+    else out.push([l]);
+  }
+  return out;
+}
+
 export function evidenceIndex(evidence: Evidence[]): Map<string, Evidence> {
   return new Map(evidence.map((e) => [`${e.conversation_id}:${e.kind}:${e.index}`, e]));
 }
@@ -67,7 +99,6 @@ export function evidenceIndex(evidence: Evidence[]): Map<string, Evidence> {
 export function EvidenceBlock({
   ev,
   report,
-  seek,
   gotoLine,
   who,
   compact,
@@ -115,19 +146,23 @@ export function EvidenceBlock({
           Open in full transcript →
         </button>
       </summary>
-      {ev.lines.map((l, i) => (
-        <div className={`ev-line ${l.is_highlighted ? "hit" : ""}`} key={i}>
-          <TimeBtn t={l.start} seek={seek} />
-          <div>
-            <div className="who">
-              <Spk speaker={l.speaker} report={report} who={who} />
-              <span className="sub small">{l.role}</span>
-              {l.is_highlighted && <span className="pill info">{label}</span>}
-            </div>
-            <div>{l.text}</div>
-          </div>
-        </div>
-      ))}
+      <div className="chat chat-mini">
+        {groupLines(ev.lines).map((g, gi) => (
+          <ChatGroup key={gi} speaker={g[0].speaker} report={report} who={who ? convWho(report, who, ev.conversation_id) : undefined} role={g[0].role}>
+            {g.map((l, i) => (
+              <ChatBubble
+                key={i}
+                side={sideOf(l.speaker, report, l.role)}
+                time={clock(l.start)}
+                edge={l.is_highlighted ? "hit" : undefined}
+                tag={l.is_highlighted ? label : undefined}
+              >
+                {l.text}
+              </ChatBubble>
+            ))}
+          </ChatGroup>
+        ))}
+      </div>
     </details>
   );
 }

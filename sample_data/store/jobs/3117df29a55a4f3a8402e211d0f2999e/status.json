@@ -1,0 +1,17 @@
+{
+  "job_id": "3117df29a55a4f3a8402e211d0f2999e",
+  "status": "completed",
+  "stage": "done",
+  "progress": 1.0,
+  "error": null,
+  "filename": "2026-10-20_neha_floor_session.mp3",
+  "input_key": "jobs/3117df29a55a4f3a8402e211d0f2999e/input/2026-10-20_neha_floor_session.mp3",
+  "industry": "electronics retail",
+  "product_catalog": null,
+  "salesperson_name": "Neha Sharma",
+  "created_at": "2026-10-20T10:30:00+00:00",
+  "updated_at": "2026-10-21T01:21:27+00:00",
+  "spent_usd": 0.307136,
+  "budget_usd": 4.0,
+  "cancel_requested": false
+}

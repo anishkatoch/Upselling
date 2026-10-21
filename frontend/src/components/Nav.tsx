@@ -1,11 +1,10 @@
 import { Link, useLocation } from "react-router-dom";
-import { Grid, Headset, Mic, UploadCloud, Users } from "../icons/Icons";
+import { Grid, Headset, Mic, Users } from "../icons/Icons";
 
 const ITEMS = [
   { to: "/", label: "Dashboard", icon: Grid, match: (p: string) => p === "/" },
-  { to: "/upload", label: "Upload", icon: UploadCloud, match: (p: string) => p.startsWith("/upload") },
-  { to: "/recordings", label: "Recordings", icon: Mic, match: (p: string) => p.startsWith("/recordings") },
   { to: "/team", label: "Team", icon: Users, match: (p: string) => p.startsWith("/team") },
+  { to: "/recordings", label: "Recordings", icon: Mic, match: (p: string) => p.startsWith("/recordings") },
 ];
 
 export default function Nav() {

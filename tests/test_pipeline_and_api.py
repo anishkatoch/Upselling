@@ -107,7 +107,13 @@ def test_api_upload_to_report(tmp_path, settings, models_config, monkeypatch):
     assert status["status"] == "completed", status
     report = client.get(f"/api/jobs/{job_id}/report").json()
     assert report["salespeople"][0]["attempts_total"] == 2
-    assert client.get(f"/api/jobs/{job_id}/transcript").status_code == 200
+    assert not {"spent_usd", "budget_usd", "unpriced_calls", "calls", "transcription_provider"} & report.keys()
+    assert not {"spent_usd", "budget_usd"} & status.keys()
+    transcript = client.get(f"/api/jobs/{job_id}/transcript")
+    assert transcript.status_code == 200 and not {"provider", "model"} & transcript.json().keys()
+    # ...but the stored report keeps them for internal use.
+    stored = get_storage(settings).get_json(jobs.report_key(job_id))
+    assert stored is not None and "calls" in stored and "spent_usd" in stored and "transcription_provider" in stored
     audio = client.get(f"/api/jobs/{job_id}/audio")
     assert audio.status_code == 200 and audio.content == wav.read_bytes()
     partial = client.get(f"/api/jobs/{job_id}/audio", headers={"Range": "bytes=0-99"})

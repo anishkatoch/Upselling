@@ -1,102 +1,199 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import LineChart from "./LineChart";
+import { useMemo, useState, type ReactNode } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Minus, TrendDown, TrendUp } from "../icons/Icons";
 import type { Person } from "../lib/api";
 import { pct } from "../lib/format";
-import { EFFORT, moodFromFrustration, RATING } from "../lib/teamLabels";
+import { METRIC_INFO } from "../lib/metricInfo";
+import { analysedCount, isNotRated, RatingChip, seriesDelta, StalePeriodBadge } from "./people/rating";
+import { DeltaChip, InfoTip } from "./ui";
+import "./people/people.css";
+
+type SortKey = "name" | "rating" | "upsell" | "accepted";
+type SortState = { key: SortKey; dir: "asc" | "desc" } | null;
+const RATING_ORDER = { strong: 3, solid: 2, needs_work: 1 } as const;
+
+const sortValue = (p: Person, k: SortKey): number | string => {
+  switch (k) {
+    case "name":
+      return p.name.toLowerCase();
+    case "rating":
+      return isNotRated(p) ? 0 : RATING_ORDER[p.assessment.rating];
+    case "upsell":
+      return p.total.upsell_rate ?? -1;
+    case "accepted":
+      return p.total.acceptance_rate ?? -1;
+  }
+};
+
+function Th({
+  children,
+  info,
+  num,
+  sortKey,
+  sort,
+  onSort,
+}: {
+  children: ReactNode;
+  info?: string;
+  num?: boolean;
+  sortKey?: SortKey;
+  sort: SortState;
+  onSort: (k: SortKey) => void;
+}) {
+  const active = sortKey != null && sort?.key === sortKey ? sort : null;
+  const aria = sortKey ? (active ? (active.dir === "asc" ? "ascending" : "descending") : "none") : undefined;
+  return (
+    <th scope="col" className={num ? "num" : undefined} aria-sort={aria}>
+      <span className="th-in">
+        {sortKey ? (
+          <button type="button" className="sort" onClick={() => onSort(sortKey)}>
+            {children}
+            <span aria-hidden="true">{active ? (active.dir === "asc" ? "↑" : "↓") : ""}</span>
+          </button>
+        ) : (
+          children
+        )}
+        {info && <InfoTip>{info}</InfoTip>}
+      </span>
+    </th>
+  );
+}
 
 /**
- * The hero "how is everyone doing right now" table - shared by Dashboard (fixed month snapshot)
- * and Team (whichever period is selected), so there's exactly one "glance at the whole team" UI.
- * Clicking a name goes to their dedicated profile page (/team/:name), not an inline toggle.
+ * The "how is everyone doing right now" table - shared by Dashboard (fixed month snapshot)
+ * and Team (whichever period is selected). The whole row opens /team/:name; the name stays a real link for keyboard users.
  *
  * `collapsedRows`, when set, shows only the first N people plus a "Show full team table" button
  * that reveals the rest in place. Omit it (Team.tsx's usage) for the unchanged, always-full table.
  */
-export default function TeamGlanceTable({ people, demo, collapsedRows }: { people: Person[]; demo?: boolean; collapsedRows?: number }) {
+export default function TeamGlanceTable({ people, collapsedRows }: { people: Person[]; collapsedRows?: number }) {
   const [expanded, setExpanded] = useState(false);
+  const [sort, setSort] = useState<SortState>({ key: "rating", dir: "asc" });
+  const navigate = useNavigate();
+  const sorted = useMemo(() => {
+    if (!sort) return people;
+    const m = sort.dir === "asc" ? 1 : -1;
+    return [...people].sort((a, b) => {
+      // People who could not be rated stay at the bottom whichever way the rating column is sorted.
+      if (sort.key === "rating" && isNotRated(a) !== isNotRated(b)) return isNotRated(a) ? 1 : -1;
+      const x = sortValue(a, sort.key);
+      const y = sortValue(b, sort.key);
+      return (x < y ? -1 : x > y ? 1 : 0) * m;
+    });
+  }, [people, sort]);
   if (people.length === 0) return null;
-  const limited = collapsedRows != null && !expanded && people.length > collapsedRows;
-  const shown = limited ? people.slice(0, collapsedRows) : people;
+  const limited = collapsedRows != null && !expanded && sorted.length > collapsedRows;
+  const shown = limited ? sorted.slice(0, collapsedRows) : sorted;
+
+  const toggle = (key: SortKey) =>
+    setSort((s) => (s?.key === key ? (s.dir === "asc" ? { key, dir: "desc" } : null) : { key, dir: key === "name" ? "asc" : "desc" }));
+
   return (
-    <div className="card team-glance" style={{ marginBottom: 16 }}>
-      <div className="row" style={{ justifyContent: "space-between", marginBottom: 14 }}>
-        <h2 style={{ marginBottom: 0 }}>Team at a glance</h2>
-        <span className="live-caption">
-          <span className="live-dot" /> Live · updated just now
-        </span>
+    <section className="card tg team-glance" style={{ marginBottom: 16 }}>
+      <div className="tg-head">
+        <h2>Team at a glance</h2>
+        <span className="sub small">Click a row for the full breakdown</span>
       </div>
       <div className="table-wrap">
         <table>
+          <caption className="sr-only">Team at a glance: one row per salesperson</caption>
           <thead>
             <tr>
-              <th>Salesperson</th>
-              <th title="Overall performance: greetings, upselling, pushiness and customer mood combined">Overall</th>
-              <th title="Upsell attempts per period, oldest to newest - direction vs. earlier periods">Trend</th>
-              <th title="How hard they push to upsell - not the same as doing well; pushing hard can still go badly">
-                Selling effort
-              </th>
-              <th className="num" title="Share of conversations where they tried to upsell something">
-                Tried an upsell
-              </th>
-              <th className="num" title="Of the upsells they offered, the share the customer said yes to">
-                Customer said yes
-              </th>
-              <th className="num" title="Share of conversations that started with a greeting">Greeted</th>
-              <th title="How frustrated customers got, on average, across the period">Customer mood</th>
-              <th className="num" title="Calls that felt positive overall, out of every call this period">
-                Calls that went well
-              </th>
+              <Th sort={sort} onSort={toggle} sortKey="name">
+                Salesperson
+              </Th>
+              <Th sort={sort} onSort={toggle} sortKey="rating" info={METRIC_INFO.rating}>
+                Rating
+              </Th>
+              <Th sort={sort} onSort={toggle} num sortKey="upsell" info={METRIC_INFO.upsell_rate}>
+                Upsell rate
+              </Th>
+              <Th sort={sort} onSort={toggle} num sortKey="accepted" info={METRIC_INFO.acceptance_rate}>
+                Acceptance rate
+              </Th>
+              <Th sort={sort} onSort={toggle} num info={METRIC_INFO.greeting_rate}>
+                Greeted
+              </Th>
+              <Th sort={sort} onSort={toggle} num info={METRIC_INFO.frustration}>
+                Avg frustration
+              </Th>
+              <Th sort={sort} onSort={toggle} num info={METRIC_INFO.effort}>
+                Effort
+              </Th>
+              <Th sort={sort} onSort={toggle}>
+                Trend
+              </Th>
             </tr>
           </thead>
           <tbody>
             {shown.map((p, i) => {
-              const r = RATING[p.assessment.rating];
-              const e = EFFORT[p.assessment.effort_level];
               const t = p.total;
-              const mood = moodFromFrustration(t.avg_customer_frustration);
-              const totalCalls = t.calls_positive + t.calls_neutral + t.calls_negative;
               const trend = p.assessment.trend;
               const TrendIcon = trend === "improving" ? TrendUp : trend === "declining" ? TrendDown : Minus;
+              const trendText = trend === "improving" ? "Improving" : trend === "declining" ? "Slipping" : "Steady";
               const justRevealed = expanded && collapsedRows != null && i >= collapsedRows;
+              const href = `/team/${encodeURIComponent(p.name)}`;
+              const shared = t.shared_conversations ?? 0;
               return (
-                <tr key={p.name} className={justRevealed ? "reveal" : undefined}>
+                <tr
+                  key={p.name}
+                  className={`rowlink${justRevealed ? " reveal" : ""}`}
+                  onClick={(e) => {
+                    if ((e.target as HTMLElement).closest("a,button")) return;
+                    navigate(href);
+                  }}
+                >
+                  <th scope="row" className="rowhead">
+                    <Link to={href} className="name-link">
+                      {p.name}
+                    </Link>{" "}
+                    <StalePeriodBadge person={p} />
+                    <div
+                      className="sub small"
+                      title={
+                        shared > 0
+                          ? `${shared} conversation(s) with more than one salesperson are not counted in greeting, pushy and unanswered-question figures.`
+                          : undefined
+                      }
+                    >
+                      {analysedCount(t)} analysed{shared > 0 ? " *" : ""}
+                    </div>
+                  </th>
                   <td>
-                    <Link to={`/team/${encodeURIComponent(p.name)}`} state={{ demo }} className="link">
-                      <b>{p.name}</b>
-                    </Link>
+                    <RatingChip person={p} short />
+                  </td>
+                  <td className="num">
+                    {pct(t.upsell_rate)}
+                    <div className="cell-sub">
+                      <DeltaChip value={seriesDelta(p.series, "upsell_rate", 100)} unit="pt" />
+                    </div>
+                  </td>
+                  <td className="num">
+                    {pct(t.acceptance_rate)}
+                    <div className="cell-sub">
+                      <DeltaChip value={seriesDelta(p.series, "acceptance_rate", 100)} unit="pt" />
+                    </div>
+                  </td>
+                  <td className="num">{pct(t.greeting_rate)}</td>
+                  <td className="num">
+                    {t.avg_customer_frustration ?? "–"}
+                    {t.avg_customer_frustration != null && <span className="muted-unit"> /10</span>}
+                  </td>
+                  <td className="num">
+                    {t.avg_effort ?? "–"}
+                    {t.avg_effort != null && <span className="muted-unit"> /10</span>}
                   </td>
                   <td>
-                    <span className={`pill ${r.tone}`}>{r.label}</span>
-                  </td>
-                  <td>
-                    <div className="row" style={{ gap: 6, flexWrap: "nowrap" }}>
-                      {trend && (
-                        <span
-                          className={`trend ${trend}`}
-                          title={trend === "improving" ? "Improving" : trend === "declining" ? "Slipping" : "Steady"}
-                        >
-                          <TrendIcon size={14} />
+                    <span className="trend-cell">
+                      {trend ? (
+                        <span className={`trend ${trend}`}>
+                          <TrendIcon size={14} /> {trendText}
                         </span>
-                      )}
-                      {p.series.length > 1 ? (
-                        <LineChart compact data={p.series} value={(b) => b.attempts} label={(b) => b.period} />
                       ) : (
                         <span className="sub small">–</span>
                       )}
-                    </div>
+                    </span>
                   </td>
-                  <td>
-                    <span className={`pill ${e.tone}`}>{e.short}</span>
-                  </td>
-                  <td className="num">{pct(t.upsell_rate)}</td>
-                  <td className="num">{pct(t.acceptance_rate)}</td>
-                  <td className="num">{pct(t.greeting_rate)}</td>
-                  <td>
-                    <span className={`pill ${mood.tone}`}>{mood.label}</span>
-                  </td>
-                  <td className="num">{totalCalls ? `${t.calls_positive} of ${totalCalls}` : "–"}</td>
                 </tr>
               );
             })}
@@ -108,9 +205,11 @@ export default function TeamGlanceTable({ people, demo, collapsedRows }: { peopl
           Show full team table ({people.length} total)
         </button>
       )}
-      <p className="sub small" style={{ marginTop: 10 }}>
-        Click a name to see their full breakdown.
+      <p className="sub small tg-note">
+        &ldquo;Analysed&rdquo; is the number of conversations the figures are based on. Changes compare with the previous period.
+        {people.some((p) => (p.total.shared_conversations ?? 0) > 0) &&
+          " * Conversations with more than one salesperson are not counted in greeting, pushy and unanswered-question figures."}
       </p>
-    </div>
+    </section>
   );
 }

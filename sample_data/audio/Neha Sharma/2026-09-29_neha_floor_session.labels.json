@@ -1,0 +1,372 @@
+{
+  "employee": "Neha Sharma",
+  "date": "2026-09-29",
+  "encounters": [
+    {
+      "industry": "electronics retail",
+      "language": "hindi",
+      "scenario": "ग्राहक फोन खरीदने आता है। विक्रेता कवर और स्क्रीन गार्ड का रियायती बंडल पेश करता है, जिसे ग्राहक स्वीकार करता है।",
+      "turns": [
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "नमस्ते सर, बताइए, क्या दिखाऊँ?",
+          "emotion": "happy",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "पंद्रह हजार तक का फोन चाहिए। एक सौ अट्ठाईस जीबी स्टोरेज वाला दिखाना।",
+          "emotion": "neutral",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "जी, ये मॉडल देखिए। चौदह हजार नौ सौ निन्यानवे का है। इसमें छह जीबी रैम और एक सौ अट्ठाईस जीबी स्टोरेज है।",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "बैटरी कैसी है? मेरा ज्यादातर फोन और व्हाट्सऐप ही चलता है।",
+          "emotion": "neutral",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "पाँच हजार एमएएच की बैटरी है। आपके इस इस्तेमाल में आम तौर पर दिन निकल जाना चाहिए। बाकी नेटवर्क और इस्तेमाल पर भी निर्भर करेगा।",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "ठीक है, यही पैक कर दीजिए। नीले रंग में है न?",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "जी, नीला है। इसके साथ कवर और टेम्पर्ड ग्लास का कॉम्बो भी ले सकते हैं। अलग-अलग लेंगे तो दोनों के नौ सौ रुपये हैं, फोन के साथ दोनों छह सौ में पड़ेंगे। लगाकर भी दे देंगे।",
+          "emotion": "calm",
+          "is_upsell_attempt": true,
+          "technique": "bundle"
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "छह सौ में कवर और ग्लास दोनों? लगाने का अलग से तो नहीं लगेगा?",
+          "emotion": "neutral",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "नहीं सर, छह सौ में दोनों हैं और लगाना भी शामिल है। फोन मिलाकर कुल पंद्रह हजार पाँच सौ निन्यानवे होंगे।",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "चलो ठीक है, दोनों दे दो। वैसे भी कवर और ग्लास बाद में लेने ही पड़ते।",
+          "emotion": "happy",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "कवर में पारदर्शी वाला रखूँ या ये काला वाला?",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "काला वाला लगा दीजिए, पकड़ भी ठीक लग रही है इसकी।",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "जी सर। बिल में फोन और छह सौ वाला कॉम्बो दोनों डाल दिया है। कुल पंद्रह हजार पाँच सौ निन्यानवे। भुगतान कैसे करेंगे?",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "यूपीआई कर देता हूँ। आप तब तक ग्लास लगा दीजिए।",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        }
+      ],
+      "expected_attempted_upsell": true,
+      "expected_attempts": 1,
+      "notes": "सातवें टर्न में विक्रेता ग्राहक के माँगे हुए फोन के अलावा कवर और टेम्पर्ड ग्लास का रियायती बंडल प्रस्तावित करता है। ग्राहक दसवें टर्न में स्वीकार करता है। कीमत स्पष्ट करना और स्वीकार किए गए कवर का रंग पूछना नए अपसेल प्रयास नहीं हैं।"
+    },
+    {
+      "industry": "electronics retail",
+      "language": "hinglish",
+      "scenario": "Customer considers a premium television upgrade and an extended warranty, then accepts both.",
+      "turns": [
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "Hello ji, TV dekh rahe hain? Kya size aur budget socha hai?",
+          "emotion": "happy",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "43-inch smart TV chahiye. Budget thirty thousand tak hai, mostly Netflix aur cricket ke liye.",
+          "emotion": "neutral",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "Ji, yeh 43-inch LED aapke budget mein hai, 28,990 ka. Netflix aur baaki streaming apps hain. Remote bhi try kar lijiye.",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "Theek lag raha hai. Side se dekhne par picture thodi halki lag rahi hai, ya showroom ki light hai?",
+          "emotion": "confused",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "Light ka bhi effect hai, lekin side angle se colour thoda change hota hai ismein. Aap chahein toh yeh premium 43-inch QLED consider kar sakte hain, 34,990 ka. Iska side-angle view aur colours better hain; dono par same video chala deta hoon.",
+          "emotion": "calm",
+          "is_upsell_attempt": true,
+          "technique": "upgrade"
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "Six thousand extra hai. Picture ke alawa kya difference hai?",
+          "emotion": "neutral",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "Is model mein speakers bhi better hain aur menu thoda faster respond karta hai. Apps dono mein same milenge. Aapke Netflix aur cricket dono basic wale par bhi chal jayenge.",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "Hmm, picture ka difference toh dikh raha hai. Bas budget badhana padega. Ek minute sochne do.",
+          "emotion": "neutral",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "Haan ji, aaram se. Main dono par cricket laga deta hoon, aap sofa wali distance se dekh lijiye.",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "Achha, premium wala hi le leta hoon. Ghar mein side par bhi seating hai, toh woh difference kaam aayega. Bill bana dijiye.",
+          "emotion": "happy",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "Ji. Iske saath optional two-year extended warranty bhi hai, 3,000 ki, jo standard one-year warranty ke baad shuru hogi. Total 37,990 ho jayega. Uska cover bhi dekhna chahenge?",
+          "emotion": "calm",
+          "is_upsell_attempt": true,
+          "technique": "warranty_protection"
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "Usmein panel cover hai? Aur galti se screen toot gayi toh?",
+          "emotion": "neutral",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "Is plan mein panel ka electrical ya mechanical fault covered hai, terms ke hisaab se. Accidental breakage aur liquid damage covered nahi hain. Yeh coverage sheet hai, exclusions aur claim process yahin likhe hain; aap padh lijiye.",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "Haan, ek minute... theek hai, samajh gaya. Warranty bhi add kar do. TV aur warranty ka total 37,990, right? Main card se kar dunga.",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        }
+      ],
+      "expected_attempted_upsell": true,
+      "expected_attempts": 2,
+      "notes": "Two proactive upsell attempts: the premium TV upgrade in turn 5 and the optional extended warranty in turn 11. Responses to customer questions, product demonstrations, and fulfillment of accepted choices are not labeled as additional attempts."
+    },
+    {
+      "industry": "electronics retail",
+      "language": "hindi",
+      "scenario": "फोन खरीदते समय ग्राहक ईयरबड्स लेने से मना करता है। विक्रेता कम कीमत वाले ईयरबड्स का प्रस्ताव दोहराता है और फिर एक छोटा ऐड-ऑन सुझाता है, जिसे ग्राहक स्वीकार कर लेता है।",
+      "turns": [
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "नमस्ते जी, बताइए, कौन-सा फोन देखना है?",
+          "emotion": "happy",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "कल जो सोलह हजार वाला फोन देखा था, वही लेना है। एक सौ अट्ठाईस जीबी वाला, नीले रंग में।",
+          "emotion": "neutral",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "जी, ये रहा। नीला रंग उपलब्ध है, कीमत पंद्रह हजार नौ सौ निन्यानवे है। सील पैक निकाल दूँ?",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "हाँ, निकाल दीजिए। बस यही फोन चाहिए।",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "इसके साथ वायरलेस ईयरबड्स भी ले लीजिए। चौदह सौ निन्यानवे के हैं, कॉल करने और गाने सुनने में काम आएँगे।",
+          "emotion": "happy",
+          "is_upsell_attempt": true,
+          "technique": "cross_sell"
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "नहीं, ईयरबड्स नहीं चाहिए। फोन पर ही काफी खर्च हो रहा है।",
+          "emotion": "neutral",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "अच्छा, एक सस्ता वाला भी है। वो सात सौ निन्यानवे का पड़ेगा। बजट की वजह से मना कर रहे हैं तो वो लगा दूँ?",
+          "emotion": "calm",
+          "is_upsell_attempt": true,
+          "technique": "cross_sell"
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "अरे नहीं भैया, मेरे पास पहले से हैं। कोई भी ईयरबड्स मत जोड़ना।",
+          "emotion": "impatient",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "ठीक है जी, ईयरबड्स नहीं जोड़ूँगा। बस स्क्रीन पर टेम्पर्ड ग्लास लगवा लीजिए, एक सौ निन्यानवे का है। लगाने का अलग से कुछ नहीं लगेगा।",
+          "emotion": "calm",
+          "is_upsell_attempt": true,
+          "technique": "cross_sell"
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "चलो, एक सौ निन्यानवे वाला ग्लास लगा दो। उसके अलावा कुछ नहीं चाहिए।",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "जी, सिर्फ फोन और एक टेम्पर्ड ग्लास। कुल सोलह हजार एक सौ अट्ठानवे रुपये हुए।",
+          "emotion": "neutral",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "ठीक है, यूपीआई कर देता हूँ। ग्लास सीधा लगाइएगा, बुलबुले न रह जाएँ।",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S1",
+          "role": "salesperson",
+          "text": "जी, ये कोड स्कैन कर लीजिए। आपके सामने ही ग्लास लगाकर दिखा देता हूँ, फिर फोन और बिल साथ रख दूँगा।",
+          "emotion": "calm",
+          "is_upsell_attempt": false,
+          "technique": null
+        },
+        {
+          "speaker": "S2",
+          "role": "customer",
+          "text": "हो गया पेमेंट। हाँ, बिल डिब्बे में ही रख देना।",
+          "emotion": "neutral",
+          "is_upsell_attempt": false,
+          "technique": null
+        }
+      ],
+      "expected_attempted_upsell": true,
+      "expected_attempts": 3,
+      "notes": "टर्न 5 में ईयरबड्स का पहला प्रस्ताव, टर्न 7 में मना करने के बाद सस्ते ईयरबड्स का दोबारा प्रस्ताव और टर्न 9 में टेम्पर्ड ग्लास का प्रस्ताव—कुल तीन अपसेल प्रयास हैं। ग्राहक केवल छोटा ऐड-ऑन, टेम्पर्ड ग्लास, स्वीकार करता है। स्वीकृति के बाद बिल बनाना और ग्लास लगाना नए अपसेल प्रयास नहीं हैं।"
+    }
+  ]
+}

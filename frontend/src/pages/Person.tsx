@@ -1,44 +1,32 @@
 import { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
-import CountUp from "../components/CountUp";
+import { Link, useParams } from "react-router-dom";
 import LineChart from "../components/LineChart";
-import { formatPeriod } from "../lib/period";
-import {
-  AlertTriangle,
-  ArrowLeft,
-  Check,
-  ChevronRight,
-  Headset,
-  Mic,
-  Minus,
-  Repeat,
-  Target,
-  TrendDown,
-  TrendUp,
-  Users,
-} from "../icons/Icons";
-import { api, type Person, type RecordingSummary } from "../lib/api";
-import { DEMO_DASHBOARD as DEMO, type Period } from "../lib/demo";
-import { ago, pct, RESULT, SENTIMENT } from "../lib/format";
+import { formatPeriod, type Period } from "../lib/period";
+import { AlertTriangle, ArrowLeft, Minus, TrendDown, TrendUp } from "../icons/Icons";
+import { api, type Person } from "../lib/api";
+import { pct } from "../lib/format";
 import { useLoad } from "../lib/hooks";
-import { PERIOD_LABEL, RATING } from "../lib/teamLabels";
+import { METRIC_INFO } from "../lib/metricInfo";
+import { DeltaChip, Metric, MetricRow } from "../components/ui";
+import { PERIOD_LABEL } from "../lib/teamLabels";
+import VsTeamBars from "../components/people/VsTeamBars";
+import PersonSentiment from "../components/people/PersonSentiment";
+import RecentConversations from "../components/people/RecentConversations";
+import { RatingChip, SampleNote, seriesDelta, StalePeriodNotice } from "../components/people/rating";
+import "../components/people/people.css";
 
 /**
  * One salesperson's deep-dive profile (KPI-tile styled, screenshot-B language): the dedicated
  * page a name in the team-at-a-glance table now links to, replacing Team.tsx's old inline
  * toggle card. Aggregated numbers come from the same `dashboard.py` Bucket/assessment data as
- * the glance table; the one new piece is the full per-recording list (section 6), since nothing
- * before this returned every job a person appears in, not just the latest period's top 8.
+ * the glance table; the recent-conversations list links through to the call behind the numbers.
  */
 export default function PersonPage() {
   const { name: rawName } = useParams<{ name: string }>();
   // react-router already decodes path params (see its decodePath()), so this is the real
   // name as-is - decoding it again here would throw on a name containing a literal "%".
   const name = rawName ?? "";
-  const location = useLocation();
-  const navigate = useNavigate();
   const [period, setPeriod] = useState<Period>("week");
-  const [demo] = useState(Boolean((location.state as { demo?: boolean } | null)?.demo));
 
   // Jumping into a fresh profile page should land at the top, same as Team.tsx did when
   // switching between an inline person card and "all salespeople".
@@ -46,27 +34,21 @@ export default function PersonPage() {
     window.scrollTo({ top: 0 });
   }, [name]);
 
-  const { data: live, error } = useLoad(() => api.dashboard(period), [period]);
-  const board = demo ? DEMO[period] : live;
+  const { data: board, error } = useLoad(() => api.dashboard(period), [period]);
   const person = board?.people.find((p) => p.name === name);
-
-  const { data: recordings, error: recordingsError } = useLoad(
-    () => (demo ? Promise.resolve<RecordingSummary[]>([]) : api.personRecordings(name)),
-    [name, demo],
-  );
 
   return (
     <>
-      <Link to="/team" state={{ demo }} className="back" style={{ marginBottom: 16 }}>
+      <Link to="/team" className="back" style={{ marginBottom: 16 }}>
         <ArrowLeft size={15} /> All salespeople
       </Link>
 
-      {!demo && error && (
+      {error && (
         <p className="error">
           <AlertTriangle size={16} /> {error}
         </p>
       )}
-      {!demo && !board && !error && <div className="skeleton" style={{ height: 320 }} />}
+      {!board && !error && <div className="skeleton" style={{ height: 320 }} />}
 
       {board && !person && (
         <div className="card empty">
@@ -75,48 +57,48 @@ export default function PersonPage() {
         </div>
       )}
 
-      {person && <PersonDetail person={person} period={period} setPeriod={setPeriod} demo={demo} recordings={recordings} recordingsError={recordingsError} navigate={navigate} />}
+      {board && person && <PersonDetail person={person} people={board.people} period={period} setPeriod={setPeriod} />}
     </>
   );
 }
 
 function PersonDetail({
   person: p,
+  people,
   period,
   setPeriod,
-  demo,
-  recordings,
-  recordingsError,
-  navigate,
 }: {
   person: Person;
+  people: Person[];
   period: Period;
   setPeriod: (p: Period) => void;
-  demo: boolean;
-  recordings: RecordingSummary[] | null;
-  recordingsError: string | null;
-  navigate: ReturnType<typeof useNavigate>;
 }) {
   const a = p.assessment;
-  const r = RATING[a.rating];
   const t = p.total;
   const TrendIcon = a.trend === "improving" ? TrendUp : a.trend === "declining" ? TrendDown : Minus;
-  const [showAllRecordings, setShowAllRecordings] = useState(false);
-  const [showAllCalls, setShowAllCalls] = useState(false);
   const [showAllStrengths, setShowAllStrengths] = useState(false);
   const [showAllImprovements, setShowAllImprovements] = useState(false);
 
+  // The sample size is stated once in the caption under the headline (SampleNote), not on every tile.
+  const vs = (value: number | null | undefined, unit: string, lowerIsBetter = false) =>
+    value == null ? null : (
+      <>
+        <DeltaChip value={value} unit={unit} lowerIsBetter={lowerIsBetter} />
+        <span>vs previous {period}</span>
+      </>
+    );
+  const shownStrengths = showAllStrengths ? a.strengths : a.strengths.slice(0, 2);
+  const shownImprovements = showAllImprovements ? a.improvements : a.improvements.slice(0, 2);
+
   return (
-    <div className="card person">
-      <div className={`person-hero ${a.rating}`}>
+    <div className="person-flat">
+      <div className="person-hero">
         <div className="person-head">
-          <div className="avatar">{p.name.slice(0, 1).toUpperCase()}</div>
           <div className="grow">
-            <h1 style={{ fontSize: 26 }}>{p.name}</h1>
+            <h1>{p.name}</h1>
             <div className="sub small">
               {t.recordings} recording{t.recordings !== 1 ? "s" : ""} · {t.conversations} customer conversation
               {t.conversations !== 1 ? "s" : ""} · {PERIOD_LABEL[period]}
-              {demo && " · sample data"}
             </div>
           </div>
           {a.trend && (
@@ -124,7 +106,7 @@ function PersonDetail({
               <TrendIcon size={15} /> {a.trend === "improving" ? "Improving" : a.trend === "declining" ? "Slipping" : "Steady"}
             </span>
           )}
-          <span className={`pill ${r.tone}`}>{r.label}</span>
+          <RatingChip person={p} />
           <div className="seg">
             {(["day", "week", "month"] as Period[]).map((per) => (
               <button key={per} className={period === per ? "on" : ""} onClick={() => setPeriod(per)}>
@@ -134,43 +116,57 @@ function PersonDetail({
           </div>
         </div>
 
-        <div className="row" style={{ gap: 8, marginTop: 14 }}>
-          <p className="grow">
-            {a.headline}
-            {a.low_sample && <span className="sub"> (based on very little data so far)</span>}
-          </p>
+        {p.is_current === false && (
+          <div style={{ marginTop: 14 }}>
+            <StalePeriodNotice person={p} unit={period} />
+          </div>
+        )}
+
+        <p style={{ marginTop: 12 }}>
+          {a.headline}
+          {a.low_sample && <span className="sub"> (based on very little data so far)</span>}
+        </p>
+        <SampleNote bucket={t} />
+      </div>
+
+      <div className="metric-group">
+        <MetricRow>
+          <Metric label="Upsell rate" info={METRIC_INFO.upsell_rate} value={pct(t.upsell_rate)} foot={vs(seriesDelta(p.series, "upsell_rate", 100), "pt")} />
+          <Metric label="Acceptance rate" info={METRIC_INFO.acceptance_rate} value={pct(t.acceptance_rate)} foot={vs(seriesDelta(p.series, "acceptance_rate", 100), "pt")} />
+          <Metric label="Greeted" info={METRIC_INFO.greeting_rate} value={pct(t.greeting_rate)} foot={vs(seriesDelta(p.series, "greeting_rate", 100), "pt")} />
+          <Metric
+            label="Customer frustration"
+            info={METRIC_INFO.frustration}
+            value={t.avg_customer_frustration ?? "–"}
+            unit="/ 10"
+            foot={vs(seriesDelta(p.series, "avg_customer_frustration"), "", true)}
+          />
+        </MetricRow>
+        <div className="metric-compact" aria-label="More detail">
+          <MetricRow>
+            <Metric label="Effort score" info={METRIC_INFO.effort} value={t.avg_effort ?? "–"} unit="/ 10" />
+            <Metric label="Offers per conversation" info={METRIC_INFO.offers_per_conversation} value={t.attempts_per_conversation ?? "–"} />
+            <Metric label="Selling approaches used" info={METRIC_INFO.techniques} value={t.techniques.length} />
+            <Metric label="Re-offers after a no" info={METRIC_INFO.reoffers} value={t.re_offers} />
+          </MetricRow>
         </div>
       </div>
 
-      <div className="kpis">
-        <Kpi icon={<Headset size={15} />} label="Recordings" value={<CountUp value={t.recordings} />} />
-        <Kpi icon={<Users size={15} />} label="Sales conversations" value={<CountUp value={t.conversations} />} />
-        <Kpi icon={<TrendUp size={15} />} label="Upsell attempt %" value={pct(t.upsell_rate)} />
-        <Kpi icon={<Check size={15} />} label="Offers accepted %" value={pct(t.acceptance_rate)} />
-        <Kpi icon={<Mic size={15} />} label="Greeted %" value={pct(t.greeting_rate)} />
-        <Kpi icon={<AlertTriangle size={15} />} label="Avg. customer frustration" value={`${t.avg_customer_frustration ?? "–"} / 10`} />
-      </div>
+      {(people.length >= 2 || t.calls_positive + t.calls_neutral + t.calls_negative > 0) && (
+        <div className="insight-row">
+          <VsTeamBars person={p} people={people} />
+          <PersonSentiment total={t} />
+        </div>
+      )}
 
-      {/* The numbers behind the old effort_summary/trend sentence, as tiles instead of a paragraph. */}
-      <div className="kpis">
-        <Kpi icon={<Target size={15} />} label="Effort score" value={`${t.avg_effort ?? "–"}/10`} />
-        <Kpi icon={<TrendUp size={15} />} label="Offers per conversation" value={t.attempts_per_conversation ?? "–"} />
-        <Kpi icon={<Mic size={15} />} label="Techniques used" value={<CountUp value={t.techniques.length} />} />
-        <Kpi icon={<Repeat size={15} />} label="Re-offered after a 'no'" value={<CountUp value={t.re_offers} />} />
-      </div>
-
-      {p.series.length > 1 && (
+      {p.series.length > 2 && (
         <div className="two">
           <div>
-            <div className="sub small" style={{ marginBottom: 7, fontWeight: 600 }}>
-              Upsell attempts over time
-            </div>
+            <div className="sub small chart-title">Upsell attempts over time</div>
             <LineChart data={p.series} value={(b) => b.attempts} label={(b) => formatPeriod(b.period)} xTitle="Date" yTitle="Offers made" />
           </div>
           <div>
-            <div className="sub small" style={{ marginBottom: 7, fontWeight: 600 }}>
-              Acceptance rate over time
-            </div>
+            <div className="sub small chart-title">Acceptance rate over time</div>
             <LineChart data={p.series} value={(b) => b.acceptance_rate} label={(b) => formatPeriod(b.period)} format={pct} xTitle="Date" yTitle="Acceptance rate" />
           </div>
         </div>
@@ -178,173 +174,50 @@ function PersonDetail({
 
       {(a.strengths.length > 0 || a.improvements.length > 0) && (
         <div className="two">
-          <div>
+          <section className="flat-card good">
             <h3>Doing well</h3>
-            <ul className="plain small">
-              {(showAllStrengths ? a.strengths : a.strengths.slice(0, 2)).map((s) => (
+            <ul>
+              {shownStrengths.map((s) => (
                 <li key={s}>{s}</li>
               ))}
               {a.strengths.length === 0 && <li className="sub">Nothing stands out yet</li>}
             </ul>
             {a.strengths.length > 2 && (
-              <button className="link small" style={{ marginTop: 6 }} onClick={() => setShowAllStrengths((v) => !v)}>
+              <button className="link small" style={{ marginTop: 8 }} onClick={() => setShowAllStrengths((v) => !v)}>
                 {showAllStrengths ? "Show fewer" : `+${a.strengths.length - 2} more`}
               </button>
             )}
-          </div>
-          <div>
+          </section>
+          <section className="flat-card warn">
             <h3>To work on</h3>
-            <ul className="plain small">
-              {(showAllImprovements ? a.improvements : a.improvements.slice(0, 2)).map((s) => (
+            <ul>
+              {shownImprovements.map((s) => (
                 <li key={s}>{s}</li>
               ))}
               {a.improvements.length === 0 && <li className="sub">Nothing to flag</li>}
             </ul>
             {a.improvements.length > 2 && (
-              <button className="link small" style={{ marginTop: 6 }} onClick={() => setShowAllImprovements((v) => !v)}>
+              <button className="link small" style={{ marginTop: 8 }} onClick={() => setShowAllImprovements((v) => !v)}>
                 {showAllImprovements ? "Show fewer" : `+${a.improvements.length - 2} more`}
               </button>
             )}
-          </div>
+          </section>
         </div>
       )}
 
-      <div>
-        <h3 className="eyebrow">Recordings</h3>
-
-        {!demo && recordingsError && (
-          <p className="error">
-            <AlertTriangle size={16} /> {recordingsError}
-          </p>
-        )}
-
-        {!demo && (
-          <label className="f" style={{ display: "block", maxWidth: 420, marginBottom: 14 }}>
-            Jump to a recording
-            <select
-              className="sel"
-              value=""
-              onChange={(e) => e.target.value && navigate(`/recordings/${e.target.value}`)}
-              style={{ marginTop: 6, width: "100%" }}
-              disabled={!recordings || recordings.length === 0}
-            >
-              <option value="">Choose a recording…</option>
-              {(recordings ?? []).map((rec) => (
-                <option key={rec.job_id} value={rec.job_id}>
-                  {ago(rec.created_at)} · {rec.filename}
-                </option>
-              ))}
-            </select>
-          </label>
-        )}
-
-        {!demo && recordings && recordings.length === 0 && <p className="sub small">No recordings yet.</p>}
-
-        {!demo && recordings && recordings.length > 0 && (
-          <>
-            <div className="table-wrap">
-              <table>
-                <thead>
-                  <tr>
-                    <th>When</th>
-                    <th>Recording</th>
-                    <th className="num">Conversations</th>
-                    <th className="num">Upsell tries</th>
-                    <th className="num">Accepted</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {(showAllRecordings ? recordings : recordings.slice(0, 5)).map((rec, i) => (
-                    <tr key={rec.job_id} className={i >= 5 ? "reveal" : undefined}>
-                      <td className="small sub">{ago(rec.created_at)}</td>
-                      <td>{rec.filename}</td>
-                      <td className="num">{rec.stats.conversations}</td>
-                      <td className="num">{rec.stats.attempts}</td>
-                      <td className="num">{rec.stats.accepted}</td>
-                      <td>
-                        <Link to={`/recordings/${rec.job_id}`} className="btn ghost small">
-                          Report <ChevronRight size={13} style={{ verticalAlign: "-1px" }} />
-                        </Link>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-            {recordings.length > 5 && (
-              <button className="btn ghost small" style={{ marginTop: 10 }} onClick={() => setShowAllRecordings((v) => !v)}>
-                {showAllRecordings ? "Show fewer" : `Show all ${recordings.length} recordings`}
-              </button>
-            )}
-          </>
-        )}
-
-        {demo && p.recent_calls.length > 0 && (
-          <>
-            <div className="table-wrap">
-              <table>
-                <thead>
-                  <tr>
-                    <th>When</th>
-                    <th>Conversation</th>
-                    <th>Call</th>
-                    <th>Upsell</th>
-                    <th className="num">Offers</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {(showAllCalls ? p.recent_calls : p.recent_calls.slice(0, 5)).map((c, i) => {
-                    const s = SENTIMENT[c.sentiment];
-                    const res = RESULT[c.upsell_result];
-                    return (
-                      <tr key={i} className={i >= 5 ? "reveal" : undefined}>
-                        <td className="small sub">{ago(c.when)}</td>
-                        <td>{c.topic}</td>
-                        <td>
-                          <span className={`pill ${s.tone}`}>{s.label}</span>
-                        </td>
-                        <td>
-                          <span className={`pill ${res.tone}`}>{res.label}</span>
-                        </td>
-                        <td className="num">
-                          {c.accepted}/{c.tried}
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
-            {p.recent_calls.length > 5 && (
-              <button className="btn ghost small" style={{ marginTop: 10 }} onClick={() => setShowAllCalls((v) => !v)}>
-                {showAllCalls ? "Show fewer" : `Show all ${p.recent_calls.length} recordings`}
-              </button>
-            )}
-          </>
-        )}
-      </div>
+      <RecentConversations calls={p.recent_calls} />
 
       {p.recent_coaching.length > 0 && (
-        <div className="tip">
-          <b>Recent coaching</b>
-          <ul className="plain small" style={{ marginTop: 6 }}>
+        <section className="flat-card coaching">
+          <h3>Recent coaching</h3>
+          <ul>
             {p.recent_coaching.map((c, i) => (
               <li key={i}>{c}</li>
             ))}
           </ul>
-        </div>
+        </section>
       )}
-    </div>
-  );
-}
-
-function Kpi({ icon, label, value }: { icon: React.ReactNode; label: string; value: React.ReactNode }) {
-  return (
-    <div className="kpi">
-      <span className="kpi-ico">{icon}</span>
-      <span>{label}</span>
-      <b>{value}</b>
+      <p className="ai-note">AI-generated and indicative - check the evidence in the recordings before using it in a review.</p>
     </div>
   );
 }

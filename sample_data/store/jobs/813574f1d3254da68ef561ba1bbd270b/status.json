@@ -1,0 +1,17 @@
+{
+  "job_id": "813574f1d3254da68ef561ba1bbd270b",
+  "status": "completed",
+  "stage": "done",
+  "progress": 1.0,
+  "error": null,
+  "filename": "2026-10-20_priya_floor_session.mp3",
+  "input_key": "jobs/813574f1d3254da68ef561ba1bbd270b/input/2026-10-20_priya_floor_session.mp3",
+  "industry": "electronics retail",
+  "product_catalog": null,
+  "salesperson_name": "Priya Sharma",
+  "created_at": "2026-10-20T10:30:00+00:00",
+  "updated_at": "2026-10-21T01:16:48+00:00",
+  "spent_usd": 0.306304,
+  "budget_usd": 4.0,
+  "cancel_requested": false
+}

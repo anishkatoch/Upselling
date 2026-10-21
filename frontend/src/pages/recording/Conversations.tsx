@@ -2,9 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import type { Conversation } from "../../lib/api";
 import { ChevronRight, Check } from "../../icons/Icons";
 import { clock, technique } from "../../lib/format";
-import { canon, EvidenceBlock, Meter, MoodPill, RespPill, Spk, TimeBtn, type RecCtx } from "./shared";
+import { EvidenceBlock, Meter, MoodPill, RespPill, RoleNote, Spk, TimeBtn, type RecCtx } from "./shared";
 
-/** A conversation needs eyes-on-it immediately if it went pushy, got cut short by budget, or
+/** A conversation needs eyes-on-it immediately if it went pushy, could not be fully analysed, or
  * left someone noticeably frustrated - those rows start expanded, everything else starts closed. */
 function needsAttention(c: Conversation): boolean {
   const frustLevels = (c.mood?.speakers ?? []).map((m) => m.frustration_level);
@@ -97,18 +97,13 @@ export default function Conversations({ ctx, scrollTo, onScrolled }: { ctx: RecC
                         pushy
                       </span>
                     )}
-                    {c.escalated && (
-                      <span className="pill warn" title="Re-checked by the stronger model">
-                        escalated
-                      </span>
-                    )}
                     {c.budget_note && (
-                      <span className="pill bad" title={c.budget_note}>
-                        budget cut this short
+                      <span className="pill bad" title="Part of this conversation could not be analysed">
+                        analysis incomplete
                       </span>
                     )}
                     {u && (
-                      <span className="pill neutral" title="Model confidence">
+                      <span className="pill neutral" title="Confidence in this finding">
                         {Math.round(u.confidence * 100)}% sure
                       </span>
                     )}
@@ -131,7 +126,7 @@ export default function Conversations({ ctx, scrollTo, onScrolled }: { ctx: RecC
 
                     {c.budget_note && !u && (
                       <p className="error" style={{ marginTop: 10 }}>
-                        {c.budget_note}
+                        This conversation could not be fully analysed, so no upsell findings are shown for it.
                       </p>
                     )}
 
@@ -208,7 +203,7 @@ export default function Conversations({ ctx, scrollTo, onScrolled }: { ctx: RecC
                             <div className="mood" key={m.speaker}>
                               <div className="row">
                                 <Spk speaker={m.speaker} report={r} who={who} />
-                                <span className="sub small">{r.speakers.find((s) => s.speaker === canon(m.speaker))?.role}</span>
+                                <RoleNote speaker={m.speaker} report={r} who={who} />
                                 <span className="grow" />
                                 <MoodPill m={m.overall_mood} />
                               </div>
