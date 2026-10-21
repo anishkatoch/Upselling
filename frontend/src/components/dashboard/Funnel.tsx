@@ -1,3 +1,4 @@
+import { GrowFill } from "./GrowBar";
 import "./dashcharts.css";
 
 export interface FunnelStep {
@@ -25,7 +26,7 @@ export default function Funnel({ steps }: { steps: FunnelStep[] }) {
               </span>
             </div>
             <div className="hbar-track" aria-hidden="true">
-              <div className="hbar-fill" style={{ width: top > 0 ? `${(s.n / top) * 100}%` : 0 }} />
+              <GrowFill className="hbar-fill" width={top > 0 ? `${(s.n / top) * 100}%` : 0} delay={i * 0.08} />
             </div>
           </li>
         ))}

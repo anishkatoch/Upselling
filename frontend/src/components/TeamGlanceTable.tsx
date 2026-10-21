@@ -1,8 +1,10 @@
+import { motion } from "framer-motion";
 import { useMemo, useState, type ReactNode } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Minus, TrendDown, TrendUp } from "../icons/Icons";
 import type { Person } from "../lib/api";
 import { pct } from "../lib/format";
+import { DUR, EASE } from "../lib/motion";
 import { METRIC_INFO } from "../lib/metricInfo";
 import { EFFORT, EFFORT_TONE, moodFromFrustration } from "../lib/teamLabels";
 import { analysedCount, isNotRated, RatingChip, seriesDelta, StalePeriodBadge } from "./people/rating";
@@ -137,8 +139,12 @@ export default function TeamGlanceTable({ people, collapsedRows }: { people: Per
               const shared = t.shared_conversations ?? 0;
               const mood = moodFromFrustration(t.avg_customer_frustration);
               return (
-                <tr
+                <motion.tr
                   key={p.name}
+                  layout="position"
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: DUR.base, ease: EASE, delay: Math.min(i, 12) * 0.03, layout: { duration: 0.25, ease: EASE } }}
                   className={`rowlink${justRevealed ? " reveal" : ""}`}
                   onClick={(e) => {
                     if ((e.target as HTMLElement).closest("a,button")) return;
@@ -206,7 +212,7 @@ export default function TeamGlanceTable({ people, collapsedRows }: { people: Per
                       )}
                     </span>
                   </td>
-                </tr>
+                </motion.tr>
               );
             })}
           </tbody>

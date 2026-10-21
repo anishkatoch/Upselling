@@ -12,6 +12,8 @@
 .hbar-fill.dim { background: color-mix(in srgb, var(--accent) 45%, white); }
 .hbar-sub { color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; }
 .hbar-foot { margin: 14px 0 0; color: var(--muted); font-size: 12px; }
+.hbar-list .hbar-row, .ob-list .ob-row { transition: opacity 0.15s; }
+.hbar-list:hover .hbar-row:not(:hover), .ob-list:hover .ob-row:not(:hover) { opacity: 0.55; }
 .hbar-other { padding-top: 12px; border-top: 1px solid var(--line-soft); }
 
 /* Outcome bars */

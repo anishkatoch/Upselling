@@ -1,5 +1,7 @@
+import { motion } from "framer-motion";
 import { Link, useLocation } from "react-router-dom";
 import { Grid, Headset, Mic, Users } from "../icons/Icons";
+import { EASE } from "../lib/motion";
 import "./topnav.css";
 
 const ITEMS = [
@@ -29,6 +31,7 @@ export default function Nav() {
               return (
                 <Link key={item.to} to={item.to} className={on ? "on" : ""} aria-current={on ? "page" : undefined}>
                   <item.icon size={15} /> <span>{item.label}</span>
+                  {on && <motion.span layoutId="nav-underline" className="nav-underline" transition={{ duration: 0.25, ease: EASE }} />}
                 </Link>
               );
             })}

@@ -1,3 +1,5 @@
+import { motion, useReducedMotion } from "framer-motion";
+import { DUR, EASE } from "../../lib/motion";
 import type { Person } from "../../lib/api";
 import { METRIC_INFO } from "../../lib/metricInfo";
 import { moodFromFrustration } from "../../lib/teamLabels";
@@ -53,6 +55,7 @@ const ARROW: Record<Verdict, string> = { above: "▲", below: "▼", inline: "�
 
 /** "Compared with the team": this person's value against the mean of everyone on the board. */
 export default function VsTeamBars({ person, people }: { person: Person; people: Person[] }) {
+  const reduce = useReducedMotion();
   if (people.length < 2) return null;
   const rows = ROWS.map((r) => {
     const vals = people.map(r.get).filter((v): v is number => v != null);
@@ -70,7 +73,7 @@ export default function VsTeamBars({ person, people }: { person: Person; people:
     <section className="flat-card vs-card" aria-label="Compared with the team">
       <h3>Compared with the team</h3>
       <ul className="vs-list">
-        {rows.map(({ r, mine, team, verdict }) => {
+        {rows.map(({ r, mine, team, verdict }, idx) => {
           const aria =
             mine == null
               ? `${r.label}: no data`
@@ -86,9 +89,25 @@ export default function VsTeamBars({ person, people }: { person: Person; people:
               </div>
               <div className="vs-mid">
                 <div className="vs-track" aria-hidden="true">
-                  {mine != null && <div className="vs-fill" style={{ width: `${Math.min(100, Math.max(0, r.pos(mine) * 100))}%` }} />}
+                  {mine != null && (
+                    <motion.div
+                      className="vs-fill"
+                      initial={reduce ? false : { width: "0%" }}
+                      whileInView={{ width: `${Math.min(100, Math.max(0, r.pos(mine) * 100))}%` }}
+                      viewport={{ once: true }}
+                      transition={{ duration: DUR.slow, ease: EASE, delay: idx * 0.06 }}
+                    />
+                  )}
                   {team != null && (
-                    <span className="vs-tick" style={{ left: `${Math.min(100, Math.max(0, r.pos(team) * 100))}%` }} title={`Team average: ${r.fmt(team)}`} />
+                    <motion.span
+                      className="vs-tick"
+                      style={{ left: `${Math.min(100, Math.max(0, r.pos(team) * 100))}%` }}
+                      title={`Team average: ${r.fmt(team)}`}
+                      initial={reduce ? false : { opacity: 0 }}
+                      whileInView={{ opacity: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: DUR.base, ease: EASE, delay: DUR.slow * 0.8 + idx * 0.06 }}
+                    />
                   )}
                 </div>
                 <span className="vs-team" title={team != null ? `Team average: ${r.fmt(team)}` : undefined}>

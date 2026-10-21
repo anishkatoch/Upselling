@@ -1,6 +1,8 @@
+import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import type { Person } from "../../lib/api";
 import { isNotRated } from "../people/rating";
+import { fadeUp, stagger } from "../../lib/motion";
 import "./attention.css";
 
 const WORDS = { declining: "Slipping", improving: "Improving", steady: "Steady" } as const;
@@ -49,8 +51,8 @@ export default function Attention({ people }: { people: Person[] }) {
     .slice(0, 3);
 
   return (
-    <div className="attn">
-      <section className="card attn-card" aria-labelledby="attn-need">
+    <motion.div className="attn" variants={stagger(0.06)}>
+      <motion.section className="card attn-card" variants={fadeUp} aria-labelledby="attn-need">
         <div className="attn-h" id="attn-need">
           Needs your attention
         </div>
@@ -64,10 +66,10 @@ export default function Attention({ people }: { people: Person[] }) {
           <p className="attn-empty">Nobody needs support right now.</p>
         )}
         <div className="attn-more">
-          <Link to="/team">See everyone in Team →</Link>
+          <Link to="/team?period=month">See everyone in Team →</Link>
         </div>
-      </section>
-      <section className="card attn-card" aria-labelledby="attn-well">
+      </motion.section>
+      <motion.section className="card attn-card" variants={fadeUp} aria-labelledby="attn-well">
         <div className="attn-h" id="attn-well">
           Doing well
         </div>
@@ -80,7 +82,7 @@ export default function Attention({ people }: { people: Person[] }) {
         ) : (
           <p className="attn-empty">Nobody is standing out yet.</p>
         )}
-      </section>
-    </div>
+      </motion.section>
+    </motion.div>
   );
 }

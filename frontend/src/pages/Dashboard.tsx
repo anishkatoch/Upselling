@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import CountUp from "../components/CountUp";
+import { AnimatedNumber, Stagger, StaggerItem } from "../components/motion";
 import LineChart from "../components/LineChart";
 import { formatPeriod } from "../lib/period";
 import Attention from "../components/dashboard/Attention";
@@ -16,6 +16,20 @@ import { moodFromFrustration } from "../lib/teamLabels";
 import { useLoad } from "../lib/hooks";
 import { analysedCount, isNotRated } from "../components/people/rating";
 import "../components/people/people.css";
+
+/** A count-up number with its width reserved (tabular digits) so nothing shifts while it counts. */
+function Num({ value, suffix = "" }: { value: number; suffix?: string }) {
+  const w = `${String(Math.round(value)).length}ch`;
+  return (
+    <>
+      <span style={{ display: "inline-block", minWidth: w }}>
+        <AnimatedNumber value={value} />
+      </span>
+      {suffix}
+    </>
+  );
+}
+const pctNum = (v: number | null) => (v == null ? "–" : <Num value={Math.round(v * 100)} suffix="%" />);
 
 const busy = (jobs: Job[]) => jobs.some((j) => j.status === "queued" || j.status === "running");
 
@@ -98,22 +112,22 @@ export default function Dashboard() {
   const hasChange = !!(prev && last);
   const dot = (c: string) => <span style={{ width: 8, height: 8, borderRadius: "50%", background: c, display: "inline-block", flex: "none" }} />;
   const ratingStats = [
-    { label: "Needs support", n: ratingCounts.needs_work, color: "var(--bad)" },
-    { label: "On track", n: ratingCounts.solid, color: "var(--warn)" },
-    { label: "Excelling", n: ratingCounts.strong, color: "var(--good)" },
-    { label: "Not rated", n: ratingCounts.not_rated, color: "var(--faint)" },
+    { key: "needs_work", label: "Needs support", n: ratingCounts.needs_work, color: "var(--bad)" },
+    { key: "solid", label: "On track", n: ratingCounts.solid, color: "var(--warn)" },
+    { key: "strong", label: "Excelling", n: ratingCounts.strong, color: "var(--good)" },
+    { key: "not_rated", label: "Not rated", n: ratingCounts.not_rated, color: "var(--faint)" },
   ];
 
   return (
-    <>
-      <div className="head row">
+    <Stagger gap={0.06}>
+      <StaggerItem className="head row">
         <div className="grow">
           <div className="row" style={{ gap: 10 }}>
             <h1>Dashboard</h1>
           </div>
           <p className="sub">How your team is doing and who needs you.</p>
         </div>
-      </div>
+      </StaggerItem>
 
       {(jobsError || boardError) && (
         <p className="error">
@@ -126,23 +140,24 @@ export default function Dashboard() {
           Arrows show the change compared with last month.
         </p>
       )}
+      <StaggerItem>
       <MetricRow>
         <Metric
           label="Recordings"
           info={METRIC_INFO.recordings}
-          value={recordingsCount != null ? <CountUp value={recordingsCount} /> : "–"}
+          value={recordingsCount != null ? <Num value={recordingsCount} /> : "–"}
         />
         <Metric
           label="Tries to upsell"
           info={METRIC_INFO.upsell_rate}
-          value={pct(upsellRate)}
+          value={pctNum(upsellRate)}
           unit={upsellRate != null ? "of conversations" : undefined}
           foot={<DeltaChip value={diff("rate", 100)} />}
         />
         <Metric
           label="Customers say yes"
           info={METRIC_INFO.acceptance_rate}
-          value={pct(acceptRate)}
+          value={pctNum(acceptRate)}
           unit={acceptRate != null ? "of offers" : undefined}
           foot={<DeltaChip value={diff("accept", 100)} />}
         />
@@ -159,9 +174,10 @@ export default function Dashboard() {
         />
         <Metric
           label="Salespeople"
-          value={board?.people.length != null ? <CountUp value={board.people.length} /> : "–"}
+          value={board?.people.length != null ? <Num value={board.people.length} /> : "–"}
         />
       </MetricRow>
+      </StaggerItem>
 
       {totals && totals.analysed > 0 && (
         <p className="sub small" style={{ margin: "10px 0 24px" }}>
@@ -173,27 +189,29 @@ export default function Dashboard() {
 
       {board && board.people.length > 0 && (
         <>
-          <div className="metric-row" style={{ marginBottom: 24 }}>
+          <StaggerItem className="metric-row" style={{ marginBottom: 24 }}>
             {ratingStats.map((r) => (
-              <Link key={r.label} to="/team" className="metric" style={{ display: "flex", alignItems: "center", gap: 10, padding: "12px 18px" }}>
+              <Link key={r.key} to={`/team?period=month&rating=${r.key}`} className="metric" style={{ display: "flex", alignItems: "center", gap: 10, padding: "12px 18px" }}>
                 {dot(r.color)}
                 <span style={{ color: "var(--muted)", fontSize: 13 }}>{r.label}</span>
                 <b style={{ marginLeft: "auto", fontSize: 20, fontWeight: 600, fontVariantNumeric: "tabular-nums" }}>{r.n}</b>
               </Link>
             ))}
-          </div>
+          </StaggerItem>
 
-          <Attention people={board.people} />
+          <StaggerItem>
+            <Attention people={board.people} />
+          </StaggerItem>
 
           {totals && totals.analysed > 0 && (
-            <div className="dash-row">
+            <StaggerItem className="dash-row">
               <OutcomeBars people={board.people} />
               <SentimentDonut people={board.people} />
-            </div>
+            </StaggerItem>
           )}
 
           {totals && totals.analysed > 0 && (
-            <div className="two" style={{ marginBottom: 24 }}>
+            <StaggerItem className="two" style={{ marginBottom: 24 }}>
               <Funnel
                 steps={[
                   { label: "Customer conversations", n: totals.analysed },
@@ -202,21 +220,20 @@ export default function Dashboard() {
                 ]}
               />
               {board.technique_stats && board.technique_stats.length > 0 && <TechniqueBars stats={board.technique_stats} />}
-            </div>
+            </StaggerItem>
           )}
 
           {orgTrend.length > 2 && (
-            <div className="card" style={{ marginTop: 16, marginBottom: 24 }}>
+            <StaggerItem className="card" style={{ marginTop: 16, marginBottom: 24 }}>
               <div style={{ fontWeight: 600 }}>How often they try to upsell, over time</div>
               <div className="sub small" style={{ marginBottom: 10 }}>
                 The share of conversations where an upsell was offered, for the whole team.
               </div>
               <LineChart data={orgTrend} value={(d) => d.rate} label={(d) => formatPeriod(d.period)} format={pct} xTitle="Month" yTitle="Tries to upsell" />
-            </div>
+            </StaggerItem>
           )}
         </>
       )}
-
-    </>
+    </Stagger>
   );
 }

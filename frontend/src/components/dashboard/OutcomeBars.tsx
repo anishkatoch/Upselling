@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import type { Person } from "../../lib/api";
 import { analysedCount } from "../people/rating";
+import { Wipe } from "./GrowBar";
 import "./dashcharts.css";
 
 interface Row {
@@ -45,12 +46,13 @@ export default function OutcomeBars({ people }: { people: Person[] }) {
         <p className="sub small">No conversations yet.</p>
       ) : (
         <ul className="ob-list">
-          {rows.map((r) => (
+          {rows.map((r, i) => (
             <li className="ob-row" key={r.name}>
               <Link className="ob-name" to={`/team/${encodeURIComponent(r.name)}`}>
                 {r.name}
               </Link>
-              <div
+              <Wipe
+                delay={i * 0.06}
                 className="ob-bar"
                 role="img"
                 aria-label={`${r.name}: ${r.accepted} said yes, ${r.declined} said no, ${r.none} with no upsell offered, out of ${r.n} conversations`}
@@ -67,7 +69,7 @@ export default function OutcomeBars({ people }: { people: Person[] }) {
                     </span>
                   ) : null,
                 )}
-              </div>
+              </Wipe>
               <span className="ob-n">{r.n} {r.n === 1 ? "conversation" : "conversations"}</span>
             </li>
           ))}

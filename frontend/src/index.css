@@ -1,37 +1,44 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
 
 :root {
-  --bg: #f6f9fc;
-  --paper: #f6f9fc;
+  --bg: #f6f7fc;
+  --paper: #f6f7fc;
   --card: #ffffff;
-  --ink: #0a2540;
-  --muted: #425466;
-  --faint: #697386;
-  --line: #e3e8ee;
-  --line-soft: #edf1f5;
-  --accent: #635bff;
-  --accent-ink: #4f46e5;
-  --accent-soft: #f0efff;
+  --ink: #0b1b3a;
+  --muted: #475569;
+  --faint: #5f6b7e;
+  --line: #e2e6f0;
+  --line-soft: #eceff6;
+  --accent: #5b5bf0;
+  --accent-ink: #4338ca;
+  --accent-soft: #eff0fe;
   --good: #3b7a57;
   --good-soft: #f1f6f3;
   --bad: #a4493f;
   --bad-soft: #faf2f1;
   --warn: #8a5f12;
   --warn-soft: #faf6ec;
-  --neutral: #425466;
-  --neutral-soft: #eef2f6;
+  --neutral: #475569;
+  --neutral-soft: #eef1f6;
   --sidebar: #ffffff;
-  --sidebar-ink: #0a2540;
-  --sidebar-muted: #425466;
-  --sidebar-line: #e3e8ee;
+  --sidebar-ink: #0b1b3a;
+  --sidebar-muted: #475569;
+  --sidebar-line: #e2e6f0;
   --radius-lg: 8px;
   --radius-md: 6px;
   --radius-sm: 4px;
   --shadow-sm: none;
-  --shadow-md: 0 2px 6px rgba(10, 37, 64, 0.1);
+  --shadow-md: 0 2px 6px rgba(11, 27, 58, 0.1);
   --font: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --font-display: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --ring: 0 0 0 3px rgba(99, 91, 255, 0.28);
+  --violet: #8b5cf6;
+  --cyan: #22b8cf;
+  --brand-gradient: linear-gradient(135deg, #5b5bf0 0%, #8b5cf6 100%);
+  --aurora:
+    radial-gradient(60% 90% at 12% 0%, rgba(91, 91, 240, 0.10), transparent 70%),
+    radial-gradient(50% 80% at 62% -10%, rgba(139, 92, 246, 0.07), transparent 70%),
+    radial-gradient(45% 70% at 95% 0%, rgba(34, 184, 207, 0.05), transparent 70%);
+  --ring: 0 0 0 3px rgba(91, 91, 240, 0.28);
 }
 
 * { box-sizing: border-box; }
@@ -61,7 +68,34 @@ button, input { font-family: inherit; }
 
 /* ---------- shell: top bar + centred content (bar styles in components/topnav.css) ---------- */
 .shell { min-height: 100vh; }
-.content { min-width: 0; background: var(--bg); }
+.shell { position: relative; z-index: 1; }
+.content { min-width: 0; }
+/* soft static aurora wash + faint dot grid, fixed to the top of the viewport */
+body::before {
+  content: ""; position: fixed; inset: 0 0 auto 0; height: 420px; z-index: 0; pointer-events: none;
+  background: var(--aurora);
+  -webkit-mask-image: linear-gradient(#000 30%, transparent);
+  mask-image: linear-gradient(#000 30%, transparent);
+}
+body::after {
+  content: ""; position: fixed; inset: 0 0 auto 0; height: 360px; z-index: 0; pointer-events: none;
+  background-image: radial-gradient(rgba(11, 27, 58, 0.035) 1px, transparent 1.2px);
+  background-size: 22px 22px;
+  -webkit-mask-image: linear-gradient(#000, transparent);
+  mask-image: linear-gradient(#000, transparent);
+}
+.metric-row { position: relative; }
+.metric-row::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 2px; background: var(--brand-gradient); opacity: .45; z-index: 1; }
+
+/* ---------- AI touches ---------- */
+.ai-badge {
+  display: inline-flex; align-items: center; gap: 4px; padding: 1px 7px 1px 5px; border-radius: 999px;
+  background: var(--accent-soft); border: 1px solid rgba(91, 91, 240, 0.22); color: var(--accent-ink);
+  font-size: 11px; font-weight: 600; line-height: 16px; letter-spacing: 0.02em; white-space: nowrap; vertical-align: middle;
+}
+.ai-badge svg { width: 10px; height: 10px; flex: none; }
+.ai-note { display: flex; align-items: flex-start; gap: 8px; color: var(--muted); font-size: 13px; line-height: 1.5; }
+.ai-note .ai-badge { margin-top: 1px; }
 .page { max-width: 1180px; margin: 0 auto; padding: 32px 32px 80px; }
 .head { margin-bottom: 24px; }
 .head p { margin-top: 4px; max-width: 60ch; color: var(--muted); }

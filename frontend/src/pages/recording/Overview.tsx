@@ -24,31 +24,31 @@ export default function Overview({ ctx }: { ctx: RecCtx }) {
     <>
       <div className="kpis">
         <Kpi icon={<Headset size={15} />} label="Sales conversations" value={sales.length} />
-        <Kpi icon={<TrendUp size={15} />} label="With upsell attempt" value={sales.length ? pct(withUpsell / sales.length) : "–"} />
-        <Kpi icon={<TrendUp size={15} />} label="Upsell attempts" value={attempts} />
+        <Kpi icon={<TrendUp size={15} />} label="Tried to upsell" value={sales.length ? pct(withUpsell / sales.length) : "–"} />
+        <Kpi icon={<TrendUp size={15} />} label="Upsell offers made" value={attempts} />
         <Kpi icon={<Check size={15} />} label="Greeted the customer" value={sales.length ? pct(greeted / sales.length) : "–"} />
         <Kpi icon={<Minus size={15} />} label="Unanswered questions" value={unanswered} />
-        <Kpi icon={<Headset size={15} />} label="Avg. customer frustration" value={`${avgFrust} / 10`} />
+        <Kpi icon={<Headset size={15} />} label="Customer frustration (0 is calm)" value={`${avgFrust} / 10`} />
       </div>
 
-      <h2 style={{ marginTop: 24 }}>Salespeople</h2>
+      <h2 style={{ marginTop: 28 }}>Salespeople</h2>
       {r.salespeople.length > 0 ? (
         <>
           <div className="table-wrap">
             <table>
               <thead>
                 <tr>
-                  <th>Speaker</th>
-                  <th className="num">Upsell rate</th>
+                  <th>Salesperson</th>
+                  <th className="num">Tries to upsell</th>
                   {fullBreakdown && (
                     <>
-                      <th className="num">Convs</th>
-                      <th className="num">Attempts</th>
-                      <th className="num">Effort</th>
-                      <th className="num">Upsell talk</th>
-                      <th className="num">Accepted</th>
-                      <th className="num">Pushy</th>
-                      <th>Techniques</th>
+                      <th className="num">Conversations</th>
+                      <th className="num">Offers made</th>
+                      <th className="num">Selling effort</th>
+                      <th className="num">Talk time on upsells</th>
+                      <th className="num">Customers said yes</th>
+                      <th className="num">Pushy conversations</th>
+                      <th>Approaches</th>
                     </>
                   )}
                 </tr>
@@ -97,9 +97,9 @@ export default function Overview({ ctx }: { ctx: RecCtx }) {
       )}
 
       <div className="row" style={{ justifyContent: "space-between", alignItems: "center", marginTop: 24 }}>
-        <h2 style={{ marginBottom: 0 }}>Speakers</h2>
+        <h2 style={{ marginBottom: 0 }}>Who spoke</h2>
         <button className="btn ghost small" onClick={() => setShowSpeakers((v) => !v)}>
-          {showSpeakers ? "Hide" : "Show who talked how much"}
+          {showSpeakers ? "Hide" : "Show talk time"}
         </button>
       </div>
       {showSpeakers && (

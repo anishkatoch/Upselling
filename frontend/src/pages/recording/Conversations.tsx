@@ -1,25 +1,187 @@
 import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import type { Conversation } from "../../lib/api";
-import { ChevronRight, Check } from "../../icons/Icons";
+import AiBadge from "../../components/AiBadge";
+import { ChevronRight } from "../../icons/Icons";
 import { clock, technique } from "../../lib/format";
-import { EvidenceBlock, Meter, MoodPill, RespPill, RoleNote, Spk, TimeBtn, type RecCtx } from "./shared";
+import { moodFromFrustration } from "../../lib/teamLabels";
+import { EASE } from "../../lib/motion";
+import { canon, convWho, type RecCtx } from "./shared";
+import "./conversations.css";
 
-/** A conversation needs eyes-on-it immediately if it went pushy, could not be fully analysed, or
- * left someone noticeably frustrated - those rows start expanded, everything else starts closed. */
+/** Needs a look first: pushy, a customer who said no, could not be fully analysed, or clearly frustrated. */
 function needsAttention(c: Conversation): boolean {
-  const frustLevels = (c.mood?.speakers ?? []).map((m) => m.frustration_level);
-  const maxFrust = frustLevels.length ? Math.max(...frustLevels) : 0;
-  return Boolean(c.upsell?.pushy_upsell) || Boolean(c.budget_note) || maxFrust >= 6;
+  const frust = (c.mood?.speakers ?? []).map((m) => m.frustration_level);
+  const maxFrust = frust.length ? Math.max(...frust) : 0;
+  const saidNo = (c.upsell?.upsell_attempts ?? []).some((a) => a.customer_response === "rejected");
+  return Boolean(c.upsell?.pushy_upsell) || Boolean(c.budget_note) || maxFrust >= 6 || saidNo;
+}
+
+function outcome(c: Conversation): { text: string; tone: "good" | "bad" | "warn" | "none" } {
+  const at = c.upsell?.upsell_attempts ?? [];
+  if (at.length === 0) return { text: "No upsell offered", tone: "none" };
+  if (at.some((a) => a.customer_response === "accepted")) return { text: "Customer said yes", tone: "good" };
+  if (at.some((a) => a.customer_response === "rejected")) return { text: "Customer said no", tone: "bad" };
+  return { text: "Offer left unanswered", tone: "warn" };
+}
+
+interface Moment {
+  key: string;
+  t: number;
+  order: number;
+  kind: "offer" | "bad" | "plain" | "mute";
+  title: string;
+  tag?: string;
+  quote?: string;
+  reply?: { text: string; after?: boolean };
+  seg?: number | null;
+}
+
+function buildMoments(c: Conversation, segTime: (id: number) => number | undefined): Moment[] {
+  const u = c.upsell;
+  const out: Moment[] = [];
+  const time = (seg: number | null | undefined, fb: number) => (seg != null ? segTime(seg) : undefined) ?? fb;
+  if (u) {
+    if (u.greeting_given)
+      out.push({ key: "greet", t: time(u.greeting_segment_id, c.start), order: 0, kind: "plain", title: "Greeted the customer", quote: u.greeting_quote ?? undefined, seg: u.greeting_segment_id });
+    else out.push({ key: "greet", t: c.start, order: 0, kind: "mute", title: "No greeting" });
+    u.upsell_attempts.forEach((a, n) => {
+      const reply =
+        a.customer_response === "accepted" ? "Customer said yes" : a.customer_response === "rejected" ? "Customer said no" : a.customer_response === "undecided" ? "Customer was unsure" : "Customer did not reply";
+      out.push({
+        key: `up${n}`, t: time(a.segment_id, c.start), order: 1, kind: "offer", title: "Offered an upgrade", tag: technique(a.technique) === "Offered an upgrade" ? undefined : technique(a.technique), quote: a.quote,
+        reply: { text: reply, after: a.after_customer_rejection }, seg: a.segment_id,
+      });
+    });
+    u.unanswered_questions.forEach((q, n) =>
+      out.push({ key: `q${n}`, t: time(q.segment_id, c.start), order: 1, kind: "plain", title: "Customer asked and didn't get an answer", quote: q.question, seg: q.segment_id }),
+    );
+    if (u.customer_feedback)
+      out.push({ key: "fb", t: time(u.customer_feedback_segment_id, c.end), order: 1, kind: "plain", title: "Customer feedback", quote: u.customer_feedback, seg: u.customer_feedback_segment_id });
+  }
+  (c.mood?.frustration_moments ?? []).forEach((m, n) =>
+    out.push({ key: `f${n}`, t: time(m.segment_id, c.start), order: 1, kind: "bad", title: "Customer sounded frustrated", quote: m.quote, seg: m.segment_id }),
+  );
+  const seen = new Set<string>();
+  const uniq = [...out].sort((a, b) => Number(b.kind === "bad") - Number(a.kind === "bad")).filter((m) => {
+    if (m.seg == null || !m.quote) return true;
+    const k = `${m.seg}|${m.quote}`;
+    return !seen.has(k) && (seen.add(k), true);
+  });
+  return uniq.sort((a, b) => a.t - b.t || a.order - b.order);
+}
+
+function ConversationBody({ c, ctx }: { c: Conversation; ctx: RecCtx }) {
+  const { report: r, who, segById, gotoLine } = ctx;
+  const u = c.upsell;
+  const cw = convWho(r, who, c.conversation_id);
+  const moments = buildMoments(c, (id) => segById.get(id)?.start);
+  const custKeys = new Set(c.customers.map(canon));
+  const customerMoods = (c.mood?.speakers ?? []).filter((m) => custKeys.has(canon(m.speaker)));
+  const lang = c.language ? c.language.charAt(0).toUpperCase() + c.language.slice(1) : "";
+  const sales = c.salespeople.map((p) => who(p)).join(", ");
+  const meta = [sales && `Salesperson: ${sales}`, lang && `spoken in ${lang}`].filter(Boolean).join(" - ");
+
+  return (
+    <div className="cv-body">
+      {meta && <p className="cv-meta">{meta}</p>}
+      {u && u.confidence < 0.6 && <p className="cv-low">Low confidence - check the transcript</p>}
+      {c.budget_note && !u && <p className="cv-text">This conversation could not be fully analysed, so no findings are shown for it.</p>}
+
+      {u?.summary && (
+        <section className="cv-sec">
+          <h4 className="cv-label">What happened <AiBadge /></h4>
+          <p className="cv-text">{u.summary}</p>
+        </section>
+      )}
+
+      {moments.length > 0 && (
+        <section className="cv-sec">
+          <h4 className="cv-label">Key moments</h4>
+          <motion.ol className="cv-moments" initial="hidden" animate="show" variants={{ hidden: {}, show: { transition: { staggerChildren: 0.04, delayChildren: 0.05 } } }}>
+            {moments.map((m) => (
+              <motion.li
+                key={m.key}
+                className={`cv-moment ${m.kind === "offer" ? "cv-offer" : m.kind}`}
+                variants={{ hidden: { opacity: 0, y: 6 }, show: { opacity: 1, y: 0, transition: { duration: 0.25, ease: EASE } } }}
+              >
+                <div className="cv-mhead">
+                  <span className="cv-mtime">{clock(m.t)}</span>
+                  <span>
+                    <span className="cv-mtitle">{m.title}</span>
+                    {m.tag && <span className="cv-mtag"> - {m.tag}</span>}
+                  </span>
+                </div>
+                {m.quote && <p className="cv-mquote">&ldquo;{m.quote}&rdquo;</p>}
+                {m.reply && (
+                  <p className="cv-mreply">
+                    {m.reply.text} {m.reply.after && <span>(after already saying no)</span>}
+                  </p>
+                )}
+                {m.seg != null && (
+                  <button type="button" className="cv-link" onClick={() => gotoLine(m.seg!)}>
+                    Read in transcript
+                  </button>
+                )}
+              </motion.li>
+            ))}
+          </motion.ol>
+        </section>
+      )}
+
+      {customerMoods.length > 0 && (
+        <section className="cv-sec">
+          <h4 className="cv-label">How the customer felt</h4>
+          {customerMoods.map((m) => {
+            const lab = moodFromFrustration(m.frustration_level);
+            return (
+              <div className="cv-felt" key={m.speaker}>
+                <div className="cv-felt-line">
+                  <span className={`cv-flag ${lab.tone === "neutral" ? "none" : lab.tone}`}><i /></span>
+                  <span>
+                    {customerMoods.length > 1 && <>{cw(canon(m.speaker))}: </>}
+                    <b>{lab.label}</b>
+                  </span>
+                </div>
+                {m.summary && <p>{m.summary}</p>}
+              </div>
+            );
+          })}
+        </section>
+      )}
+
+      {u?.coaching_feedback && (
+        <section className="cv-sec">
+          <h4 className="cv-label">Coaching <AiBadge /></h4>
+          <p className="cv-note">{u.coaching_feedback}</p>
+        </section>
+      )}
+
+      {u && u.excluded_candidates.length > 0 && (
+        <section className="cv-sec">
+          <details className="cv-more">
+            <summary>Offers we did not count ({u.excluded_candidates.length})</summary>
+            <ul>
+              {u.excluded_candidates.map((x) => (
+                <li key={x}>{x}</li>
+              ))}
+            </ul>
+          </details>
+        </section>
+      )}
+    </div>
+  );
 }
 
 export default function Conversations({ ctx, scrollTo, onScrolled }: { ctx: RecCtx; scrollTo: number | null; onScrolled: () => void }) {
-  const { report: r, who, seek, evBy, gotoConversation, segById } = ctx;
+  const { report: r, gotoConversation } = ctx;
   const refs = useRef<Record<number, HTMLDivElement | null>>({});
-  const segTime = (id: number) => segById.get(id)?.start;
 
-  const [open, setOpen] = useState<Set<number>>(
-    () => new Set(r.conversations.filter(needsAttention).map((c) => c.conversation_id)),
-  );
+  const [open, setOpen] = useState<Set<number>>(() => {
+    if (scrollTo != null) return new Set([scrollTo]);
+    const first = r.conversations.find(needsAttention) ?? r.conversations[0];
+    return new Set(first ? [first.conversation_id] : []);
+  });
   const [flashId, setFlashId] = useState<number | null>(null);
 
   function toggle(id: number) {
@@ -59,257 +221,49 @@ export default function Conversations({ ctx, scrollTo, onScrolled }: { ctx: RecC
       {r.conversations.length === 0 && <div className="card empty">No conversations found.</div>}
 
       {r.conversations.length > 0 && (
-        <div className="conv-list">
+        <div className="cv-list">
           {r.conversations.map((c) => {
-            const u = c.upsell;
             const isOpen = open.has(c.conversation_id);
-            const sentCls = u?.pushy_upsell ? "bad" : c.attempted_upsell ? "good" : "neutral";
+            const o = outcome(c);
+            const panel = `cv-panel-${c.conversation_id}`;
             return (
               <div
-                className={`conv-row ${isOpen ? "open" : ""} ${flashId === c.conversation_id ? "flash" : ""}`}
+                className={`cv-item ${isOpen ? "open" : ""} ${flashId === c.conversation_id ? "flash" : ""}`}
                 key={c.conversation_id}
                 ref={(el) => {
                   refs.current[c.conversation_id] = el;
                 }}
               >
-                <button className="call-head" onClick={() => toggle(c.conversation_id)}>
-                  <span className={`sent-bar ${sentCls}`} />
-                  <span className="grow">
-                    <b>
-                      #{c.conversation_id} {c.topic}
-                    </b>
-                    <div className="sub small" style={{ marginTop: 3 }}>
-                      {clock(c.start)}&ndash;{clock(c.end)}
-                    </div>
+                <button type="button" className="cv-head" aria-expanded={isOpen} aria-controls={panel} onClick={() => toggle(c.conversation_id)}>
+                  <span className="cv-chev"><ChevronRight size={16} /></span>
+                  <span className="cv-title">
+                    <b>#{c.conversation_id} {c.topic}</b>
+                    <span className="cv-time">{clock(c.start)}&ndash;{clock(c.end)}</span>
                   </span>
-                  <span className="row" style={{ gap: 6, flexWrap: "wrap", justifyContent: "flex-end", flex: "0 1 auto" }}>
-                    {c.is_sales_interaction ? (
-                      c.attempted_upsell ? (
-                        <span className="pill good">upsell attempted</span>
-                      ) : (
-                        <span className="pill neutral">no upsell</span>
-                      )
+                  <span className="cv-flags">
+                    {c.budget_note ? (
+                      <span className="cv-flag warn"><i />Could not be fully analysed</span>
                     ) : (
-                      <span className="pill neutral">not a sale</span>
+                      <span className={`cv-flag ${o.tone}`}><i />{o.text}</span>
                     )}
-                    {u?.pushy_upsell && (
-                      <span className="pill bad" title={u.pushy_reason}>
-                        pushy
-                      </span>
-                    )}
-                    {c.budget_note && (
-                      <span className="pill bad" title="Part of this conversation could not be analysed">
-                        analysis incomplete
-                      </span>
-                    )}
-                    {u && (
-                      <span className="pill neutral" title="Confidence in this finding">
-                        {Math.round(u.confidence * 100)}% sure
-                      </span>
-                    )}
-                  </span>
-                  <span className="chev-wrap">
-                    <ChevronRight size={16} />
+                    {c.upsell?.pushy_upsell && <span className="cv-flag bad pushy" title={c.upsell.pushy_reason}><i />Pushy</span>}
                   </span>
                 </button>
-
-                {isOpen && (
-                  <div className="call-body">
-                    <div className="row sub small">
-                      <TimeBtn t={c.start} seek={seek} />
-                      <span>
-                        to {clock(c.end)} · {c.language}
-                      </span>
-                      {c.salespeople.length > 0 && <span>· sales: {c.salespeople.map((p) => who(p)).join(", ")}</span>}
-                      {c.customers.length > 0 && <span>· customers: {c.customers.map((p) => who(p)).join(", ")}</span>}
-                    </div>
-
-                    {c.budget_note && !u && (
-                      <p className="error" style={{ marginTop: 10 }}>
-                        This conversation could not be fully analysed, so no upsell findings are shown for it.
-                      </p>
-                    )}
-
-                    {u && (
-                      <>
-                        <p style={{ marginTop: 10 }}>{u.summary}</p>
-                        <div className="effort" style={{ marginTop: 8 }}>
-                          Effort {c.effort_score}/10
-                          <div className="bar">
-                            <i style={{ width: `${c.effort_score * 10}%` }} />
-                          </div>
-                          {u.customer_requested.length > 0 && <span>· asked for: {u.customer_requested.join(", ")}</span>}
-                        </div>
-
-                        <div className="tip" style={{ marginTop: 12 }}>
-                          <div className="row">
-                            {u.greeting_given ? (
-                              <span className="pill good">
-                                <Check size={12} /> greeted
-                              </span>
-                            ) : (
-                              <span className="pill warn">no greeting detected</span>
-                            )}
-                            {u.products_discussed.length > 0 && <span className="sub small">Discussed: {u.products_discussed.join(", ")}</span>}
-                          </div>
-                          {u.greeting_given &&
-                            (evBy.get(`${c.conversation_id}:greeting:0`) ? (
-                              <EvidenceBlock
-                                ev={evBy.get(`${c.conversation_id}:greeting:0`)}
-                                report={r}
-                                seek={seek}
-                                gotoLine={ctx.gotoLine}
-                                who={who}
-                                compact
-                              />
-                            ) : (
-                              <p className="sub small" style={{ marginTop: 6 }}>
-                                Greeting detected, but no quote was captured to show as evidence.
-                              </p>
-                            ))}
-                          {u.customer_feedback && (
-                            <>
-                              <p style={{ marginTop: 10 }}>
-                                <b>Customer feedback:</b> {u.customer_feedback}
-                              </p>
-                              {evBy.get(`${c.conversation_id}:customer_feedback:0`) ? (
-                                <EvidenceBlock
-                                  ev={evBy.get(`${c.conversation_id}:customer_feedback:0`)}
-                                  report={r}
-                                  seek={seek}
-                                  gotoLine={ctx.gotoLine}
-                                  who={who}
-                                  compact
-                                />
-                              ) : (
-                                <p className="sub small" style={{ marginTop: 6 }}>
-                                  No specific transcript line was cited for this feedback.
-                                </p>
-                              )}
-                            </>
-                          )}
-                          <p style={{ marginTop: 10 }}>
-                            <b>Coaching:</b> {u.coaching_feedback}
-                          </p>
-                        </div>
-                      </>
-                    )}
-
-                    {c.mood && c.mood.speakers.length > 0 && (
-                      <div className="stack" style={{ marginTop: 14 }}>
-                        {c.mood.speakers.map((m) => {
-                          const hasMoment = c.mood!.frustration_moments.some((fm) => fm.speaker === m.speaker);
-                          return (
-                            <div className="mood" key={m.speaker}>
-                              <div className="row">
-                                <Spk speaker={m.speaker} report={r} who={who} />
-                                <RoleNote speaker={m.speaker} report={r} who={who} />
-                                <span className="grow" />
-                                <MoodPill m={m.overall_mood} />
-                              </div>
-                              <Meter level={m.frustration_level} />
-                              <div className="sub small">
-                                Frustration {m.frustration_level}/10 · {m.trend} — {m.summary}
-                              </div>
-                              {m.frustration_level >= 3 && !hasMoment && (
-                                <p className="sub small" style={{ marginTop: 4 }}>
-                                  No specific frustration moment was flagged for this score - see the summary above.
-                                </p>
-                              )}
-                            </div>
-                          );
-                        })}
-                      </div>
-                    )}
-
-                    {u && u.upsell_attempts.length > 0 && (
-                      <>
-                        <h3 className="eyebrow" style={{ marginTop: 18 }}>
-                          Upsell attempts
-                        </h3>
-                        {u.upsell_attempts.map((a, n) => (
-                          <div className="attempt" key={n}>
-                            <div className="row">
-                              {segTime(a.segment_id) != null ? (
-                                <TimeBtn t={segTime(a.segment_id)!} seek={seek} />
-                              ) : (
-                                <span className="sub small">#{a.segment_id}</span>
-                              )}
-                            </div>
-                            <div>
-                              <Spk speaker={a.salesperson} report={r} who={who} /> <span className="quote">&ldquo;{a.quote}&rdquo;</span>
-                              <div className="tags">
-                                <span className="pill info">{technique(a.technique)}</span>
-                                <span className="pill neutral">{a.offered_item}</span>
-                                <RespPill r={a.customer_response} />
-                                <MoodPill m={a.customer_mood} />
-                                {a.after_customer_rejection && <span className="pill warn">after a &ldquo;no&rdquo;</span>}
-                                {a.handled_objection && <span className="pill neutral">handled objection</span>}
-                              </div>
-                              <EvidenceBlock ev={evBy.get(`${c.conversation_id}:upsell_attempt:${n}`)} report={r} seek={seek} gotoLine={ctx.gotoLine} who={who} compact />
-                            </div>
-                          </div>
-                        ))}
-                      </>
-                    )}
-
-                    {u && u.unanswered_questions.length > 0 && (
-                      <>
-                        <h3 className="eyebrow" style={{ marginTop: 18 }}>
-                          Unanswered questions
-                        </h3>
-                        {u.unanswered_questions.map((q, n) => (
-                          <div className="attempt" key={n}>
-                            <div className="row">{segTime(q.segment_id) != null && <TimeBtn t={segTime(q.segment_id)!} seek={seek} />}</div>
-                            <div>
-                              <Spk speaker={q.speaker} report={r} who={who} /> <span className="quote">&ldquo;{q.question}&rdquo;</span>
-                              <div className="sub small" style={{ marginTop: 4 }}>{q.note}</div>
-                              <EvidenceBlock
-                                ev={evBy.get(`${c.conversation_id}:unanswered_question:${n}`)}
-                                report={r}
-                                seek={seek}
-                                gotoLine={ctx.gotoLine}
-                                who={who}
-                                compact
-                              />
-                            </div>
-                          </div>
-                        ))}
-                      </>
-                    )}
-
-                    {c.mood && c.mood.frustration_moments.length > 0 && (
-                      <>
-                        <h3 className="eyebrow" style={{ marginTop: 18 }}>
-                          Frustration moments
-                        </h3>
-                        {c.mood.frustration_moments.map((m, n) => (
-                          <div className="attempt" key={n}>
-                            <div className="row">{segTime(m.segment_id) != null && <TimeBtn t={segTime(m.segment_id)!} seek={seek} />}</div>
-                            <div>
-                              <Spk speaker={m.speaker} report={r} who={who} /> <span className="quote">&ldquo;{m.quote}&rdquo;</span>
-                              <div className="sub small" style={{ marginTop: 4 }}>
-                                {m.evidence} <span className="pill neutral">{m.evidence_source}</span>
-                              </div>
-                              <EvidenceBlock ev={evBy.get(`${c.conversation_id}:frustration:${n}`)} report={r} seek={seek} gotoLine={ctx.gotoLine} who={who} compact />
-                            </div>
-                          </div>
-                        ))}
-                      </>
-                    )}
-
-                    {u && u.excluded_candidates.length > 0 && (
-                      <details style={{ marginTop: 14 }}>
-                        <summary className="sub small">Not counted as upsell ({u.excluded_candidates.length})</summary>
-                        <ul className="plain small" style={{ marginTop: 8 }}>
-                          {u.excluded_candidates.map((x) => (
-                            <li key={x}>{x}</li>
-                          ))}
-                        </ul>
-                      </details>
-                    )}
-                  </div>
-                )}
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.div
+                      id={panel}
+                      className="cv-clip"
+                      key="body"
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.2, ease: EASE }}
+                    >
+                      <ConversationBody c={c} ctx={ctx} />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             );
           })}

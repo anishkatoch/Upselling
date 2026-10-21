@@ -6,6 +6,9 @@
  * Markers are plain HTML dots positioned by percentage, not SVG circles, so they stay
  * perfectly round even though the SVG itself stretches non-uniformly to fill the container.
  */
+import { motion, useReducedMotion } from "framer-motion";
+import { DUR, EASE } from "../lib/motion";
+
 export default function LineChart<T>({
   data,
   value,
@@ -25,6 +28,7 @@ export default function LineChart<T>({
   xTitle?: string;
   yTitle?: string;
 }) {
+  const reduce = useReducedMotion();
   const points = data.map((d, i) => ({
     x: data.length > 1 ? (i / (data.length - 1)) * 100 : 50,
     v: value(d),
@@ -42,7 +46,18 @@ export default function LineChart<T>({
 
   const svg = (
     <>
-      <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+      <motion.svg
+        viewBox="0 0 100 100"
+        preserveAspectRatio="none"
+        {...(compact
+          ? {}
+          : {
+              initial: reduce ? false : { clipPath: "inset(0 100% 0 0)" },
+              whileInView: { clipPath: "inset(0 0% 0 0)" },
+              viewport: { once: true, margin: "-20px" },
+              transition: { duration: DUR.slow + 0.2, ease: EASE },
+            })}
+      >
         {!compact && ticks.map((t) => (
           <line key={t} x1="0" x2="100" y1={y(t)} y2={y(t)} stroke="var(--line)" strokeWidth={1} strokeDasharray="1 3" vectorEffect="non-scaling-stroke" />
         ))}
@@ -58,7 +73,7 @@ export default function LineChart<T>({
             vectorEffect="non-scaling-stroke"
           />
         )}
-      </svg>
+      </motion.svg>
       {!compact &&
         plotted.map((p) => (
           <div key={p.x} className="lc-dot" style={{ left: `${p.x}%`, top: `${y(p.v)}%` }} title={`${p.label}: ${format(p.v)}`} />

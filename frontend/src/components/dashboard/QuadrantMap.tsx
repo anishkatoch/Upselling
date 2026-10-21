@@ -1,8 +1,11 @@
+import { motion } from "framer-motion";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import type { Person } from "../../lib/api";
+import { DUR, EASE, fadeUp, stagger } from "../../lib/motion";
 import { analysedCount, RatingChip } from "../people/rating";
 import "./dashcharts.css";
+import "./quadrant.css";
 
 const W = 560,
   H = 390;
@@ -20,6 +23,8 @@ const initials = (n: string) =>
     .join("")
     .slice(0, 2)
     .toUpperCase();
+const panel = { hidden: { opacity: 0 }, show: { opacity: 1, transition: { duration: DUR.base, ease: EASE } } };
+const badgeIn = { hidden: { opacity: 0, scale: 0.9 }, show: { opacity: 1, scale: 1, transition: { duration: DUR.base, ease: EASE } } };
 const pc = (v: number) => `${Math.round(v * 100)}%`;
 
 interface Pt {
@@ -90,13 +95,13 @@ export default function QuadrantMap({ people }: { people: Person[] }) {
       <p className="hint">Each badge is a salesperson, placed against the team average (the dashed lines). Hover a badge or a name to see their figures.</p>
       <div className="quad-grid">
         <div className="quad-plot">
-          <svg viewBox={`0 0 ${W} ${H}`} className="quad-svg" role="img" aria-label={summary}>
+          <motion.svg viewBox={`0 0 ${W} ${H}`} className="quad-svg" role="img" aria-label={summary} variants={stagger(0.07, 0.12)} initial="hidden" animate="show">
             <title>{summary}</title>
             {/* quadrant panels, split at the team average */}
-            <rect x={cx + 1} y={T} width={PW / 2 - 1} height={PH / 2 - 1} rx="6" className="q-tint good" />
-            <rect x={cx + 1} y={cy + 1} width={PW / 2 - 1} height={PH / 2 - 1} rx="6" className="q-tint bad" />
-            <rect x={L} y={T} width={PW / 2 - 1} height={PH / 2 - 1} rx="6" className="q-tint accent" />
-            <rect x={L} y={cy + 1} width={PW / 2 - 1} height={PH / 2 - 1} rx="6" className="q-tint muted" />
+            <motion.rect variants={panel} x={cx + 1} y={T} width={PW / 2 - 1} height={PH / 2 - 1} rx="6" className="q-tint good" />
+            <motion.rect variants={panel} x={cx + 1} y={cy + 1} width={PW / 2 - 1} height={PH / 2 - 1} rx="6" className="q-tint bad" />
+            <motion.rect variants={panel} x={L} y={T} width={PW / 2 - 1} height={PH / 2 - 1} rx="6" className="q-tint accent" />
+            <motion.rect variants={panel} x={L} y={cy + 1} width={PW / 2 - 1} height={PH / 2 - 1} rx="6" className="q-tint muted" />
             {[-1, 0, 1].map((k) => (
               <g key={k}>
                 <line x1={L} x2={L + PW} y1={cy - k * hy} y2={cy - k * hy} className={k === 0 ? "q-avg" : "q-grid-line"} />
@@ -129,14 +134,15 @@ export default function QuadrantMap({ people }: { people: Person[] }) {
             <text transform={`translate(12 ${T + PH / 2}) rotate(-90)`} textAnchor="middle" className="q-axis">
               How often customers say yes
             </text>
-            {placed.map((p, i) => {
+            {placed.map((p) => {
               const y = p.y as number;
               const go = () => nav(`/team/${encodeURIComponent(p.name)}`);
               return (
-                <g
-                  key={p.name}
+                <motion.g key={p.name} variants={badgeIn}>
+                <motion.g
                   className={`q-pt ${toneOf(p)}${dim(p.name)}`}
-                  style={{ animationDelay: `${i * 70}ms` }}
+                  animate={{ scale: active === p.name ? 1.12 : 1 }}
+                  transition={{ duration: DUR.fast, ease: EASE }}
                   tabIndex={0}
                   role="link"
                   aria-label={`${p.name}: tries to upsell in ${pc(p.x)} of conversations, customers say yes to ${pc(y)} of offers. Open profile`}
@@ -157,14 +163,15 @@ export default function QuadrantMap({ people }: { people: Person[] }) {
                   <text x={px(p)} y={py(p) + 4} textAnchor="middle" className="q-initials">
                     {initials(p.name)}
                   </text>
-                </g>
+                </motion.g>
+                </motion.g>
               );
             })}
-          </svg>
+          </motion.svg>
 
           {act && act.y != null && (
             <div
-              className="quad-tip"
+              className="quad-tip-wrap"
               role="status"
               style={{
                 left: `${(px(act) / W) * 100}%`,
@@ -173,6 +180,7 @@ export default function QuadrantMap({ people }: { people: Person[] }) {
                 transform: `translate(${px(act) > cx + hx * 0.5 ? "-85%" : "-50%"}, ${py(act) < cy - hy * 0.4 ? "22px" : "calc(-100% - 22px)"})`,
               }}
             >
+              <motion.div key={act.name} className="quad-tip" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.12 }}>
               <div className="quad-tip-head">
                 <b>{act.name}</b>
                 <RatingChip person={act.person} short />
@@ -186,21 +194,22 @@ export default function QuadrantMap({ people }: { people: Person[] }) {
                 <b>{pc(act.y)} of offers</b>
               </div>
               <div className="quad-tip-n">{act.n} conversation{act.n === 1 ? "" : "s"}</div>
+              </motion.div>
             </div>
           )}
         </div>
 
-        <div className="quad-read">
+        <motion.div className="quad-read" variants={stagger(0.07, 0.15)} initial="hidden" animate="show">
           {GROUPS.map((g) => {
             const members = byGroup(g.key);
             if (members.length === 0) return null;
             return (
-              <div className={`quad-group ${g.tone}`} key={g.key}>
+              <motion.div className={`quad-group ${g.tone}`} key={g.key} variants={fadeUp}>
                 <div className="quad-group-title">{g.title}</div>
-                <div className="quad-chips">
+                <motion.div className="quad-chips" variants={stagger(0.05, 0.1)}>
                   {members.map((m) => (
+                    <motion.span key={m.name} variants={fadeUp} style={{ display: "inline-flex" }}>
                     <Link
-                      key={m.name}
                       to={`/team/${encodeURIComponent(m.name)}`}
                       className={`quad-chip${dim(m.name)}`}
                       onMouseEnter={() => setActive(m.name)}
@@ -214,13 +223,14 @@ export default function QuadrantMap({ people }: { people: Person[] }) {
                       {m.name}
                       {m.y == null && <span className="quad-note">no answered offers yet</span>}
                     </Link>
+                    </motion.span>
                   ))}
-                </div>
+                </motion.div>
                 <p className="quad-advice">{g.advice}</p>
-              </div>
+              </motion.div>
             );
           })}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

@@ -1,10 +1,10 @@
 .skip-link { position: absolute; left: 8px; top: -48px; z-index: 50; background: var(--card); color: var(--ink); padding: 8px 12px; border-radius: 6px; border: 1px solid var(--line); font-size: 14px; }
 .skip-link:focus { top: 8px; }
 
-.topbar { position: sticky; top: 0; z-index: 20; height: 56px; background: #fff; border-bottom: 1px solid var(--line); }
+.topbar { position: sticky; top: 0; z-index: 20; height: 56px; background: rgba(255,255,255,.96); border-bottom: 1px solid var(--line); }
 .topbar-in { max-width: 1180px; height: 100%; margin: 0 auto; padding: 0 32px; display: flex; align-items: center; gap: 32px; }
 .brand { font-weight: 600; font-size: 14px; display: flex; align-items: center; gap: 8px; letter-spacing: -0.01em; white-space: nowrap; flex: none; color: var(--ink); border-radius: 6px; }
-.brand-mark { width: 24px; height: 24px; border-radius: 6px; background: var(--accent); display: grid; place-items: center; color: #fff; flex: none; }
+.brand-mark { width: 24px; height: 24px; border-radius: 6px; background: var(--brand-gradient); display: grid; place-items: center; color: #fff; flex: none; }
 
 .top-nav { display: flex; align-items: stretch; gap: 4px; height: 100%; min-width: 0; overflow-x: auto; scrollbar-width: none; }
 .top-nav::-webkit-scrollbar { display: none; }
@@ -13,7 +13,7 @@
 .top-nav a:hover { color: var(--ink); }
 .top-nav a.on { color: var(--ink); }
 .top-nav a.on svg { opacity: 1; color: var(--accent-ink); }
-.top-nav a.on::after { content: ""; position: absolute; left: 12px; right: 12px; bottom: -1px; height: 2px; background: var(--accent); border-radius: 2px 2px 0 0; }
+.nav-underline { position: absolute; left: 12px; right: 12px; bottom: -1px; height: 2px; background: var(--brand-gradient); border-radius: 2px 2px 0 0; }
 .top-nav a:focus-visible { outline-offset: -4px; border-radius: 6px; }
 
 @media (max-width: 860px) {
@@ -23,5 +23,5 @@
   .brand-text { display: none; }
   .topbar-in { gap: 12px; }
   .top-nav a { padding: 0 10px; }
-  .top-nav a.on::after { left: 10px; right: 10px; }
+  .nav-underline { left: 10px; right: 10px; }
 }

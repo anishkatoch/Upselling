@@ -1,7 +1,9 @@
+import { motion } from "framer-motion";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ChevronRight } from "../../icons/Icons";
 import type { RecentCall } from "../../lib/api";
+import { DUR, EASE } from "../../lib/motion";
 import { RESULT, SENTIMENT } from "../../lib/format";
 
 const SHOWN = 5;
@@ -53,11 +55,18 @@ export default function RecentConversations({ calls }: { calls: RecentCall[] }) 
                 </>
               );
               return (
-                <li key={`${c.job_id}-${c.conversation_id}-${i}`} className={i >= SHOWN ? "reveal" : undefined}>
+                <motion.li
+                  key={`${c.job_id}-${c.conversation_id}-${i}`}
+                  className={i >= SHOWN ? "reveal" : undefined}
+                  initial={{ opacity: 0, y: 6 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: DUR.base, ease: EASE, delay: Math.min(i, SHOWN) * 0.03 }}
+                >
                   <Link className="recent-row" to={`/recordings/${c.job_id}?tab=conversations&conv=${c.conversation_id}`}>
                     {body}
                   </Link>
-                </li>
+                </motion.li>
               );
             })}
           </ul>

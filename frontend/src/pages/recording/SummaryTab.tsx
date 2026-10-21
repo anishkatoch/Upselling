@@ -1,4 +1,5 @@
 import { AlertTriangle, Check } from "../../icons/Icons";
+import { clock } from "../../lib/format";
 import { canon, TimeBtn, type RecCtx } from "./shared";
 
 interface Note {
@@ -113,7 +114,7 @@ export default function SummaryTab({ ctx }: { ctx: RecCtx }) {
                 </h3>
                 {c.attempted_upsell && <span className="pill good">upsell attempted</span>}
                 <TimeBtn t={c.start} seek={seek} />
-                <span className="sub small">to {Math.round(c.end)}s</span>
+                <span className="sub small">to {clock(c.end)}</span>
               </div>
               <p style={{ marginTop: 10 }}>{text}</p>
               {c.upsell?.coaching_feedback && (

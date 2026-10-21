@@ -2,7 +2,8 @@
 .attn-card { padding: 0; display: flex; flex-direction: column; }
 .attn-h { padding: 16px 20px 4px; font-weight: 600; }
 .attn-list { list-style: none; margin: 0; padding: 4px 0; flex: 1; }
-.attn-row { display: flex; gap: 12px; justify-content: space-between; align-items: flex-start; padding: 10px 20px; border-top: 1px solid var(--line-soft); }
+.attn-row { transition: background-color 0.15s; display: flex; gap: 12px; justify-content: space-between; align-items: flex-start; padding: 10px 20px; border-top: 1px solid var(--line-soft); }
+.attn-row:hover { background: var(--accent-soft); }
 .attn-list li:first-child { border-top: 0; }
 .attn-name { font-weight: 600; color: var(--ink); }
 .attn-name:hover { color: var(--accent-ink); text-decoration: underline; }

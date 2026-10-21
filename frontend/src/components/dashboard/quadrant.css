@@ -1,0 +1,7 @@
+/* Motion-driven pieces of the quadrant map (the hover growth and tooltip fade are handled by framer-motion). */
+.quad .q-pt { animation: none; }
+.quad .q-pt.on .q-badge, .quad .q-pt:hover .q-badge { r: 15px; fill: var(--accent-soft); }
+.quad .q-pt { transition: opacity 0.15s; }
+.quad .q-tint { transition: none; }
+.quad-tip-wrap { position: absolute; z-index: 5; pointer-events: none; width: max-content; }
+.quad-tip-wrap .quad-tip { position: static; }

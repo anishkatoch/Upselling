@@ -7,6 +7,8 @@ import { api, type Person } from "../lib/api";
 import { pct } from "../lib/format";
 import { useLoad } from "../lib/hooks";
 import { METRIC_INFO } from "../lib/metricInfo";
+import { Reveal } from "../components/motion";
+import AnimatedNumber from "../components/motion/AnimatedNumber";
 import { DeltaChip, Metric, MetricRow } from "../components/ui";
 import { EFFORT, moodFromFrustration, PERIOD_LABEL } from "../lib/teamLabels";
 import VsTeamBars from "../components/people/VsTeamBars";
@@ -80,6 +82,9 @@ function PersonDetail({
   const [showAllImprovements, setShowAllImprovements] = useState(false);
 
   // The sample size is stated once in the caption under the headline (SampleNote), and "compared with ..." once above the tiles.
+  // Numeric figures count up once; words and dashes stay as they are.
+  const num = (v: number | null | undefined, kind: "pct" | "dec" | "int") =>
+    v == null ? "–" : kind === "pct" ? <><AnimatedNumber value={Math.round(v * 100)} />%</> : kind === "dec" ? <AnimatedNumber value={Math.round(v * 10) / 10} decimals={1} /> : <AnimatedNumber value={v} />;
   const vs = (value: number | null | undefined) => (value == null ? null : <DeltaChip value={value} />);
   const mood = moodFromFrustration(t.avg_customer_frustration);
   const moodChange = seriesDelta(p.series, "avg_customer_frustration");
@@ -90,7 +95,7 @@ function PersonDetail({
 
   return (
     <div className="person-flat">
-      <div className="person-hero">
+      <Reveal className="person-hero">
         <div className="person-head">
           <div className="grow">
             <h1>{p.name}</h1>
@@ -125,14 +130,14 @@ function PersonDetail({
           {a.low_sample && <span className="sub"> (based on very few conversations so far)</span>}
         </p>
         <SampleNote bucket={t} when={PERIOD_LABEL[period]} />
-      </div>
+      </Reveal>
 
-      <div className="metric-group">
+      <Reveal className="metric-group" delay={0.06}>
         {hasChange && <p className="sub small metric-caption">Arrows show the change compared with {comparedWith}.</p>}
         <MetricRow>
-          <Metric label="Tries to upsell" info={METRIC_INFO.upsell_rate} value={pct(t.upsell_rate)} unit={t.upsell_rate != null ? "of conversations" : undefined} foot={vs(seriesDelta(p.series, "upsell_rate", 100))} />
-          <Metric label="Customers say yes" info={METRIC_INFO.acceptance_rate} value={pct(t.acceptance_rate)} unit={t.acceptance_rate != null ? "of offers" : undefined} foot={vs(seriesDelta(p.series, "acceptance_rate", 100))} />
-          <Metric label="Greets customers" info={METRIC_INFO.greeting_rate} value={pct(t.greeting_rate)} unit={t.greeting_rate != null ? "of conversations" : undefined} foot={vs(seriesDelta(p.series, "greeting_rate", 100))} />
+          <Metric label="Tries to upsell" info={METRIC_INFO.upsell_rate} value={num(t.upsell_rate, "pct")} unit={t.upsell_rate != null ? "of conversations" : undefined} foot={vs(seriesDelta(p.series, "upsell_rate", 100))} />
+          <Metric label="Customers say yes" info={METRIC_INFO.acceptance_rate} value={num(t.acceptance_rate, "pct")} unit={t.acceptance_rate != null ? "of offers" : undefined} foot={vs(seriesDelta(p.series, "acceptance_rate", 100))} />
+          <Metric label="Greets customers" info={METRIC_INFO.greeting_rate} value={num(t.greeting_rate, "pct")} unit={t.greeting_rate != null ? "of conversations" : undefined} foot={vs(seriesDelta(p.series, "greeting_rate", 100))} />
           <Metric
             label="Customer mood"
             info={
@@ -152,22 +157,22 @@ function PersonDetail({
               info={<>{METRIC_INFO.effort}{t.avg_effort != null && ` Effort score: ${t.avg_effort} out of 10.`}</>}
               value={t.avg_effort != null ? EFFORT[a.effort_level].short : "–"}
             />
-            <Metric label="Offers per conversation" info={METRIC_INFO.offers_per_conversation} value={t.attempts_per_conversation != null ? Math.round(t.attempts_per_conversation * 10) / 10 : "–"} />
-            <Metric label="Different approaches used" info={METRIC_INFO.techniques} value={t.techniques.length} />
-            <Metric label="Offers repeated after a 'no'" info={METRIC_INFO.reoffers} value={t.re_offers} />
+            <Metric label="Offers per conversation" info={METRIC_INFO.offers_per_conversation} value={num(t.attempts_per_conversation, "dec")} />
+            <Metric label="Different approaches used" info={METRIC_INFO.techniques} value={num(t.techniques.length, "int")} />
+            <Metric label="Offers repeated after a 'no'" info={METRIC_INFO.reoffers} value={num(t.re_offers, "int")} />
           </MetricRow>
         </div>
-      </div>
+      </Reveal>
 
       {(people.length >= 2 || t.calls_positive + t.calls_neutral + t.calls_negative > 0) && (
-        <div className="insight-row">
+        <Reveal className="insight-row">
           <VsTeamBars person={p} people={people} />
           <PersonSentiment total={t} />
-        </div>
+        </Reveal>
       )}
 
       {p.series.length > 2 && (
-        <div className="two">
+        <Reveal className="two">
           <div>
             <div className="sub small chart-title">Offers made over time</div>
             <LineChart data={p.series} value={(b) => b.attempts} label={(b) => formatPeriod(b.period)} xTitle="Date" yTitle="Offers made" />
@@ -176,11 +181,11 @@ function PersonDetail({
             <div className="sub small chart-title">How often customers said yes over time</div>
             <LineChart data={p.series} value={(b) => b.acceptance_rate} label={(b) => formatPeriod(b.period)} format={pct} xTitle="Date" yTitle="Customers say yes" />
           </div>
-        </div>
+        </Reveal>
       )}
 
       {(a.strengths.length > 0 || a.improvements.length > 0) && (
-        <div className="two">
+        <Reveal className="two">
           <section className="flat-card good">
             <h3>Doing well</h3>
             <ul>
@@ -209,20 +214,24 @@ function PersonDetail({
               </button>
             )}
           </section>
-        </div>
+        </Reveal>
       )}
 
-      <RecentConversations calls={p.recent_calls} />
+      <Reveal>
+        <RecentConversations calls={p.recent_calls} />
+      </Reveal>
 
       {p.recent_coaching.length > 0 && (
-        <section className="flat-card coaching">
-          <h3>Recent coaching</h3>
+        <Reveal className="flat-card coaching">
+          <h3>
+            Recent coaching <span className="ai-badge">✦ AI</span>
+          </h3>
           <ul>
             {p.recent_coaching.map((c, i) => (
               <li key={i}>{c}</li>
             ))}
           </ul>
-        </section>
+        </Reveal>
       )}
       <p className="ai-note">AI-generated and indicative - check the evidence in the recordings before using it in a review.</p>
     </div>

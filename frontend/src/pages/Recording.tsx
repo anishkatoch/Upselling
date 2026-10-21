@@ -197,16 +197,14 @@ function Results({ job }: { job: Job }) {
       <div className="card">
         <div className="row">
           <h2 style={{ marginBottom: 0, flex: 1 }}>Shift recording</h2>
-          <span className="pill good">
-            <Check size={12} /> completed
-          </span>
+          <span className="pill good">Ready</span>
         </div>
         <div className="chips" style={{ marginTop: 14 }}>
           <span className="chip">
             <b>{clock(r.duration_s)}</b>
           </span>
           <span className="chip">
-            <b>{r.speakers.length}</b> speakers
+            <b>{r.speakers.length}</b> voices
           </span>
           <span className="chip">
             <b>{sales.length}</b> sales conversation{sales.length === 1 ? "" : "s"}

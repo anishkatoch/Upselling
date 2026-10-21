@@ -1,5 +1,6 @@
 import type { TechniqueStat } from "../../lib/api";
 import { technique } from "../../lib/format";
+import { GrowFill } from "./GrowBar";
 import "./dashcharts.css";
 
 const MIN_ATTEMPTS = 5; // below this a percentage says more about luck than about the approach
@@ -18,7 +19,7 @@ export default function TechniqueBars({ stats }: { stats: TechniqueStat[] }) {
         <p className="sub small">Not enough offers yet to compare approaches.</p>
       ) : (
         <ul className="hbar-list">
-          {rated.map((s) => (
+          {rated.map((s, i) => (
             <li className="hbar-row" key={s.technique}>
               <div className="hbar-top">
                 <span className="lbl">{technique(s.technique)}</span>
@@ -27,7 +28,7 @@ export default function TechniqueBars({ stats }: { stats: TechniqueStat[] }) {
                 </span>
               </div>
               <div className="hbar-track" aria-hidden="true">
-                <div className="hbar-fill" style={{ width: `${(s.acceptance_rate ?? 0) * 100}%` }} />
+                <GrowFill className="hbar-fill" width={`${(s.acceptance_rate ?? 0) * 100}%`} delay={i * 0.06} />
               </div>
               <div className="hbar-sub">
                 Tried {s.attempts} time{s.attempts === 1 ? "" : "s"}
