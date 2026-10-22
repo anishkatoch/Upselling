@@ -28,7 +28,7 @@ def test_nested_documents_keep_their_shape():
 def test_unknown_words_are_looked_up_once_and_remembered(tmp_path, monkeypatch):
     monkeypatch.setattr(romanize, "LOOKUP_FILE", tmp_path / "words.json")
     chain = FakeChain()
-    doc = {"q": "तीन सौ"}
+    doc = {"q": "ऐऐऐ ओओओ"}  # not in the shipped word list
     first = romanize_document(doc, chain)
     assert first["q"].isascii() and chain.calls == 1
     assert romanize_document(doc, chain) == first and chain.calls == 1  # second time: from the saved lookup

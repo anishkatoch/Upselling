@@ -1,0 +1,29 @@
+# Render Blueprint: one Docker web service with a persistent disk. Analysis runs inside the web process
+# (QUEUE_BACKEND=inline), so there is no Redis or worker to run. A disk needs a paid instance type.
+services:
+  - type: web
+    name: upsell-insights
+    runtime: docker
+    plan: starter
+    healthCheckPath: /health
+    disk:
+      name: upsell-data
+      mountPath: /app/data
+      sizeGB: 10
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false # you paste it in the Render dashboard; it is never stored in the repo
+      - key: AUTH_SECRET
+        generateValue: true # signs login sessions; Render creates it once and keeps it
+      - key: AUTH_DIR
+        value: /app/data/auth
+      - key: HINGLISH_WORDS_FILE
+        value: /app/data/hinglish_words.json
+      - key: STORAGE_BACKEND
+        value: local
+      - key: QUEUE_BACKEND
+        value: inline
+      - key: WEB_CONCURRENCY
+        value: "1" # accounts live in a file, so one web process
+      - key: AUTH_ALLOW_SIGNUP
+        value: "true" # set to "false" after you have created your own account

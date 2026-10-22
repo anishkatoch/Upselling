@@ -38,6 +38,9 @@ RUN apt-get update \
 WORKDIR /app
 COPY --from=builder --chown=app:app /app/.venv /app/.venv
 COPY --chown=app:app config ./config
+# Sample data, copied into /app/data by the entrypoint the first time that folder is empty.
+COPY --chown=app:app sample_data/store ./seed
+COPY docker/entrypoint.sh /app/entrypoint.sh
 
 ENV PATH="/app/.venv/bin:$PATH" \
     PYTHONUNBUFFERED=1 \
@@ -48,8 +51,9 @@ ENV PATH="/app/.venv/bin:$PATH" \
     PORT=8000 \
     WEB_CONCURRENCY=2
 
-RUN mkdir -p /app/data /tmp/upsell-poc && chown -R app:app /app/data /tmp/upsell-poc
-USER app
+RUN chmod +x /app/entrypoint.sh && mkdir -p /app/data /tmp/upsell-poc && chown -R app:app /app/data /tmp/upsell-poc
+# Starts as root only to make a mounted disk writable (hosts mount it root-owned), then runs everything as `app`.
+ENTRYPOINT ["/app/entrypoint.sh"]
 
 EXPOSE 8000
 HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \

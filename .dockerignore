@@ -14,3 +14,6 @@ scripts
 infra
 .env
 *.md
+sample_data/audio
+sample_data/store/cache
+frontend

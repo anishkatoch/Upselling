@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import json
 import logging
+import os
 import re
 import threading
 from pathlib import Path
@@ -22,7 +23,9 @@ log = logging.getLogger(__name__)
 
 DEVANAGARI = re.compile(r"[ऀ-ॣ०-ॿ]+")
 _DANDA = re.compile(r"[।॥]")  # the Hindi full stop
-LOOKUP_FILE = Path(__file__).with_name("hinglish_words.json")
+SEED_FILE = Path(__file__).with_name("hinglish_words.json")  # ships with the code (read-only in a container)
+# Words learned later are saved here; point HINGLISH_WORDS_FILE at the persistent disk when deployed.
+LOOKUP_FILE = Path(os.environ.get("HINGLISH_WORDS_FILE") or SEED_FILE)
 BATCH = 120
 _lock = threading.Lock()
 
@@ -43,15 +46,27 @@ class WordMap(BaseModel):
     items: list[WordPair]
 
 
-def _load() -> dict[str, str]:
+def _read(path: Path) -> dict[str, str]:
     try:
-        return json.loads(LOOKUP_FILE.read_text("utf-8"))
+        return json.loads(path.read_text("utf-8"))
     except (OSError, ValueError):
         return {}
 
 
+def _load() -> dict[str, str]:
+    """The shipped words plus any learned since (when those are kept in a separate file)."""
+    if LOOKUP_FILE == SEED_FILE:
+        return _read(SEED_FILE)
+    return {**_read(SEED_FILE), **_read(LOOKUP_FILE)}
+
+
 def _save(lookup: dict[str, str]) -> None:
-    LOOKUP_FILE.write_text(json.dumps(dict(sorted(lookup.items())), ensure_ascii=False, indent=0) + "\n", "utf-8")
+    try:
+        LOOKUP_FILE.parent.mkdir(parents=True, exist_ok=True)
+        LOOKUP_FILE.write_text(json.dumps(dict(sorted(lookup.items())), ensure_ascii=False, indent=0) + "\n", "utf-8")
+    except OSError:
+        # Not being able to remember a word must never fail an analysis; it is simply looked up again next time.
+        log.warning("could not save Hinglish words to %s", LOOKUP_FILE, exc_info=True)
 
 
 def devanagari_words(text: str) -> set[str]:
