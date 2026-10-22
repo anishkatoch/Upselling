@@ -2,12 +2,14 @@ import { motion } from "framer-motion";
 import { Link, useLocation } from "react-router-dom";
 import { Grid, Headset, Mic, Users } from "../icons/Icons";
 import { EASE } from "../lib/motion";
+import StartRecording from "./StartRecording";
+import UserMenu from "./UserMenu";
 import "./topnav.css";
 
 const ITEMS = [
   { to: "/", label: "Dashboard", icon: Grid, match: (p: string) => p === "/" },
   { to: "/team", label: "Team", icon: Users, match: (p: string) => p === "/team" || p.startsWith("/team/") },
-  { to: "/recordings", label: "Recordings", icon: Mic, match: (p: string) => p === "/recordings" || p.startsWith("/recordings/") },
+  { to: "/recordings", label: "Conversations", icon: Mic, match: (p: string) => p === "/recordings" || p.startsWith("/recordings/") },
 ];
 
 export default function Nav() {
@@ -36,6 +38,8 @@ export default function Nav() {
               );
             })}
           </nav>
+          <StartRecording />
+          <UserMenu />
         </div>
       </header>
     </>

@@ -1,0 +1,55 @@
+/* Richer theme: one deep-navy header field (top bar + page header), brighter surfaces, soft depth.
+   Loaded after index.css so it only refines tokens and a few surfaces. */
+:root {
+  --bg: #f2f4fb;
+  --paper: #f2f4fb;
+  --navy: #0e1a3a;
+  --navy-2: #182866;
+  --on-navy: #ffffff;
+  --on-navy-muted: #b9c2e6;
+  --shadow-sm: 0 1px 2px rgba(11, 27, 58, 0.05), 0 8px 24px -14px rgba(11, 27, 58, 0.18);
+  --shadow-md: 0 2px 6px rgba(11, 27, 58, 0.1), 0 14px 32px -16px rgba(11, 27, 58, 0.25);
+}
+html, body { overflow-x: clip; }
+.shell { overflow-x: clip; }
+body::before, body::after { display: none; }
+
+/* top bar */
+.topbar { background: var(--navy); border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+.brand { color: var(--on-navy); }
+.top-nav a { color: var(--on-navy-muted); }
+.top-nav a:hover { color: var(--on-navy); }
+.top-nav a.on { color: var(--on-navy); }
+.top-nav a.on svg { color: #a5a8ff; }
+.nav-underline { background: linear-gradient(90deg, #8b8bff, #b79cff); }
+.topbar :focus-visible { outline-color: #a5a8ff; }
+
+/* page header band: sits flush under the top bar and spans the full width */
+.page { padding-top: 0; }
+.hero { position: relative; isolation: isolate; padding: 30px 0 32px; margin-bottom: 28px; color: var(--on-navy); }
+.hero::before {
+  content: ""; position: absolute; z-index: -1; inset: 0 -100vmax; pointer-events: none;
+  background:
+    radial-gradient(55% 140% at 88% 0%, rgba(139, 139, 255, 0.30), transparent 70%),
+    linear-gradient(180deg, var(--navy) 0%, var(--navy-2) 100%);
+}
+.hero h1 { color: var(--on-navy); font-size: 28px; letter-spacing: -0.025em; }
+.hero .sub, .hero p, .hero .small { color: var(--on-navy-muted); }
+.hero .back { color: var(--on-navy-muted); }
+.hero .back:hover { color: var(--on-navy); }
+.hero .seg { background: rgba(255, 255, 255, 0.10); }
+.hero .seg button { color: var(--on-navy-muted); }
+.hero .seg button:hover { color: var(--on-navy); }
+.hero .seg button.on { background: #fff; color: var(--ink); box-shadow: none; }
+.hero :focus-visible { outline-color: #a5a8ff; }
+.hero .trend, .hero .trend.improving, .hero .trend.declining, .hero .trend.steady { color: var(--on-navy); }
+/* status text inside the band */
+.hero .pill { color: var(--on-navy); }
+.hero .pill.neutral { color: var(--on-navy-muted); }
+.hero .person-head h1 { font-size: 26px; }
+.hero .metric-caption { color: var(--on-navy-muted); }
+
+/* surfaces */
+.card, .metric-row, .flat-card { box-shadow: var(--shadow-sm); }
+.metric-row::before { height: 3px; opacity: 1; background: var(--brand-gradient); border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
+.metric-value { color: var(--ink); }

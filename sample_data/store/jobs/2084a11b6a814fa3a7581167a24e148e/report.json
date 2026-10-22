@@ -209,7 +209,7 @@
         "excluded_candidates": [
           "Ji, yeh model dekh lije: aath GB RAM, paanch so bara GB SSD hai. Aapke kaam ke liye theek rahega aur price hai balis hazaar now sau nabbe. -> Recommendation of the main laptop requested, within the customer's stated budget; no premium upgrade was pushed.",
           "Normal office use mein around five to six hours expect kar sakte hain. Video calls zyada hongi to thoda kam chalegi. -> Direct answer to the customer's battery-life question.",
-          "बैग एक हजार दुन सौ पन्नों का और माउस नौ सौ नैनों का है, टोटल दो हजार तिन सौ चव्वालिटीक. लापटोप के साथ बंडल प्राइस एक हजार दुन सौ पन्नों है. ये देखिए, लापटोप इसमें प्रापरली फिट हो रहा है, पैडिंग भी है. -> Apparent salesperson speech within a mixed-speaker turn, answering the customer's separate-price and bag-fit questions; not a separate proactive upsell."
+          "bag ek hazaar dun sau panno ka aur mouse nau sau naino ka hai, total do hazaar tin sau chavvaliteek. laptop ke saath bundle price ek hazaar dun sau panno hai. ye dekhiye, laptop ismein properly fit ho raha hai, padding bhi hai. -> Apparent salesperson speech within a mixed-speaker turn, answering the customer's separate-price and bag-fit questions; not a separate proactive upsell."
         ],
         "pushy_upsell": false,
         "pushy_reason": "The salesperson offered the accessory bundle once. The customer calmly asked about pricing and fit, then accepted; there was no refusal or pressure after rejection.",
@@ -955,7 +955,7 @@
           "role": "customer",
           "start": 165.812,
           "end": 168.86200000000002,
-          "text": "अलग लेने से नौ सौ निन्यानवे बचेंगे.",
+          "text": "alag lene se nau sau ninyanve bachenge.",
           "is_highlighted": false
         },
         {
@@ -964,7 +964,7 @@
           "role": "customer",
           "start": 169.812,
           "end": 172.412,
-          "text": "ऑफिस ले जाने में बैग भी काम आ जाएगा.",
+          "text": "office le jane mein bag bhi kaam aa jayega.",
           "is_highlighted": false
         }
       ]

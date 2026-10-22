@@ -349,6 +349,7 @@ export interface Dashboard {
 
 async function req<T>(path: string, init?: RequestInit): Promise<T> {
   const r = await fetch(`/api${path}`, init);
+  if (r.status === 401) window.dispatchEvent(new Event("auth:session-ended")); // see SESSION_ENDED in auth.tsx
   if (!r.ok) {
     let msg = `Something went wrong (${r.status})`;
     try {
@@ -371,5 +372,12 @@ export const api = {
   retry: (id: string) => req<Job>(`/jobs/${id}/retry`, { method: "POST" }),
   cancel: (id: string) => req<Job>(`/jobs/${id}/cancel`, { method: "POST" }),
   dashboard: (period: string) => req<Dashboard>(`/dashboard?period=${period}`),
+  roster: () => req<{ name: string; recordings: number }[]>("/people/roster"),
+  upload: (file: Blob, filename: string, salesperson?: string) => {
+    const body = new FormData();
+    body.append("file", file, filename);
+    if (salesperson?.trim()) body.append("salesperson_name", salesperson.trim());
+    return req<Job>("/jobs", { method: "POST", body });
+  },
   personRecordings: (name: string) => req<RecordingSummary[]>(`/people/${encodeURIComponent(name)}/recordings`),
 };

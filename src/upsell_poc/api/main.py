@@ -6,13 +6,13 @@ import tempfile
 from pathlib import Path
 from typing import Annotated
 
-from fastapi import FastAPI, File, Form, HTTPException, UploadFile
+from fastapi import FastAPI, File, Form, HTTPException, Request, UploadFile
 from fastapi.concurrency import run_in_threadpool
-from fastapi.responses import FileResponse, RedirectResponse, Response
+from fastapi.responses import FileResponse, JSONResponse, RedirectResponse, Response
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
-from upsell_poc import __version__, dashboard, jobs, outcomes
+from upsell_poc import __version__, auth, dashboard, jobs, outcomes
 from upsell_poc.api import public
 from upsell_poc.config import get_settings
 from upsell_poc.logging_setup import setup_logging
@@ -35,6 +35,81 @@ if (STATIC / "assets").is_dir():
 @app.get("/health")
 def health() -> dict[str, str]:
     return {"status": "ok", "version": __version__}
+
+
+# ---------------------------------------------------------------- accounts
+class SignupBody(BaseModel):
+    name: str
+    email: str
+    password: str
+
+
+class LoginBody(BaseModel):
+    email: str
+    password: str
+
+
+def _set_session(request: Request, response: Response, user: auth.PublicUser) -> None:
+    response.set_cookie(
+        auth.COOKIE,
+        auth.make_token(get_settings(), user.id),
+        max_age=auth.SESSION_SECONDS,
+        httponly=True,
+        samesite="lax",
+        secure=request.url.scheme == "https",
+        path="/",
+    )
+
+
+@app.middleware("http")
+async def require_login(request: Request, call_next):  # type: ignore[no-untyped-def]
+    """Every /api route except the account ones needs a signed-in user (unless AUTH_REQUIRED=false)."""
+    path = request.url.path
+    s = get_settings()
+    protected = s.auth_required and path.startswith("/api/") and not path.startswith("/api/auth/")
+    if protected and auth.user_from_token(s, request.cookies.get(auth.COOKIE)) is None:
+        return JSONResponse({"detail": "Please log in to continue."}, status_code=401)
+    return await call_next(request)
+
+
+@app.post("/api/auth/signup", status_code=201)
+def signup(body: SignupBody, request: Request, response: Response) -> auth.PublicUser:
+    try:
+        user = auth.signup(get_settings(), body.name, body.email, body.password)
+    except auth.AuthError as e:
+        raise HTTPException(e.status, e.message) from e
+    _set_session(request, response, user)
+    return user
+
+
+@app.post("/api/auth/login")
+def login(body: LoginBody, request: Request, response: Response) -> auth.PublicUser:
+    try:
+        user = auth.login(get_settings(), body.email, body.password, request.client.host if request.client else "")
+    except auth.AuthError as e:
+        raise HTTPException(e.status, e.message) from e
+    _set_session(request, response, user)
+    return user
+
+
+@app.post("/api/auth/logout", status_code=204)
+def logout(response: Response) -> None:
+    response.delete_cookie(auth.COOKIE, path="/")
+
+
+@app.get("/api/auth/me")
+def me(request: Request) -> auth.PublicUser:
+    user = auth.user_from_token(get_settings(), request.cookies.get(auth.COOKIE))
+    if user is None and get_settings().auth_required:
+        raise HTTPException(401, "Please log in to continue.")
+    return user or auth.PublicUser(id="local", name="Local user", email="", role="admin")
+
+
+@app.get("/api/auth/options")
+def auth_options() -> dict[str, bool]:
+    """What the login page may offer: sign-up is hidden once an admin has closed it."""
+    s = get_settings()
+    return {"signup": s.auth_allow_signup or not auth.has_users(s)}
 
 
 # Job status / report / transcript responses go through `public` so spend, per-call logs and

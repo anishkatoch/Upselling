@@ -464,3 +464,7 @@ ul.plain.tight { padding-left: 18px; }
   .chat-msg.flash .chat-bubble { animation: none; outline: 2px solid var(--accent); }
   .chat-chev { transition: none; }
 }
+
+/* Polish: a capital I with a serif so names like "Iyer" never read as "lyer" */
+body { font-feature-settings: "cv08" 1, "cv11" 0; }
+::selection { background: var(--accent-soft); color: var(--ink); }

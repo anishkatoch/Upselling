@@ -120,7 +120,7 @@ export default function Dashboard() {
 
   return (
     <Stagger gap={0.06}>
-      <StaggerItem className="head row">
+      <StaggerItem className="head row hero">
         <div className="grow">
           <div className="row" style={{ gap: 10 }}>
             <h1>Dashboard</h1>

@@ -13,6 +13,16 @@ from upsell_poc.config import Settings, get_settings, load_models_config  # noqa
 requires_ffmpeg = pytest.mark.skipif(shutil.which("ffmpeg") is None, reason="ffmpeg not installed")
 
 
+@pytest.fixture(autouse=True)
+def _accounts_off_and_isolated(tmp_path, monkeypatch):
+    """Existing API tests run signed out; accounts never touch the real data/auth folder."""
+    monkeypatch.setenv("AUTH_REQUIRED", "false")
+    monkeypatch.setenv("AUTH_DIR", str(tmp_path / "auth"))
+    get_settings.cache_clear()
+    yield
+    get_settings.cache_clear()
+
+
 @pytest.fixture
 def settings(tmp_path, monkeypatch) -> Settings:
     monkeypatch.setenv("LOCAL_STORAGE_DIR", str(tmp_path / "storage"))

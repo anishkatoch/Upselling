@@ -31,6 +31,7 @@ from upsell_poc.analysis.tone import ToneAnalyzer
 from upsell_poc.config import ModelsConfig, Settings, get_settings, load_models_config
 from upsell_poc.control import ConversationBudgetExceeded, JobStopped
 from upsell_poc.llm.chain import LLMChain, build_chain
+from upsell_poc.romanize import romanize_document, romanize_transcript, strings_in
 from upsell_poc.schemas import (
     AcousticTurn,
     CallLog,
@@ -209,6 +210,7 @@ class Pipeline:
         self.progress("transcribing", 0.05)
         t_fp = _fp(self.models.transcription.model_dump())
         transcript = self._cached(f"{cache}/transcript-{t_fp}.json", Transcript, lambda: self._transcribe(wav, workdir))
+        transcript = romanize_transcript(transcript, self.llm)  # Hindi shown as Hinglish (English letters)
 
         # 2. roles (+ merge split labels)
         self.progress("detecting_roles", 0.45)
@@ -311,7 +313,11 @@ class Pipeline:
             "roles": roles.model_dump(mode="json"),
             "acoustics": [t.model_dump(mode="json") for t in acoustic_turns],
         }
-        return report, transcript_doc
+        # Anything the model still wrote in Hindi script is shown as Hinglish too.
+        report_doc = report.model_dump(mode="json")
+        if strings_in(report_doc):
+            report = JobReport.model_validate(romanize_document(report_doc, self.llm))
+        return report, romanize_document(transcript_doc, self.llm)
 
     def _transcribe(self, wav: Path, workdir: Path) -> Transcript:
         transcript = self.transcription.transcribe(wav, workdir / "transcription")

@@ -245,98 +245,98 @@
         "speaker": "B",
         "start": 272.30400000000003,
         "end": 277.80400000000003,
-        "text": "हां; हल्की हो गई है अब; दस मिनट तो सामने शेड के नीचे खड़ा था।"
+        "text": "haan; halki ho gayi hai ab; das minute to saamne shed ke neeche khada tha."
       },
       {
         "id": 35,
         "speaker": "A",
         "start": 278.58,
         "end": 282.63,
-        "text": "यहां एंजन्स पे भी पानी आ गया था, اچھا کیا۔ अभी साफ किया है."
+        "text": "yahan enjans pe bhi paani aa gaya tha, اچھا کیا۔ abhi saaf kiya hai."
       },
       {
         "id": 36,
         "speaker": "B",
         "start": 283.58,
         "end": 286.53,
-        "text": "हाँ, आज तो अचानक ही शुरू हो गई!"
+        "text": "haan, aaj to achanak hi shuru ho gayi!"
       },
       {
         "id": 37,
         "speaker": "A",
         "start": 287.63,
         "end": 290.47999999999996,
-        "text": "बिलकुल बताइये, क्या चाहिये था."
+        "text": "bilkul bataiye, kya chahiye tha."
       },
       {
         "id": 38,
         "speaker": "B",
         "start": 291.72999999999996,
         "end": 295.43,
-        "text": "एक सिंपल वायरड माउस चाहिये, लैपटॉप के लिये,"
+        "text": "ek simple wired mouse chahiye, laptop ke liye,"
       },
       {
         "id": 39,
         "speaker": "B",
         "start": 296.53,
         "end": 298.78,
-        "text": "पांच सौ के अंदर।"
+        "text": "paanch sau ke andar."
       },
       {
         "id": 40,
         "speaker": "A",
         "start": 300.18,
         "end": 305.914,
-        "text": "यह वाला चार सो छियाली का है. नॉर्मल यू एसबी पोर्ट है न आपके लैपटॉप में"
+        "text": "yeh wala chaar so chhiyali ka hai. normal u sb port hai na aapke laptop mein"
       },
       {
         "id": 41,
         "speaker": "B",
         "start": 306.414,
         "end": 309.614,
-        "text": "हाँ, है, एक बार चला के दिखा दो बस."
+        "text": "haan, hai, ek baar chala ke dikha do bas."
       },
       {
         "id": 42,
         "speaker": "A",
         "start": 310.464,
         "end": 318.664,
-        "text": "जी, इस डेमो लैपटॉप पे लगा देता हूं ये देखिए, क्लिक और स्क्रॉल दोनों चेक कर लीजिये"
+        "text": "ji, is demo laptop pe laga deta hoon ye dekhiye, click aur scroll dono check kar lijiye"
       },
       {
         "id": 43,
         "speaker": "B",
         "start": 319.364,
         "end": 323.164,
-        "text": "हाँ, ठीक चल रहा है, यही पैक कर दो."
+        "text": "haan, theek chal raha hai, yahi pack kar do."
       },
       {
         "id": 44,
         "speaker": "A",
         "start": 324.114,
         "end": 328.314,
-        "text": "इसके साथ माउस पैड भी चाहिए बेसिक वाला नौ नौ का है"
+        "text": "iske saath mouse pad bhi chahiye basic wala nau nau ka hai"
       },
       {
         "id": 45,
         "speaker": "B",
         "start": 328.884,
         "end": 332.73400000000004,
-        "text": "नहीं, माउस पैड घर पे है. सिर्फ माउस देदो."
+        "text": "nahi, mouse pad ghar pe hai. sirf mouse dedo."
       },
       {
         "id": 46,
         "speaker": "A",
         "start": 333.584,
         "end": 340.784,
-        "text": "हाँ जी, ये क्युआर है. टोटल चार सो नब्बे. माउस और बिल इस बैग में रख दिये हैं."
+        "text": "haan ji, ye qr hai. total chaar so nabbe. mouse aur bill is bag mein rakh diye hain."
       },
       {
         "id": 47,
         "speaker": "B",
         "start": 341.98400000000004,
         "end": 345.334,
-        "text": "हो गया पेमेंट देखो-ठीक है, थैंक यू."
+        "text": "ho gaya payment dekho-theek hai, thank u."
       }
     ],
     "provider": "openai:gpt-4o-transcribe-diarize",

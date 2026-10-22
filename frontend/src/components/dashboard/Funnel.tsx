@@ -12,7 +12,7 @@ const pctOf = (n: number, d: number) => (d > 0 ? `${Math.round((n / d) * 100)}%`
 export default function Funnel({ steps }: { steps: FunnelStep[] }) {
   const top = steps[0]?.n ?? 0;
   return (
-    <section className="card hbar-card" aria-label="Sales funnel">
+    <section className="card hbar-card funnel" aria-label="Sales funnel">
       <h3>From conversation to yes</h3>
       <p className="hint">This month: how many customer conversations got as far as each step. Percentages are out of all conversations.</p>
       <ul className="hbar-list">
@@ -31,6 +31,11 @@ export default function Funnel({ steps }: { steps: FunnelStep[] }) {
           </li>
         ))}
       </ul>
+      {top > 0 && steps.length > 2 && (
+        <p className="funnel-note">
+          Out of every 10 conversations, about {Math.round((steps[1].n / top) * 10)} included an upsell offer and about {Math.round((steps[2].n / top) * 10)} ended with the customer saying yes.
+        </p>
+      )}
     </section>
   );
 }

@@ -279,23 +279,23 @@
         ],
         "upsell_attempts": [],
         "excluded_candidates": [
-          "ये वाला तीन सौ अडतालिस का है, बेसिक वायर्ड यू एस बी माउस है, आपके बजट में आ जाएगा. -> Recommends the requested basic mouse within the customer's budget, without suggesting an upgrade or add-on.",
-          "हाँ जी, उसी पोर्ट में लगेगा, अलग से software install नहीं करना पड़ेगा. -> Answers the customer's compatibility question; no additional product or service is offered."
+          "ye wala teen sau adtalis ka hai, basic wired u s bee mouse hai, aapke budget mein aa jayega. -> Recommends the requested basic mouse within the customer's budget, without suggesting an upgrade or add-on.",
+          "haan ji, usi port mein lagega, alag se software install nahi karna padega. -> Answers the customer's compatibility question; no additional product or service is offered."
         ],
         "pushy_upsell": false,
         "pushy_reason": "The salesperson fulfilled the original mouse request without suggesting extras or pushing a higher-priced option.",
         "confidence": 0.99,
         "summary": "No upsell was attempted. The salesperson recommended a basic wired USB mouse within budget, confirmed compatibility, demonstrated its operation, and completed the purchase.",
         "greeting_given": true,
-        "greeting_quote": "जी, बताइए, क्या चाहिए?",
+        "greeting_quote": "ji, bataiye, kya chahiye?",
         "greeting_segment_id": 17,
         "products_discussed": [
-          "बेसिक वायर्ड यू एस बी माउस"
+          "basic wired u s bee mouse"
         ],
         "customer_feedback": null,
         "customer_feedback_segment_id": null,
         "unanswered_questions": [],
-        "coaching_feedback": "You matched the customer's ₹400 budget, clearly explained that no software installation was needed, and let them test the click and scroll before buying. Next time, keep the quoted and checkout prices consistent: the initial quote was “तीन सौ अडतालिस,” but the final total was “त्री हंड्रेड फोर्टी नाइन”; verify or explain that difference before requesting payment."
+        "coaching_feedback": "You matched the customer's ₹400 budget, clearly explained that no software installation was needed, and let them test the click and scroll before buying. Next time, keep the quoted and checkout prices consistent: the initial quote was “teen sau adtalis,” but the final total was “tree hundred forty nine”; verify or explain that difference before requesting payment."
       },
       "attempted_upsell": false,
       "effort_score": 0.0,
@@ -1577,7 +1577,7 @@
           "role": "salesperson",
           "start": 135.416,
           "end": 137.816,
-          "text": "जी, बताइए, क्या चाहिए?",
+          "text": "ji, bataiye, kya chahiye?",
           "is_highlighted": true
         },
         {
@@ -1586,7 +1586,7 @@
           "role": "customer",
           "start": 138.666,
           "end": 141.966,
-          "text": "लैपटॉप के लिए एक बेसिक वायर्ड माउस चाहिए,",
+          "text": "laptop ke liye ek basic wired mouse chahiye,",
           "is_highlighted": false
         },
         {
@@ -1595,7 +1595,7 @@
           "role": "customer",
           "start": 142.816,
           "end": 143.766,
-          "text": "यू एस बी वाला.",
+          "text": "u s bee wala.",
           "is_highlighted": false
         }
       ]

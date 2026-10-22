@@ -69,7 +69,7 @@
           {
             "salesperson": "A",
             "segment_id": 7,
-            "quote": "Sir, iske saath laptop bag aur wireless mouse ka bundle le sakte ho. अलक लोवे तो बैग एक हजार चारसो और माॉस आपसो का है। लैपटाप के साथ दोनों मिला के एक हजार पंद्रा पडेंगे। टोटल पचास हजार चारसो नब्बे हो जाएगा।",
+            "quote": "Sir, iske saath laptop bag aur wireless mouse ka bundle le sakte ho. alak love to bag ek hazaar chaarso aur maus aapso ka hai laptop ke saath dono mila ke ek hazaar pandra padenge. total pachas hazaar chaarso nabbe ho jayega.",
             "technique": "bundle",
             "offered_item": "Laptop bag and wireless mouse bundle",
             "salesperson_initiated": true,
@@ -81,9 +81,9 @@
         ],
         "excluded_candidates": [
           "Ji, ye sola GB RAM aur panch so bara GB s s d wala hai. Final price artalis hazar nau so nabbe hai, g s t included. -> Answers the customer's question about the requested laptop and its price; no upgrade is suggested.",
-          "अंदर पैडेड लैपटाप कंपार्टमेंट है, इस मॉडल का साइस आराम से फिट हो जाएगा। Maus ke saath USB receiver bhi aata hai. -> Answers the customer's bag-fit and padding questions and describes an included receiver; not a separate upsell.",
+          "andar padded laptop compartment hai, is model ka sais aaram se fit ho jayega. Maus ke saath USB receiver bhi aata hai. -> Answers the customer's bag-fit and padding questions and describes an included receiver; not a separate upsell.",
           "Bilkul, sir. Laptop, bag aur mouse mila ke pachas hazaar chaar sau nabbe. Bill kis naam se banaun? -> Confirms the already accepted purchase rather than making another offer.",
-          "accessories का साथ सौर रुपए discount बिल में दिखेगा. पहले sealed box और model check कर लीजे फिर payment कर लेंगे. -> Answers the customer's invoice-discount question and explains the purchase checks; no new conditional discount or add-on is offered."
+          "accessories ka saath saur rupaye discount bill mein dikhega. pehle sealed box aur model check kar lije phir payment kar lenge. -> Answers the customer's invoice-discount question and explains the purchase checks; no new conditional discount or add-on is offered."
         ],
         "pushy_upsell": false,
         "pushy_reason": "The customer accepted the bag-and-mouse bundle after checking the bag's suitability. There was no rejected upsell, repeated pressure, or customer frustration.",
@@ -100,7 +100,7 @@
         "customer_feedback": null,
         "customer_feedback_segment_id": null,
         "unanswered_questions": [],
-        "coaching_feedback": "You offered a relevant bag-and-mouse bundle after the customer chose the laptop, then answered the padding, fit, and invoice-discount questions before billing. Next time, state the bundle price and savings clearly and consistently: the wording “एक हजार पंद्रा” differs from the customer's “pandra sau,” so explicitly confirming ₹1,500 would remove ambiguity."
+        "coaching_feedback": "You offered a relevant bag-and-mouse bundle after the customer chose the laptop, then answered the padding, fit, and invoice-discount questions before billing. Next time, state the bundle price and savings clearly and consistently: the wording “ek hazaar pandra” differs from the customer's “pandra sau,” so explicitly confirming ₹1,500 would remove ambiguity."
       },
       "attempted_upsell": true,
       "effort_score": 2.2,
@@ -142,9 +142,9 @@
           {
             "segment_id": 29,
             "speaker": "B",
-            "quote": "अरे नहीं, बोला ना, रोज इस्तिमाल भी नहीं करना है। साढहे चार सौ वाला निकालो बस।",
+            "quote": "arey nahi, bola na, roz istimaal bhi nahi karna hai saadhe chaar sau wala nikalo bas.",
             "evidence_source": "both",
-            "evidence": "“बोला ना” and “निकालो बस” express impatience at having to repeat the choice after another upsell. The voice is also labeled frustrated and insistent, with slight impatience; modestly elevated loudness provides supporting evidence."
+            "evidence": "“bola na” and “nikalo bas” express impatience at having to repeat the choice after another upsell. The voice is also labeled frustrated and insistent, with slight impatience; modestly elevated loudness provides supporting evidence."
           }
         ]
       },
@@ -159,7 +159,7 @@
           {
             "salesperson": "A",
             "segment_id": 26,
-            "quote": "वैसे आप सोमी ये बिना तार वाला भी है, तीन सौ पचास और लगेंगे, मेज पर तार का झंझट नहीं रहेगा, वो कर दूं?",
+            "quote": "waise aap somi ye bina taar wala bhi hai, teen sau pachas aur lagenge, mez par taar ka jhanjhat nahi rahega, wo kar doon?",
             "technique": "upgrade",
             "offered_item": "Wireless mouse costing ₹350 more than the selected wired mouse.",
             "salesperson_initiated": true,
@@ -171,7 +171,7 @@
           {
             "salesperson": "A",
             "segment_id": 28,
-            "quote": "समझ गया, पर एक बार हाथ में पकड़ कर देख लीजिये, पकड़ भी अच्छी है, लैपटौप के साथ ले जाना आसान रहेगा.",
+            "quote": "samajh gaya, par ek baar haath mein pakad kar dekh lijiye, pakad bhi achhi hai, laptop ke saath le jana aasaan rahega.",
             "technique": "upgrade",
             "offered_item": "The same wireless mouse, re-offered through a hands-on trial and grip and portability benefits.",
             "salesperson_initiated": true,
@@ -182,20 +182,20 @@
           }
         ],
         "excluded_candidates": [
-          "ये वाला साड़हे चार सौ का है, साधारण यू एस बी वाला है, लगाते ही चल जाएगा. -> Provides the wired mouse the customer requested, within the stated budget.",
-          "डेड़ मीटर है, डिब्बे पर भी लिखा है, ये देखिये. -> Directly answers the customer's question about cord length.",
-          "बिलकुल, ये देखिए, दोनों बटन चल रहे हैं और पन्ना ऊपर नीचे भी हो रहा है। Bil samt sahi char sau hi hai. -> Demonstrates the requested mouse functions and discusses billing; no additional purchase is suggested."
+          "ye wala saadhe chaar sau ka hai, saadharan u s bee wala hai, lagate hi chal jayega. -> Provides the wired mouse the customer requested, within the stated budget.",
+          "dedh meter hai, dibbe par bhi likha hai, ye dekhiye. -> Directly answers the customer's question about cord length.",
+          "bilkul, ye dekhiye, dono button chal rahe hain aur panna upar neeche bhi ho raha hai Bil samt sahi char sau hi hai. -> Demonstrates the requested mouse functions and discusses billing; no additional purchase is suggested."
         ],
         "pushy_upsell": true,
-        "pushy_reason": "After the customer explicitly said “पाँच सो से ऊपर नहीं जाना। तार वाला ही चाहिये,” A continued promoting the wireless mouse's grip and portability. This prompted the impatient response “अरे नहीं, बोला ना” before A apologized and stopped.",
+        "pushy_reason": "After the customer explicitly said “paanch so se upar nahi jana. taar wala hi chahiye,” A continued promoting the wireless mouse's grip and portability. This prompted the impatient response “arey nahi, bola na” before A apologized and stopped.",
         "confidence": 0.99,
         "summary": "A made two upgrade attempts from the selected ₹450 wired mouse to a wireless mouse costing ₹350 more. The second attempt followed a clear refusal and budget limit, causing impatience; A then apologized and proceeded with the original choice.",
         "greeting_given": true,
-        "greeting_quote": "जी, बताईए.",
+        "greeting_quote": "ji, bataiye.",
         "greeting_segment_id": 19,
         "products_discussed": [
-          "तार वाला माउस",
-          "बिना तार वाला माउस"
+          "taar wala mouse",
+          "bina taar wala mouse"
         ],
         "customer_feedback": "The customer reiterated that they would not go above ₹500, would not use the mouse daily, and wanted only the ₹450 wired option.",
         "customer_feedback_segment_id": 29,
@@ -207,7 +207,7 @@
             "note": "The transcript ends without an acknowledgment or confirmation that the bill was placed inside the box; fulfillment is not shown."
           }
         ],
-        "coaching_feedback": "You answered the cord-length question directly and demonstrated both buttons and scrolling as requested; apologizing with “माफ़ कीजिए” also helped restore a practical tone. Once the customer said “पाँच सो से ऊपर नहीं जाना,” accept that limit and complete the wired-mouse purchase rather than repeating the wireless pitch."
+        "coaching_feedback": "You answered the cord-length question directly and demonstrated both buttons and scrolling as requested; apologizing with “maaf kijiye” also helped restore a practical tone. Once the customer said “paanch so se upar nahi jana,” accept that limit and complete the wired-mouse purchase rather than repeating the wireless pitch."
       },
       "attempted_upsell": true,
       "effort_score": 5.7,
@@ -520,7 +520,7 @@
           "role": "salesperson",
           "start": 48.252,
           "end": 59.402,
-          "text": "अलक लोवे तो बैग एक हजार चारसो और माॉस आपसो का है। लैपटाप के साथ दोनों मिला के एक हजार पंद्रा पडेंगे। टोटल पचास हजार चारसो नब्बे हो जाएगा।",
+          "text": "alak love to bag ek hazaar chaarso aur maus aapso ka hai laptop ke saath dono mila ke ek hazaar pandra padenge. total pachas hazaar chaarso nabbe ho jayega.",
           "is_highlighted": false
         },
         {
@@ -529,7 +529,7 @@
           "role": "customer",
           "start": 59.402,
           "end": 64.402,
-          "text": "बैग दिखाओ जरा लैपटॉप फिट हो जाएगा और पैडिंग है इसमें",
+          "text": "bag dikhao jara laptop fit ho jayega aur padding hai ismein",
           "is_highlighted": false
         }
       ]
@@ -585,7 +585,7 @@
           "role": "customer",
           "start": 160.954,
           "end": 166.004,
-          "text": "नहीं भैया, पाँच सो से ऊपर नहीं जाना। तार वाला ही चाहिये।",
+          "text": "nahi bhaiya, paanch so se upar nahi jana. taar wala hi chahiye",
           "is_highlighted": false
         },
         {
@@ -594,7 +594,7 @@
           "role": "salesperson",
           "start": 166.704,
           "end": 174.804,
-          "text": "समझ गया, पर एक बार हाथ में पकड़ कर देख लीजिये, पकड़ भी अच्छी है, लैपटौप के साथ ले जाना आसान रहेगा.",
+          "text": "samajh gaya, par ek baar haath mein pakad kar dekh lijiye, pakad bhi achhi hai, laptop ke saath le jana aasaan rahega.",
           "is_highlighted": false
         },
         {
@@ -603,7 +603,7 @@
           "role": "customer",
           "start": 176.206,
           "end": 182.65599999999998,
-          "text": "अरे नहीं, बोला ना, रोज इस्तिमाल भी नहीं करना है। साढहे चार सौ वाला निकालो बस।",
+          "text": "arey nahi, bola na, roz istimaal bhi nahi karna hai saadhe chaar sau wala nikalo bas.",
           "is_highlighted": true
         },
         {
@@ -612,7 +612,7 @@
           "role": "salesperson",
           "start": 183.65599999999998,
           "end": 188.256,
-          "text": "जी, ठीक है, माफ़ कीजिए, यही वाला निकाल देता हूँ।",
+          "text": "ji, theek hai, maaf kijiye, yahi wala nikal deta hoon",
           "is_highlighted": false
         },
         {
@@ -621,7 +621,7 @@
           "role": "customer",
           "start": 189.15599999999998,
           "end": 195.206,
-          "text": "पैक करने से पहले चला कर दिखा देना दोनों बटन और बीच वाला पहिया भी।",
+          "text": "pack karne se pehle chala kar dikha dena dono button aur beech wala pahiya bhi.",
           "is_highlighted": false
         }
       ]
@@ -640,7 +640,7 @@
           "role": "salesperson",
           "start": 142.594,
           "end": 146.144,
-          "text": "डेड़ मीटर है, डिब्बे पर भी लिखा है, ये देखिये.",
+          "text": "dedh meter hai, dibbe par bhi likha hai, ye dekhiye.",
           "is_highlighted": false
         },
         {
@@ -649,7 +649,7 @@
           "role": "customer",
           "start": 147.04399999999998,
           "end": 150.29399999999998,
-          "text": "हाँ, इतना ठीक है, यही दे दो।",
+          "text": "haan, itna theek hai, yahi de do.",
           "is_highlighted": false
         },
         {
@@ -658,7 +658,7 @@
           "role": "salesperson",
           "start": 151.054,
           "end": 159.754,
-          "text": "वैसे आप सोमी ये बिना तार वाला भी है, तीन सौ पचास और लगेंगे, मेज पर तार का झंझट नहीं रहेगा, वो कर दूं?",
+          "text": "waise aap somi ye bina taar wala bhi hai, teen sau pachas aur lagenge, mez par taar ka jhanjhat nahi rahega, wo kar doon?",
           "is_highlighted": true
         },
         {
@@ -667,7 +667,7 @@
           "role": "customer",
           "start": 160.954,
           "end": 166.004,
-          "text": "नहीं भैया, पाँच सो से ऊपर नहीं जाना। तार वाला ही चाहिये।",
+          "text": "nahi bhaiya, paanch so se upar nahi jana. taar wala hi chahiye",
           "is_highlighted": false
         },
         {
@@ -676,7 +676,7 @@
           "role": "salesperson",
           "start": 166.704,
           "end": 174.804,
-          "text": "समझ गया, पर एक बार हाथ में पकड़ कर देख लीजिये, पकड़ भी अच्छी है, लैपटौप के साथ ले जाना आसान रहेगा.",
+          "text": "samajh gaya, par ek baar haath mein pakad kar dekh lijiye, pakad bhi achhi hai, laptop ke saath le jana aasaan rahega.",
           "is_highlighted": false
         }
       ]
@@ -695,7 +695,7 @@
           "role": "salesperson",
           "start": 151.054,
           "end": 159.754,
-          "text": "वैसे आप सोमी ये बिना तार वाला भी है, तीन सौ पचास और लगेंगे, मेज पर तार का झंझट नहीं रहेगा, वो कर दूं?",
+          "text": "waise aap somi ye bina taar wala bhi hai, teen sau pachas aur lagenge, mez par taar ka jhanjhat nahi rahega, wo kar doon?",
           "is_highlighted": false
         },
         {
@@ -704,7 +704,7 @@
           "role": "customer",
           "start": 160.954,
           "end": 166.004,
-          "text": "नहीं भैया, पाँच सो से ऊपर नहीं जाना। तार वाला ही चाहिये।",
+          "text": "nahi bhaiya, paanch so se upar nahi jana. taar wala hi chahiye",
           "is_highlighted": false
         },
         {
@@ -713,7 +713,7 @@
           "role": "salesperson",
           "start": 166.704,
           "end": 174.804,
-          "text": "समझ गया, पर एक बार हाथ में पकड़ कर देख लीजिये, पकड़ भी अच्छी है, लैपटौप के साथ ले जाना आसान रहेगा.",
+          "text": "samajh gaya, par ek baar haath mein pakad kar dekh lijiye, pakad bhi achhi hai, laptop ke saath le jana aasaan rahega.",
           "is_highlighted": true
         },
         {
@@ -722,7 +722,7 @@
           "role": "customer",
           "start": 176.206,
           "end": 182.65599999999998,
-          "text": "अरे नहीं, बोला ना, रोज इस्तिमाल भी नहीं करना है। साढहे चार सौ वाला निकालो बस।",
+          "text": "arey nahi, bola na, roz istimaal bhi nahi karna hai saadhe chaar sau wala nikalo bas.",
           "is_highlighted": false
         },
         {
@@ -731,7 +731,7 @@
           "role": "salesperson",
           "start": 183.65599999999998,
           "end": 188.256,
-          "text": "जी, ठीक है, माफ़ कीजिए, यही वाला निकाल देता हूँ।",
+          "text": "ji, theek hai, maaf kijiye, yahi wala nikal deta hoon",
           "is_highlighted": false
         }
       ]
@@ -750,7 +750,7 @@
           "role": "customer",
           "start": 189.15599999999998,
           "end": 195.206,
-          "text": "पैक करने से पहले चला कर दिखा देना दोनों बटन और बीच वाला पहिया भी।",
+          "text": "pack karne se pehle chala kar dikha dena dono button aur beech wala pahiya bhi.",
           "is_highlighted": false
         },
         {
@@ -759,7 +759,7 @@
           "role": "salesperson",
           "start": 195.90599999999998,
           "end": 204.45999999999998,
-          "text": "बिलकुल, ये देखिए, दोनों बटन चल रहे हैं और पन्ना ऊपर नीचे भी हो रहा है। Bil samt sahi char sau hi hai.",
+          "text": "bilkul, ye dekhiye, dono button chal rahe hain aur panna upar neeche bhi ho raha hai Bil samt sahi char sau hi hai.",
           "is_highlighted": false
         },
         {
@@ -787,7 +787,7 @@
           "role": "salesperson",
           "start": 122.16,
           "end": 123.86,
-          "text": "जी, बताईए.",
+          "text": "ji, bataiye.",
           "is_highlighted": true
         },
         {
@@ -796,7 +796,7 @@
           "role": "salesperson",
           "start": 125.044,
           "end": 125.944,
-          "text": "क्या दिखाऊँ?",
+          "text": "kya dikhaun?",
           "is_highlighted": false
         },
         {
@@ -805,7 +805,7 @@
           "role": "customer",
           "start": 126.494,
           "end": 132.094,
-          "text": "लैपटॉप के लिए तार वाला माउस चाहिए। पाँच सौ के अंदर दिखाना।",
+          "text": "laptop ke liye taar wala mouse chahiye paanch sau ke andar dikhana.",
           "is_highlighted": false
         }
       ]
@@ -824,7 +824,7 @@
           "role": "customer",
           "start": 160.954,
           "end": 166.004,
-          "text": "नहीं भैया, पाँच सो से ऊपर नहीं जाना। तार वाला ही चाहिये।",
+          "text": "nahi bhaiya, paanch so se upar nahi jana. taar wala hi chahiye",
           "is_highlighted": false
         },
         {
@@ -833,7 +833,7 @@
           "role": "salesperson",
           "start": 166.704,
           "end": 174.804,
-          "text": "समझ गया, पर एक बार हाथ में पकड़ कर देख लीजिये, पकड़ भी अच्छी है, लैपटौप के साथ ले जाना आसान रहेगा.",
+          "text": "samajh gaya, par ek baar haath mein pakad kar dekh lijiye, pakad bhi achhi hai, laptop ke saath le jana aasaan rahega.",
           "is_highlighted": false
         },
         {
@@ -842,7 +842,7 @@
           "role": "customer",
           "start": 176.206,
           "end": 182.65599999999998,
-          "text": "अरे नहीं, बोला ना, रोज इस्तिमाल भी नहीं करना है। साढहे चार सौ वाला निकालो बस।",
+          "text": "arey nahi, bola na, roz istimaal bhi nahi karna hai saadhe chaar sau wala nikalo bas.",
           "is_highlighted": true
         },
         {
@@ -851,7 +851,7 @@
           "role": "salesperson",
           "start": 183.65599999999998,
           "end": 188.256,
-          "text": "जी, ठीक है, माफ़ कीजिए, यही वाला निकाल देता हूँ।",
+          "text": "ji, theek hai, maaf kijiye, yahi wala nikal deta hoon",
           "is_highlighted": false
         },
         {
@@ -860,7 +860,7 @@
           "role": "customer",
           "start": 189.15599999999998,
           "end": 195.206,
-          "text": "पैक करने से पहले चला कर दिखा देना दोनों बटन और बीच वाला पहिया भी।",
+          "text": "pack karne se pehle chala kar dikha dena dono button aur beech wala pahiya bhi.",
           "is_highlighted": false
         }
       ]

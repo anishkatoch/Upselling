@@ -131,10 +131,10 @@
         ],
         "upsell_attempts": [],
         "excluded_candidates": [
-          "ये वाला देखिये तेरा हजार नौ सौ निन्यानवे का है पाँच हजार की बैटरी है छ जीबी रैम और एक सो अठाइस जीबी स्टोरेज -> The salesperson presented the requested main product within the customer's budget.",
-          "हाँ जी ये दूसरा मॉडल है इसका भी वही दाम है रैम और स्टोरेज बराबर है बस स्क्रीन थोड़ी छोटी है और हाथ में हलका लगता है -> The customer requested another option; this alternative cost the same and was not an upgrade.",
-          "इसमें भी पाँच हजार की है, आपके बताए इस्तेमाल में दोनों की बैटरी करीब एक जैसी चलेगी. -> This directly answered the customer's battery comparison question.",
-          "बिलकुल, ये लीजिए, दोनों चालू हैं, स्क्रीन भी इस्तेमाल करके देख लीजिए. -> This fulfilled the customer's request to handle both phones, without suggesting an additional purchase."
+          "ye wala dekhiye tera hazaar nau sau ninyanve ka hai paanch hazaar ki battery hai chha gb ram aur ek so athais gb storage -> The salesperson presented the requested main product within the customer's budget.",
+          "haan ji ye doosra model hai iska bhi wahi daam hai ram aur storage barabar hai bas screen thodi chhoti hai aur haath mein halka lagta hai -> The customer requested another option; this alternative cost the same and was not an upgrade.",
+          "ismein bhi paanch hazaar ki hai, aapke bataye istemaal mein dono ki battery kareeb ek jaisi chalegi. -> This directly answered the customer's battery comparison question.",
+          "bilkul, ye lijiye, dono chalu hain, screen bhi istemaal karke dekh lijiye. -> This fulfilled the customer's request to handle both phones, without suggesting an additional purchase."
         ],
         "pushy_upsell": false,
         "pushy_reason": "No additional purchase was suggested. The request for another same-budget phone was routine comparison shopping, not rejection of an upsell.",
@@ -144,13 +144,13 @@
         "greeting_quote": null,
         "greeting_segment_id": null,
         "products_discussed": [
-          "फोन — छ जीबी रैम, एक सो अठाइस जीबी स्टोरेज, पाँच हजार की बैटरी",
-          "दूसरा मॉडल — छोटी स्क्रीन, हलका, नीला रंग"
+          "phone — chha gb ram, ek so athais gb storage, paanch hazaar ki battery",
+          "doosra model — chhoti screen, halka, neela rang"
         ],
         "customer_feedback": null,
         "customer_feedback_segment_id": null,
         "unanswered_questions": [],
-        "coaching_feedback": "You addressed the battery-first requirement by explaining that both phones had “पाँच हजार” batteries and letting the customer handle both before choosing. After the customer said “YAHEEN NEELA RANG MEIN DE DO,” a useful next step would be one optional screen-protector offer with its separate price, without delaying billing or pushing if declined."
+        "coaching_feedback": "You addressed the battery-first requirement by explaining that both phones had “paanch hazaar” batteries and letting the customer handle both before choosing. After the customer said “YAHEEN NEELA RANG MEIN DE DO,” a useful next step would be one optional screen-protector offer with its separate price, without delaying billing or pushing if declined."
       },
       "attempted_upsell": false,
       "effort_score": 0.0,
@@ -192,7 +192,7 @@
           {
             "segment_id": 24,
             "speaker": "C",
-            "quote": "हाँ, थोड़ी हलकी हुई है; सिगनल से यहां तक आने में ही पन्द्रह मिनट लग गए।",
+            "quote": "haan, thodi halki hui hai; signal se yahan tak aane mein hi pandrah minute lag gaye",
             "evidence_source": "both",
             "evidence": "The complaint about taking fifteen minutes just to get from the signal indicates mild situational frustration. The voice label reports a slightly strained, exasperated delivery; acoustics do not suggest strong agitation."
           }
@@ -246,7 +246,7 @@
           {
             "salesperson": "A",
             "segment_id": 35,
-            "quote": "इसके साथ एक एक्स्ट्रा यूएसबी चार्जर अडाप्टर भी ले लेंगे, चार सौउन्नानवे का है, आफिस में रखने के काम आ जाएगा।",
+            "quote": "iske saath ek extra usb charger adapter bhi le lenge, chaar sau unn anve ka hai, office mein rakhne ke kaam aa jayega.",
             "technique": "cross_sell",
             "offered_item": "Extra USB charger adapter for ₹499",
             "salesperson_initiated": true,
@@ -257,24 +257,24 @@
           }
         ],
         "excluded_candidates": [
-          "ये यूएसबी ए टाइप सी है. एक मेत्र, -> Shows the cable matching the customer's requested connectors and length, not an add-on or upgrade.",
-          "दो सौउंचास की पड़ेगी। -> Gives the requested cable's price within the customer's budget, not an upsell."
+          "ye usb e type si hai. ek metr, -> Shows the cable matching the customer's requested connectors and length, not an add-on or upgrade.",
+          "do sau unchaas ki padegi. -> Gives the requested cable's price within the customer's budget, not an upsell."
         ],
         "pushy_upsell": false,
-        "pushy_reason": "After the customer declined the adapter and requested only the cable, A immediately confirmed “जी सिर्फ केबल” and proceeded with payment.",
+        "pushy_reason": "After the customer declined the adapter and requested only the cable, A immediately confirmed “ji sirf cable” and proceeded with payment.",
         "confidence": 0.99,
         "summary": "A made one proactive cross-sell attempt, offering an extra USB charger adapter for office use. The customer politely declined because they already had an adapter, and A completed the cable-only purchase without further pressure.",
         "greeting_given": false,
         "greeting_quote": null,
         "greeting_segment_id": null,
         "products_discussed": [
-          "यूएसबी ए टाइप सी केबल",
-          "यूएसबी चार्जर अडाप्टर"
+          "usb e type si cable",
+          "usb charger adapter"
         ],
-        "customer_feedback": "The customer politely pushed back: “एडाप्टर है मेरे पास। सिर्फ केबल का बिल कर दो,” without expressing frustration.",
+        "customer_feedback": "The customer politely pushed back: “adapter hai mere paas. sirf cable ka bill kar do,” without expressing frustration.",
         "customer_feedback_segment_id": 36,
         "unanswered_questions": [],
-        "coaching_feedback": "You clarified both connector types, offered a cable within the ₹300 budget, and respected “सिर्फ केबल” by moving straight to QR payment after the adapter refusal. Next time, check whether the customer needs a spare adapter before pitching one, since they had already described an existing USB charger."
+        "coaching_feedback": "You clarified both connector types, offered a cable within the ₹300 budget, and respected “sirf cable” by moving straight to QR payment after the adapter refusal. Next time, check whether the customer needs a spare adapter before pitching one, since they had already described an existing USB charger."
       },
       "attempted_upsell": true,
       "effort_score": 2.2,
@@ -534,7 +534,7 @@
           "role": "salesperson",
           "start": 190.332,
           "end": 194.982,
-          "text": "नमस्ते भाया, बाहर अभी भी बारिश हो रही है",
+          "text": "namaste bhaya, bahar abhi bhi baarish ho rahi hai",
           "is_highlighted": false
         },
         {
@@ -543,7 +543,7 @@
           "role": "customer",
           "start": 195.93200000000002,
           "end": 203.132,
-          "text": "हाँ, थोड़ी हलकी हुई है; सिगनल से यहां तक आने में ही पन्द्रह मिनट लग गए।",
+          "text": "haan, thodi halki hui hai; signal se yahan tak aane mein hi pandrah minute lag gaye",
           "is_highlighted": true
         },
         {
@@ -552,7 +552,7 @@
           "role": "salesperson",
           "start": 205.258,
           "end": 210.308,
-          "text": "हाँ, उस सिग्नल पे पानी भढ जाता है; पारकिंग मिल गई ठीक से।",
+          "text": "haan, us signal pe paani bhadh jata hai; parking mil gayi theek se",
           "is_highlighted": false
         },
         {
@@ -561,7 +561,7 @@
           "role": "customer",
           "start": 211.058,
           "end": 216.758,
-          "text": "मिल गई, बस थोड़ा दूर लगानी पड़ी छाता भी गारी में ही रह गया।",
+          "text": "mil gayi, bas thoda door lagani padi chhata bhi gaari mein hi reh gaya",
           "is_highlighted": false
         }
       ]
@@ -580,7 +580,7 @@
           "role": "salesperson",
           "start": 255.146,
           "end": 257.39599999999996,
-          "text": "दो सौउंचास की पड़ेगी।",
+          "text": "do sau unchaas ki padegi.",
           "is_highlighted": false
         },
         {
@@ -589,7 +589,7 @@
           "role": "customer",
           "start": 257.996,
           "end": 260.296,
-          "text": "हाँ, यही दे दीजिये।",
+          "text": "haan, yahi de dijiye.",
           "is_highlighted": false
         },
         {
@@ -598,7 +598,7 @@
           "role": "salesperson",
           "start": 261.096,
           "end": 270.996,
-          "text": "इसके साथ एक एक्स्ट्रा यूएसबी चार्जर अडाप्टर भी ले लेंगे, चार सौउन्नानवे का है, आफिस में रखने के काम आ जाएगा।",
+          "text": "iske saath ek extra usb charger adapter bhi le lenge, chaar sau unn anve ka hai, office mein rakhne ke kaam aa jayega.",
           "is_highlighted": true
         },
         {
@@ -607,7 +607,7 @@
           "role": "customer",
           "start": 271.39599999999996,
           "end": 278.19599999999997,
-          "text": "नहीं, एडाप्टर है मेरे पास। सिर्फ केबल का बिल कर दो, युपी आई करूंगा।",
+          "text": "nahi, adapter hai mere paas. sirf cable ka bill kar do, up aayi karunga.",
           "is_highlighted": false
         },
         {
@@ -616,7 +616,7 @@
           "role": "salesperson",
           "start": 279.028,
           "end": 287.228,
-          "text": "जी सिर्फ केबल। ये क्यू आर स्कैन कर लीजिए, दो सौ उन चास बिल बैकेट में रख दिया है।",
+          "text": "ji sirf cable ye kyu aar scan kar lijiye, do sau un chaas bill baiket mein rakh diya hai",
           "is_highlighted": false
         }
       ]
@@ -635,7 +635,7 @@
           "role": "customer",
           "start": 257.996,
           "end": 260.296,
-          "text": "हाँ, यही दे दीजिये।",
+          "text": "haan, yahi de dijiye.",
           "is_highlighted": false
         },
         {
@@ -644,7 +644,7 @@
           "role": "salesperson",
           "start": 261.096,
           "end": 270.996,
-          "text": "इसके साथ एक एक्स्ट्रा यूएसबी चार्जर अडाप्टर भी ले लेंगे, चार सौउन्नानवे का है, आफिस में रखने के काम आ जाएगा।",
+          "text": "iske saath ek extra usb charger adapter bhi le lenge, chaar sau unn anve ka hai, office mein rakhne ke kaam aa jayega.",
           "is_highlighted": false
         },
         {
@@ -653,7 +653,7 @@
           "role": "customer",
           "start": 271.39599999999996,
           "end": 278.19599999999997,
-          "text": "नहीं, एडाप्टर है मेरे पास। सिर्फ केबल का बिल कर दो, युपी आई करूंगा।",
+          "text": "nahi, adapter hai mere paas. sirf cable ka bill kar do, up aayi karunga.",
           "is_highlighted": true
         },
         {
@@ -662,7 +662,7 @@
           "role": "salesperson",
           "start": 279.028,
           "end": 287.228,
-          "text": "जी सिर्फ केबल। ये क्यू आर स्कैन कर लीजिए, दो सौ उन चास बिल बैकेट में रख दिया है।",
+          "text": "ji sirf cable ye kyu aar scan kar lijiye, do sau un chaas bill baiket mein rakh diya hai",
           "is_highlighted": false
         },
         {
@@ -671,7 +671,7 @@
           "role": "customer",
           "start": 288.12800000000004,
           "end": 291.82800000000003,
-          "text": "हो गया पेमेंट। ठीक है, थैंक यू भईया।",
+          "text": "ho gaya payment. theek hai, thank u bhaiya.",
           "is_highlighted": false
         }
       ]

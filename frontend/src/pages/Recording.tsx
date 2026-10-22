@@ -29,11 +29,13 @@ export default function Recording() {
 
   return (
     <>
-      <Link to="/recordings" className="back">
-        <ArrowLeft size={15} /> All recordings
-      </Link>
-      <div className="head" style={{ marginTop: 14 }}>
-        <h1 style={{ wordBreak: "break-word" }}>{recordingTitle(job)}</h1>
+      <div className="hero">
+        <Link to="/recordings" className="back">
+          <ArrowLeft size={15} /> All conversations
+        </Link>
+        <div className="head" style={{ marginTop: 14, marginBottom: 0 }}>
+          <h1 style={{ wordBreak: "break-word" }}>{recordingTitle(job)}</h1>
+        </div>
       </div>
       {active(job) && <Progress job={job} onChange={reload} />}
       {job.status === "failed" && <Failed job={job} onChange={reload} />}

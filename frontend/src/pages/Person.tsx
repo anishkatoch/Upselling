@@ -41,9 +41,11 @@ export default function PersonPage() {
 
   return (
     <>
-      <Link to="/team" className="back" style={{ marginBottom: 16 }}>
-        <ArrowLeft size={15} /> All salespeople
-      </Link>
+      {!person && (
+        <Link to="/team" className="back" style={{ marginBottom: 16, marginTop: 24 }}>
+          <ArrowLeft size={15} /> All salespeople
+        </Link>
+      )}
 
       {error && (
         <p className="error">
@@ -95,7 +97,10 @@ function PersonDetail({
 
   return (
     <div className="person-flat">
-      <Reveal className="person-hero">
+      <Reveal className="person-hero hero">
+        <Link to="/team" className="back" style={{ marginBottom: 14 }}>
+          <ArrowLeft size={15} /> All salespeople
+        </Link>
         <div className="person-head">
           <div className="grow">
             <h1>{p.name}</h1>

@@ -43,6 +43,12 @@ class Settings(BaseSettings):
     work_dir: Path = Path("/tmp/upsell-poc")
     max_upload_mb: int = 4096
 
+    # Accounts: kept outside the sample-data store. AUTH_SECRET signs sessions (generated and saved if unset).
+    auth_required: bool = True
+    auth_allow_signup: bool = True
+    auth_dir: Path = PROJECT_ROOT / "data" / "auth"
+    auth_secret: str | None = None
+
 
 class CircuitBreakerConfig(BaseModel):
     failures: int = 5

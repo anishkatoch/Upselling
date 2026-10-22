@@ -11,10 +11,10 @@ export default function Recordings() {
   const { data: jobs, error } = useLoad(() => api.jobs(), [], { every: 4000, keep: busy });
   return (
     <>
-      <div className="head row">
+      <div className="head row hero">
         <div className="grow">
-          <h1>Recordings</h1>
-          <p className="sub">Every recording, and what we found.</p>
+          <h1>Conversations</h1>
+          <p className="sub">Every conversation, and what we found.</p>
         </div>
       </div>
 
@@ -30,7 +30,7 @@ export default function Recordings() {
             <div className="icon-wrap">
               <Headset size={20} />
             </div>
-            <p>No recordings to show yet.</p>
+            <p>No conversations to show yet.</p>
           </div>
         )}
         {jobs && jobs.length > 0 && (

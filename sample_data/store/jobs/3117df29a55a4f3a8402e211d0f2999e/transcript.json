@@ -7,182 +7,182 @@
         "speaker": "A",
         "start": 0.0,
         "end": 3.3999999999999995,
-        "text": "नमस्ते सर, बताइए क्या दिखाऊँ?"
+        "text": "namaste sir, bataiye kya dikhaun?"
       },
       {
         "id": 1,
         "speaker": "B",
         "start": 3.999999999999999,
         "end": 10.05,
-        "text": "ये जो चौदा हजार नौसो निन्यानवे वाला फोन लगा है, इसका नीला रंग मिलेगा?"
+        "text": "ye jo chauda hazaar nauso ninyanve wala phone laga hai, iska neela rang milega?"
       },
       {
         "id": 2,
         "speaker": "A",
         "start": 11.15,
         "end": 18.8,
-        "text": "जी, नीला है. यही छः जीबी रैम और एक सौ अठाईस जीबी स्टोरेज वाला है. निकालदू?"
+        "text": "ji, neela hai. yahi chhah gb ram aur ek sau athais gb storage wala hai. nikaldu?"
       },
       {
         "id": 3,
         "speaker": "B",
         "start": 19.45,
         "end": 23.8,
-        "text": "हाँ, इसके डिब्बे में चार्जर और कवर दोनों आते हैं क्या?"
+        "text": "haan, iske dibbe mein charger aur cover dono aate hain kya?"
       },
       {
         "id": 4,
         "speaker": "A",
         "start": 25.358,
         "end": 30.758000000000003,
-        "text": "चार्जर आता है, सर, कवर नहीं आता; फोन, चार्जर और केबल है अंदर."
+        "text": "charger aata hai, sir, cover nahi aata; phone, charger aur cable hai andar."
       },
       {
         "id": 5,
         "speaker": "B",
         "start": 32.008,
         "end": 36.608000000000004,
-        "text": "ठीक है, यही फोन दे दीजिए, बिल मेरे नाम से बनाना."
+        "text": "theek hai, yahi phone de dijiye, bill mere naam se banana."
       },
       {
         "id": 6,
         "speaker": "A",
         "start": 37.558,
         "end": 47.408,
-        "text": "सर, इसके साथ ये कवर भी लगा दूँ. चार सौ निन्यानवे का है, किनारों पर अच्छी पकर है और कैमरे के आसपास भी थोड़ा उठा हुआ है."
+        "text": "sir, iske saath ye cover bhi laga doon. chaar sau ninyanve ka hai, kinaron par achhi pakar hai aur camere ke aaspaas bhi thoda utha hua hai."
       },
       {
         "id": 7,
         "speaker": "B",
         "start": 48.458000000000006,
         "end": 52.554,
-        "text": "नहीं, कवर नहीं चाहिए. अभी बस फोन लेना है।"
+        "text": "nahi, cover nahi chahiye. abhi bas phone lena hai"
       },
       {
         "id": 8,
         "speaker": "A",
         "start": 53.104,
         "end": 61.754000000000005,
-        "text": "फोन के साथ लेंगे तो यही कवर दो सौ निन्यानवे में दे दूंगा सर। अलग से लेने पर पूरी कीमत लगेगी।"
+        "text": "phone ke saath lenge to yahi cover do sau ninyanve mein de doonga sir. alag se lene par poori keemat lagegi."
       },
       {
         "id": 9,
         "speaker": "B",
         "start": 62.404,
         "end": 68.554,
-        "text": "नहीं, भैया, रहने दीजिए, मैने बोला न सिर्फ फोन चाहिए।"
+        "text": "nahi, bhaiya, rehne dijiye, maine bola na sirf phone chahiye"
       },
       {
         "id": 10,
         "speaker": "A",
         "start": 69.35400000000001,
         "end": 71.304,
-        "text": "जी सर, माफ कीजिए,"
+        "text": "ji sir, maaf kijiye,"
       },
       {
         "id": 11,
         "speaker": "A",
         "start": 72.10400000000001,
         "end": 77.754,
-        "text": "सिर्फ फोन का बिल बना रहा हूं, कुल चौदा हजार नौ सौ निन्यानवे रुपए है।"
+        "text": "sirf phone ka bill bana raha hoon, kul chauda hazaar nau sau ninyanve rupaye hai"
       },
       {
         "id": 12,
         "speaker": "B",
         "start": 78.108,
         "end": 84.408,
-        "text": "नाम अमित शर्मा डाल दीजिए। भुक्तान यूपिआई से कर दूंगा।"
+        "text": "naam amit sharma daal dijiye. bhuktaan upi se kar doonga."
       },
       {
         "id": 13,
         "speaker": "A",
         "start": 85.458,
         "end": 96.25800000000001,
-        "text": "इस कोड पर कर दीजिए। हां, भुक्तान आ गया। ये आपका बिल है। अब आपके सामने डिब्बा खोल कर फ़ोन चेक करवा देता हूँ।"
+        "text": "is code par kar dijiye. haan, bhuktaan aa gaya ye aapka bill hai ab aapke saamne dibba khol kar phone check karwa deta hoon"
       },
       {
         "id": 14,
         "speaker": "B",
         "start": 96.75800000000001,
         "end": 101.50800000000001,
-        "text": "हाँ खोल दीजिए, स्क्रीन और कैमरा एक बार देख लूंगा।"
+        "text": "haan khol dijiye, screen aur camera ek baar dekh loonga."
       },
       {
         "id": 15,
         "speaker": "A",
         "start": 109.89800000000001,
         "end": 110.548,
-        "text": "हां जी,"
+        "text": "haan ji,"
       },
       {
         "id": 16,
         "speaker": "A",
         "start": 111.64800000000001,
         "end": 114.248,
-        "text": "बताईए क्या चाहिए?"
+        "text": "bataiye kya chahiye?"
       },
       {
         "id": 17,
         "speaker": "B",
         "start": 115.19800000000001,
         "end": 120.548,
-        "text": "लैपटाप के लिए एक बेसिक वायर्ड माउस चाहिए-पांच सौ के अंदर दिखाना।"
+        "text": "laptop ke liye ek basic wired mouse chahiye-paanch sau ke andar dikhana."
       },
       {
         "id": 18,
         "speaker": "A",
         "start": 121.44800000000001,
         "end": 128.348,
-        "text": "ये वाला चौरा चौरा नौ का है यू एस भी लगाओगे तो सीधा चल जाएगा सेट अप का कुछ नहीं है"
+        "text": "ye wala chaura chaura nau ka hai u s bhi lagaoge to seedha chal jayega set ap ka kuch nahi hai"
       },
       {
         "id": 19,
         "speaker": "B",
         "start": 129.198,
         "end": 132.398,
-        "text": "हाँ, ठीक है, यहीं पैक कर दो।"
+        "text": "haan, theek hai, yahin pack kar do."
       },
       {
         "id": 20,
         "speaker": "A",
         "start": 133.59599999999998,
         "end": 141.946,
-        "text": "ताक कर देता हूं; लेकिन एक बार ये एक नौ नौ वाला वायरलेस देख लो, केबल का झंझट नहीं रहेगा, ग्रिप भी बेटर है।"
+        "text": "taak kar deta hoon; lekin ek baar ye ek nau nau wala wireless dekh lo, cable ka jhanjhat nahi rahega, grip bhi better hai"
       },
       {
         "id": 21,
         "speaker": "B",
         "start": 143.696,
         "end": 151.896,
-        "text": "नहीं, वाइरलेस नहीं चाहिए, बजट बोला न, पांचसो। अच्छा, वायर्ड ही सही,"
+        "text": "nahi, wireless nahi chahiye, budget bola na, paanchso. achha, wired hi sahi,"
       },
       {
         "id": 22,
         "speaker": "B",
         "start": 152.74599999999998,
         "end": 154.24599999999998,
-        "text": "साथ में माउसपैड रख दूं,"
+        "text": "saath mein mousepad rakh doon,"
       },
       {
         "id": 23,
         "speaker": "B",
         "start": 155.046,
         "end": 163.82999999999998,
-        "text": "वन नाइन्टी नाइन का है, टेबल पे स्क्रैचेस भी नहीं आएंगे। पैड घर पे है-सिर्फ़ मौस का बिल बना दो-जल्दी है।"
+        "text": "van ninety nine ka hai, table pe scratches bhi nahi aayenge. pad ghar pe hai-sirf maus ka bill bana do-jaldi hai"
       },
       {
         "id": 24,
         "speaker": "A",
         "start": 164.28,
         "end": 173.38,
-        "text": "एक मिनट, की बोर्ड-माउस कॉम्बो भी है एक हजार दो सौ तिरानवे का। अलग अलग लेने से सस्ता पड़ता है। माउस की जगह पूरा कॉम्बो कर दूँ?"
+        "text": "ek minute, ki board-mouse combo bhi hai ek hazaar do sau tiranve ka alag alag lene se sasta padta hai mouse ki jagah poora combo kar doon?"
       },
       {
         "id": 25,
         "speaker": "B",
         "start": 174.23,
         "end": 179.48,
-        "text": "की बोर्ड चाहिए ही नहीं मुझे-आप चार सो चालिस वाले का बिल क्यों नहीं बना रहे?"
+        "text": "ki board chahiye hi nahi mujhe-aap chaar so chalis wale ka bill kyun nahi bana rahe?"
       },
       {
         "id": 26,
@@ -210,7 +210,7 @@
         "speaker": "B",
         "start": 211.75199999999998,
         "end": 220.202,
-        "text": "नहीं कुछ भी एक्स्ट्रा मत जोड़ना। आप सुन क्यों नहीं रहे? अब बिल बना दो वरना मैं जा रहा हूँ।"
+        "text": "nahi kuch bhi extra mat jodna. aap sun kyun nahi rahe? ab bill bana do warna main ja raha hoon"
       },
       {
         "id": 30,
@@ -224,63 +224,63 @@
         "speaker": "B",
         "start": 230.902,
         "end": 237.036,
-        "text": "कर दिया, माउस और बिल दे दो। एक चीज लेने में इतना टाइम लगा दिया।"
+        "text": "kar diya, mouse aur bill de do. ek cheez lene mein itna time laga diya."
       },
       {
         "id": 32,
         "speaker": "B",
         "start": 244.686,
         "end": 247.436,
-        "text": "जी, बताईए क्या चाहिए?"
+        "text": "ji, bataiye kya chahiye?"
       },
       {
         "id": 33,
         "speaker": "A",
         "start": 248.686,
         "end": 255.436,
-        "text": "लैपटॉप के लिए एक साधारण वायर्ड यू एसबी माउस चाहिए। तीन सौ रुपए तक का है।"
+        "text": "laptop ke liye ek saadharan wired u sb mouse chahiye teen sau rupaye tak ka hai"
       },
       {
         "id": 34,
         "speaker": "B",
         "start": 256.636,
         "end": 257.036,
-        "text": "जी!"
+        "text": "ji!"
       },
       {
         "id": 35,
         "speaker": "B",
         "start": 258.51,
         "end": 263.71,
-        "text": "ये वाला ढाई सौ का है, वायरड है, यू एस बी में लगा कर सीधे चला सकते हैं."
+        "text": "ye wala dhai sau ka hai, wired hai, u s bee mein laga kar seedhe chala sakte hain."
       },
       {
         "id": 36,
         "speaker": "A",
         "start": 264.46,
         "end": 266.65999999999997,
-        "text": "एक बार हाथ में ले कर देख लो,"
+        "text": "ek baar haath mein le kar dekh lo,"
       },
       {
         "id": 37,
         "speaker": "A",
         "start": 267.51,
         "end": 269.36,
-        "text": "साइज ज्यादा छोटा तो नहीं है?"
+        "text": "size zyada chhota to nahi hai?"
       },
       {
         "id": 38,
         "speaker": "B",
         "start": 270.31,
         "end": 274.86,
-        "text": "हां जी, ये डिस्प्ले वाला देख लीजिए, इसी मॉडल का है."
+        "text": "haan ji, ye display wala dekh lijiye, isi model ka hai."
       },
       {
         "id": 39,
         "speaker": "A",
         "start": 275.36,
         "end": 278.96,
-        "text": "साइज ठीक है, इसे चला कर भी दिखा देंगे?"
+        "text": "size theek hai, ise chala kar bhi dikha denge?"
       },
       {
         "id": 40,
@@ -315,35 +315,35 @@
         "speaker": "A",
         "start": 299.08000000000004,
         "end": 309.394,
-        "text": "Theek hai, yahi pack kar dijiye. Bill bhi bana dijiye. Ji, naya seal band piece ye raha. कुल ढाई सौ रुपए हुए।"
+        "text": "Theek hai, yahi pack kar dijiye. Bill bhi bana dijiye. Ji, naya seal band piece ye raha. kul dhai sau rupaye hue"
       },
       {
         "id": 45,
         "speaker": "A",
         "start": 310.29400000000004,
         "end": 313.04400000000004,
-        "text": "ये लीजिए ढाई सौ।"
+        "text": "ye lijiye dhai sau"
       },
       {
         "id": 46,
         "speaker": "C",
         "start": 313.79400000000004,
         "end": 314.144,
-        "text": "जी,"
+        "text": "ji,"
       },
       {
         "id": 47,
         "speaker": "C",
         "start": 314.994,
         "end": 318.944,
-        "text": "पैसे मिल गए; ये आपका माउस और बिल ..."
+        "text": "paise mil gaye; ye aapka mouse aur bill ..."
       },
       {
         "id": 48,
         "speaker": "A",
         "start": 320.29400000000004,
         "end": 322.744,
-        "text": "ठीक है, धन्यवाद।"
+        "text": "theek hai, dhanyavaad."
       }
     ],
     "provider": "openai:gpt-4o-transcribe-diarize",

@@ -139,3 +139,6 @@ a.recent-row:hover .recent-go { transform: translateX(3px); }
 .rate-filter button.on { background: var(--accent-soft); border-color: var(--accent); color: var(--accent-ink); }
 .rate-filter button.on span { color: var(--accent-ink); }
 .rate-filter button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* Polish: no heavy coloured edges on cards; the status dot in the heading carries the meaning */
+.flat-card.coaching, .flat-card.warn, .flat-card.good { border-left: 1px solid var(--line); }

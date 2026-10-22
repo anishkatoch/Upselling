@@ -26,9 +26,10 @@ export default function SentimentDonut({ people }: { people: Person[] }) {
   const reduce = useReducedMotion();
   const svgRef = useRef<SVGSVGElement>(null);
   const inView = useInView(svgRef, { once: true, margin: "-20px" });
-  const [shown, setShown] = useState(0);
+  const [shown, setShown] = useState(total);
   useEffect(() => {
     if (reduce || !inView) return;
+    setShown(0);
     const c = animate(0, total, { duration: SWEEP, ease: EASE, onUpdate: (v) => setShown(Math.round(v)), onComplete: () => setShown(total) });
     return () => c.stop();
   }, [inView, total, reduce]);

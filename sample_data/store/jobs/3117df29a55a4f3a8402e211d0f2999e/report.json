@@ -59,9 +59,9 @@
           {
             "segment_id": 9,
             "speaker": "B",
-            "quote": "नहीं, भैया, रहने दीजिए, मैने बोला न सिर्फ फोन चाहिए।",
+            "quote": "nahi, bhaiya, rehne dijiye, maine bola na sirf phone chahiye",
             "evidence_source": "both",
-            "evidence": "The reminder 'मैने बोला न' explicitly signals irritation at having to repeat the refusal. Voice analysis also identifies a firm, irritated delivery. Acoustic measurements show quieter, slower speech rather than an escalation in volume or speed, supporting a restrained rather than intense reaction."
+            "evidence": "The reminder 'maine bola na' explicitly signals irritation at having to repeat the refusal. Voice analysis also identifies a firm, irritated delivery. Acoustic measurements show quieter, slower speech rather than an escalation in volume or speed, supporting a restrained rather than intense reaction."
           }
         ]
       },
@@ -76,7 +76,7 @@
           {
             "salesperson": "A",
             "segment_id": 6,
-            "quote": "सर, इसके साथ ये कवर भी लगा दूँ. चार सौ निन्यानवे का है, किनारों पर अच्छी पकर है और कैमरे के आसपास भी थोड़ा उठा हुआ है.",
+            "quote": "sir, iske saath ye cover bhi laga doon. chaar sau ninyanve ka hai, kinaron par achhi pakar hai aur camere ke aaspaas bhi thoda utha hua hai.",
             "technique": "cross_sell",
             "offered_item": "Phone cover for ₹499",
             "salesperson_initiated": true,
@@ -88,7 +88,7 @@
           {
             "salesperson": "A",
             "segment_id": 8,
-            "quote": "फोन के साथ लेंगे तो यही कवर दो सौ निन्यानवे में दे दूंगा सर। अलग से लेने पर पूरी कीमत लगेगी।",
+            "quote": "phone ke saath lenge to yahi cover do sau ninyanve mein de doonga sir. alag se lene par poori keemat lagegi.",
             "technique": "discount_offer",
             "offered_item": "Phone cover discounted to ₹299 when purchased with the phone",
             "salesperson_initiated": true,
@@ -99,26 +99,26 @@
           }
         ],
         "excluded_candidates": [
-          "जी, नीला है. यही छः जीबी रैम और एक सौ अठाईस जीबी स्टोरेज वाला है. निकालदू? -> Confirms the requested phone's availability and specifications; no higher-tier product is proposed.",
-          "चार्जर आता है, सर, कवर नहीं आता; फोन, चार्जर और केबल है अंदर. -> Answers the customer's question about box contents; it does not offer an additional purchase."
+          "ji, neela hai. yahi chhah gb ram aur ek sau athais gb storage wala hai. nikaldu? -> Confirms the requested phone's availability and specifications; no higher-tier product is proposed.",
+          "charger aata hai, sir, cover nahi aata; phone, charger aur cable hai andar. -> Answers the customer's question about box contents; it does not offer an additional purchase."
         ],
         "pushy_upsell": true,
-        "pushy_reason": "After the customer clearly said, “नहीं, कवर नहीं चाहिए. अभी बस फोन लेना है,” the salesperson offered the cover again at a discounted price. This prompted an irritated second refusal, although the salesperson then apologized and stopped.",
+        "pushy_reason": "After the customer clearly said, “nahi, cover nahi chahiye. abhi bas phone lena hai,” the salesperson offered the cover again at a discounted price. This prompted an irritated second refusal, although the salesperson then apologized and stopped.",
         "confidence": 0.99,
         "summary": "The salesperson made two upsell attempts: a ₹499 cover offer and, after rejection, a ₹299 offer conditional on buying it with the phone. Both were rejected; after the customer's irritated reminder that they wanted only the phone, the salesperson apologized and completed the phone-only transaction.",
         "greeting_given": true,
-        "greeting_quote": "नमस्ते सर, बताइए क्या दिखाऊँ?",
+        "greeting_quote": "namaste sir, bataiye kya dikhaun?",
         "greeting_segment_id": 0,
         "products_discussed": [
-          "फोन",
-          "कवर",
-          "चार्जर",
-          "केबल"
+          "phone",
+          "cover",
+          "charger",
+          "cable"
         ],
-        "customer_feedback": "The customer reiterated, “मैने बोला न सिर्फ फोन चाहिए,” objecting to being offered the cover again after already declining it.",
+        "customer_feedback": "The customer reiterated, “maine bola na sirf phone chahiye,” objecting to being offered the cover again after already declining it.",
         "customer_feedback_segment_id": 9,
         "unanswered_questions": [],
-        "coaching_feedback": "You greeted the customer politely, clearly explained the box contents, and recovered from the second refusal by apologizing and proceeding with the phone-only bill. The key improvement is to accept “कवर नहीं चाहिए” the first time rather than countering with a discount, because the customer's objection was wanting only the phone—not the cover's price."
+        "coaching_feedback": "You greeted the customer politely, clearly explained the box contents, and recovered from the second refusal by apologizing and proceeding with the phone-only bill. The key improvement is to accept “cover nahi chahiye” the first time rather than countering with a discount, because the customer's objection was wanting only the phone—not the cover's price."
       },
       "attempted_upsell": true,
       "effort_score": 6.3,
@@ -160,14 +160,14 @@
           {
             "segment_id": 21,
             "speaker": "B (customer)",
-            "quote": "नहीं, वाइरलेस नहीं चाहिए, बजट बोला न, पांचसो।",
+            "quote": "nahi, wireless nahi chahiye, budget bola na, paanchso.",
             "evidence_source": "both",
             "evidence": "Repeats the budget and rejects wireless with wording that signals impatience at not being heard. The voice label reports a firm, impatient tone."
           },
           {
             "segment_id": 25,
             "speaker": "B (customer)",
-            "quote": "की बोर्ड चाहिए ही नहीं मुझे-आप चार सो चालिस वाले का बिल क्यों नहीं बना रहे?",
+            "quote": "ki board chahiye hi nahi mujhe-aap chaar so chalis wale ka bill kyun nahi bana rahe?",
             "evidence_source": "both",
             "evidence": "Directly challenges the failure to bill the selected item after another unwanted offer. The voice is labelled irritated and sharper; faster speech supports the escalation."
           },
@@ -181,14 +181,14 @@
           {
             "segment_id": 29,
             "speaker": "B (customer)",
-            "quote": "नहीं कुछ भी एक्स्ट्रा मत जोड़ना। आप सुन क्यों नहीं रहे? अब बिल बना दो वरना मैं जा रहा हूँ।",
+            "quote": "nahi kuch bhi extra mat jodna. aap sun kyun nahi rahe? ab bill bana do warna main ja raha hoon",
             "evidence_source": "both",
             "evidence": "Accuses the salesperson of not listening, refuses all extras, and threatens to leave unless billing proceeds. The voice label identifies anger and raised emphasis."
           },
           {
             "segment_id": 31,
             "speaker": "B (customer)",
-            "quote": "कर दिया, माउस और बिल दे दो। एक चीज लेने में इतना टाइम लगा दिया।",
+            "quote": "kar diya, mouse aur bill de do. ek cheez lene mein itna time laga diya.",
             "evidence_source": "both",
             "evidence": "Ends with a direct complaint about the time wasted, showing unresolved annoyance despite completing payment. The voice remains irritated, with elevated loudness supporting the assessment."
           }
@@ -203,7 +203,7 @@
           {
             "salesperson": "A",
             "segment_id": 20,
-            "quote": "ताक कर देता हूं; लेकिन एक बार ये एक नौ नौ वाला वायरलेस देख लो, केबल का झंझट नहीं रहेगा, ग्रिप भी बेटर है।",
+            "quote": "taak kar deta hoon; lekin ek baar ye ek nau nau wala wireless dekh lo, cable ka jhanjhat nahi rahega, grip bhi better hai",
             "technique": "upgrade",
             "offered_item": "Wireless mouse instead of the selected basic wired mouse",
             "salesperson_initiated": true,
@@ -215,7 +215,7 @@
           {
             "salesperson": "A",
             "segment_id": 22,
-            "quote": "साथ में माउसपैड रख दूं,",
+            "quote": "saath mein mousepad rakh doon,",
             "technique": "cross_sell",
             "offered_item": "Mousepad priced at ₹199",
             "salesperson_initiated": true,
@@ -227,7 +227,7 @@
           {
             "salesperson": "A",
             "segment_id": 24,
-            "quote": "एक मिनट, की बोर्ड-माउस कॉम्बो भी है एक हजार दो सौ तिरानवे का। अलग अलग लेने से सस्ता पड़ता है। माउस की जगह पूरा कॉम्बो कर दूँ?",
+            "quote": "ek minute, ki board-mouse combo bhi hai ek hazaar do sau tiranve ka alag alag lene se sasta padta hai mouse ki jagah poora combo kar doon?",
             "technique": "bundle",
             "offered_item": "Keyboard-mouse combo priced at ₹1,293",
             "salesperson_initiated": true,
@@ -262,7 +262,7 @@
           }
         ],
         "excluded_candidates": [
-          "ये वाला चौरा चौरा नौ का है यू एस भी लगाओगे तो सीधा चल जाएगा सेट अप का कुछ नहीं है -> Showing and explaining the basic wired mouse the customer requested, not suggesting an additional purchase or upgrade.",
+          "ye wala chaura chaura nau ka hai u s bhi lagaoge to seedha chal jayega set ap ka kuch nahi hai -> Showing and explaining the basic wired mouse the customer requested, not suggesting an additional purchase or upgrade.",
           "Sorry, sir, sirf wired mouse total four forty nine. Koi extra charge nahi. Ye raha bill, upi yahan kar dijiye. -> Completing the original requested purchase without extras, not an upsell."
         ],
         "pushy_upsell": true,
@@ -270,26 +270,26 @@
         "confidence": 0.58,
         "summary": "Five upsell attempts were made, and all were rejected. The salesperson eventually apologized and billed only the selected wired mouse for ₹449. Speaker-label errors reduce confidence: the mousepad offer is attributed to the salesperson from its wording despite customer labels, while “Arey, kitni baar boloon” is treated as the customer's refusal, consistent with the mood notes.",
         "greeting_given": true,
-        "greeting_quote": "हां जी,",
+        "greeting_quote": "haan ji,",
         "greeting_segment_id": 15,
         "products_discussed": [
-          "वायर्ड माउस",
-          "वायरलेस",
-          "माउसपैड",
-          "की बोर्ड-माउस कॉम्बो",
+          "wired mouse",
+          "wireless",
+          "mousepad",
+          "ki board-mouse combo",
           "extended warranty"
         ],
-        "customer_feedback": "The customer wanted only the selected wired mouse within ₹500, objected to repeated extras and wasted time, and warned, “अब बिल बना दो वरना मैं जा रहा हूँ।”",
+        "customer_feedback": "The customer wanted only the selected wired mouse within ₹500, objected to repeated extras and wasted time, and warned, “ab bill bana do warna main ja raha hoon”",
         "customer_feedback_segment_id": 29,
         "unanswered_questions": [
           {
             "segment_id": 31,
             "speaker": "B",
-            "question": "माउस और बिल दे दो।",
+            "question": "mouse aur bill de do.",
             "note": "The bill had already been presented, but the transcript ends without a salesperson reply or confirmation that the mouse was handed over."
           }
         ],
-        "coaching_feedback": "You initially matched the basic wired-mouse request and eventually recovered with “sirf wired mouse total four forty nine” and “Koi extra charge nahi.” Once the customer said “बजट बोला न, पांचसो,” the most useful change was to stop offering extras and immediately bill the selected mouse; the subsequent combo, wireless and warranty pitches prolonged the transaction until the customer threatened to leave."
+        "coaching_feedback": "You initially matched the basic wired-mouse request and eventually recovered with “sirf wired mouse total four forty nine” and “Koi extra charge nahi.” Once the customer said “budget bola na, paanchso,” the most useful change was to stop offering extras and immediately bill the selected mouse; the subsequent combo, wireless and warranty pitches prolonged the transaction until the customer threatened to leave."
       },
       "attempted_upsell": true,
       "effort_score": 10.0,
@@ -346,9 +346,9 @@
         ],
         "upsell_attempts": [],
         "excluded_candidates": [
-          "ये वाला ढाई सौ का है, वायरड है, यू एस बी में लगा कर सीधे चला सकते हैं. -> Recommends the requested wired USB mouse within the buyer’s ₹300 budget.",
-          "एक बार हाथ में ले कर देख लो, -> Suggests checking the main product’s fit, not buying an additional or upgraded item.",
-          "हां जी, ये डिस्प्ले वाला देख लीजिए, इसी मॉडल का है. -> Provides a display sample in response to the buyer’s size concern.",
+          "ye wala dhai sau ka hai, wired hai, u s bee mein laga kar seedhe chala sakte hain. -> Recommends the requested wired USB mouse within the buyer’s ₹300 budget.",
+          "ek baar haath mein le kar dekh lo, -> Suggests checking the main product’s fit, not buying an additional or upgraded item.",
+          "haan ji, ye display wala dekh lijiye, isi model ka hai. -> Provides a display sample in response to the buyer’s size concern.",
           "Bilkul. Is laptop mein laga deta hoon. Aap click aur scroll karke dekh lijiye. -> Fulfills the buyer’s request to test the mouse.",
           "Ek saal ki company warranty hai. -> Answers the buyer’s warranty question; no paid protection or extended warranty is offered."
         ],
@@ -357,10 +357,10 @@
         "confidence": 0.58,
         "summary": "No upsell was attempted: the buyer requested a basic wired USB mouse within ₹300 and purchased a ₹250 model after checking its size, operation, and warranty. Speaker labels are inconsistent: B delivers seller explanations, while A contains both buyer and seller turns; this lowers attribution confidence.",
         "greeting_given": true,
-        "greeting_quote": "जी, बताईए क्या चाहिए?",
+        "greeting_quote": "ji, bataiye kya chahiye?",
         "greeting_segment_id": 32,
         "products_discussed": [
-          "वायर्ड यू एसबी माउस"
+          "wired u sb mouse"
         ],
         "customer_feedback": null,
         "customer_feedback_segment_id": null,
@@ -570,7 +570,7 @@
           "role": "customer",
           "start": 48.458000000000006,
           "end": 52.554,
-          "text": "नहीं, कवर नहीं चाहिए. अभी बस फोन लेना है।",
+          "text": "nahi, cover nahi chahiye. abhi bas phone lena hai",
           "is_highlighted": false
         },
         {
@@ -579,7 +579,7 @@
           "role": "salesperson",
           "start": 53.104,
           "end": 61.754000000000005,
-          "text": "फोन के साथ लेंगे तो यही कवर दो सौ निन्यानवे में दे दूंगा सर। अलग से लेने पर पूरी कीमत लगेगी।",
+          "text": "phone ke saath lenge to yahi cover do sau ninyanve mein de doonga sir. alag se lene par poori keemat lagegi.",
           "is_highlighted": false
         },
         {
@@ -588,7 +588,7 @@
           "role": "customer",
           "start": 62.404,
           "end": 68.554,
-          "text": "नहीं, भैया, रहने दीजिए, मैने बोला न सिर्फ फोन चाहिए।",
+          "text": "nahi, bhaiya, rehne dijiye, maine bola na sirf phone chahiye",
           "is_highlighted": true
         },
         {
@@ -597,7 +597,7 @@
           "role": "salesperson",
           "start": 69.35400000000001,
           "end": 71.304,
-          "text": "जी सर, माफ कीजिए,",
+          "text": "ji sir, maaf kijiye,",
           "is_highlighted": false
         },
         {
@@ -606,7 +606,7 @@
           "role": "salesperson",
           "start": 72.10400000000001,
           "end": 77.754,
-          "text": "सिर्फ फोन का बिल बना रहा हूं, कुल चौदा हजार नौ सौ निन्यानवे रुपए है।",
+          "text": "sirf phone ka bill bana raha hoon, kul chauda hazaar nau sau ninyanve rupaye hai",
           "is_highlighted": false
         }
       ]
@@ -625,7 +625,7 @@
           "role": "salesperson",
           "start": 25.358,
           "end": 30.758000000000003,
-          "text": "चार्जर आता है, सर, कवर नहीं आता; फोन, चार्जर और केबल है अंदर.",
+          "text": "charger aata hai, sir, cover nahi aata; phone, charger aur cable hai andar.",
           "is_highlighted": false
         },
         {
@@ -634,7 +634,7 @@
           "role": "customer",
           "start": 32.008,
           "end": 36.608000000000004,
-          "text": "ठीक है, यही फोन दे दीजिए, बिल मेरे नाम से बनाना.",
+          "text": "theek hai, yahi phone de dijiye, bill mere naam se banana.",
           "is_highlighted": false
         },
         {
@@ -643,7 +643,7 @@
           "role": "salesperson",
           "start": 37.558,
           "end": 47.408,
-          "text": "सर, इसके साथ ये कवर भी लगा दूँ. चार सौ निन्यानवे का है, किनारों पर अच्छी पकर है और कैमरे के आसपास भी थोड़ा उठा हुआ है.",
+          "text": "sir, iske saath ye cover bhi laga doon. chaar sau ninyanve ka hai, kinaron par achhi pakar hai aur camere ke aaspaas bhi thoda utha hua hai.",
           "is_highlighted": true
         },
         {
@@ -652,7 +652,7 @@
           "role": "customer",
           "start": 48.458000000000006,
           "end": 52.554,
-          "text": "नहीं, कवर नहीं चाहिए. अभी बस फोन लेना है।",
+          "text": "nahi, cover nahi chahiye. abhi bas phone lena hai",
           "is_highlighted": false
         },
         {
@@ -661,7 +661,7 @@
           "role": "salesperson",
           "start": 53.104,
           "end": 61.754000000000005,
-          "text": "फोन के साथ लेंगे तो यही कवर दो सौ निन्यानवे में दे दूंगा सर। अलग से लेने पर पूरी कीमत लगेगी।",
+          "text": "phone ke saath lenge to yahi cover do sau ninyanve mein de doonga sir. alag se lene par poori keemat lagegi.",
           "is_highlighted": false
         }
       ]
@@ -680,7 +680,7 @@
           "role": "salesperson",
           "start": 37.558,
           "end": 47.408,
-          "text": "सर, इसके साथ ये कवर भी लगा दूँ. चार सौ निन्यानवे का है, किनारों पर अच्छी पकर है और कैमरे के आसपास भी थोड़ा उठा हुआ है.",
+          "text": "sir, iske saath ye cover bhi laga doon. chaar sau ninyanve ka hai, kinaron par achhi pakar hai aur camere ke aaspaas bhi thoda utha hua hai.",
           "is_highlighted": false
         },
         {
@@ -689,7 +689,7 @@
           "role": "customer",
           "start": 48.458000000000006,
           "end": 52.554,
-          "text": "नहीं, कवर नहीं चाहिए. अभी बस फोन लेना है।",
+          "text": "nahi, cover nahi chahiye. abhi bas phone lena hai",
           "is_highlighted": false
         },
         {
@@ -698,7 +698,7 @@
           "role": "salesperson",
           "start": 53.104,
           "end": 61.754000000000005,
-          "text": "फोन के साथ लेंगे तो यही कवर दो सौ निन्यानवे में दे दूंगा सर। अलग से लेने पर पूरी कीमत लगेगी।",
+          "text": "phone ke saath lenge to yahi cover do sau ninyanve mein de doonga sir. alag se lene par poori keemat lagegi.",
           "is_highlighted": true
         },
         {
@@ -707,7 +707,7 @@
           "role": "customer",
           "start": 62.404,
           "end": 68.554,
-          "text": "नहीं, भैया, रहने दीजिए, मैने बोला न सिर्फ फोन चाहिए।",
+          "text": "nahi, bhaiya, rehne dijiye, maine bola na sirf phone chahiye",
           "is_highlighted": false
         },
         {
@@ -716,7 +716,7 @@
           "role": "salesperson",
           "start": 69.35400000000001,
           "end": 71.304,
-          "text": "जी सर, माफ कीजिए,",
+          "text": "ji sir, maaf kijiye,",
           "is_highlighted": false
         }
       ]
@@ -735,7 +735,7 @@
           "role": "salesperson",
           "start": 0.0,
           "end": 3.3999999999999995,
-          "text": "नमस्ते सर, बताइए क्या दिखाऊँ?",
+          "text": "namaste sir, bataiye kya dikhaun?",
           "is_highlighted": true
         },
         {
@@ -744,7 +744,7 @@
           "role": "customer",
           "start": 3.999999999999999,
           "end": 10.05,
-          "text": "ये जो चौदा हजार नौसो निन्यानवे वाला फोन लगा है, इसका नीला रंग मिलेगा?",
+          "text": "ye jo chauda hazaar nauso ninyanve wala phone laga hai, iska neela rang milega?",
           "is_highlighted": false
         },
         {
@@ -753,7 +753,7 @@
           "role": "salesperson",
           "start": 11.15,
           "end": 18.8,
-          "text": "जी, नीला है. यही छः जीबी रैम और एक सौ अठाईस जीबी स्टोरेज वाला है. निकालदू?",
+          "text": "ji, neela hai. yahi chhah gb ram aur ek sau athais gb storage wala hai. nikaldu?",
           "is_highlighted": false
         }
       ]
@@ -772,7 +772,7 @@
           "role": "customer",
           "start": 48.458000000000006,
           "end": 52.554,
-          "text": "नहीं, कवर नहीं चाहिए. अभी बस फोन लेना है।",
+          "text": "nahi, cover nahi chahiye. abhi bas phone lena hai",
           "is_highlighted": false
         },
         {
@@ -781,7 +781,7 @@
           "role": "salesperson",
           "start": 53.104,
           "end": 61.754000000000005,
-          "text": "फोन के साथ लेंगे तो यही कवर दो सौ निन्यानवे में दे दूंगा सर। अलग से लेने पर पूरी कीमत लगेगी।",
+          "text": "phone ke saath lenge to yahi cover do sau ninyanve mein de doonga sir. alag se lene par poori keemat lagegi.",
           "is_highlighted": false
         },
         {
@@ -790,7 +790,7 @@
           "role": "customer",
           "start": 62.404,
           "end": 68.554,
-          "text": "नहीं, भैया, रहने दीजिए, मैने बोला न सिर्फ फोन चाहिए।",
+          "text": "nahi, bhaiya, rehne dijiye, maine bola na sirf phone chahiye",
           "is_highlighted": true
         },
         {
@@ -799,7 +799,7 @@
           "role": "salesperson",
           "start": 69.35400000000001,
           "end": 71.304,
-          "text": "जी सर, माफ कीजिए,",
+          "text": "ji sir, maaf kijiye,",
           "is_highlighted": false
         },
         {
@@ -808,7 +808,7 @@
           "role": "salesperson",
           "start": 72.10400000000001,
           "end": 77.754,
-          "text": "सिर्फ फोन का बिल बना रहा हूं, कुल चौदा हजार नौ सौ निन्यानवे रुपए है।",
+          "text": "sirf phone ka bill bana raha hoon, kul chauda hazaar nau sau ninyanve rupaye hai",
           "is_highlighted": false
         }
       ]
@@ -827,7 +827,7 @@
           "role": "customer",
           "start": 129.198,
           "end": 132.398,
-          "text": "हाँ, ठीक है, यहीं पैक कर दो।",
+          "text": "haan, theek hai, yahin pack kar do.",
           "is_highlighted": false
         },
         {
@@ -836,7 +836,7 @@
           "role": "salesperson",
           "start": 133.59599999999998,
           "end": 141.946,
-          "text": "ताक कर देता हूं; लेकिन एक बार ये एक नौ नौ वाला वायरलेस देख लो, केबल का झंझट नहीं रहेगा, ग्रिप भी बेटर है।",
+          "text": "taak kar deta hoon; lekin ek baar ye ek nau nau wala wireless dekh lo, cable ka jhanjhat nahi rahega, grip bhi better hai",
           "is_highlighted": false
         },
         {
@@ -845,7 +845,7 @@
           "role": "customer",
           "start": 143.696,
           "end": 151.896,
-          "text": "नहीं, वाइरलेस नहीं चाहिए, बजट बोला न, पांचसो। अच्छा, वायर्ड ही सही,",
+          "text": "nahi, wireless nahi chahiye, budget bola na, paanchso. achha, wired hi sahi,",
           "is_highlighted": true
         },
         {
@@ -854,7 +854,7 @@
           "role": "customer",
           "start": 152.74599999999998,
           "end": 154.24599999999998,
-          "text": "साथ में माउसपैड रख दूं,",
+          "text": "saath mein mousepad rakh doon,",
           "is_highlighted": false
         },
         {
@@ -863,7 +863,7 @@
           "role": "customer",
           "start": 155.046,
           "end": 163.82999999999998,
-          "text": "वन नाइन्टी नाइन का है, टेबल पे स्क्रैचेस भी नहीं आएंगे। पैड घर पे है-सिर्फ़ मौस का बिल बना दो-जल्दी है।",
+          "text": "van ninety nine ka hai, table pe scratches bhi nahi aayenge. pad ghar pe hai-sirf maus ka bill bana do-jaldi hai",
           "is_highlighted": false
         }
       ]
@@ -882,7 +882,7 @@
           "role": "customer",
           "start": 155.046,
           "end": 163.82999999999998,
-          "text": "वन नाइन्टी नाइन का है, टेबल पे स्क्रैचेस भी नहीं आएंगे। पैड घर पे है-सिर्फ़ मौस का बिल बना दो-जल्दी है।",
+          "text": "van ninety nine ka hai, table pe scratches bhi nahi aayenge. pad ghar pe hai-sirf maus ka bill bana do-jaldi hai",
           "is_highlighted": false
         },
         {
@@ -891,7 +891,7 @@
           "role": "salesperson",
           "start": 164.28,
           "end": 173.38,
-          "text": "एक मिनट, की बोर्ड-माउस कॉम्बो भी है एक हजार दो सौ तिरानवे का। अलग अलग लेने से सस्ता पड़ता है। माउस की जगह पूरा कॉम्बो कर दूँ?",
+          "text": "ek minute, ki board-mouse combo bhi hai ek hazaar do sau tiranve ka alag alag lene se sasta padta hai mouse ki jagah poora combo kar doon?",
           "is_highlighted": false
         },
         {
@@ -900,7 +900,7 @@
           "role": "customer",
           "start": 174.23,
           "end": 179.48,
-          "text": "की बोर्ड चाहिए ही नहीं मुझे-आप चार सो चालिस वाले का बिल क्यों नहीं बना रहे?",
+          "text": "ki board chahiye hi nahi mujhe-aap chaar so chalis wale ka bill kyun nahi bana rahe?",
           "is_highlighted": true
         },
         {
@@ -937,7 +937,7 @@
           "role": "customer",
           "start": 174.23,
           "end": 179.48,
-          "text": "की बोर्ड चाहिए ही नहीं मुझे-आप चार सो चालिस वाले का बिल क्यों नहीं बना रहे?",
+          "text": "ki board chahiye hi nahi mujhe-aap chaar so chalis wale ka bill kyun nahi bana rahe?",
           "is_highlighted": false
         },
         {
@@ -973,7 +973,7 @@
           "role": "customer",
           "start": 211.75199999999998,
           "end": 220.202,
-          "text": "नहीं कुछ भी एक्स्ट्रा मत जोड़ना। आप सुन क्यों नहीं रहे? अब बिल बना दो वरना मैं जा रहा हूँ।",
+          "text": "nahi kuch bhi extra mat jodna. aap sun kyun nahi rahe? ab bill bana do warna main ja raha hoon",
           "is_highlighted": false
         }
       ]
@@ -1010,7 +1010,7 @@
           "role": "customer",
           "start": 211.75199999999998,
           "end": 220.202,
-          "text": "नहीं कुछ भी एक्स्ट्रा मत जोड़ना। आप सुन क्यों नहीं रहे? अब बिल बना दो वरना मैं जा रहा हूँ।",
+          "text": "nahi kuch bhi extra mat jodna. aap sun kyun nahi rahe? ab bill bana do warna main ja raha hoon",
           "is_highlighted": true
         },
         {
@@ -1028,7 +1028,7 @@
           "role": "customer",
           "start": 230.902,
           "end": 237.036,
-          "text": "कर दिया, माउस और बिल दे दो। एक चीज लेने में इतना टाइम लगा दिया।",
+          "text": "kar diya, mouse aur bill de do. ek cheez lene mein itna time laga diya.",
           "is_highlighted": false
         }
       ]
@@ -1047,7 +1047,7 @@
           "role": "customer",
           "start": 211.75199999999998,
           "end": 220.202,
-          "text": "नहीं कुछ भी एक्स्ट्रा मत जोड़ना। आप सुन क्यों नहीं रहे? अब बिल बना दो वरना मैं जा रहा हूँ।",
+          "text": "nahi kuch bhi extra mat jodna. aap sun kyun nahi rahe? ab bill bana do warna main ja raha hoon",
           "is_highlighted": false
         },
         {
@@ -1065,7 +1065,7 @@
           "role": "customer",
           "start": 230.902,
           "end": 237.036,
-          "text": "कर दिया, माउस और बिल दे दो। एक चीज लेने में इतना टाइम लगा दिया।",
+          "text": "kar diya, mouse aur bill de do. ek cheez lene mein itna time laga diya.",
           "is_highlighted": true
         }
       ]
@@ -1084,7 +1084,7 @@
           "role": "salesperson",
           "start": 121.44800000000001,
           "end": 128.348,
-          "text": "ये वाला चौरा चौरा नौ का है यू एस भी लगाओगे तो सीधा चल जाएगा सेट अप का कुछ नहीं है",
+          "text": "ye wala chaura chaura nau ka hai u s bhi lagaoge to seedha chal jayega set ap ka kuch nahi hai",
           "is_highlighted": false
         },
         {
@@ -1093,7 +1093,7 @@
           "role": "customer",
           "start": 129.198,
           "end": 132.398,
-          "text": "हाँ, ठीक है, यहीं पैक कर दो।",
+          "text": "haan, theek hai, yahin pack kar do.",
           "is_highlighted": false
         },
         {
@@ -1102,7 +1102,7 @@
           "role": "salesperson",
           "start": 133.59599999999998,
           "end": 141.946,
-          "text": "ताक कर देता हूं; लेकिन एक बार ये एक नौ नौ वाला वायरलेस देख लो, केबल का झंझट नहीं रहेगा, ग्रिप भी बेटर है।",
+          "text": "taak kar deta hoon; lekin ek baar ye ek nau nau wala wireless dekh lo, cable ka jhanjhat nahi rahega, grip bhi better hai",
           "is_highlighted": true
         },
         {
@@ -1111,7 +1111,7 @@
           "role": "customer",
           "start": 143.696,
           "end": 151.896,
-          "text": "नहीं, वाइरलेस नहीं चाहिए, बजट बोला न, पांचसो। अच्छा, वायर्ड ही सही,",
+          "text": "nahi, wireless nahi chahiye, budget bola na, paanchso. achha, wired hi sahi,",
           "is_highlighted": false
         },
         {
@@ -1120,7 +1120,7 @@
           "role": "customer",
           "start": 152.74599999999998,
           "end": 154.24599999999998,
-          "text": "साथ में माउसपैड रख दूं,",
+          "text": "saath mein mousepad rakh doon,",
           "is_highlighted": false
         }
       ]
@@ -1139,7 +1139,7 @@
           "role": "salesperson",
           "start": 133.59599999999998,
           "end": 141.946,
-          "text": "ताक कर देता हूं; लेकिन एक बार ये एक नौ नौ वाला वायरलेस देख लो, केबल का झंझट नहीं रहेगा, ग्रिप भी बेटर है।",
+          "text": "taak kar deta hoon; lekin ek baar ye ek nau nau wala wireless dekh lo, cable ka jhanjhat nahi rahega, grip bhi better hai",
           "is_highlighted": false
         },
         {
@@ -1148,7 +1148,7 @@
           "role": "customer",
           "start": 143.696,
           "end": 151.896,
-          "text": "नहीं, वाइरलेस नहीं चाहिए, बजट बोला न, पांचसो। अच्छा, वायर्ड ही सही,",
+          "text": "nahi, wireless nahi chahiye, budget bola na, paanchso. achha, wired hi sahi,",
           "is_highlighted": false
         },
         {
@@ -1157,7 +1157,7 @@
           "role": "customer",
           "start": 152.74599999999998,
           "end": 154.24599999999998,
-          "text": "साथ में माउसपैड रख दूं,",
+          "text": "saath mein mousepad rakh doon,",
           "is_highlighted": true
         },
         {
@@ -1166,7 +1166,7 @@
           "role": "customer",
           "start": 155.046,
           "end": 163.82999999999998,
-          "text": "वन नाइन्टी नाइन का है, टेबल पे स्क्रैचेस भी नहीं आएंगे। पैड घर पे है-सिर्फ़ मौस का बिल बना दो-जल्दी है।",
+          "text": "van ninety nine ka hai, table pe scratches bhi nahi aayenge. pad ghar pe hai-sirf maus ka bill bana do-jaldi hai",
           "is_highlighted": false
         },
         {
@@ -1175,7 +1175,7 @@
           "role": "salesperson",
           "start": 164.28,
           "end": 173.38,
-          "text": "एक मिनट, की बोर्ड-माउस कॉम्बो भी है एक हजार दो सौ तिरानवे का। अलग अलग लेने से सस्ता पड़ता है। माउस की जगह पूरा कॉम्बो कर दूँ?",
+          "text": "ek minute, ki board-mouse combo bhi hai ek hazaar do sau tiranve ka alag alag lene se sasta padta hai mouse ki jagah poora combo kar doon?",
           "is_highlighted": false
         }
       ]
@@ -1194,7 +1194,7 @@
           "role": "customer",
           "start": 152.74599999999998,
           "end": 154.24599999999998,
-          "text": "साथ में माउसपैड रख दूं,",
+          "text": "saath mein mousepad rakh doon,",
           "is_highlighted": false
         },
         {
@@ -1203,7 +1203,7 @@
           "role": "customer",
           "start": 155.046,
           "end": 163.82999999999998,
-          "text": "वन नाइन्टी नाइन का है, टेबल पे स्क्रैचेस भी नहीं आएंगे। पैड घर पे है-सिर्फ़ मौस का बिल बना दो-जल्दी है।",
+          "text": "van ninety nine ka hai, table pe scratches bhi nahi aayenge. pad ghar pe hai-sirf maus ka bill bana do-jaldi hai",
           "is_highlighted": false
         },
         {
@@ -1212,7 +1212,7 @@
           "role": "salesperson",
           "start": 164.28,
           "end": 173.38,
-          "text": "एक मिनट, की बोर्ड-माउस कॉम्बो भी है एक हजार दो सौ तिरानवे का। अलग अलग लेने से सस्ता पड़ता है। माउस की जगह पूरा कॉम्बो कर दूँ?",
+          "text": "ek minute, ki board-mouse combo bhi hai ek hazaar do sau tiranve ka alag alag lene se sasta padta hai mouse ki jagah poora combo kar doon?",
           "is_highlighted": true
         },
         {
@@ -1221,7 +1221,7 @@
           "role": "customer",
           "start": 174.23,
           "end": 179.48,
-          "text": "की बोर्ड चाहिए ही नहीं मुझे-आप चार सो चालिस वाले का बिल क्यों नहीं बना रहे?",
+          "text": "ki board chahiye hi nahi mujhe-aap chaar so chalis wale ka bill kyun nahi bana rahe?",
           "is_highlighted": false
         },
         {
@@ -1249,7 +1249,7 @@
           "role": "salesperson",
           "start": 164.28,
           "end": 173.38,
-          "text": "एक मिनट, की बोर्ड-माउस कॉम्बो भी है एक हजार दो सौ तिरानवे का। अलग अलग लेने से सस्ता पड़ता है। माउस की जगह पूरा कॉम्बो कर दूँ?",
+          "text": "ek minute, ki board-mouse combo bhi hai ek hazaar do sau tiranve ka alag alag lene se sasta padta hai mouse ki jagah poora combo kar doon?",
           "is_highlighted": false
         },
         {
@@ -1258,7 +1258,7 @@
           "role": "customer",
           "start": 174.23,
           "end": 179.48,
-          "text": "की बोर्ड चाहिए ही नहीं मुझे-आप चार सो चालिस वाले का बिल क्यों नहीं बना रहे?",
+          "text": "ki board chahiye hi nahi mujhe-aap chaar so chalis wale ka bill kyun nahi bana rahe?",
           "is_highlighted": false
         },
         {
@@ -1331,7 +1331,7 @@
           "role": "customer",
           "start": 211.75199999999998,
           "end": 220.202,
-          "text": "नहीं कुछ भी एक्स्ट्रा मत जोड़ना। आप सुन क्यों नहीं रहे? अब बिल बना दो वरना मैं जा रहा हूँ।",
+          "text": "nahi kuch bhi extra mat jodna. aap sun kyun nahi rahe? ab bill bana do warna main ja raha hoon",
           "is_highlighted": false
         },
         {
@@ -1359,7 +1359,7 @@
           "role": "customer",
           "start": 211.75199999999998,
           "end": 220.202,
-          "text": "नहीं कुछ भी एक्स्ट्रा मत जोड़ना। आप सुन क्यों नहीं रहे? अब बिल बना दो वरना मैं जा रहा हूँ।",
+          "text": "nahi kuch bhi extra mat jodna. aap sun kyun nahi rahe? ab bill bana do warna main ja raha hoon",
           "is_highlighted": false
         },
         {
@@ -1377,7 +1377,7 @@
           "role": "customer",
           "start": 230.902,
           "end": 237.036,
-          "text": "कर दिया, माउस और बिल दे दो। एक चीज लेने में इतना टाइम लगा दिया।",
+          "text": "kar diya, mouse aur bill de do. ek cheez lene mein itna time laga diya.",
           "is_highlighted": true
         }
       ]
@@ -1396,7 +1396,7 @@
           "role": "salesperson",
           "start": 109.89800000000001,
           "end": 110.548,
-          "text": "हां जी,",
+          "text": "haan ji,",
           "is_highlighted": true
         },
         {
@@ -1405,7 +1405,7 @@
           "role": "salesperson",
           "start": 111.64800000000001,
           "end": 114.248,
-          "text": "बताईए क्या चाहिए?",
+          "text": "bataiye kya chahiye?",
           "is_highlighted": false
         },
         {
@@ -1414,7 +1414,7 @@
           "role": "customer",
           "start": 115.19800000000001,
           "end": 120.548,
-          "text": "लैपटाप के लिए एक बेसिक वायर्ड माउस चाहिए-पांच सौ के अंदर दिखाना।",
+          "text": "laptop ke liye ek basic wired mouse chahiye-paanch sau ke andar dikhana.",
           "is_highlighted": false
         }
       ]
@@ -1451,7 +1451,7 @@
           "role": "customer",
           "start": 211.75199999999998,
           "end": 220.202,
-          "text": "नहीं कुछ भी एक्स्ट्रा मत जोड़ना। आप सुन क्यों नहीं रहे? अब बिल बना दो वरना मैं जा रहा हूँ।",
+          "text": "nahi kuch bhi extra mat jodna. aap sun kyun nahi rahe? ab bill bana do warna main ja raha hoon",
           "is_highlighted": true
         },
         {
@@ -1469,7 +1469,7 @@
           "role": "customer",
           "start": 230.902,
           "end": 237.036,
-          "text": "कर दिया, माउस और बिल दे दो। एक चीज लेने में इतना टाइम लगा दिया।",
+          "text": "kar diya, mouse aur bill de do. ek cheez lene mein itna time laga diya.",
           "is_highlighted": false
         }
       ]
@@ -1488,7 +1488,7 @@
           "role": "customer",
           "start": 244.686,
           "end": 247.436,
-          "text": "जी, बताईए क्या चाहिए?",
+          "text": "ji, bataiye kya chahiye?",
           "is_highlighted": true
         },
         {
@@ -1497,7 +1497,7 @@
           "role": "salesperson",
           "start": 248.686,
           "end": 255.436,
-          "text": "लैपटॉप के लिए एक साधारण वायर्ड यू एसबी माउस चाहिए। तीन सौ रुपए तक का है।",
+          "text": "laptop ke liye ek saadharan wired u sb mouse chahiye teen sau rupaye tak ka hai",
           "is_highlighted": false
         },
         {
@@ -1506,7 +1506,7 @@
           "role": "customer",
           "start": 256.636,
           "end": 257.036,
-          "text": "जी!",
+          "text": "ji!",
           "is_highlighted": false
         }
       ]

@@ -7,84 +7,84 @@
         "speaker": "A",
         "start": 0.0,
         "end": 3.05,
-        "text": "जी बताये क्या चाहिये?"
+        "text": "ji bataye kya chahiye?"
       },
       {
         "id": 1,
         "speaker": "B",
         "start": 4.2,
         "end": 8.05,
-        "text": "लैपटॉप के लिए तार वाला यू एस बी माउस चाहिये-साधारण सा."
+        "text": "laptop ke liye taar wala u s bee mouse chahiye-saadharan sa."
       },
       {
         "id": 2,
         "speaker": "A",
         "start": 9.0,
         "end": 14.250000000000002,
-        "text": "जी ये वाला है, दो बटन है और बीच में स्क्रॉल व्हील है."
+        "text": "ji ye wala hai, do button hai aur beech mein scroll wheel hai."
       },
       {
         "id": 3,
         "speaker": "B",
         "start": 15.150000000000002,
         "end": 15.900000000000002,
-        "text": "कितने का है?"
+        "text": "kitne ka hai?"
       },
       {
         "id": 4,
         "speaker": "A",
         "start": 18.05,
         "end": 21.85,
-        "text": "तीन सौ निन्यानवे रुपये का है, टैक्स मिलाकर."
+        "text": "teen sau ninyanve rupaye ka hai, tax milakar."
       },
       {
         "id": 5,
         "speaker": "B",
         "start": 22.700000000000003,
         "end": 25.250000000000004,
-        "text": "ठीक है, एक बार चला कर दिखा देंगे?"
+        "text": "theek hai, ek baar chala kar dikha denge?"
       },
       {
         "id": 6,
         "speaker": "A",
         "start": 26.314,
         "end": 33.864000000000004,
-        "text": "खान जी, इस लैपटाप में लगा देता हूं. लीजिए, आप क्लिक और स्क्रोल करके देख लें."
+        "text": "khan ji, is laptop mein laga deta hoon. lijiye, aap click aur scroll karke dekh lein."
       },
       {
         "id": 7,
         "speaker": "B",
         "start": 35.114000000000004,
         "end": 38.314,
-        "text": "हाँ, सही चल रहा है, यहीं दे दीजिए."
+        "text": "haan, sahi chal raha hai, yahin de dijiye."
       },
       {
         "id": 8,
         "speaker": "A",
         "start": 39.014,
         "end": 44.664,
-        "text": "जी, इसी को वापस डिब्बे में रख देता हूं. बिल किस नाम से बनाओ?"
+        "text": "ji, isi ko wapas dibbe mein rakh deta hoon. bill kis naam se banao?"
       },
       {
         "id": 9,
         "speaker": "B",
         "start": 45.464,
         "end": 46.964,
-        "text": "अमित कुमार के नाम से."
+        "text": "amit kumar ke naam se."
       },
       {
         "id": 10,
         "speaker": "B",
         "start": 47.814,
         "end": 49.314,
-        "text": "भुक्तान यूपियाई से कर दूँ?"
+        "text": "bhuktaan upi se kar doon?"
       },
       {
         "id": 11,
         "speaker": "A",
         "start": 49.763999999999996,
         "end": 52.864000000000004,
-        "text": "जी, सामने वाला क्यूआर स्कैन कर लीजिए."
+        "text": "ji, saamne wala qr scan kar lijiye."
       },
       {
         "id": 12,
@@ -98,7 +98,7 @@
         "speaker": "B",
         "start": 56.547999999999995,
         "end": 58.797999999999995,
-        "text": "कर दिया। ये देखिए।"
+        "text": "kar diya. ye dekhiye."
       },
       {
         "id": 14,
@@ -112,7 +112,7 @@
         "speaker": "B",
         "start": 66.898,
         "end": 68.398,
-        "text": "ठीक है। धन्यवाद।"
+        "text": "theek hai dhanyavaad."
       },
       {
         "id": 16,

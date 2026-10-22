@@ -67,29 +67,29 @@
         "customer_requested": [
           "A simple wired USB mouse for a laptop.",
           "A demonstration before purchase.",
-          "A bill in the name अमित कुमार.",
+          "A bill in the name amit kumar.",
           "Payment by UPI."
         ],
         "upsell_attempts": [],
         "excluded_candidates": [
-          "जी ये वाला है, दो बटन है और बीच में स्क्रॉल व्हील है. -> Shows the simple mouse the customer requested; no premium alternative or add-on.",
-          "तीन सौ निन्यानवे रुपये का है, टैक्स मिलाकर. -> Answers the customer's price question; not an offer conditional on buying more.",
-          "खान जी, इस लैपटाप में लगा देता हूं. लीजिए, आप क्लिक और स्क्रोल करके देख लें. -> Demonstrates the requested mouse in response to the customer's request."
+          "ji ye wala hai, do button hai aur beech mein scroll wheel hai. -> Shows the simple mouse the customer requested; no premium alternative or add-on.",
+          "teen sau ninyanve rupaye ka hai, tax milakar. -> Answers the customer's price question; not an offer conditional on buying more.",
+          "khan ji, is laptop mein laga deta hoon. lijiye, aap click aur scroll karke dekh lein. -> Demonstrates the requested mouse in response to the customer's request."
         ],
         "pushy_upsell": false,
         "pushy_reason": "The salesperson only supplied, demonstrated, and billed the requested mouse without suggesting additional purchases.",
         "confidence": 0.99,
         "summary": "No upsell was attempted. The salesperson fulfilled the request for a simple wired USB mouse, quoted ₹399 including tax, demonstrated it, and completed UPI payment.",
         "greeting_given": true,
-        "greeting_quote": "जी बताये क्या चाहिये?",
+        "greeting_quote": "ji bataye kya chahiye?",
         "greeting_segment_id": 0,
         "products_discussed": [
-          "तार वाला यू एस बी माउस"
+          "taar wala u s bee mouse"
         ],
         "customer_feedback": null,
         "customer_feedback_segment_id": null,
         "unanswered_questions": [],
-        "coaching_feedback": "You matched the request for a “साधारण सा” wired mouse, gave the tax-inclusive price, and let the customer test clicking and scrolling before purchase. Before handing over the mouse and bill, briefly explain any applicable warranty or return terms to complete the otherwise clear checkout."
+        "coaching_feedback": "You matched the request for a “saadharan sa” wired mouse, gave the tax-inclusive price, and let the customer test clicking and scrolling before purchase. Before handing over the mouse and bill, briefly explain any applicable warranty or return terms to complete the otherwise clear checkout."
       },
       "attempted_upsell": false,
       "effort_score": 0.0,
@@ -412,7 +412,7 @@
           "role": "salesperson",
           "start": 0.0,
           "end": 3.05,
-          "text": "जी बताये क्या चाहिये?",
+          "text": "ji bataye kya chahiye?",
           "is_highlighted": true
         },
         {
@@ -421,7 +421,7 @@
           "role": "customer",
           "start": 4.2,
           "end": 8.05,
-          "text": "लैपटॉप के लिए तार वाला यू एस बी माउस चाहिये-साधारण सा.",
+          "text": "laptop ke liye taar wala u s bee mouse chahiye-saadharan sa.",
           "is_highlighted": false
         },
         {
@@ -430,7 +430,7 @@
           "role": "salesperson",
           "start": 9.0,
           "end": 14.250000000000002,
-          "text": "जी ये वाला है, दो बटन है और बीच में स्क्रॉल व्हील है.",
+          "text": "ji ye wala hai, do button hai aur beech mein scroll wheel hai.",
           "is_highlighted": false
         }
       ]

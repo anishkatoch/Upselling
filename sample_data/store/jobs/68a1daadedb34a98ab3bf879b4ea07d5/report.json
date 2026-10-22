@@ -297,7 +297,7 @@
           {
             "salesperson": "A",
             "segment_id": 44,
-            "quote": "इसके साथ माउस पैड भी चाहिए बेसिक वाला नौ नौ का है",
+            "quote": "iske saath mouse pad bhi chahiye basic wala nau nau ka hai",
             "technique": "cross_sell",
             "offered_item": "Basic mouse pad",
             "salesperson_initiated": true,
@@ -308,31 +308,31 @@
           }
         ],
         "excluded_candidates": [
-          "यह वाला चार सो छियाली का है. नॉर्मल यू एसबी पोर्ट है न आपके लैपटॉप में -> Recommendation of the requested wired mouse within the customer's budget, with a compatibility check; not an upsell.",
-          "जी, इस डेमो लैपटॉप पे लगा देता हूं ये देखिए, क्लिक और स्क्रॉल दोनों चेक कर लीजिये -> Demonstration explicitly requested by the customer; not an additional offer."
+          "yeh wala chaar so chhiyali ka hai. normal u sb port hai na aapke laptop mein -> Recommendation of the requested wired mouse within the customer's budget, with a compatibility check; not an upsell.",
+          "ji, is demo laptop pe laga deta hoon ye dekhiye, click aur scroll dono check kar lijiye -> Demonstration explicitly requested by the customer; not an additional offer."
         ],
         "pushy_upsell": false,
         "pushy_reason": "After the customer said they already had a mouse pad and wanted only the mouse, A proceeded to checkout without repeating the offer.",
         "confidence": 0.99,
         "summary": "A made one proactive cross-sell attempt by offering a basic mouse pad with the requested wired mouse. B declined because they already had a pad at home, and A respected the refusal.",
         "greeting_given": true,
-        "greeting_quote": "बिलकुल बताइये, क्या चाहिये था.",
+        "greeting_quote": "bilkul bataiye, kya chahiye tha.",
         "greeting_segment_id": 37,
         "products_discussed": [
-          "सिंपल वायरड माउस",
-          "माउस पैड"
+          "simple wired mouse",
+          "mouse pad"
         ],
-        "customer_feedback": "माउस पैड घर पे है; सिर्फ माउस चाहिए।",
+        "customer_feedback": "mouse pad ghar pe hai; sirf mouse chahiye",
         "customer_feedback_segment_id": 45,
         "unanswered_questions": [
           {
             "segment_id": 47,
             "speaker": "B",
-            "question": "हो गया पेमेंट देखो",
+            "question": "ho gaya payment dekho",
             "note": "The customer asked A to check the payment, but the transcript ends without a recorded confirmation from A."
           }
         ],
-        "coaching_feedback": "You checked USB compatibility, demonstrated clicking and scrolling, and respected 'सिर्फ माउस देदो' after offering the pad once. Next time, explain why the initial price of 'चार सो छियाली' becomes 'टोटल चार सो नब्बे' before presenting the QR, so the final charge is clear."
+        "coaching_feedback": "You checked USB compatibility, demonstrated clicking and scrolling, and respected 'sirf mouse dedo' after offering the pad once. Next time, explain why the initial price of 'chaar so chhiyali' becomes 'total chaar so nabbe' before presenting the QR, so the final charge is clear."
       },
       "attempted_upsell": true,
       "effort_score": 2.2,
@@ -987,7 +987,7 @@
           "role": "salesperson",
           "start": 310.464,
           "end": 318.664,
-          "text": "जी, इस डेमो लैपटॉप पे लगा देता हूं ये देखिए, क्लिक और स्क्रॉल दोनों चेक कर लीजिये",
+          "text": "ji, is demo laptop pe laga deta hoon ye dekhiye, click aur scroll dono check kar lijiye",
           "is_highlighted": false
         },
         {
@@ -996,7 +996,7 @@
           "role": "customer",
           "start": 319.364,
           "end": 323.164,
-          "text": "हाँ, ठीक चल रहा है, यही पैक कर दो.",
+          "text": "haan, theek chal raha hai, yahi pack kar do.",
           "is_highlighted": false
         },
         {
@@ -1005,7 +1005,7 @@
           "role": "salesperson",
           "start": 324.114,
           "end": 328.314,
-          "text": "इसके साथ माउस पैड भी चाहिए बेसिक वाला नौ नौ का है",
+          "text": "iske saath mouse pad bhi chahiye basic wala nau nau ka hai",
           "is_highlighted": true
         },
         {
@@ -1014,7 +1014,7 @@
           "role": "customer",
           "start": 328.884,
           "end": 332.73400000000004,
-          "text": "नहीं, माउस पैड घर पे है. सिर्फ माउस देदो.",
+          "text": "nahi, mouse pad ghar pe hai. sirf mouse dedo.",
           "is_highlighted": false
         },
         {
@@ -1023,7 +1023,7 @@
           "role": "salesperson",
           "start": 333.584,
           "end": 340.784,
-          "text": "हाँ जी, ये क्युआर है. टोटल चार सो नब्बे. माउस और बिल इस बैग में रख दिये हैं.",
+          "text": "haan ji, ye qr hai. total chaar so nabbe. mouse aur bill is bag mein rakh diye hain.",
           "is_highlighted": false
         }
       ]
@@ -1042,7 +1042,7 @@
           "role": "customer",
           "start": 328.884,
           "end": 332.73400000000004,
-          "text": "नहीं, माउस पैड घर पे है. सिर्फ माउस देदो.",
+          "text": "nahi, mouse pad ghar pe hai. sirf mouse dedo.",
           "is_highlighted": false
         },
         {
@@ -1051,7 +1051,7 @@
           "role": "salesperson",
           "start": 333.584,
           "end": 340.784,
-          "text": "हाँ जी, ये क्युआर है. टोटल चार सो नब्बे. माउस और बिल इस बैग में रख दिये हैं.",
+          "text": "haan ji, ye qr hai. total chaar so nabbe. mouse aur bill is bag mein rakh diye hain.",
           "is_highlighted": false
         },
         {
@@ -1060,7 +1060,7 @@
           "role": "customer",
           "start": 341.98400000000004,
           "end": 345.334,
-          "text": "हो गया पेमेंट देखो-ठीक है, थैंक यू.",
+          "text": "ho gaya payment dekho-theek hai, thank u.",
           "is_highlighted": true
         }
       ]
@@ -1079,7 +1079,7 @@
           "role": "salesperson",
           "start": 287.63,
           "end": 290.47999999999996,
-          "text": "बिलकुल बताइये, क्या चाहिये था.",
+          "text": "bilkul bataiye, kya chahiye tha.",
           "is_highlighted": true
         },
         {
@@ -1088,7 +1088,7 @@
           "role": "customer",
           "start": 291.72999999999996,
           "end": 295.43,
-          "text": "एक सिंपल वायरड माउस चाहिये, लैपटॉप के लिये,",
+          "text": "ek simple wired mouse chahiye, laptop ke liye,",
           "is_highlighted": false
         },
         {
@@ -1097,7 +1097,7 @@
           "role": "customer",
           "start": 296.53,
           "end": 298.78,
-          "text": "पांच सौ के अंदर।",
+          "text": "paanch sau ke andar.",
           "is_highlighted": false
         }
       ]
@@ -1116,7 +1116,7 @@
           "role": "customer",
           "start": 319.364,
           "end": 323.164,
-          "text": "हाँ, ठीक चल रहा है, यही पैक कर दो.",
+          "text": "haan, theek chal raha hai, yahi pack kar do.",
           "is_highlighted": false
         },
         {
@@ -1125,7 +1125,7 @@
           "role": "salesperson",
           "start": 324.114,
           "end": 328.314,
-          "text": "इसके साथ माउस पैड भी चाहिए बेसिक वाला नौ नौ का है",
+          "text": "iske saath mouse pad bhi chahiye basic wala nau nau ka hai",
           "is_highlighted": false
         },
         {
@@ -1134,7 +1134,7 @@
           "role": "customer",
           "start": 328.884,
           "end": 332.73400000000004,
-          "text": "नहीं, माउस पैड घर पे है. सिर्फ माउस देदो.",
+          "text": "nahi, mouse pad ghar pe hai. sirf mouse dedo.",
           "is_highlighted": true
         },
         {
@@ -1143,7 +1143,7 @@
           "role": "salesperson",
           "start": 333.584,
           "end": 340.784,
-          "text": "हाँ जी, ये क्युआर है. टोटल चार सो नब्बे. माउस और बिल इस बैग में रख दिये हैं.",
+          "text": "haan ji, ye qr hai. total chaar so nabbe. mouse aur bill is bag mein rakh diye hain.",
           "is_highlighted": false
         },
         {
@@ -1152,7 +1152,7 @@
           "role": "customer",
           "start": 341.98400000000004,
           "end": 345.334,
-          "text": "हो गया पेमेंट देखो-ठीक है, थैंक यू.",
+          "text": "ho gaya payment dekho-theek hai, thank u.",
           "is_highlighted": false
         }
       ]

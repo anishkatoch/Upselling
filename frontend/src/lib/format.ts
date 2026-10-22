@@ -96,5 +96,5 @@ export const STEPS = [
 /** A readable name for a recording: who it belongs to and when, instead of the file name. */
 export function recordingTitle(j: { salesperson_name?: string | null; created_at: string }): string {
   const when = new Date(j.created_at).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
-  return j.salesperson_name ? `${j.salesperson_name} - ${when}` : `Recording - ${when}`;
+  return j.salesperson_name ? `${j.salesperson_name} - ${when}` : `Conversation - ${when}`;
 }

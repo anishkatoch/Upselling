@@ -57,14 +57,14 @@
           {
             "segment_id": 4,
             "speaker": "Customer (also labelled A)",
-            "quote": "नहीं भाई, थाउज़न्ड और नहीं खर्च करना. फोन का ही बन बनाओ.",
+            "quote": "nahi bhai, thousand aur nahi kharch karna. phone ka hi ban banao.",
             "evidence_source": "both",
             "evidence": "Firmly rejects the extra expense and redirects the salesperson to billing only the phone. The voice label reports irritation and slight sharpness; elevated loudness and speaking speed support mild agitation."
           },
           {
             "segment_id": 5,
             "speaker": "Customer (also labelled A)",
-            "quote": "अरे! नहीं, ग्लास भी अभी नहीं चाहिए,",
+            "quote": "arey! nahi, glass bhi abhi nahi chahiye,",
             "evidence_source": "both",
             "evidence": "The emphatic, repeated refusal follows another accessory offer, indicating mounting exasperation rather than a simple initial preference. The segment-level voice label reports frustration and sighing, though the segment contains both speakers."
           }
@@ -81,7 +81,7 @@
           {
             "salesperson": "A",
             "segment_id": 3,
-            "quote": "साथ में कवर और टेम्पर्ड ग्लास का कॉम्बो लगा दो, नौ नौ नौ एक्स्ट्रा पड़ेगा, दोनों चीज़ें हो जाएंगी.",
+            "quote": "saath mein cover aur tempered glass ka combo laga do, nau nau nau extra padega, dono cheezen ho jayengi.",
             "technique": "bundle",
             "offered_item": "Cover and tempered-glass combo for ₹999 extra",
             "salesperson_initiated": true,
@@ -93,7 +93,7 @@
           {
             "salesperson": "A",
             "segment_id": 5,
-            "quote": "कौम्बो छोड़ दीजिये, सिर्फ़ टेम्पर्ड गिलास कर दो. फोर नाइन्टी नाइन का है, अभी यही लगा देंगे.",
+            "quote": "kaumbo chhod dijiye, sirf tempered gilaas kar do. four ninety nine ka hai, abhi yahi laga denge.",
             "technique": "cross_sell",
             "offered_item": "Tempered glass for ₹499",
             "salesperson_initiated": true,
@@ -105,7 +105,7 @@
           {
             "salesperson": "A",
             "segment_id": 6,
-            "quote": "अच्छा, एक बेसिक ट्रांस्पैरेंट बैक कवर है वन नाइन्टी नाइन का, बस वो रखदू, महंगा वाला नहीं.",
+            "quote": "achha, ek basic transparent back cover hai van ninety nine ka, bas wo rakhdu, mehnga wala nahi.",
             "technique": "cross_sell",
             "offered_item": "Basic transparent back cover for ₹199",
             "salesperson_initiated": true,
@@ -116,24 +116,24 @@
           }
         ],
         "excluded_candidates": [
-          "ये वाला देख लीजिए- बारह हजार नौ नौ नौ का है। बैटरी पाँच हजार मे एच है, आपके यूज के लिए ठीक रहेगा। -> Recommendation of the requested main phone within the customer's budget, not an upgrade.",
-          "जी, ब्लू सील्ड पीस है -> Answers the customer's question about the requested phone's colour and availability.",
+          "ye wala dekh lijiye- barah hazaar nau nau nau ka hai battery paanch hazaar me h hai, aapke use ke liye theek rahega. -> Recommendation of the requested main phone within the customer's budget, not an upgrade.",
+          "ji, blue sealed piece hai -> Answers the customer's question about the requested phone's colour and availability.",
           "ji! phone aur yeh cover hi total thirteen thousand one ninety eight hua. -> Confirms billing for already accepted items; no additional offer."
         ],
         "pushy_upsell": true,
-        "pushy_reason": "After the customer said “थाउज़न्ड और नहीं खर्च करना” and requested only the phone, the salesperson offered tempered glass. After another emphatic refusal and the explanation that the budget was exhausted, the salesperson pitched a cheaper cover.",
+        "pushy_reason": "After the customer said “thousand aur nahi kharch karna” and requested only the phone, the salesperson offered tempered glass. After another emphatic refusal and the explanation that the budget was exhausted, the salesperson pitched a cheaper cover.",
         "confidence": 0.59,
         "summary": "Three accessory upsell attempts occurred: a ₹999 combo, ₹499 tempered glass, and a ₹199 cover. The customer rejected the first two and accepted the cover, but the continued pitching after clear refusals was pushy. Speaker roles are inferred from context because salesperson and customer speech share the same label.",
         "greeting_given": true,
-        "greeting_quote": "हां जी, क्या दिखाऊं आपको?",
+        "greeting_quote": "haan ji, kya dikhaun aapko?",
         "greeting_segment_id": 0,
         "products_discussed": [
-          "फोन",
-          "कवर और टेम्पर्ड ग्लास का कॉम्बो",
-          "टेम्पर्ड गिलास",
-          "बेसिक ट्रांस्पैरेंट बैक कवर"
+          "phone",
+          "cover aur tempered glass ka combo",
+          "tempered gilaas",
+          "basic transparent back cover"
         ],
-        "customer_feedback": "The customer objected to spending another thousand, requested only the phone, and repeated “ग्लास भी अभी नहीं चाहिए” because the budget was already exhausted.",
+        "customer_feedback": "The customer objected to spending another thousand, requested only the phone, and repeated “glass bhi abhi nahi chahiye” because the budget was already exhausted.",
         "customer_feedback_segment_id": 5,
         "unanswered_questions": [
           {
@@ -143,7 +143,7 @@
             "note": "The transcript ends without a recorded response or confirmation that the payment QR code was provided."
           }
         ],
-        "coaching_feedback": "You matched the ₹13,000 budget with a ₹12,999 phone suited to WhatsApp and calls, and confirmed the sealed blue option. Once the customer said “फोन का ही बन बनाओ,” acknowledge the budget limit and proceed to billing rather than continuing with progressively cheaper accessories; the later emphatic glass refusal showed that the repeated offers were unwelcome."
+        "coaching_feedback": "You matched the ₹13,000 budget with a ₹12,999 phone suited to WhatsApp and calls, and confirmed the sealed blue option. Once the customer said “phone ka hi ban banao,” acknowledge the budget limit and proceed to billing rather than continuing with progressively cheaper accessories; the later emphatic glass refusal showed that the repeated offers were unwelcome."
       },
       "attempted_upsell": true,
       "effort_score": 7.8,
@@ -283,7 +283,7 @@
           {
             "salesperson": "A",
             "segment_id": 27,
-            "quote": "वैसे आप पाँच हजार और लगा सकें तो ये आठ किलो वाला प्रीमियम मॉडल भी देख लीजिए। छत्तीस हजार नौ सौ नब्बे का है। ड्रम बड़ा है और इसमें कम आवाज वाली मोटर भी है।",
+            "quote": "waise aap paanch hazaar aur laga sakein to ye aath kilo wala premium model bhi dekh lijiye. chhattis hazaar nau sau nabbe ka hai drum bada hai aur ismein kam aawaz wali motor bhi hai",
             "technique": "upgrade",
             "offered_item": "8 kg premium washing machine for ₹36,990, approximately ₹5,000 above the requested model",
             "salesperson_initiated": true,
@@ -295,7 +295,7 @@
           {
             "salesperson": "A",
             "segment_id": 33,
-            "quote": "चाहे तो दो हजार नौ सो निन्यानवे में तीन साल की अतिरिक्त वारंटी भी जोड़ सकते है वो मशीन की दो साल वाली वारंटी खत्म होने के बाद शुरू होगी",
+            "quote": "chahe to do hazaar nau so ninyanve mein teen saal ki atirikt warranty bhi jod sakte hai wo machine ki do saal wali warranty khatam hone ke baad shuru hogi",
             "technique": "warranty_protection",
             "offered_item": "Three-year extended warranty for ₹2,999, starting after the standard two-year machine warranty",
             "salesperson_initiated": true,
@@ -306,11 +306,11 @@
           }
         ],
         "excluded_candidates": [
-          "जी ये साथ किलो वाला मॉडल इकतीस हजार नौसो नब्बे का है आपके बज़ट में आ जाएगा -> Shows the washing machine the customer requested within their budget; not an upsell.",
-          "दोनों की ऊर्जा रेटिंग आठ स्टार है. -> Answers the customer's energy-efficiency question; not a separate sales attempt.",
-          "इसमे दो साल की मशीन वारंटी और मोटर पर दस साल की सीनेट वारंटी है -> Explains included warranty coverage in response to the customer's question, rather than selling additional protection.",
-          "इस योजना में कवर होने वाले यांत्रिक और इलेक्ट्रिकल खराबियों के पुर्जे, मजदूरी और घर पर सर्विस का शुल्क शामिल है, टूट फूट, गलत इस्तेमाल और वोल्टेज बढ़ने से हुआ नुकसान शामिल नहीं है, ये लिखित शर्थे है, आप पढ़ लीजिए. -> Addresses the service-charge concern within the existing extended-warranty offer; not a separate attempt.",
-          "मशीन लंबे समय चलानी है तो यह अतिरिक्त वारंटी भी जोड़ दीजिए। -> Customer acceptance of the warranty, despite appearing under the salesperson's diarization label."
+          "ji ye saath kilo wala model iktees hazaar nauso nabbe ka hai aapke budget mein aa jayega -> Shows the washing machine the customer requested within their budget; not an upsell.",
+          "dono ki urja rating aath star hai. -> Answers the customer's energy-efficiency question; not a separate sales attempt.",
+          "isme do saal ki machine warranty aur motor par das saal ki senate warranty hai -> Explains included warranty coverage in response to the customer's question, rather than selling additional protection.",
+          "is yojana mein cover hone wale yantrik aur electrical kharabiyon ke purje, mazdoori aur ghar par service ka shulk shamil hai, toot phoot, galat istemaal aur voltage badhne se hua nuksan shamil nahi hai, ye likhit sharthe hai, aap padh lijiye. -> Addresses the service-charge concern within the existing extended-warranty offer; not a separate attempt.",
+          "machine lambe samay chalani hai to yeh atirikt warranty bhi jod dijiye. -> Customer acceptance of the warranty, despite appearing under the salesperson's diarization label."
         ],
         "pushy_upsell": false,
         "pushy_reason": "The customer raised the ₹5,000 budget increase and asked for time, but did not clearly reject either offer. The salesperson answered subsequent questions without repeatedly pressing a refused offer.",
@@ -320,27 +320,27 @@
         "greeting_quote": "Namaste ji; kya dikhaun apko?",
         "greeting_segment_id": 26,
         "products_discussed": [
-          "साथ किलो की फ्रंट लोड वाशिंग मशीन",
-          "आठ किलो वाला प्रीमियम मॉडल",
-          "तीन साल की अतिरिक्त वारंटी"
+          "saath kilo ki front load washing machine",
+          "aath kilo wala premium model",
+          "teen saal ki atirikt warranty"
         ],
-        "customer_feedback": "The customer said “पाँच हजार ऊपर जा रहा है” and asked for time to think about the higher price.",
+        "customer_feedback": "The customer said “paanch hazaar upar ja raha hai” and asked for time to think about the higher price.",
         "customer_feedback_segment_id": 28,
         "unanswered_questions": [
           {
             "segment_id": 36,
             "speaker": "Customer (within the A-labelled turn)",
-            "question": "ठीक है, बिल बना दीजे।",
+            "question": "theek hai, bill bana dije.",
             "note": "The transcript ends without a salesperson reply acknowledging or confirming bill preparation."
           },
           {
             "segment_id": 36,
             "speaker": "Customer (within the A-labelled turn)",
-            "question": "वारंटी की शर्तों की कॉपी भी साथ दे दीजेगा।",
+            "question": "warranty ki sharton ki copy bhi saath de dijega.",
             "note": "Written terms were shown earlier, but the final request to include a copy receives no explicit confirmation before the transcript ends."
           }
         ],
-        "coaching_feedback": "You explained that the larger model mainly adds capacity, a quieter motor and programs rather than guaranteeing electricity savings, and clarified warranty coverage and exclusions before acceptance. Before issuing the bill, verify and consistently read back the machine price: “छप्पीस हजार नौ सो नब्बे” conflicts with the earlier ₹36,990 quote, although the ₹39,989 total matches ₹36,990 plus ₹2,999."
+        "coaching_feedback": "You explained that the larger model mainly adds capacity, a quieter motor and programs rather than guaranteeing electricity savings, and clarified warranty coverage and exclusions before acceptance. Before issuing the bill, verify and consistently read back the machine price: “chhabbis hazaar nau so nabbe” conflicts with the earlier ₹36,990 quote, although the ₹39,989 total matches ₹36,990 plus ₹2,999."
       },
       "attempted_upsell": true,
       "effort_score": 5.3,
@@ -567,7 +567,7 @@
           "role": "salesperson",
           "start": 32.89,
           "end": 34.59,
-          "text": "हाँ, ब्लू ही कर दो.",
+          "text": "haan, blue hi kar do.",
           "is_highlighted": false
         },
         {
@@ -576,7 +576,7 @@
           "role": "salesperson",
           "start": 35.74,
           "end": 45.09,
-          "text": "साथ में कवर और टेम्पर्ड ग्लास का कॉम्बो लगा दो, नौ नौ नौ एक्स्ट्रा पड़ेगा, दोनों चीज़ें हो जाएंगी.",
+          "text": "saath mein cover aur tempered glass ka combo laga do, nau nau nau extra padega, dono cheezen ho jayengi.",
           "is_highlighted": false
         },
         {
@@ -585,7 +585,7 @@
           "role": "salesperson",
           "start": 46.190000000000005,
           "end": 50.554,
-          "text": "नहीं भाई, थाउज़न्ड और नहीं खर्च करना. फोन का ही बन बनाओ.",
+          "text": "nahi bhai, thousand aur nahi kharch karna. phone ka hi ban banao.",
           "is_highlighted": true
         },
         {
@@ -594,7 +594,7 @@
           "role": "salesperson",
           "start": 51.804,
           "end": 63.354,
-          "text": "कौम्बो छोड़ दीजिये, सिर्फ़ टेम्पर्ड गिलास कर दो. फोर नाइन्टी नाइन का है, अभी यही लगा देंगे. अरे! नहीं, ग्लास भी अभी नहीं चाहिए,",
+          "text": "kaumbo chhod dijiye, sirf tempered gilaas kar do. four ninety nine ka hai, abhi yahi laga denge. arey! nahi, glass bhi abhi nahi chahiye,",
           "is_highlighted": false
         },
         {
@@ -603,7 +603,7 @@
           "role": "salesperson",
           "start": 64.254,
           "end": 74.904,
-          "text": "बजट ऑलरेडी पूरा हो गया. अच्छा, एक बेसिक ट्रांस्पैरेंट बैक कवर है वन नाइन्टी नाइन का, बस वो रखदू, महंगा वाला नहीं.",
+          "text": "budget already poora ho gaya. achha, ek basic transparent back cover hai van ninety nine ka, bas wo rakhdu, mehnga wala nahi.",
           "is_highlighted": false
         }
       ]
@@ -622,7 +622,7 @@
           "role": "salesperson",
           "start": 35.74,
           "end": 45.09,
-          "text": "साथ में कवर और टेम्पर्ड ग्लास का कॉम्बो लगा दो, नौ नौ नौ एक्स्ट्रा पड़ेगा, दोनों चीज़ें हो जाएंगी.",
+          "text": "saath mein cover aur tempered glass ka combo laga do, nau nau nau extra padega, dono cheezen ho jayengi.",
           "is_highlighted": false
         },
         {
@@ -631,7 +631,7 @@
           "role": "salesperson",
           "start": 46.190000000000005,
           "end": 50.554,
-          "text": "नहीं भाई, थाउज़न्ड और नहीं खर्च करना. फोन का ही बन बनाओ.",
+          "text": "nahi bhai, thousand aur nahi kharch karna. phone ka hi ban banao.",
           "is_highlighted": false
         },
         {
@@ -640,7 +640,7 @@
           "role": "salesperson",
           "start": 51.804,
           "end": 63.354,
-          "text": "कौम्बो छोड़ दीजिये, सिर्फ़ टेम्पर्ड गिलास कर दो. फोर नाइन्टी नाइन का है, अभी यही लगा देंगे. अरे! नहीं, ग्लास भी अभी नहीं चाहिए,",
+          "text": "kaumbo chhod dijiye, sirf tempered gilaas kar do. four ninety nine ka hai, abhi yahi laga denge. arey! nahi, glass bhi abhi nahi chahiye,",
           "is_highlighted": true
         },
         {
@@ -649,7 +649,7 @@
           "role": "salesperson",
           "start": 64.254,
           "end": 74.904,
-          "text": "बजट ऑलरेडी पूरा हो गया. अच्छा, एक बेसिक ट्रांस्पैरेंट बैक कवर है वन नाइन्टी नाइन का, बस वो रखदू, महंगा वाला नहीं.",
+          "text": "budget already poora ho gaya. achha, ek basic transparent back cover hai van ninety nine ka, bas wo rakhdu, mehnga wala nahi.",
           "is_highlighted": false
         },
         {
@@ -677,7 +677,7 @@
           "role": "salesperson",
           "start": 4.0,
           "end": 31.590000000000003,
-          "text": "फोन चाहिए- तेरह हजार तक। वॉट्साप और कॉल्स के लिए बैटरी अच्छी होनी चाहिए। ये वाला देख लीजिए- बारह हजार नौ नौ नौ का है। बैटरी पाँच हजार मे एच है, आपके यूज के लिए ठीक रहेगा। हाँ, हाथ में भी ठीक लग रहा है, इसमें ब्लू कलर मिलेगा? जी, ब्लू सील्ड पीस है, वही निकाल के बिल बना दो.",
+          "text": "phone chahiye- terah hazaar tak. whatsapp aur calls ke liye battery achhi honi chahiye ye wala dekh lijiye- barah hazaar nau nau nau ka hai battery paanch hazaar me h hai, aapke use ke liye theek rahega. haan, haath mein bhi theek lag raha hai, ismein blue color milega? ji, blue sealed piece hai, wahi nikal ke bill bana do.",
           "is_highlighted": false
         },
         {
@@ -686,7 +686,7 @@
           "role": "salesperson",
           "start": 32.89,
           "end": 34.59,
-          "text": "हाँ, ब्लू ही कर दो.",
+          "text": "haan, blue hi kar do.",
           "is_highlighted": false
         },
         {
@@ -695,7 +695,7 @@
           "role": "salesperson",
           "start": 35.74,
           "end": 45.09,
-          "text": "साथ में कवर और टेम्पर्ड ग्लास का कॉम्बो लगा दो, नौ नौ नौ एक्स्ट्रा पड़ेगा, दोनों चीज़ें हो जाएंगी.",
+          "text": "saath mein cover aur tempered glass ka combo laga do, nau nau nau extra padega, dono cheezen ho jayengi.",
           "is_highlighted": true
         },
         {
@@ -704,7 +704,7 @@
           "role": "salesperson",
           "start": 46.190000000000005,
           "end": 50.554,
-          "text": "नहीं भाई, थाउज़न्ड और नहीं खर्च करना. फोन का ही बन बनाओ.",
+          "text": "nahi bhai, thousand aur nahi kharch karna. phone ka hi ban banao.",
           "is_highlighted": false
         },
         {
@@ -713,7 +713,7 @@
           "role": "salesperson",
           "start": 51.804,
           "end": 63.354,
-          "text": "कौम्बो छोड़ दीजिये, सिर्फ़ टेम्पर्ड गिलास कर दो. फोर नाइन्टी नाइन का है, अभी यही लगा देंगे. अरे! नहीं, ग्लास भी अभी नहीं चाहिए,",
+          "text": "kaumbo chhod dijiye, sirf tempered gilaas kar do. four ninety nine ka hai, abhi yahi laga denge. arey! nahi, glass bhi abhi nahi chahiye,",
           "is_highlighted": false
         }
       ]
@@ -732,7 +732,7 @@
           "role": "salesperson",
           "start": 35.74,
           "end": 45.09,
-          "text": "साथ में कवर और टेम्पर्ड ग्लास का कॉम्बो लगा दो, नौ नौ नौ एक्स्ट्रा पड़ेगा, दोनों चीज़ें हो जाएंगी.",
+          "text": "saath mein cover aur tempered glass ka combo laga do, nau nau nau extra padega, dono cheezen ho jayengi.",
           "is_highlighted": false
         },
         {
@@ -741,7 +741,7 @@
           "role": "salesperson",
           "start": 46.190000000000005,
           "end": 50.554,
-          "text": "नहीं भाई, थाउज़न्ड और नहीं खर्च करना. फोन का ही बन बनाओ.",
+          "text": "nahi bhai, thousand aur nahi kharch karna. phone ka hi ban banao.",
           "is_highlighted": false
         },
         {
@@ -750,7 +750,7 @@
           "role": "salesperson",
           "start": 51.804,
           "end": 63.354,
-          "text": "कौम्बो छोड़ दीजिये, सिर्फ़ टेम्पर्ड गिलास कर दो. फोर नाइन्टी नाइन का है, अभी यही लगा देंगे. अरे! नहीं, ग्लास भी अभी नहीं चाहिए,",
+          "text": "kaumbo chhod dijiye, sirf tempered gilaas kar do. four ninety nine ka hai, abhi yahi laga denge. arey! nahi, glass bhi abhi nahi chahiye,",
           "is_highlighted": true
         },
         {
@@ -759,7 +759,7 @@
           "role": "salesperson",
           "start": 64.254,
           "end": 74.904,
-          "text": "बजट ऑलरेडी पूरा हो गया. अच्छा, एक बेसिक ट्रांस्पैरेंट बैक कवर है वन नाइन्टी नाइन का, बस वो रखदू, महंगा वाला नहीं.",
+          "text": "budget already poora ho gaya. achha, ek basic transparent back cover hai van ninety nine ka, bas wo rakhdu, mehnga wala nahi.",
           "is_highlighted": false
         },
         {
@@ -787,7 +787,7 @@
           "role": "salesperson",
           "start": 46.190000000000005,
           "end": 50.554,
-          "text": "नहीं भाई, थाउज़न्ड और नहीं खर्च करना. फोन का ही बन बनाओ.",
+          "text": "nahi bhai, thousand aur nahi kharch karna. phone ka hi ban banao.",
           "is_highlighted": false
         },
         {
@@ -796,7 +796,7 @@
           "role": "salesperson",
           "start": 51.804,
           "end": 63.354,
-          "text": "कौम्बो छोड़ दीजिये, सिर्फ़ टेम्पर्ड गिलास कर दो. फोर नाइन्टी नाइन का है, अभी यही लगा देंगे. अरे! नहीं, ग्लास भी अभी नहीं चाहिए,",
+          "text": "kaumbo chhod dijiye, sirf tempered gilaas kar do. four ninety nine ka hai, abhi yahi laga denge. arey! nahi, glass bhi abhi nahi chahiye,",
           "is_highlighted": false
         },
         {
@@ -805,7 +805,7 @@
           "role": "salesperson",
           "start": 64.254,
           "end": 74.904,
-          "text": "बजट ऑलरेडी पूरा हो गया. अच्छा, एक बेसिक ट्रांस्पैरेंट बैक कवर है वन नाइन्टी नाइन का, बस वो रखदू, महंगा वाला नहीं.",
+          "text": "budget already poora ho gaya. achha, ek basic transparent back cover hai van ninety nine ka, bas wo rakhdu, mehnga wala nahi.",
           "is_highlighted": true
         },
         {
@@ -842,7 +842,7 @@
           "role": "salesperson",
           "start": 64.254,
           "end": 74.904,
-          "text": "बजट ऑलरेडी पूरा हो गया. अच्छा, एक बेसिक ट्रांस्पैरेंट बैक कवर है वन नाइन्टी नाइन का, बस वो रखदू, महंगा वाला नहीं.",
+          "text": "budget already poora ho gaya. achha, ek basic transparent back cover hai van ninety nine ka, bas wo rakhdu, mehnga wala nahi.",
           "is_highlighted": false
         },
         {
@@ -879,7 +879,7 @@
           "role": "salesperson",
           "start": 0.0,
           "end": 2.5,
-          "text": "हां जी, क्या दिखाऊं आपको?",
+          "text": "haan ji, kya dikhaun aapko?",
           "is_highlighted": true
         },
         {
@@ -888,7 +888,7 @@
           "role": "salesperson",
           "start": 4.0,
           "end": 31.590000000000003,
-          "text": "फोन चाहिए- तेरह हजार तक। वॉट्साप और कॉल्स के लिए बैटरी अच्छी होनी चाहिए। ये वाला देख लीजिए- बारह हजार नौ नौ नौ का है। बैटरी पाँच हजार मे एच है, आपके यूज के लिए ठीक रहेगा। हाँ, हाथ में भी ठीक लग रहा है, इसमें ब्लू कलर मिलेगा? जी, ब्लू सील्ड पीस है, वही निकाल के बिल बना दो.",
+          "text": "phone chahiye- terah hazaar tak. whatsapp aur calls ke liye battery achhi honi chahiye ye wala dekh lijiye- barah hazaar nau nau nau ka hai battery paanch hazaar me h hai, aapke use ke liye theek rahega. haan, haath mein bhi theek lag raha hai, ismein blue color milega? ji, blue sealed piece hai, wahi nikal ke bill bana do.",
           "is_highlighted": false
         },
         {
@@ -897,7 +897,7 @@
           "role": "salesperson",
           "start": 32.89,
           "end": 34.59,
-          "text": "हाँ, ब्लू ही कर दो.",
+          "text": "haan, blue hi kar do.",
           "is_highlighted": false
         }
       ]
@@ -916,7 +916,7 @@
           "role": "salesperson",
           "start": 35.74,
           "end": 45.09,
-          "text": "साथ में कवर और टेम्पर्ड ग्लास का कॉम्बो लगा दो, नौ नौ नौ एक्स्ट्रा पड़ेगा, दोनों चीज़ें हो जाएंगी.",
+          "text": "saath mein cover aur tempered glass ka combo laga do, nau nau nau extra padega, dono cheezen ho jayengi.",
           "is_highlighted": false
         },
         {
@@ -925,7 +925,7 @@
           "role": "salesperson",
           "start": 46.190000000000005,
           "end": 50.554,
-          "text": "नहीं भाई, थाउज़न्ड और नहीं खर्च करना. फोन का ही बन बनाओ.",
+          "text": "nahi bhai, thousand aur nahi kharch karna. phone ka hi ban banao.",
           "is_highlighted": false
         },
         {
@@ -934,7 +934,7 @@
           "role": "salesperson",
           "start": 51.804,
           "end": 63.354,
-          "text": "कौम्बो छोड़ दीजिये, सिर्फ़ टेम्पर्ड गिलास कर दो. फोर नाइन्टी नाइन का है, अभी यही लगा देंगे. अरे! नहीं, ग्लास भी अभी नहीं चाहिए,",
+          "text": "kaumbo chhod dijiye, sirf tempered gilaas kar do. four ninety nine ka hai, abhi yahi laga denge. arey! nahi, glass bhi abhi nahi chahiye,",
           "is_highlighted": true
         },
         {
@@ -943,7 +943,7 @@
           "role": "salesperson",
           "start": 64.254,
           "end": 74.904,
-          "text": "बजट ऑलरेडी पूरा हो गया. अच्छा, एक बेसिक ट्रांस्पैरेंट बैक कवर है वन नाइन्टी नाइन का, बस वो रखदू, महंगा वाला नहीं.",
+          "text": "budget already poora ho gaya. achha, ek basic transparent back cover hai van ninety nine ka, bas wo rakhdu, mehnga wala nahi.",
           "is_highlighted": false
         },
         {
@@ -1072,7 +1072,7 @@
           "role": "salesperson",
           "start": 227.06,
           "end": 267.526,
-          "text": "साथ किलो की फ्रंट लोड वाशिंग मशीन चाहिए बजट बत्तीस हजार तक है जी ये साथ किलो वाला मॉडल इकतीस हजार नौसो नब्बे का है आपके बज़ट में आ जाएगा घर में शार लोग है साथ किलो ठीक रहेगा न कभी चादरे भी धोनिव होती है रोस के कपडों के लिए साथ किलो ठीक रहेगा जी। वैसे आप पाँच हजार और लगा सकें तो ये आठ किलो वाला प्रीमियम मॉडल भी देख लीजिए। छत्तीस हजार नौ सौ नब्बे का है। ड्रम बड़ा है और इसमें कम आवाज वाली मोटर भी है। हाँ।",
+          "text": "saath kilo ki front load washing machine chahiye budget battees hazaar tak hai ji ye saath kilo wala model iktees hazaar nauso nabbe ka hai aapke budget mein aa jayega ghar mein shaar log hai saath kilo theek rahega na kabhi chadre bhi dhoniv hoti hai ros ke kapdon ke liye saath kilo theek rahega ji. waise aap paanch hazaar aur laga sakein to ye aath kilo wala premium model bhi dekh lijiye. chhattis hazaar nau sau nabbe ka hai drum bada hai aur ismein kam aawaz wali motor bhi hai haan",
           "is_highlighted": true
         },
         {
@@ -1081,7 +1081,7 @@
           "role": "salesperson",
           "start": 268.348,
           "end": 270.49800000000005,
-          "text": "पाँच हजार ऊपर जा रहा है.",
+          "text": "paanch hazaar upar ja raha hai.",
           "is_highlighted": false
         },
         {
@@ -1090,7 +1090,7 @@
           "role": "salesperson",
           "start": 271.49800000000005,
           "end": 272.848,
-          "text": "थोड़ा सोचने दीजिए.",
+          "text": "thoda sochne dijiye.",
           "is_highlighted": false
         }
       ]
@@ -1109,7 +1109,7 @@
           "role": "salesperson",
           "start": 282.098,
           "end": 296.892,
-          "text": "बिल में कितनी बचत होगी, वो किस तरह इस्तेमाल करते हैं? और कौन सा प्रोग्राम चुनते हैं, उसपर निर्भर करेगा-मुख्य फर्क क्षमता, मोटर की आवाज और धुलाई की कुछ अतिरिक्त प्रोग्राम का है",
+          "text": "bill mein kitni bachat hogi, wo kis tarah istemaal karte hain? aur kaun sa program chunte hain, uspar nirbhar karega-mukhya fark kshamta, motor ki aawaz aur dhulai ki kuch atirikt program ka hai",
           "is_highlighted": false
         },
         {
@@ -1118,7 +1118,7 @@
           "role": "salesperson",
           "start": 298.19199999999995,
           "end": 307.74199999999996,
-          "text": "अच्छा, हमारे यहां कपडे एकठे हो ही जाते हैं-चलिए आट किलो वाला ले लेते हैं, इसकी वारण्टी कितनी है",
+          "text": "achha, hamare yahan kapde ekathe ho hi jate hain-chaliye aat kilo wala le lete hain, iski warranty kitni hai",
           "is_highlighted": false
         },
         {
@@ -1127,7 +1127,7 @@
           "role": "salesperson",
           "start": 309.358,
           "end": 338.354,
-          "text": "इसमे दो साल की मशीन वारंटी और मोटर पर दस साल की सीनेट वारंटी है चाहे तो दो हजार नौ सो निन्यानवे में तीन साल की अतिरिक्त वारंटी भी जोड़ सकते है वो मशीन की दो साल वाली वारंटी खत्म होने के बाद शुरू होगी तीन हजार और लगेंगे लगभग, उस अतिरिक्त वारंटी में क्या-क्या आएगा, बाद में सर्विस वाले अलग पैसे तो नहीं मांगेंगे,",
+          "text": "isme do saal ki machine warranty aur motor par das saal ki senate warranty hai chahe to do hazaar nau so ninyanve mein teen saal ki atirikt warranty bhi jod sakte hai wo machine ki do saal wali warranty khatam hone ke baad shuru hogi teen hazaar aur lagenge lagbhag, us atirikt warranty mein kya-kya aayega, baad mein service wale alag paise to nahi maangenge,",
           "is_highlighted": true
         },
         {
@@ -1136,7 +1136,7 @@
           "role": "salesperson",
           "start": 339.354,
           "end": 354.954,
-          "text": "इस योजना में कवर होने वाले यांत्रिक और इलेक्ट्रिकल खराबियों के पुर्जे, मजदूरी और घर पर सर्विस का शुल्क शामिल है, टूट फूट, गलत इस्तेमाल और वोल्टेज बढ़ने से हुआ नुकसान शामिल नहीं है, ये लिखित शर्थे है, आप पढ़ लीजिए.",
+          "text": "is yojana mein cover hone wale yantrik aur electrical kharabiyon ke purje, mazdoori aur ghar par service ka shulk shamil hai, toot phoot, galat istemaal aur voltage badhne se hua nuksan shamil nahi hai, ye likhit sharthe hai, aap padh lijiye.",
           "is_highlighted": false
         },
         {
@@ -1145,7 +1145,7 @@
           "role": "salesperson",
           "start": 355.836,
           "end": 365.98600000000005,
-          "text": "एक मिनट, देख लूँ। हाँ, ठीक है। मशीन लंबे समय चलानी है तो यह अतिरिक्त वारंटी भी जोड़ दीजिए। कुल कितना बनेगा?",
+          "text": "ek minute, dekh loon. haan, theek hai machine lambe samay chalani hai to yeh atirikt warranty bhi jod dijiye. kul kitna banega?",
           "is_highlighted": false
         }
       ]
@@ -1164,7 +1164,7 @@
           "role": "salesperson",
           "start": 339.354,
           "end": 354.954,
-          "text": "इस योजना में कवर होने वाले यांत्रिक और इलेक्ट्रिकल खराबियों के पुर्जे, मजदूरी और घर पर सर्विस का शुल्क शामिल है, टूट फूट, गलत इस्तेमाल और वोल्टेज बढ़ने से हुआ नुकसान शामिल नहीं है, ये लिखित शर्थे है, आप पढ़ लीजिए.",
+          "text": "is yojana mein cover hone wale yantrik aur electrical kharabiyon ke purje, mazdoori aur ghar par service ka shulk shamil hai, toot phoot, galat istemaal aur voltage badhne se hua nuksan shamil nahi hai, ye likhit sharthe hai, aap padh lijiye.",
           "is_highlighted": false
         },
         {
@@ -1173,7 +1173,7 @@
           "role": "salesperson",
           "start": 355.836,
           "end": 365.98600000000005,
-          "text": "एक मिनट, देख लूँ। हाँ, ठीक है। मशीन लंबे समय चलानी है तो यह अतिरिक्त वारंटी भी जोड़ दीजिए। कुल कितना बनेगा?",
+          "text": "ek minute, dekh loon. haan, theek hai machine lambe samay chalani hai to yeh atirikt warranty bhi jod dijiye. kul kitna banega?",
           "is_highlighted": false
         },
         {
@@ -1182,7 +1182,7 @@
           "role": "salesperson",
           "start": 366.98600000000005,
           "end": 397.57800000000003,
-          "text": "मशीन छप्पीस हजार नौ सो नब्बे और अतिरिक्त वारंटी दो हजार नौ सौ निन्यानवे। कुल उन्तालिस हजार नौ सौ नबासी रुपए। टैक्स शामिल है और इस पते पर डिलिवरी वा सामान्य इंस्टॉलेशन का अलग शुल्क नहीं है। बिल में वारंटी अलग से लिख दूंगा। ठीक है, बिल बना दीजे। यूपिऐ से भुकतान कर दूंगा। वारंटी की शर्तों की कॉपी भी साथ दे दीजेगा।",
+          "text": "machine chhabbis hazaar nau so nabbe aur atirikt warranty do hazaar nau sau ninyanve. kul untaalis hazaar nau sau nabasi rupaye. tax shamil hai aur is pate par delivery wa samanya installation ka alag shulk nahi hai bill mein warranty alag se likh doonga. theek hai, bill bana dije. upa se bhuktaan kar doonga. warranty ki sharton ki copy bhi saath de dijega.",
           "is_highlighted": true
         }
       ]
@@ -1201,7 +1201,7 @@
           "role": "salesperson",
           "start": 339.354,
           "end": 354.954,
-          "text": "इस योजना में कवर होने वाले यांत्रिक और इलेक्ट्रिकल खराबियों के पुर्जे, मजदूरी और घर पर सर्विस का शुल्क शामिल है, टूट फूट, गलत इस्तेमाल और वोल्टेज बढ़ने से हुआ नुकसान शामिल नहीं है, ये लिखित शर्थे है, आप पढ़ लीजिए.",
+          "text": "is yojana mein cover hone wale yantrik aur electrical kharabiyon ke purje, mazdoori aur ghar par service ka shulk shamil hai, toot phoot, galat istemaal aur voltage badhne se hua nuksan shamil nahi hai, ye likhit sharthe hai, aap padh lijiye.",
           "is_highlighted": false
         },
         {
@@ -1210,7 +1210,7 @@
           "role": "salesperson",
           "start": 355.836,
           "end": 365.98600000000005,
-          "text": "एक मिनट, देख लूँ। हाँ, ठीक है। मशीन लंबे समय चलानी है तो यह अतिरिक्त वारंटी भी जोड़ दीजिए। कुल कितना बनेगा?",
+          "text": "ek minute, dekh loon. haan, theek hai machine lambe samay chalani hai to yeh atirikt warranty bhi jod dijiye. kul kitna banega?",
           "is_highlighted": false
         },
         {
@@ -1219,7 +1219,7 @@
           "role": "salesperson",
           "start": 366.98600000000005,
           "end": 397.57800000000003,
-          "text": "मशीन छप्पीस हजार नौ सो नब्बे और अतिरिक्त वारंटी दो हजार नौ सौ निन्यानवे। कुल उन्तालिस हजार नौ सौ नबासी रुपए। टैक्स शामिल है और इस पते पर डिलिवरी वा सामान्य इंस्टॉलेशन का अलग शुल्क नहीं है। बिल में वारंटी अलग से लिख दूंगा। ठीक है, बिल बना दीजे। यूपिऐ से भुकतान कर दूंगा। वारंटी की शर्तों की कॉपी भी साथ दे दीजेगा।",
+          "text": "machine chhabbis hazaar nau so nabbe aur atirikt warranty do hazaar nau sau ninyanve. kul untaalis hazaar nau sau nabasi rupaye. tax shamil hai aur is pate par delivery wa samanya installation ka alag shulk nahi hai bill mein warranty alag se likh doonga. theek hai, bill bana dije. upa se bhuktaan kar doonga. warranty ki sharton ki copy bhi saath de dijega.",
           "is_highlighted": true
         }
       ]
@@ -1247,7 +1247,7 @@
           "role": "salesperson",
           "start": 227.06,
           "end": 267.526,
-          "text": "साथ किलो की फ्रंट लोड वाशिंग मशीन चाहिए बजट बत्तीस हजार तक है जी ये साथ किलो वाला मॉडल इकतीस हजार नौसो नब्बे का है आपके बज़ट में आ जाएगा घर में शार लोग है साथ किलो ठीक रहेगा न कभी चादरे भी धोनिव होती है रोस के कपडों के लिए साथ किलो ठीक रहेगा जी। वैसे आप पाँच हजार और लगा सकें तो ये आठ किलो वाला प्रीमियम मॉडल भी देख लीजिए। छत्तीस हजार नौ सौ नब्बे का है। ड्रम बड़ा है और इसमें कम आवाज वाली मोटर भी है। हाँ।",
+          "text": "saath kilo ki front load washing machine chahiye budget battees hazaar tak hai ji ye saath kilo wala model iktees hazaar nauso nabbe ka hai aapke budget mein aa jayega ghar mein shaar log hai saath kilo theek rahega na kabhi chadre bhi dhoniv hoti hai ros ke kapdon ke liye saath kilo theek rahega ji. waise aap paanch hazaar aur laga sakein to ye aath kilo wala premium model bhi dekh lijiye. chhattis hazaar nau sau nabbe ka hai drum bada hai aur ismein kam aawaz wali motor bhi hai haan",
           "is_highlighted": false
         },
         {
@@ -1256,7 +1256,7 @@
           "role": "salesperson",
           "start": 268.348,
           "end": 270.49800000000005,
-          "text": "पाँच हजार ऊपर जा रहा है.",
+          "text": "paanch hazaar upar ja raha hai.",
           "is_highlighted": false
         }
       ]
@@ -1284,7 +1284,7 @@
           "role": "salesperson",
           "start": 227.06,
           "end": 267.526,
-          "text": "साथ किलो की फ्रंट लोड वाशिंग मशीन चाहिए बजट बत्तीस हजार तक है जी ये साथ किलो वाला मॉडल इकतीस हजार नौसो नब्बे का है आपके बज़ट में आ जाएगा घर में शार लोग है साथ किलो ठीक रहेगा न कभी चादरे भी धोनिव होती है रोस के कपडों के लिए साथ किलो ठीक रहेगा जी। वैसे आप पाँच हजार और लगा सकें तो ये आठ किलो वाला प्रीमियम मॉडल भी देख लीजिए। छत्तीस हजार नौ सौ नब्बे का है। ड्रम बड़ा है और इसमें कम आवाज वाली मोटर भी है। हाँ।",
+          "text": "saath kilo ki front load washing machine chahiye budget battees hazaar tak hai ji ye saath kilo wala model iktees hazaar nauso nabbe ka hai aapke budget mein aa jayega ghar mein shaar log hai saath kilo theek rahega na kabhi chadre bhi dhoniv hoti hai ros ke kapdon ke liye saath kilo theek rahega ji. waise aap paanch hazaar aur laga sakein to ye aath kilo wala premium model bhi dekh lijiye. chhattis hazaar nau sau nabbe ka hai drum bada hai aur ismein kam aawaz wali motor bhi hai haan",
           "is_highlighted": false
         },
         {
@@ -1293,7 +1293,7 @@
           "role": "salesperson",
           "start": 268.348,
           "end": 270.49800000000005,
-          "text": "पाँच हजार ऊपर जा रहा है.",
+          "text": "paanch hazaar upar ja raha hai.",
           "is_highlighted": true
         },
         {
@@ -1302,7 +1302,7 @@
           "role": "salesperson",
           "start": 271.49800000000005,
           "end": 272.848,
-          "text": "थोड़ा सोचने दीजिए.",
+          "text": "thoda sochne dijiye.",
           "is_highlighted": false
         },
         {
@@ -1311,7 +1311,7 @@
           "role": "salesperson",
           "start": 273.648,
           "end": 281.24800000000005,
-          "text": "इस में बिजली की बचत भी होगी या बस जगह ज्यादा है. दोनों की ऊर्जा रेटिंग आठ स्टार है.",
+          "text": "is mein bijli ki bachat bhi hogi ya bas jagah zyada hai. dono ki urja rating aath star hai.",
           "is_highlighted": false
         }
       ]

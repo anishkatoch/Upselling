@@ -57,13 +57,16 @@ llm:
         provider: bedrock
         model: anthropic.claude-opus-5-5
         region: us-east-1
+    romanize:
+      effort: low
     test_data_generation:
       effort: medium
 
 mood:
-  # Voice-tone labels from a model that listens to the audio.
+  # Voice-tone labels from a model that listens to the audio. Off: it was the biggest cost per recording
+  # (about two thirds) and is optional; mood is judged from the words plus the acoustics below.
   tone_model:
-    enabled: true
+    enabled: false
     model: gpt-audio-1.5
     max_clip_minutes: 10
   acoustics:

@@ -52,7 +52,7 @@ export default function Team() {
 
   return (
     <>
-      <Reveal className="head row" style={{ flexWrap: "wrap" }}>
+      <Reveal className="head row hero" style={{ flexWrap: "wrap" }}>
         <div className="grow" style={{ minWidth: 220 }}>
           <div className="row" style={{ gap: 10 }}>
             <h1>Your team</h1>

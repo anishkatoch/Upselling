@@ -186,7 +186,7 @@
           {
             "salesperson": "D",
             "segment_id": 24,
-            "quote": "बिलकुल सर, इसके साथ वावलेस माउस और पैडेड स्लीव का बंडल भी है. अलग लेंगे तो दोनों दो हजार अठानवे के है. लैपटोप के साथ एक हजार चार सो नानवे में पड़ेंगे. आड करना चाहेंगे?",
+            "quote": "bilkul sir, iske saath wavles mouse aur padded sleeve ka bundle bhi hai. alag lenge to dono do hazaar athanve ke hai. laptop ke saath ek hazaar chaar so naanve mein padenge. aad karna chahenge?",
             "technique": "bundle",
             "offered_item": "Mouse and padded sleeve bundle at a reduced price with the laptop",
             "salesperson_initiated": true,
@@ -198,7 +198,7 @@
         ],
         "excluded_candidates": [
           "Sir, yeh forty two thousand nine ninety ka hai, g s t included. Same configuration ka sealed piece available hai. -> Answers the requested laptop's price and offers the same configuration sealed, not a higher-tier product.",
-          "हां सर, आराम से ये डेमो यूनिट पे एक्सल खोल देता हूं आप टाइपिंग भी चेक कर लीजे -> Provides the demonstration the customer requested.",
+          "haan sir, aaram se ye demo unit pe axle khol deta hoon aap typing bhi check kar lije -> Provides the demonstration the customer requested.",
           "Ji, dono included hain-yeh isi size ki sleeve hai. Dekhiye, laptop easily fit ho raha hai aur zip thee properly bandh ho rahi hai. -> Answers the customer's bundle-content and fit questions; this continues the existing offer rather than creating another attempt.",
           "Mouse aur sleeve bhi saath pack kar denge. -> Confirms packing accessories the customer has already accepted."
         ],
@@ -211,8 +211,8 @@
         "greeting_segment_id": 18,
         "products_discussed": [
           "Lenovo laptop",
-          "वावलेस माउस",
-          "पैडेड स्लीव"
+          "wavles mouse",
+          "padded sleeve"
         ],
         "customer_feedback": null,
         "customer_feedback_segment_id": null,
@@ -275,7 +275,7 @@
           {
             "salesperson": "A",
             "segment_id": 36,
-            "quote": "इसके साथ कवर और टेमपर ग्लास का पोंबो लगा दू",
+            "quote": "iske saath cover aur temper glass ka pombo laga doo",
             "technique": "bundle",
             "offered_item": "Cover and tempered-glass combo, quoted at ₹690.",
             "salesperson_initiated": true,
@@ -287,7 +287,7 @@
           {
             "salesperson": "A",
             "segment_id": 39,
-            "quote": "ठीक है, कॉंबो छोड़ दीजिए, सिर्फ साधारन टैंपर्ड ग्लास लगवा लीजिए, वन नाइन्टी नाइन का है, कवर फिर कभी ले लेना।",
+            "quote": "theek hai, combo chhod dijiye, sirf saadharan tempered glass lagwa lijiye, van ninety nine ka hai, cover phir kabhi le lena.",
             "technique": "cross_sell",
             "offered_item": "Basic tempered glass for ₹199, with installation included.",
             "salesperson_initiated": true,
@@ -298,12 +298,12 @@
           }
         ],
         "excluded_candidates": [
-          "हाँ जी नीला है ये रहा सीलबन डिब्बा -> Providing the blue phone the customer requested, not suggesting an upgrade.",
-          "नहीं जी, लगाने समेत एक सो उन्यानवे है, आपके सामने साफ करके लगा दूँगा. -> Answers the customer's installation-charge questions; this is not another upsell.",
-          "जी, सिर्फ फोन और एक टैंपर्ड ग्लास -> Confirms the agreed purchase rather than proposing another item."
+          "haan ji neela hai ye raha seelban dibba -> Providing the blue phone the customer requested, not suggesting an upgrade.",
+          "nahi ji, lagane samet ek so unyanve hai, aapke saamne saaf karke laga doonga. -> Answers the customer's installation-charge questions; this is not another upsell.",
+          "ji, sirf phone aur ek tempered glass -> Confirms the agreed purchase rather than proposing another item."
         ],
         "pushy_upsell": true,
-        "pushy_reason": "After the customer explicitly said “अभी बस फोन ही दीजिये,” the salesperson immediately proposed the cheaper glass-only add-on. This continued selling after a clear refusal, although the tone remained calm and the customer ultimately accepted.",
+        "pushy_reason": "After the customer explicitly said “abhi bas phone hi dijiye,” the salesperson immediately proposed the cheaper glass-only add-on. This continued selling after a clear refusal, although the tone remained calm and the customer ultimately accepted.",
         "confidence": 0.58,
         "summary": "Two upsell attempts occurred: the cover-and-glass combo was rejected, then the ₹199 glass-only offer was accepted after installation was confirmed as included. The second offer followed an explicit phone-only request. Mixed-speaker turns and inconsistent labels make attribution less certain.",
         "greeting_given": true,
@@ -311,20 +311,20 @@
         "greeting_segment_id": 34,
         "products_discussed": [
           "ekso athais GB wala phone",
-          "कवर",
-          "टैंपर्ड ग्लास"
+          "cover",
+          "tempered glass"
         ],
-        "customer_feedback": "The customer did not want to spend more on the combo and explicitly requested “अभी बस फोन ही दीजिये.”",
+        "customer_feedback": "The customer did not want to spend more on the combo and explicitly requested “abhi bas phone hi dijiye.”",
         "customer_feedback_segment_id": 38,
         "unanswered_questions": [
           {
             "segment_id": 46,
             "speaker": "D",
-            "question": "डिब्बा भी साथ रख देना",
+            "question": "dibba bhi saath rakh dena",
             "note": "The transcript ends without an acknowledgment or confirmation that the box will be included."
           }
         ],
-        "coaching_feedback": "You clearly explained that ₹199 included installation and confirmed “सिर्फ फोन और एक टैंपर्ड ग्लास,” respecting the customer's decision not to buy a cover. After “अभी बस फोन ही दीजिये,” acknowledge that boundary and ask permission before suggesting a cheaper add-on instead of immediately pitching again."
+        "coaching_feedback": "You clearly explained that ₹199 included installation and confirmed “sirf phone aur ek tempered glass,” respecting the customer's decision not to buy a cover. After “abhi bas phone hi dijiye,” acknowledge that boundary and ask permission before suggesting a cheaper add-on instead of immediately pitching again."
       },
       "attempted_upsell": true,
       "effort_score": 6.3,
@@ -780,7 +780,7 @@
           "role": "salesperson",
           "start": 180.42000000000002,
           "end": 187.07,
-          "text": "हां सर, आराम से ये डेमो यूनिट पे एक्सल खोल देता हूं आप टाइपिंग भी चेक कर लीजे",
+          "text": "haan sir, aaram se ye demo unit pe axle khol deta hoon aap typing bhi check kar lije",
           "is_highlighted": false
         },
         {
@@ -789,7 +789,7 @@
           "role": "customer",
           "start": 188.57,
           "end": 193.32,
-          "text": "हाँ, कीबोर्ड ठीक लग रहा है यही लैपटॉप फाइनल कर दो",
+          "text": "haan, keyboard theek lag raha hai yahi laptop final kar do",
           "is_highlighted": false
         },
         {
@@ -798,7 +798,7 @@
           "role": "salesperson",
           "start": 194.406,
           "end": 209.05599999999998,
-          "text": "बिलकुल सर, इसके साथ वावलेस माउस और पैडेड स्लीव का बंडल भी है. अलग लेंगे तो दोनों दो हजार अठानवे के है. लैपटोप के साथ एक हजार चार सो नानवे में पड़ेंगे. आड करना चाहेंगे?",
+          "text": "bilkul sir, iske saath wavles mouse aur padded sleeve ka bundle bhi hai. alag lenge to dono do hazaar athanve ke hai. laptop ke saath ek hazaar chaar so naanve mein padenge. aad karna chahenge?",
           "is_highlighted": true
         },
         {
@@ -927,7 +927,7 @@
           "role": "salesperson",
           "start": 288.468,
           "end": 310.51800000000003,
-          "text": "वही लेना है नील रंग में है हाँ जी नीला है ये रहा सीलबन डिब्बा बिल इसी नाम से बना दू जो आपने कल बताया था हाँ राजेश कुमार फोन खोल कर एक बार चालू भी कर दीजियेगा बिल्कुल इसके साथ कवर और टेमपर ग्लास का पोंबो लगा दू",
+          "text": "wahi lena hai neel rang mein hai haan ji neela hai ye raha seelban dibba bill isi naam se bana doo jo aapne kal bataya tha haan rajesh kumar phone khol kar ek baar chalu bhi kar dijiyega bilkul iske saath cover aur temper glass ka pombo laga doo",
           "is_highlighted": true
         },
         {
@@ -936,7 +936,7 @@
           "role": "salesperson",
           "start": 310.996,
           "end": 313.796,
-          "text": "दोनों मिलाकर छे सो नब्बे रुपए पड़ेंगे।",
+          "text": "dono milakar chhe so nabbe rupaye padenge.",
           "is_highlighted": false
         },
         {
@@ -945,7 +945,7 @@
           "role": "salesperson",
           "start": 314.096,
           "end": 320.14599999999996,
-          "text": "नहीं भईया, छः नाइन नाइन और नहीं खर्च करने, अभी बस फोन ही दीजिये.",
+          "text": "nahi bhaiya, chhah nine nine aur nahi kharch karne, abhi bas phone hi dijiye.",
           "is_highlighted": false
         }
       ]
@@ -964,7 +964,7 @@
           "role": "salesperson",
           "start": 310.996,
           "end": 313.796,
-          "text": "दोनों मिलाकर छे सो नब्बे रुपए पड़ेंगे।",
+          "text": "dono milakar chhe so nabbe rupaye padenge.",
           "is_highlighted": false
         },
         {
@@ -973,7 +973,7 @@
           "role": "salesperson",
           "start": 314.096,
           "end": 320.14599999999996,
-          "text": "नहीं भईया, छः नाइन नाइन और नहीं खर्च करने, अभी बस फोन ही दीजिये.",
+          "text": "nahi bhaiya, chhah nine nine aur nahi kharch karne, abhi bas phone hi dijiye.",
           "is_highlighted": false
         },
         {
@@ -982,7 +982,7 @@
           "role": "salesperson",
           "start": 321.296,
           "end": 330.546,
-          "text": "ठीक है, कॉंबो छोड़ दीजिए, सिर्फ साधारन टैंपर्ड ग्लास लगवा लीजिए, वन नाइन्टी नाइन का है, कवर फिर कभी ले लेना।",
+          "text": "theek hai, combo chhod dijiye, sirf saadharan tempered glass lagwa lijiye, van ninety nine ka hai, cover phir kabhi le lena.",
           "is_highlighted": true
         },
         {
@@ -991,7 +991,7 @@
           "role": "salesperson",
           "start": 331.346,
           "end": 334.39599999999996,
-          "text": "वन हंड्रेड नाइन्टी नाइन में लगा कर देंगे न?",
+          "text": "van hundred ninety nine mein laga kar denge na?",
           "is_highlighted": false
         },
         {
@@ -1000,7 +1000,7 @@
           "role": "salesperson",
           "start": 335.42400000000004,
           "end": 336.97400000000005,
-          "text": "लगाने का अलग से तो नहीं है?",
+          "text": "lagane ka alag se to nahi hai?",
           "is_highlighted": false
         }
       ]
@@ -1019,7 +1019,7 @@
           "role": "salesperson",
           "start": 350.574,
           "end": 358.574,
-          "text": "जी, सिर्फ फोन और एक टैंपर्ड ग्लास, कोई पंद्रह हजार एक सो अठानवे रुपए हुए, भुक्तान कैसे करेंगे?",
+          "text": "ji, sirf phone aur ek tempered glass, koi pandrah hazaar ek so athanve rupaye hue, bhuktaan kaise karenge?",
           "is_highlighted": false
         },
         {
@@ -1028,7 +1028,7 @@
           "role": "salesperson",
           "start": 359.374,
           "end": 373.47400000000005,
-          "text": "युपिआइ कर देता हूं यह सामने वाला क्यूआर है हां जी इसी पर भुक्तान आ गया है यह आपका बिल और फोन भी चालू हो गया है अब ग्लास लगा देता हूं",
+          "text": "upi kar deta hoon yeh saamne wala qr hai haan ji isi par bhuktaan aa gaya hai yeh aapka bill aur phone bhi chalu ho gaya hai ab glass laga deta hoon",
           "is_highlighted": false
         },
         {
@@ -1037,7 +1037,7 @@
           "role": "salesperson",
           "start": 374.374,
           "end": 378.97400000000005,
-          "text": "ठीक है भाईया लगादेजिये डिब्बा भी साथ रख देना",
+          "text": "theek hai bhaiya lagadejiye dibba bhi saath rakh dena",
           "is_highlighted": true
         }
       ]
@@ -1074,7 +1074,7 @@
           "role": "salesperson",
           "start": 288.468,
           "end": 310.51800000000003,
-          "text": "वही लेना है नील रंग में है हाँ जी नीला है ये रहा सीलबन डिब्बा बिल इसी नाम से बना दू जो आपने कल बताया था हाँ राजेश कुमार फोन खोल कर एक बार चालू भी कर दीजियेगा बिल्कुल इसके साथ कवर और टेमपर ग्लास का पोंबो लगा दू",
+          "text": "wahi lena hai neel rang mein hai haan ji neela hai ye raha seelban dibba bill isi naam se bana doo jo aapne kal bataya tha haan rajesh kumar phone khol kar ek baar chalu bhi kar dijiyega bilkul iske saath cover aur temper glass ka pombo laga doo",
           "is_highlighted": false
         }
       ]
@@ -1093,7 +1093,7 @@
           "role": "salesperson",
           "start": 288.468,
           "end": 310.51800000000003,
-          "text": "वही लेना है नील रंग में है हाँ जी नीला है ये रहा सीलबन डिब्बा बिल इसी नाम से बना दू जो आपने कल बताया था हाँ राजेश कुमार फोन खोल कर एक बार चालू भी कर दीजियेगा बिल्कुल इसके साथ कवर और टेमपर ग्लास का पोंबो लगा दू",
+          "text": "wahi lena hai neel rang mein hai haan ji neela hai ye raha seelban dibba bill isi naam se bana doo jo aapne kal bataya tha haan rajesh kumar phone khol kar ek baar chalu bhi kar dijiyega bilkul iske saath cover aur temper glass ka pombo laga doo",
           "is_highlighted": false
         },
         {
@@ -1102,7 +1102,7 @@
           "role": "salesperson",
           "start": 310.996,
           "end": 313.796,
-          "text": "दोनों मिलाकर छे सो नब्बे रुपए पड़ेंगे।",
+          "text": "dono milakar chhe so nabbe rupaye padenge.",
           "is_highlighted": false
         },
         {
@@ -1111,7 +1111,7 @@
           "role": "salesperson",
           "start": 314.096,
           "end": 320.14599999999996,
-          "text": "नहीं भईया, छः नाइन नाइन और नहीं खर्च करने, अभी बस फोन ही दीजिये.",
+          "text": "nahi bhaiya, chhah nine nine aur nahi kharch karne, abhi bas phone hi dijiye.",
           "is_highlighted": true
         },
         {
@@ -1120,7 +1120,7 @@
           "role": "salesperson",
           "start": 321.296,
           "end": 330.546,
-          "text": "ठीक है, कॉंबो छोड़ दीजिए, सिर्फ साधारन टैंपर्ड ग्लास लगवा लीजिए, वन नाइन्टी नाइन का है, कवर फिर कभी ले लेना।",
+          "text": "theek hai, combo chhod dijiye, sirf saadharan tempered glass lagwa lijiye, van ninety nine ka hai, cover phir kabhi le lena.",
           "is_highlighted": false
         },
         {
@@ -1129,7 +1129,7 @@
           "role": "salesperson",
           "start": 331.346,
           "end": 334.39599999999996,
-          "text": "वन हंड्रेड नाइन्टी नाइन में लगा कर देंगे न?",
+          "text": "van hundred ninety nine mein laga kar denge na?",
           "is_highlighted": false
         }
       ]

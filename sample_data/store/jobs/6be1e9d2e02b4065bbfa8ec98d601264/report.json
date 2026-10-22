@@ -122,31 +122,31 @@
         ],
         "upsell_attempts": [],
         "excluded_candidates": [
-          "ये देखिये बारह सौ निन्यानवे के है इसमें माइक भी है आपका फोन कौनसा है -> Recommendation of the requested main product within the customer's budget, not an upsell.",
-          "इसी तरह के ये दूसरे हैं ग्यारह सो निन्यानवे में रबर वाली टिप है पहन कर देख लीजिए। आपको ठीक बैगते है या नहीं। -> The customer requested another option because of loose fit; this alternative was also cheaper.",
-          "जी, काला है। ये रहा इसका बंद डिब्बा। -> Fulfilled the customer's request for the selected earphones in black; no additional product was offered."
+          "ye dekhiye barah sau ninyanve ke hai ismein mic bhi hai aapka phone kaunsa hai -> Recommendation of the requested main product within the customer's budget, not an upsell.",
+          "isi tarah ke ye doosre hain gyarah so ninyanve mein rubber wali tip hai pehen kar dekh lijiye. aapko theek baigte hai ya nahi. -> The customer requested another option because of loose fit; this alternative was also cheaper.",
+          "ji, kaala hai ye raha iska band dibba. -> Fulfilled the customer's request for the selected earphones in black; no additional product was offered."
         ],
         "pushy_upsell": false,
         "pushy_reason": "The salesperson offered only the requested earphones and a customer-requested alternative, without pushing any add-on or premium option.",
         "confidence": 0.99,
         "summary": "No upsell was attempted. The salesperson recommended earphones within budget, provided a cheaper rubber-tip alternative after the customer reported loose fit, supported microphone testing, and proceeded with the selected black pair at ₹1,199.",
         "greeting_given": true,
-        "greeting_quote": "जी बताये क्या दिखाऊं",
+        "greeting_quote": "ji bataye kya dikhaun",
         "greeting_segment_id": 9,
         "products_discussed": [
-          "टाइप सी वाले तार के एरफोन"
+          "type si wale taar ke earphone"
         ],
-        "customer_feedback": "The customer said the first earphones felt “कान में थोड़ा ढीला” and requested another option, without expressing irritation.",
+        "customer_feedback": "The customer said the first earphones felt “kaan mein thoda dheela” and requested another option, without expressing irritation.",
         "customer_feedback_segment_id": 14,
         "unanswered_questions": [
           {
             "segment_id": 25,
             "speaker": "B",
-            "question": "फोन से कर देता हूँ, कोड दिखा दीजिए।",
+            "question": "phone se kar deta hoon, code dikha dijiye.",
             "note": "The transcript ends after this request; no acknowledgment or provision of the payment code is recorded."
           }
         ],
-        "coaching_feedback": "You addressed “कान में थोड़ा ढीला” with a cheaper rubber-tip option and encouraged microphone recording, helping the customer verify both fit and call clarity before purchasing. Complete the payment handoff by explicitly acknowledging “कोड दिखा दीजिए” and presenting the code; that final request has no recorded follow-through."
+        "coaching_feedback": "You addressed “kaan mein thoda dheela” with a cheaper rubber-tip option and encouraged microphone recording, helping the customer verify both fit and call clarity before purchasing. Complete the payment handoff by explicitly acknowledging “code dikha dijiye” and presenting the code; that final request has no recorded follow-through."
       },
       "attempted_upsell": false,
       "effort_score": 0.0,
@@ -493,7 +493,7 @@
           "role": "salesperson",
           "start": 160.304,
           "end": 163.104,
-          "text": "जी, ग्यारह सो निन्यानवे हुए,",
+          "text": "ji, gyarah so ninyanve hue,",
           "is_highlighted": false
         },
         {
@@ -502,7 +502,7 @@
           "role": "salesperson",
           "start": 164.254,
           "end": 165.554,
-          "text": "भुक्तान कैसे करेंगे?",
+          "text": "bhuktaan kaise karenge?",
           "is_highlighted": false
         },
         {
@@ -511,7 +511,7 @@
           "role": "customer",
           "start": 166.804,
           "end": 170.154,
-          "text": "फोन से कर देता हूँ, कोड दिखा दीजिए।",
+          "text": "phone se kar deta hoon, code dikha dijiye.",
           "is_highlighted": true
         }
       ]
@@ -530,7 +530,7 @@
           "role": "salesperson",
           "start": 80.842,
           "end": 83.142,
-          "text": "जी बताये क्या दिखाऊं",
+          "text": "ji bataye kya dikhaun",
           "is_highlighted": true
         },
         {
@@ -539,7 +539,7 @@
           "role": "customer",
           "start": 83.592,
           "end": 92.142,
-          "text": "टाइप सी वाले तार के एरफोन चाहिए पंद्रा सो के अंदर कॉल पर आवाज साफ आनी चाहिए",
+          "text": "type si wale taar ke earphone chahiye pandra so ke andar call par aawaz saaf aani chahiye",
           "is_highlighted": false
         },
         {
@@ -548,7 +548,7 @@
           "role": "salesperson",
           "start": 93.092,
           "end": 100.392,
-          "text": "ये देखिये बारह सौ निन्यानवे के है इसमें माइक भी है आपका फोन कौनसा है",
+          "text": "ye dekhiye barah sau ninyanve ke hai ismein mic bhi hai aapka phone kaunsa hai",
           "is_highlighted": false
         }
       ]
@@ -567,7 +567,7 @@
           "role": "customer",
           "start": 100.942,
           "end": 104.49199999999999,
-          "text": "यही फोन है लगा कर देख सकता हूँ",
+          "text": "yahi phone hai laga kar dekh sakta hoon",
           "is_highlighted": false
         },
         {
@@ -576,7 +576,7 @@
           "role": "salesperson",
           "start": 105.706,
           "end": 110.706,
-          "text": "हां जी, ये जान्चने वाला पीस है। लगाईए, आवाज आ रही है?",
+          "text": "haan ji, ye jaanchne wala piece hai lagaiye, aawaz aa rahi hai?",
           "is_highlighted": false
         },
         {
@@ -585,7 +585,7 @@
           "role": "customer",
           "start": 111.756,
           "end": 116.90599999999999,
-          "text": "आवाज तो आ रही है लेकिन कान में थोड़ा ढीला लग रहा है,",
+          "text": "aawaz to aa rahi hai lekin kaan mein thoda dheela lag raha hai,",
           "is_highlighted": true
         },
         {
@@ -594,7 +594,7 @@
           "role": "customer",
           "start": 117.856,
           "end": 119.006,
-          "text": "कुछ और अच्छा है?",
+          "text": "kuch aur achha hai?",
           "is_highlighted": false
         },
         {
@@ -603,7 +603,7 @@
           "role": "salesperson",
           "start": 120.70599999999999,
           "end": 132.084,
-          "text": "इसी तरह के ये दूसरे हैं ग्यारह सो निन्यानवे में रबर वाली टिप है पहन कर देख लीजिए। आपको ठीक बैगते है या नहीं।",
+          "text": "isi tarah ke ye doosre hain gyarah so ninyanve mein rubber wali tip hai pehen kar dekh lijiye. aapko theek baigte hai ya nahi.",
           "is_highlighted": false
         }
       ]

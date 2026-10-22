@@ -14,3 +14,6 @@
 .attn-more a { color: var(--accent-ink); }
 .attn-more a:hover { text-decoration: underline; }
 @media (max-width: 860px) { .attn { grid-template-columns: 1fr; } }
+
+/* Polish: the card's own padding is removed so rows and headings line up with the other cards */
+.card.attn-card { padding: 0; }
