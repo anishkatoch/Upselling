@@ -17,8 +17,8 @@ export const EFFORT: Record<EffortLevel, { label: string; short: string; tone: "
 export const EFFORT_TONE: Record<EffortLevel, "neutral" | "muted"> = { high: "neutral", moderate: "neutral", low: "muted", none: "muted" };
 export function moodFromFrustration(v: number | null): { label: string; tone: "good" | "warn" | "bad" | "neutral" } {
   if (v == null) return { label: "No data", tone: "neutral" };
-  if (v <= 3) return { label: "Calm", tone: "good" };
-  if (v <= 5) return { label: "Some tension", tone: "warn" };
+  if (v < 3) return { label: "Calm", tone: "good" };
+  if (v < 5) return { label: "Some tension", tone: "warn" };
   return { label: "Frustrated", tone: "bad" };
 }
 export const TREND_SENTENCE: Record<NonNullable<Person["assessment"]["trend"]>, string> = {

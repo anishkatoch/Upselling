@@ -113,7 +113,7 @@ class ToneAnalysis(BaseModel):
 class SpeakerMood(BaseModel):
     speaker: str
     overall_mood: Mood
-    frustration_level: int = Field(description="0 (none) to 10 (extreme).")
+    frustration_level: int = Field(description="0 (none) to 10 (extreme): the worst it got during the conversation.")
     trend: Literal["improving", "stable", "worsening"]
     summary: str
 

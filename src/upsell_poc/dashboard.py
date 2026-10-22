@@ -55,6 +55,7 @@ class Bucket(BaseModel):
     unanswered_questions: int = 0
     pushy_conversations: int = 0
     avg_customer_frustration: float | None = None
+    max_customer_frustration: float | None = None  # the worst single conversation in the period
     attempts_per_conversation: float | None = None
     re_offers: int = 0  # offers made again after the customer had already said no
     objections_handled: int = 0
@@ -352,6 +353,7 @@ class _Acc:
             unanswered_questions=self.unanswered,
             pushy_conversations=self.pushy,
             avg_customer_frustration=mean(self.frustration),
+            max_customer_frustration=max(self.frustration) if self.frustration else None,
             attempts_per_conversation=round(self.attempts / self.analysed, 2) if self.analysed else None,
             re_offers=self.re_offers,
             objections_handled=self.objections,
@@ -501,10 +503,10 @@ def assess(t: Bucket, series: list[Bucket]) -> Assessment:
     # customer mood
     if t.avg_customer_frustration is not None:
         available += 2
-        if t.avg_customer_frustration <= 3:
+        if t.avg_customer_frustration < 3:
             points += 2
             strengths.append(f"Customers stay calm (average frustration {t.avg_customer_frustration}/10).")
-        elif t.avg_customer_frustration <= 5:
+        elif t.avg_customer_frustration < 5:
             points += 1
             improvements.append(
                 f"Customers get somewhat frustrated (average {t.avg_customer_frustration}/10) - slow down and acknowledge their concerns."

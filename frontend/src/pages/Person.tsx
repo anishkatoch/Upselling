@@ -90,6 +90,8 @@ function PersonDetail({
   const vs = (value: number | null | undefined) => (value == null ? null : <DeltaChip value={value} />);
   const mood = moodFromFrustration(t.avg_customer_frustration);
   const moodChange = seriesDelta(p.series, "avg_customer_frustration");
+  const worst = t.max_customer_frustration != null ? moodFromFrustration(t.max_customer_frustration) : null;
+  const showWorst = worst != null && worst.label !== mood.label;
   const comparedWith = period === "day" ? "yesterday" : period === "week" ? "last week" : "last month";
   const hasChange = p.series.length >= 2;
   const shownStrengths = showAllStrengths ? a.strengths : a.strengths.slice(0, 2);
@@ -148,11 +150,23 @@ function PersonDetail({
             info={
               <>
                 {METRIC_INFO.frustration}
-                {t.avg_customer_frustration != null && ` Average tension score: ${t.avg_customer_frustration} out of 10 (0 is calm).`}
+                {t.avg_customer_frustration != null &&
+                  ` Average score: ${t.avg_customer_frustration} out of 10 (0 is calm; under 3 is calm, 3 to 4 some tension, 5 and over frustrated).${t.max_customer_frustration != null ? ` Worst conversation: ${t.max_customer_frustration}.` : ""}`}
               </>
             }
             value={mood.label}
-            foot={moodChange == null ? null : <DeltaChip value={moodChange} lowerIsBetter upText="more tense" downText="calmer" />}
+            foot={
+              moodChange == null && !showWorst ? null : (
+                <>
+                  {moodChange != null && <DeltaChip value={moodChange} lowerIsBetter upText="more tense" downText="calmer" />}
+                  {showWorst && worst && (
+                    <div className="sub small" style={{ marginTop: moodChange != null ? 2 : 0 }}>
+                      Worst conversation: {worst.label.toLowerCase()} ({t.max_customer_frustration}/10)
+                    </div>
+                  )}
+                </>
+              )
+            }
           />
         </MetricRow>
         <div className="metric-compact" aria-label="More detail">

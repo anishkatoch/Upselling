@@ -187,7 +187,11 @@ export default function TeamGlanceTable({ people, collapsedRows }: { people: Per
                   <td>
                     <span
                       className={`wd wd-${mood.tone}`}
-                      title={t.avg_customer_frustration != null ? `Average tension score: ${t.avg_customer_frustration} out of 10 (0 is calm)` : undefined}
+                      title={
+                        t.avg_customer_frustration != null
+                          ? `Average score ${t.avg_customer_frustration} out of 10 (0 is calm)${t.max_customer_frustration != null ? `; worst conversation ${t.max_customer_frustration}` : ""}`
+                          : undefined
+                      }
                     >
                       {mood.label}
                     </span>

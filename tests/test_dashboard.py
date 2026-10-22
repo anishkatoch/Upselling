@@ -424,3 +424,35 @@ def test_technique_stats_agree_with_people_totals_and_ignore_period(tmp_path):
     # same all-recordings numbers whichever period is requested
     day = dashboard.build_dashboard(storage, "day")
     assert day.technique_stats == month.technique_stats
+
+
+def _mood_bucket(avg: float) -> dashboard.Bucket:
+    return dashboard.Bucket(
+        period="p",
+        conversations=4,
+        analysed_conversations=4,
+        solo_analysed_conversations=4,
+        avg_customer_frustration=avg,
+    )
+
+
+@pytest.mark.parametrize(
+    ("avg", "expected"),
+    [
+        (2.9, "Customers stay calm"),  # under 3 is calm, as in the prompt's bands
+        (3.0, "somewhat frustrated"),  # 3 to 4 is some tension (was still "calm" at exactly 3 before)
+        (4.9, "somewhat frustrated"),
+        (5.0, "leave frustrated"),  # 5 and over is frustrated
+    ],
+)
+def test_mood_wording_follows_the_same_cut_offs_as_the_scoring_bands(avg, expected):
+    a = dashboard.assess(_mood_bucket(avg), [])
+    assert any(expected in line for line in a.strengths + a.improvements)
+
+
+def test_a_period_reports_its_worst_conversation_as_well_as_the_average():
+    acc = dashboard._Acc()
+    acc.frustration = [1.0, 7.0, 2.0]
+    b = acc.bucket("p")
+    assert b.avg_customer_frustration == 3.3 and b.max_customer_frustration == 7.0
+    assert dashboard._Acc().bucket("p").max_customer_frustration is None

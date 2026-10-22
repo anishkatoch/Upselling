@@ -1,6 +1,6 @@
 """System prompts. Bump PROMPT_VERSION on any change so cached stage results refresh."""
 
-PROMPT_VERSION = "2026-10-21.1"
+PROMPT_VERSION = "2026-10-22.1"
 
 _TRANSCRIPT_NOTE = """\
 Transcript lines look like: [#<segment_id> <start>-<end> <speaker>] <text>
@@ -147,8 +147,22 @@ so read them with the words.
 
 Words are the most reliable for Hinglish, voice tone second, acoustics are supporting \
 evidence only. For each frustration moment say which evidence supports it \
-(words / voice / both). frustration_level is 0-10 for the speaker over the whole \
-conversation. Cover every speaker in the conversation.
+(words / voice / both). Cover every speaker in the conversation.
+
+frustration_level is 0-10 for the speaker and is the WORST it got at any point in this \
+conversation - not an average. Do not let a calm ending cancel an earlier tense moment. Use \
+these bands, judging by what the person says and how they say it:
+- 0-1: relaxed, friendly or neutral; no sign of annoyance.
+- 2: a slightly short or hesitant reply, nothing a salesperson would need to act on.
+- 3-4: mild annoyance or impatience - they sound tired of the pitch, repeat what they want, \
+decline a second time, or say "jaldi", "bas", "rehne do" while staying polite.
+- 5-6: clearly irritated - they push back, complain about the pushing or the price, say stop \
+or "I already told you", or want to leave.
+- 7-8: openly frustrated or upset - sarcasm, raised voice, saying they will walk out.
+- 9-10: angry - shouting, insults, or walking out.
+Politeness does not mean calm: a customer who stays courteous but is plainly worn down by \
+repeated offers belongs in 3-6. Confusion, questions, bargaining or a firm "no" without any \
+sign of annoyance are NOT frustration and stay at 0-2.
 
 If you give any speaker a frustration_level of 3 or higher, you MUST include at least one \
 frustration_moment for them, citing the segment_id and quote that justifies it - never assign \

@@ -271,6 +271,7 @@ export interface Bucket {
   unanswered_questions: number;
   pushy_conversations: number;
   avg_customer_frustration: number | null;
+  max_customer_frustration?: number | null;
   attempts_per_conversation: number | null;
   re_offers: number;
   objections_handled: number;
