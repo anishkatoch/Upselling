@@ -28,8 +28,6 @@ const oneDec = (v: number) => String(Math.round(v * 10) / 10);
 const rate = (v: number) => Math.min(1, Math.max(0, v));
 
 const ROWS: Row[] = [
-  { key: "upsell", label: "Tries to upsell", info: METRIC_INFO.upsell_rate, get: (p) => p.total.upsell_rate, pos: rate, threshold: 0.05, fmt: pctFmt, say: (v) => `${pctSay(v)} of conversations` },
-  { key: "accept", label: "Customers say yes", info: METRIC_INFO.acceptance_rate, get: (p) => p.total.acceptance_rate, pos: rate, threshold: 0.05, fmt: pctFmt, say: (v) => `${pctSay(v)} of offers` },
   { key: "greet", label: "Greets customers", info: METRIC_INFO.greeting_rate, get: (p) => p.total.greeting_rate, pos: rate, threshold: 0.05, fmt: pctFmt, say: (v) => `${pctSay(v)} of conversations` },
   {
     key: "mood",
@@ -44,6 +42,8 @@ const ROWS: Row[] = [
     say: (v) => moodFromFrustration(v).label.toLowerCase(),
     hover: (v) => `Average tension score ${oneDec(v)} out of 10 (0 is calm)`,
   },
+  { key: "upsell", label: "Tries to upsell", info: METRIC_INFO.upsell_rate, get: (p) => p.total.upsell_rate, pos: rate, threshold: 0.05, fmt: pctFmt, say: (v) => `${pctSay(v)} of conversations` },
+  { key: "accept", label: "Customers say yes", info: METRIC_INFO.acceptance_rate, get: (p) => p.total.acceptance_rate, pos: rate, threshold: 0.05, fmt: pctFmt, say: (v) => `${pctSay(v)} of offers` },
 ];
 
 type Verdict = "above" | "below" | "inline";

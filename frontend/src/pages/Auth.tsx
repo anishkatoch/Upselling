@@ -12,7 +12,7 @@ function Shell({ title, lead, children, footer }: { title: string; lead: string;
           <span className="brand-mark">
             <Headset size={15} />
           </span>
-          Upsell Insights
+          Sales Insights
         </div>
         <h2>See how every salesperson is really doing.</h2>
         <ul>
@@ -67,7 +67,7 @@ export function Login() {
       .then((r) => r.json())
       .then((o: { signup: boolean }) => setCanSignup(o.signup))
       .catch(() => undefined);
-    document.title = "Log in - Upsell Insights";
+    document.title = "Log in - Sales Insights";
   }, []);
 
   const submit = async (e: FormEvent) => {
@@ -130,7 +130,7 @@ export function Signup() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    document.title = "Create account - Upsell Insights";
+    document.title = "Create account - Sales Insights";
   }, []);
 
   const tooShort = password.length > 0 && password.length < 8;

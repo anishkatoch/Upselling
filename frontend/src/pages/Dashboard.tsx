@@ -56,6 +56,9 @@ export default function Dashboard() {
       recordings: a.recordings + p.total.recordings,
       analysed: a.analysed + analysedCount(p.total),
       shared: a.shared + (p.total.shared_conversations ?? 0),
+      greeted: a.greeted + p.total.greeted,
+      solo: a.solo + (p.total.solo_analysed_conversations ?? 0),
+      unanswered: a.unanswered + p.total.unanswered_questions,
       withUpsell: a.withUpsell + p.total.conversations_with_upsell,
       won: a.won + p.total.conversations_won,
       attempts: a.attempts + p.total.attempts,
@@ -63,12 +66,12 @@ export default function Dashboard() {
       frustSum: a.frustSum + (p.total.avg_customer_frustration ?? 0) * analysedCount(p.total),
       frustN: a.frustN + (p.total.avg_customer_frustration != null ? analysedCount(p.total) : 0),
     }),
-    { recordings: 0, analysed: 0, shared: 0, withUpsell: 0, won: 0, attempts: 0, accepted: 0, frustSum: 0, frustN: 0 },
+    { recordings: 0, analysed: 0, shared: 0, greeted: 0, solo: 0, unanswered: 0, withUpsell: 0, won: 0, attempts: 0, accepted: 0, frustSum: 0, frustN: 0 },
   );
   const upsellRate = totals && totals.analysed ? totals.withUpsell / totals.analysed : null;
   const acceptRate = totals && totals.attempts ? totals.accepted / totals.attempts : null;
   const frustration = totals && totals.frustN ? totals.frustSum / totals.frustN : null;
-  const recordingsCount = jobs?.length;
+  const greetRate = totals && totals.solo ? totals.greeted / totals.solo : null;
 
   const ratingCounts = (board?.people ?? []).reduce(
     (acc, p) => {
@@ -143,9 +146,26 @@ export default function Dashboard() {
       <StaggerItem>
       <MetricRow>
         <Metric
-          label="Recordings"
-          info={METRIC_INFO.recordings}
-          value={recordingsCount != null ? <Num value={recordingsCount} /> : "–"}
+          label="Customer mood"
+          info={
+            <>
+              {METRIC_INFO.frustration}
+              {frustration != null && ` Team average score: ${frustration.toFixed(1)} out of 10 (0 is calm).`}
+            </>
+          }
+          value={mood.label}
+          foot={<DeltaChip value={diff("frust", 1)} lowerIsBetter upText="more tense" downText="calmer" />}
+        />
+        <Metric
+          label="Greets customers"
+          info={METRIC_INFO.greeting_rate}
+          value={pctNum(greetRate)}
+          unit={greetRate != null ? "of conversations" : undefined}
+        />
+        <Metric
+          label="Questions left unanswered"
+          info={METRIC_INFO.unanswered}
+          value={totals && totals.analysed > 0 ? <Num value={totals.unanswered} /> : "–"}
         />
         <Metric
           label="Tries to upsell"
@@ -160,21 +180,6 @@ export default function Dashboard() {
           value={pctNum(acceptRate)}
           unit={acceptRate != null ? "of offers" : undefined}
           foot={<DeltaChip value={diff("accept", 100)} />}
-        />
-        <Metric
-          label="Customer mood"
-          info={
-            <>
-              {METRIC_INFO.frustration}
-              {frustration != null && ` Team average tension score: ${frustration.toFixed(1)} out of 10 (0 is calm).`}
-            </>
-          }
-          value={mood.label}
-          foot={<DeltaChip value={diff("frust", 1)} lowerIsBetter upText="more tense" downText="calmer" />}
-        />
-        <Metric
-          label="Salespeople"
-          value={board?.people.length != null ? <Num value={board.people.length} /> : "–"}
         />
       </MetricRow>
       </StaggerItem>
@@ -204,9 +209,15 @@ export default function Dashboard() {
           </StaggerItem>
 
           {totals && totals.analysed > 0 && (
-            <StaggerItem className="dash-row">
-              <OutcomeBars people={board.people} />
+            <StaggerItem className="dash-row flip">
               <SentimentDonut people={board.people} />
+              <OutcomeBars people={board.people} />
+            </StaggerItem>
+          )}
+
+          {totals && totals.analysed > 0 && (
+            <StaggerItem>
+              <h2 className="section-title">Upselling</h2>
             </StaggerItem>
           )}
 

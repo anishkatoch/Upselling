@@ -342,26 +342,44 @@ def test_assess_scores_only_categories_with_data():
     full = dashboard.Bucket(
         **base, solo_analysed_conversations=5, greeting_rate=1.0, upsell_rate=0.8, acceptance_rate=0.5
     )
-    assert dashboard.assess(full, []).rating == "strong"  # 10 of 10 available points, not 10 of a fixed 12
+    assert dashboard.assess(full, []).rating == "strong"  # every available point, not a share of a fixed total
 
     few = dashboard.Bucket(period="p", conversations=2, analysed_conversations=2, solo_analysed_conversations=2)
     assert dashboard.assess(few, []).insufficient_data
 
 
-def test_rarely_upselling_is_never_rated_strong_or_solid():
-    # Greeted, no pressure, questions answered - but never tries an upsell: that is the one thing being measured.
+def test_upselling_is_one_part_of_the_rating_not_all_of_it():
     base = {
         "period": "p",
         "conversations": 5,
         "analysed_conversations": 5,
         "solo_analysed_conversations": 5,
         "greeting_rate": 1.0,
+        "avg_customer_frustration": 1.0,
     }
-    assert dashboard.assess(dashboard.Bucket(**base, upsell_rate=0.0), []).rating == "needs_work"
-    assert dashboard.assess(dashboard.Bucket(**base, upsell_rate=0.2), []).rating == "needs_work"
-    # a middling upsell rate can't be "strong" even if every other category is perfect
-    mid = dashboard.Bucket(**base, upsell_rate=0.5, acceptance_rate=0.9)
-    assert dashboard.assess(mid, []).rating in ("solid", "needs_work")
+    # Greets, no pressure, answers every question, customers stay calm - but never upsells: still doing the job well.
+    assert dashboard.assess(dashboard.Bucket(**base, upsell_rate=0.0), []).rating == "strong"
+    # The same person with unhappy customers drops to "on track": customer handling outweighs the upsell figures.
+    tense = {**base, "avg_customer_frustration": 6.0}
+    assert dashboard.assess(dashboard.Bucket(**tense, upsell_rate=0.0), []).rating == "solid"
+
+
+def test_a_strong_upseller_who_treats_customers_badly_is_not_rated_well():
+    bad = dashboard.Bucket(
+        period="p",
+        conversations=5,
+        analysed_conversations=5,
+        solo_analysed_conversations=5,
+        greeting_rate=0.2,
+        upsell_rate=0.9,
+        acceptance_rate=0.8,
+        pushy_conversations=5,
+        unanswered_questions=5,
+        avg_customer_frustration=7.0,
+    )
+    a = dashboard.assess(bad, [])
+    assert a.rating == "needs_work"
+    assert any("Pushy" in line for line in a.improvements)
 
 
 def _set_first_conversation_attempts(storage, job_id: str, attempts: list[tuple[str, str]]) -> None:

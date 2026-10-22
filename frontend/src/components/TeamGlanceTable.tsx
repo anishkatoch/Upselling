@@ -108,17 +108,17 @@ export default function TeamGlanceTable({ people, collapsedRows }: { people: Per
               <Th sort={sort} onSort={toggle} sortKey="rating" info={METRIC_INFO.rating}>
                 Rating
               </Th>
-              <Th sort={sort} onSort={toggle} num sortKey="upsell" info={METRIC_INFO.upsell_rate}>
-                Tries to upsell
-              </Th>
-              <Th sort={sort} onSort={toggle} num sortKey="accepted" info={METRIC_INFO.acceptance_rate}>
-                Customers say yes
-              </Th>
               <Th sort={sort} onSort={toggle} num info={METRIC_INFO.greeting_rate}>
                 Greets customers
               </Th>
               <Th sort={sort} onSort={toggle} info={METRIC_INFO.frustration}>
                 Customer mood
+              </Th>
+              <Th sort={sort} onSort={toggle} num sortKey="upsell" info={METRIC_INFO.upsell_rate}>
+                Tries to upsell
+              </Th>
+              <Th sort={sort} onSort={toggle} num sortKey="accepted" info={METRIC_INFO.acceptance_rate}>
+                Customers say yes
               </Th>
               <Th sort={sort} onSort={toggle} info={METRIC_INFO.effort}>
                 Selling effort
@@ -171,18 +171,6 @@ export default function TeamGlanceTable({ people, collapsedRows }: { people: Per
                   <td>
                     <RatingChip person={p} short />
                   </td>
-                  <td className="num">
-                    {pct(t.upsell_rate)}
-                    <div className="cell-sub">
-                      <DeltaChip value={seriesDelta(p.series, "upsell_rate", 100)} />
-                    </div>
-                  </td>
-                  <td className="num">
-                    {pct(t.acceptance_rate)}
-                    <div className="cell-sub">
-                      <DeltaChip value={seriesDelta(p.series, "acceptance_rate", 100)} />
-                    </div>
-                  </td>
                   <td className="num">{pct(t.greeting_rate)}</td>
                   <td>
                     <span
@@ -195,6 +183,18 @@ export default function TeamGlanceTable({ people, collapsedRows }: { people: Per
                     >
                       {mood.label}
                     </span>
+                  </td>
+                  <td className="num">
+                    {pct(t.upsell_rate)}
+                    <div className="cell-sub">
+                      <DeltaChip value={seriesDelta(p.series, "upsell_rate", 100)} />
+                    </div>
+                  </td>
+                  <td className="num">
+                    {pct(t.acceptance_rate)}
+                    <div className="cell-sub">
+                      <DeltaChip value={seriesDelta(p.series, "acceptance_rate", 100)} />
+                    </div>
                   </td>
                   <td>
                     {t.avg_effort != null ? (

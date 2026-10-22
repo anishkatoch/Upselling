@@ -267,6 +267,7 @@ export interface Bucket {
   acceptance_rate: number | null;
   avg_effort: number | null;
   greeted: number;
+  solo_analysed_conversations?: number;
   greeting_rate: number | null;
   unanswered_questions: number;
   pushy_conversations: number;

@@ -4,6 +4,7 @@ export const METRIC_INFO = {
   conversations: "The separate customer conversations found inside the recordings.",
   upsell_rate: "In how many of the customer conversations the salesperson offered something extra. Giving the customer what they asked for doesn't count.",
   acceptance_rate: "Of the offers where the customer clearly said yes or no, how many got a yes. Offers left undecided aren't counted.",
+  unanswered: "Questions the customer asked that the salesperson never actually answered. Fewer is better.",
   greeting_rate: "In how many of the conversations the salesperson greeted the customer near the start.",
   frustration: "How tense the customer got at the worst moment of the conversation, judged from their words and voice. Calm is best; Frustrated means the customer was clearly unhappy.",
   effort: "How hard the salesperson works at selling: how many offers they make, how many different approaches they try, whether they try again after a no, and how they handle objections.",

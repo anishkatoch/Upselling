@@ -417,6 +417,12 @@ def _outcome_trend(series: list[Bucket]) -> Trend | None:
     return "steady"
 
 
+# How much each category counts towards the rating. How a salesperson treats customers (greeting, listening, mood,
+# pressure) counts for more than upselling itself, which is two of the six categories.
+W_GREETING, W_LISTENING, W_MOOD, W_PUSHY = 3, 3, 3, 2
+W_UPSELL_REACH, W_CONVERSION = 2, 2
+
+
 def assess(t: Bucket, series: list[Bucket]) -> Assessment:
     """Plain, explainable rules over the totals - no model call. Every line cites the number behind it.
 
@@ -427,19 +433,19 @@ def assess(t: Bucket, series: list[Bucket]) -> Assessment:
     d = t.solo_analysed_conversations  # denominator for conversation-level findings
     strengths: list[str] = []
     improvements: list[str] = []
-    points = 0
-    available = 0
+    points = 0.0
+    available = 0.0
     pushy_share = t.pushy_conversations / d if d else 0.0
     unanswered_per = t.unanswered_questions / d if d else 0.0
 
     # greeting
     if t.greeting_rate is not None:
-        available += 2
+        available += W_GREETING
         if t.greeting_rate >= 0.8:
-            points += 2
+            points += W_GREETING
             strengths.append(f"Greets customers consistently ({_pct(t.greeting_rate)} of conversations).")
         elif t.greeting_rate >= 0.5:
-            points += 1
+            points += W_GREETING / 2
             improvements.append(
                 f"Greet every customer - only {_pct(t.greeting_rate)} of conversations started with a greeting."
             )
@@ -447,12 +453,12 @@ def assess(t: Bucket, series: list[Bucket]) -> Assessment:
             improvements.append(f"Start each conversation with a greeting - only {_pct(t.greeting_rate)} had one.")
     # upsell reach
     if t.upsell_rate is not None:
-        available += 2
+        available += W_UPSELL_REACH
         if t.upsell_rate >= 0.6:
-            points += 2
+            points += W_UPSELL_REACH
             strengths.append(f"Looks for add-on sales in most conversations ({_pct(t.upsell_rate)}).")
         elif t.upsell_rate >= 0.3:
-            points += 1
+            points += W_UPSELL_REACH / 2
             improvements.append(f"Try an upsell in more conversations - currently {_pct(t.upsell_rate)}.")
         else:
             improvements.append(
@@ -460,25 +466,25 @@ def assess(t: Bucket, series: list[Bucket]) -> Assessment:
             )
     # conversion (no answered offers = nothing to judge, not a free point)
     if t.acceptance_rate is not None:
-        available += 2
+        available += W_CONVERSION
         if t.acceptance_rate >= 0.4:
-            points += 2
+            points += W_CONVERSION
             strengths.append(f"Customers accept {_pct(t.acceptance_rate)} of the offers that get an answer.")
         elif t.acceptance_rate >= 0.2:
-            points += 1
+            points += W_CONVERSION / 2
         elif t.attempts >= 3:
             improvements.append(
                 f"Only {_pct(t.acceptance_rate)} of offers are accepted - tie the add-on to what the customer just asked for and pitch it after answering their questions."
             )
     if d:
         # pushiness
-        available += 2
+        available += W_PUSHY
         if pushy_share <= 0.1:
-            points += 2
+            points += W_PUSHY
             if t.attempts:
                 strengths.append("Accepts a 'no' without pressuring the customer.")
         elif pushy_share <= 0.3:
-            points += 1
+            points += W_PUSHY / 2
             improvements.append(
                 f"Pushy in {t.pushy_conversations} of {d} conversations - drop the offer after a clear no."
             )
@@ -487,12 +493,12 @@ def assess(t: Bucket, series: list[Bucket]) -> Assessment:
                 f"Pushy in {t.pushy_conversations} of {d} conversations - stop re-offering once the customer has declined."
             )
         # listening
-        available += 2
+        available += W_LISTENING
         if unanswered_per <= 0.1:
-            points += 2
+            points += W_LISTENING
             strengths.append("Answers what customers ask.")
         elif unanswered_per <= 0.3:
-            points += 1
+            points += W_LISTENING / 2
             improvements.append(
                 f"{t.unanswered_questions} customer question(s) went unanswered - answer first, then pitch."
             )
@@ -502,12 +508,12 @@ def assess(t: Bucket, series: list[Bucket]) -> Assessment:
             )
     # customer mood
     if t.avg_customer_frustration is not None:
-        available += 2
+        available += W_MOOD
         if t.avg_customer_frustration < 3:
-            points += 2
+            points += W_MOOD
             strengths.append(f"Customers stay calm (average frustration {t.avg_customer_frustration}/10).")
         elif t.avg_customer_frustration < 5:
-            points += 1
+            points += W_MOOD / 2
             improvements.append(
                 f"Customers get somewhat frustrated (average {t.avg_customer_frustration}/10) - slow down and acknowledge their concerns."
             )
@@ -532,13 +538,6 @@ def assess(t: Bucket, series: list[Bucket]) -> Assessment:
         rating = "solid"  # nothing to judge; insufficient_data is what tells the reader so
     else:
         rating = "strong" if points * 4 >= available * 3 else "solid" if points * 2 >= available else "needs_work"
-        # Upselling is what this product measures: someone who rarely tries can't be rated well just because they
-        # did nothing wrong elsewhere (no pressure, greeted, answered questions).
-        if t.upsell_rate is not None:
-            if t.upsell_rate < 0.3:
-                rating = "needs_work"
-            elif t.upsell_rate < 0.6 and rating == "strong":
-                rating = "solid"
     if insufficient:
         headline = (
             f"Not enough analysed data to rate this person yet ({n} of {MIN_CONVERSATIONS} conversations analysed)."

@@ -142,8 +142,6 @@ function PersonDetail({
       <Reveal className="metric-group" delay={0.06}>
         {hasChange && <p className="sub small metric-caption">Arrows show the change compared with {comparedWith}.</p>}
         <MetricRow>
-          <Metric label="Tries to upsell" info={METRIC_INFO.upsell_rate} value={num(t.upsell_rate, "pct")} unit={t.upsell_rate != null ? "of conversations" : undefined} foot={vs(seriesDelta(p.series, "upsell_rate", 100))} />
-          <Metric label="Customers say yes" info={METRIC_INFO.acceptance_rate} value={num(t.acceptance_rate, "pct")} unit={t.acceptance_rate != null ? "of offers" : undefined} foot={vs(seriesDelta(p.series, "acceptance_rate", 100))} />
           <Metric label="Greets customers" info={METRIC_INFO.greeting_rate} value={num(t.greeting_rate, "pct")} unit={t.greeting_rate != null ? "of conversations" : undefined} foot={vs(seriesDelta(p.series, "greeting_rate", 100))} />
           <Metric
             label="Customer mood"
@@ -168,6 +166,8 @@ function PersonDetail({
               )
             }
           />
+          <Metric label="Tries to upsell" info={METRIC_INFO.upsell_rate} value={num(t.upsell_rate, "pct")} unit={t.upsell_rate != null ? "of conversations" : undefined} foot={vs(seriesDelta(p.series, "upsell_rate", 100))} />
+          <Metric label="Customers say yes" info={METRIC_INFO.acceptance_rate} value={num(t.acceptance_rate, "pct")} unit={t.acceptance_rate != null ? "of offers" : undefined} foot={vs(seriesDelta(p.series, "acceptance_rate", 100))} />
         </MetricRow>
         <div className="metric-compact" aria-label="More detail">
           <MetricRow>

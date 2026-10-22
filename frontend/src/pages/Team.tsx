@@ -107,7 +107,7 @@ export default function Team() {
           {(["table", "map"] as const).map((v) => (
             <button key={v} role="tab" aria-selected={view === v} className={view === v ? "on" : ""} onClick={() => setView(v)}>
               {view === v && <motion.span layoutId="view-pill" className="vs-pill" transition={{ duration: 0.25, ease: EASE }} />}
-              <span className="vs-label">{v === "table" ? "Table" : "Map"}</span>
+              <span className="vs-label">{v === "table" ? "Table" : "Upsell map"}</span>
             </button>
           ))}
         </motion.div>
