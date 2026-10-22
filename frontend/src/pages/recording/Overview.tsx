@@ -18,7 +18,6 @@ export default function Overview({ ctx }: { ctx: RecCtx }) {
   const maxTalk = Math.max(1, ...r.speakers.map((s) => s.talk_time_s));
 
   const [fullBreakdown, setFullBreakdown] = useState(false);
-  const [showSpeakers, setShowSpeakers] = useState(false);
 
   return (
     <>
@@ -96,35 +95,40 @@ export default function Overview({ ctx }: { ctx: RecCtx }) {
         <p className="sub">No salesperson detected in this recording.</p>
       )}
 
-      <div className="row" style={{ justifyContent: "space-between", alignItems: "center", marginTop: 24 }}>
-        <h2 style={{ marginBottom: 0 }}>Who spoke</h2>
-        <button className="btn ghost small" onClick={() => setShowSpeakers((v) => !v)}>
-          {showSpeakers ? "Hide" : "Show talk time"}
-        </button>
+      <h2 style={{ marginTop: 28 }}>Who spoke</h2>
+      <div className="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Speaker</th>
+              <th>Role</th>
+              <th>Share of the talking</th>
+              <th className="num">Talk time</th>
+            </tr>
+          </thead>
+          <tbody>
+            {r.speakers.map((s) => (
+              <tr key={s.speaker}>
+                <td style={{ width: "22%" }}>
+                  <Spk speaker={s.speaker} report={r} who={who} />
+                </td>
+                <td style={{ width: "18%" }}>
+                  <span className="pill neutral">{s.role}</span>
+                  {s.title && (
+                    <div className="sub small" style={{ marginTop: 4 }}>
+                      {s.title}
+                    </div>
+                  )}
+                </td>
+                <td style={{ width: "40%" }}>
+                  <div className="talk" style={{ "--c": colorFor(s.speaker, r), width: `${(s.talk_time_s / maxTalk) * 100}%` } as React.CSSProperties} />
+                </td>
+                <td className="num sub">{clock(s.talk_time_s)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
-      {showSpeakers && (
-        <div className="table-wrap reveal" style={{ marginTop: 12 }}>
-          <table>
-            <tbody>
-              {r.speakers.map((s) => (
-                <tr key={s.speaker}>
-                  <td style={{ width: "22%" }}>
-                    <Spk speaker={s.speaker} report={r} who={who} />
-                  </td>
-                  <td style={{ width: "16%" }}>
-                    <span className="pill neutral">{s.role}</span>
-                    {s.title && <div className="sub small" style={{ marginTop: 4 }}>{s.title}</div>}
-                  </td>
-                  <td style={{ width: "38%" }}>
-                    <div className="talk" style={{ "--c": colorFor(s.speaker, r), width: `${(s.talk_time_s / maxTalk) * 100}%` } as React.CSSProperties} />
-                  </td>
-                  <td className="num sub">{clock(s.talk_time_s)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
     </>
   );
 }
