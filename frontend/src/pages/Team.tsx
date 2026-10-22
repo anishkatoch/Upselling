@@ -1,7 +1,6 @@
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import QuadrantMap from "../components/dashboard/QuadrantMap";
 import TeamGlanceTable from "../components/TeamGlanceTable";
 import "../components/people/people.css";
 import { AlertTriangle, Users } from "../icons/Icons";
@@ -45,7 +44,6 @@ export default function Team() {
     else next.set("rating", r);
     setParams(next, { replace: true });
   };
-  const [view, setView] = useState<"table" | "map">("table");
   const { data, error } = useLoad(() => api.dashboard(period), [period]);
   const people = data?.people ?? [];
   const shown = people.filter((p) => matches(p, rating));
@@ -97,58 +95,30 @@ export default function Team() {
 
       {data && people.length > 0 && (
         <motion.div
-          className="view-switch vs-anim"
-          role="tablist"
-          aria-label="Choose how to see the team: as a table or as a map"
           initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: DUR.base, ease: EASE, delay: 0.12 }}
+          animate={{ opacity: 1, y: 0, transition: { duration: DUR.base, ease: EASE } }}
         >
-          {(["table", "map"] as const).map((v) => (
-            <button key={v} role="tab" aria-selected={view === v} className={view === v ? "on" : ""} onClick={() => setView(v)}>
-              {view === v && <motion.span layoutId="view-pill" className="vs-pill" transition={{ duration: 0.25, ease: EASE }} />}
-              <span className="vs-label">{v === "table" ? "Table" : "Upsell map"}</span>
+        <div className="rate-filter" role="group" aria-label="Show people by rating">
+          {FILTERS.map((f) => {
+            const n = people.filter((p) => matches(p, f.key)).length;
+            return (
+              <button key={f.key} className={rating === f.key ? "on" : ""} aria-pressed={rating === f.key} onClick={() => setRating(f.key)}>
+                {f.label} <span>{n}</span>
+              </button>
+            );
+          })}
+        </div>
+        {shown.length > 0 ? (
+          <TeamGlanceTable people={shown} />
+        ) : (
+          <div className="card empty">
+            <p>Nobody is in this group for {PERIOD_LABEL[period]}.</p>
+            <button className="btn ghost" onClick={() => setRating("all")}>
+              Show everyone
             </button>
-          ))}
+          </div>
+        )}
         </motion.div>
-      )}
-
-      {data && people.length > 0 && (
-        <AnimatePresence mode="wait" initial={false}>
-          <motion.div
-            key={view}
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0, transition: { duration: 0.2, ease: EASE } }}
-            exit={{ opacity: 0, y: -8, transition: { duration: 0.15 } }}
-          >
-            {view === "map" ? (
-              <QuadrantMap people={people} />
-            ) : (
-              <>
-                <div className="rate-filter" role="group" aria-label="Show people by rating">
-                  {FILTERS.map((f) => {
-                    const n = people.filter((p) => matches(p, f.key)).length;
-                    return (
-                      <button key={f.key} className={rating === f.key ? "on" : ""} aria-pressed={rating === f.key} onClick={() => setRating(f.key)}>
-                        {f.label} <span>{n}</span>
-                      </button>
-                    );
-                  })}
-                </div>
-                {shown.length > 0 ? (
-                  <TeamGlanceTable people={shown} />
-                ) : (
-                  <div className="card empty">
-                    <p>Nobody is in this group for {PERIOD_LABEL[period]}.</p>
-                    <button className="btn ghost" onClick={() => setRating("all")}>
-                      Show everyone
-                    </button>
-                  </div>
-                )}
-              </>
-            )}
-          </motion.div>
-        </AnimatePresence>
       )}
     </>
   );

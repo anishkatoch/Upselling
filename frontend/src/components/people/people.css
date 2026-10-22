@@ -126,10 +126,6 @@ a.recent-row:focus-visible { outline: 2px solid var(--accent); outline-offset: -
 .tg tbody tr.rowlink { transition: background-color 0.12s ease; }
 .recent-go { transition: transform 0.15s ease; }
 a.recent-row:hover .recent-go { transform: translateX(3px); }
-.view-switch.vs-anim button { position: relative; background: none; box-shadow: none; }
-.view-switch.vs-anim button.on { background: none; box-shadow: none; }
-.view-switch .vs-pill { position: absolute; inset: 0; background: #fff; border-radius: 6px; box-shadow: 0 0 0 1px var(--line); }
-.view-switch .vs-label { position: relative; }
 
 /* Rating filter above the team table */
 .rate-filter { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 12px; }
