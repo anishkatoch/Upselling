@@ -7,7 +7,7 @@ mkdir -p /app/data /tmp/upsell-poc
 if [ "$(id -u)" = "0" ]; then
   seed
   chown -R app:app /app/data /tmp/upsell-poc
-  exec runuser -u app -- "$@"
+  exec setpriv --reuid=app --regid=app --init-groups "$@"
 fi
 seed
 exec "$@"
