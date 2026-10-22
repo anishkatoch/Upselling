@@ -52,6 +52,7 @@ export default function StartRecording() {
   const spoken = useRef("");
   const queue = useRef<Promise<void>>(Promise.resolve());
   const box = useRef<HTMLDivElement>(null);
+  const nameBox = useRef<HTMLInputElement>(null);
 
   const [phase, setPhase] = useState<Phase>("idle");
   const [secs, setSecs] = useState(0);
@@ -173,6 +174,7 @@ export default function StartRecording() {
       .then((r) => setNames(r.map((x) => x.name)))
       .catch(() => setNames([]));
     dlg.current?.showModal();
+    requestAnimationFrame(() => nameBox.current?.focus()); // start typing the salesperson straight away
   };
 
   const close = () => dlg.current?.close();
@@ -200,6 +202,10 @@ export default function StartRecording() {
   };
 
   const start = async () => {
+    if (!who.trim()) {
+      setError("Choose who is being recorded, so the recording counts toward their results.");
+      return;
+    }
     setError(null);
     setNote(null);
     setLines([]);
@@ -275,7 +281,9 @@ export default function StartRecording() {
           <>
             <p className="rec-lead">Record a conversation with the microphone and watch the words appear as people speak. When you stop, we analyse it and add it to Conversations.</p>
             <label className="rec-field">
-              <span>Salesperson (optional)</span>
+              <span>
+                Salesperson <em className="rec-req">required</em>
+              </span>
               <input
                 list="rec-people"
                 value={who}
@@ -283,7 +291,11 @@ export default function StartRecording() {
                 placeholder="Choose or type a name"
                 maxLength={80}
                 autoComplete="off"
+                required
+                aria-required="true"
+                ref={nameBox}
               />
+              <small className="rec-help">Pick a name from the list, or type a new one.</small>
               <datalist id="rec-people">
                 {names.map((n) => (
                   <option key={n} value={n} />
@@ -300,7 +312,7 @@ export default function StartRecording() {
               <button type="button" className="btn ghost" onClick={close}>
                 Not now
               </button>
-              <button type="button" className="rec-go" onClick={start} disabled={!supported}>
+              <button type="button" className="rec-go" onClick={start} disabled={!supported || !who.trim()}>
                 <Mic size={15} /> Start recording
               </button>
             </div>

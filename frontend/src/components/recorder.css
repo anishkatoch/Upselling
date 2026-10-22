@@ -44,3 +44,6 @@
   .rec-pulse { animation: rec-pulse 1.4s ease-in-out infinite; }
   @keyframes rec-pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(229, 72, 77, 0.45); } 50% { box-shadow: 0 0 0 8px rgba(229, 72, 77, 0); } }
 }
+
+.rec-req { font-style: normal; font-weight: 500; font-size: 11.5px; color: var(--accent-ink); background: var(--accent-soft); border-radius: 999px; padding: 1px 8px; margin-left: 6px; }
+.rec-help { color: var(--muted); font-weight: 400; font-size: 12.5px; }
