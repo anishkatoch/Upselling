@@ -375,19 +375,19 @@ def _pct(v: float | None) -> str:
     return "n/a" if v is None else f"{round(v * 100)}%"
 
 
-TREND_MARGIN = 0.10  # a signal "moved" when it changes by 10 percentage points (1 point of frustration)
+TREND_MARGIN = 0.10  # a signal "moved" by 10 percentage points, 0.1 unanswered questions per conversation, or 1 point of frustration
 
 
-def _outcome_trend(series: list[Bucket]) -> Trend | None:
-    """Direction of results, judged on outcomes only - never on effort (trying harder while being pushy and
-    getting refused is not improvement).
+def _customer_trend(series: list[Bucket]) -> Trend | None:
+    """Direction of how the salesperson treats customers - never of upselling or of effort.
 
     Compares the latest period with >= MIN_CONVERSATIONS analysed conversations against the closest earlier
-    period that also has that many; fewer than two such periods -> None. Signals compared:
-    acceptance rate (only if both periods have answered offers), upsell rate, pushy share of solo conversations
-    (lower is better) and average customer frustration (lower is better, 1 point = 10 points).
+    period that also has that many; fewer than two such periods -> None. Signals compared: greeting rate
+    (higher is better), customer questions left unanswered per conversation (lower), pushy share of solo
+    conversations (lower) and average customer frustration (lower, 1 point = 10 points).
     'improving' when at least two signals got better by the margin and none got worse by it; 'declining' is
-    the mirror image; anything else (mixed, or small moves) is 'steady'.
+    the mirror image; anything else (mixed, or small moves) is 'steady'. How often someone upsells, or how
+    often customers say yes to an offer, does not move the arrow.
     """
     enough = [b for b in series if b.analysed_conversations >= MIN_CONVERSATIONS]
     if len(enough) < 2:
@@ -397,10 +397,13 @@ def _outcome_trend(series: list[Bucket]) -> Trend | None:
     def pushy(b: Bucket) -> float | None:
         return b.pushy_conversations / b.solo_analysed_conversations if b.solo_analysed_conversations else None
 
+    def unanswered(b: Bucket) -> float | None:
+        return b.unanswered_questions / b.solo_analysed_conversations if b.solo_analysed_conversations else None
+
     moves: list[float] = []  # positive = better
     for a, b, higher_is_better, scale in (
-        (prev.acceptance_rate, cur.acceptance_rate, True, 1.0),
-        (prev.upsell_rate, cur.upsell_rate, True, 1.0),
+        (prev.greeting_rate, cur.greeting_rate, True, 1.0),
+        (unanswered(prev), unanswered(cur), False, 1.0),
         (pushy(prev), pushy(cur), False, 1.0),
         (prev.avg_customer_frustration, cur.avg_customer_frustration, False, 10.0),
     ):
@@ -576,7 +579,7 @@ def assess(t: Bucket, series: list[Bucket]) -> Assessment:
             "low": "Low effort so far",
         }[level]
         summary = f"{label}: " + ", ".join(bits) + "."
-    trend = _outcome_trend(series)
+    trend = _customer_trend(series)
     if low_sample:
         if n:
             improvements.append(

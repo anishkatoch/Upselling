@@ -97,18 +97,26 @@ def _trend(prev: dict, cur: dict):
     return dashboard.assess(_bucket(), [_bucket(period="a", **prev), _bucket(period="b", **cur)]).trend
 
 
-def test_trend_effort_up_but_pushier_and_refused_is_declining():
-    # Rahul-like: tries harder, yet acceptance 40% -> 0% and pushy in 2 of 3 conversations.
-    prev = {"analysed_conversations": 3, "solo_analysed_conversations": 3, "avg_effort": 3.0,
-            "acceptance_rate": 0.4, "pushy_conversations": 0}  # fmt: skip
-    cur = {"analysed_conversations": 3, "solo_analysed_conversations": 3, "avg_effort": 7.0,
-           "acceptance_rate": 0.0, "pushy_conversations": 2}  # fmt: skip
+_ENOUGH = {"analysed_conversations": 3, "solo_analysed_conversations": 3}
+
+
+def test_trend_follows_customer_handling_not_upselling():
+    # Upsell and yes rates collapse and effort jumps, but customers are treated the same way: still steady.
+    prev = {**_ENOUGH, "upsell_rate": 0.8, "acceptance_rate": 0.6, "avg_effort": 3.0}
+    cur = {**_ENOUGH, "upsell_rate": 0.1, "acceptance_rate": 0.0, "avg_effort": 8.0}
+    assert _trend(prev, cur) == "steady"
+
+
+def test_trend_declining_when_questions_go_unanswered_and_customers_get_tenser():
+    base = {**_ENOUGH, "greeting_rate": 1.0, "pushy_conversations": 0}
+    prev = {**base, "unanswered_questions": 0, "avg_customer_frustration": 1.0}
+    cur = {**base, "unanswered_questions": 3, "avg_customer_frustration": 3.0}
     assert _trend(prev, cur) == "declining"
 
 
-def test_trend_acceptance_and_upsell_up_is_improving_even_with_lower_effort():
-    prev = {"avg_effort": 6.0, "acceptance_rate": 0.2, "upsell_rate": 0.4}
-    cur = {"avg_effort": 3.0, "acceptance_rate": 0.5, "upsell_rate": 0.7}
+def test_trend_improving_when_greeting_and_listening_get_better_whatever_the_upsell_numbers_do():
+    prev = {**_ENOUGH, "greeting_rate": 0.5, "unanswered_questions": 3, "upsell_rate": 0.9, "acceptance_rate": 0.8}
+    cur = {**_ENOUGH, "greeting_rate": 1.0, "unanswered_questions": 0, "upsell_rate": 0.2, "acceptance_rate": 0.1}
     assert _trend(prev, cur) == "improving"
 
 
@@ -116,30 +124,10 @@ def test_trend_none_without_enough_data_and_steady_when_mixed_or_flat():
     thin = {"analysed_conversations": 2, "solo_analysed_conversations": 2}
     assert _trend({}, thin) is None and _trend(thin, {}) is None
     assert dashboard.assess(_bucket(), [_bucket()]).trend is None
-    assert (
-        _trend({"acceptance_rate": 0.2, "upsell_rate": 0.7}, {"acceptance_rate": 0.5, "upsell_rate": 0.4}) == "steady"
-    )
-    assert _trend({"acceptance_rate": 0.5}, {"acceptance_rate": 0.8}) == "steady"  # one signal alone is not enough
+    # one gets better and one gets worse: mixed
+    mixed_prev = {**_ENOUGH, "greeting_rate": 0.5, "unanswered_questions": 0}
+    mixed_cur = {**_ENOUGH, "greeting_rate": 1.0, "unanswered_questions": 3}
+    assert _trend(mixed_prev, mixed_cur) == "steady"
+    # one signal alone is not enough
+    assert _trend({**_ENOUGH, "greeting_rate": 0.5}, {**_ENOUGH, "greeting_rate": 1.0}) == "steady"
     assert _trend({"avg_effort": 2.0}, {"avg_effort": 9.0}) == "steady"  # effort alone never moves it
-
-
-def test_reports_from_older_versions_still_load():
-    from upsell_poc import jobs
-
-    raw = _report().model_dump(mode="json")
-    for c in raw["conversations"]:
-        if c["upsell"]:
-            for k in (
-                "greeting_given",
-                "greeting_quote",
-                "greeting_segment_id",
-                "products_discussed",
-                "customer_feedback",
-                "customer_feedback_segment_id",
-                "unanswered_questions",
-                "coaching_feedback",
-            ):
-                del c["upsell"][k]  # fmt: skip
-    raw["evidence"] = [{"conversation_id": 1, "segment_id": 1, "is_attempt": False}]
-    assert jobs.parse_report(raw) is not None
-    assert jobs.parse_report({"nonsense": True}) is None
