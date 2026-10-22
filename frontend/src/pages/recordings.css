@@ -1,0 +1,21 @@
+/* Conversations table: Name, Date, Status. Roomy rows and an initials badge. */
+.rec-card { padding: 0; overflow: hidden; }
+.rec-wrap { border: 0; border-radius: 0; box-shadow: none; }
+.rec-table { width: 100%; border-collapse: collapse; }
+.rec-table thead th { padding: 12px 16px; background: var(--paper); border-bottom: 1px solid var(--line); color: var(--muted); font-size: 12px; font-weight: 600; letter-spacing: 0.01em; text-align: left; white-space: nowrap; }
+.rec-table thead th.num { text-align: right; }
+.rec-table tbody td, .rec-table tbody th.rowhead { padding: 14px 16px; border-bottom: 1px solid var(--line-soft); vertical-align: middle; }
+.rec-table tbody tr:last-child td, .rec-table tbody tr:last-child th.rowhead { border-bottom: 0; }
+.rec-table tbody tr.rowlink { cursor: pointer; transition: background-color 0.12s ease; }
+.rec-table tbody tr.rowlink:hover, .rec-table tbody tr.rowlink:hover > th, .rec-table tbody tr.rowlink:hover > td { background: var(--accent-soft); }
+.rec-table tbody tr.rowlink:hover .rec-chev { color: var(--accent-ink); transform: translateX(2px); }
+.rec-table th:first-child, .rec-table td:first-child { padding-left: 20px; }
+.rec-who { display: flex; align-items: center; gap: 12px; }
+.rec-who .name-link { font-weight: 600; }
+.rec-av { display: grid; place-items: center; flex: none; width: 32px; height: 32px; border-radius: 50%; background: var(--accent-soft); color: var(--accent-ink); font: 700 11.5px/1 var(--font); letter-spacing: 0.02em; }
+.rec-av.none { background: var(--neutral-soft); color: var(--muted); }
+.rec-date { white-space: nowrap; color: var(--ink); }
+.rec-date .sub { margin-left: 6px; font-size: 12.5px; }
+.rec-chev { width: 44px; text-align: right; color: var(--faint); transition: color 0.12s ease, transform 0.12s ease; }
+.rec-chev svg { vertical-align: middle; }
+@media (max-width: 640px) { .rec-table thead th, .rec-table tbody td, .rec-table tbody th.rowhead { padding: 12px; } .rec-date .sub { display: none; } }

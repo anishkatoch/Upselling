@@ -1,14 +1,26 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import "../components/people/people.css";
 import StatusPill from "../components/StatusPill";
 import { AlertTriangle, ChevronRight, Headset } from "../icons/Icons";
 import { api, type Job } from "../lib/api";
-import { ago, recordingTitle } from "../lib/format";
 import { useLoad } from "../lib/hooks";
+import "./recordings.css";
 
 const busy = (jobs: Job[]) => jobs.some((j) => j.status === "queued" || j.status === "running");
+const dateOf = (iso: string) => new Date(iso).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+const timeOf = (iso: string) => new Date(iso).toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
+const initials = (name: string) =>
+  name
+    .split(/\s+/)
+    .filter(Boolean)
+    .map((w) => w[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
 
 export default function Recordings() {
   const { data: jobs, error } = useLoad(() => api.jobs(), [], { every: 4000, keep: busy });
+  const navigate = useNavigate();
   return (
     <>
       <div className="head row hero">
@@ -18,34 +30,73 @@ export default function Recordings() {
         </div>
       </div>
 
-      <div className="card">
-        {error && (
-          <p className="error">
-            <AlertTriangle size={16} /> Can&apos;t reach the server. Is the backend running?
-          </p>
-        )}
-        {!jobs && !error && <RowsSkeleton />}
-        {jobs && jobs.length === 0 && (
-          <div className="empty">
-            <div className="icon-wrap">
-              <Headset size={20} />
-            </div>
-            <p>No conversations to show yet.</p>
+      {error && (
+        <p className="error">
+          <AlertTriangle size={16} /> Can&apos;t reach the server. Is the backend running?
+        </p>
+      )}
+      {!jobs && !error && <RowsSkeleton />}
+      {jobs && jobs.length === 0 && (
+        <div className="card empty">
+          <div className="icon-wrap">
+            <Headset size={20} />
           </div>
-        )}
-        {jobs && jobs.length > 0 && (
-          <ul className="list">
-            {jobs.map((j) => (
-              <Link key={j.job_id} to={`/recordings/${j.job_id}`} className="item">
-                <div className="grow name">{recordingTitle(j)}</div>
-                <span className="sub small">{ago(j.created_at)}</span>
-                <StatusPill job={j} />
-                <ChevronRight size={16} className="item-chev" />
-              </Link>
-            ))}
-          </ul>
-        )}
-      </div>
+          <p>No conversations to show yet.</p>
+        </div>
+      )}
+      {jobs && jobs.length > 0 && (
+        <section className="card tg rec-card">
+          <div className="table-wrap rec-wrap">
+            <table className="rec-table">
+              <caption className="sr-only">Every conversation, newest first</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Name</th>
+                  <th scope="col">Date</th>
+                  <th scope="col">Status</th>
+                  <th scope="col" aria-label="Open" />
+                </tr>
+              </thead>
+              <tbody>
+                {jobs.map((j) => {
+                  const href = `/recordings/${j.job_id}`;
+                  const name = j.salesperson_name;
+                  return (
+                    <tr
+                      key={j.job_id}
+                      className="rowlink"
+                      onClick={(e) => {
+                        if ((e.target as HTMLElement).closest("a,button")) return;
+                        navigate(href);
+                      }}
+                    >
+                      <th scope="row" className="rowhead">
+                        <div className="rec-who">
+                          <span className={`rec-av${name ? "" : " none"}`} aria-hidden="true">
+                            {name ? initials(name) : "?"}
+                          </span>
+                          <Link to={href} className="name-link">
+                            {name ?? "Not named"}
+                          </Link>
+                        </div>
+                      </th>
+                      <td className="rec-date">
+                        {dateOf(j.created_at)} <span className="sub">{timeOf(j.created_at)}</span>
+                      </td>
+                      <td>
+                        <StatusPill job={j} />
+                      </td>
+                      <td className="rec-chev" aria-hidden="true">
+                        <ChevronRight size={16} />
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      )}
     </>
   );
 }

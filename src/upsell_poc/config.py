@@ -49,6 +49,9 @@ class Settings(BaseSettings):
     auth_dir: Path = PROJECT_ROOT / "data" / "auth"
     auth_secret: str | None = None
 
+    # Live transcript preview while recording (short clips, no speaker labels).
+    live_transcribe_model: str = "gpt-4o-transcribe"
+
 
 class CircuitBreakerConfig(BaseModel):
     failures: int = 5

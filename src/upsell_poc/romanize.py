@@ -69,6 +69,11 @@ def _save(lookup: dict[str, str]) -> None:
         log.warning("could not save Hinglish words to %s", LOOKUP_FILE, exc_info=True)
 
 
+def known_words() -> dict[str, str]:
+    """The Hindi words we already know how to spell in English letters (no model call)."""
+    return _load()
+
+
 def devanagari_words(text: str) -> set[str]:
     return set(DEVANAGARI.findall(text))
 

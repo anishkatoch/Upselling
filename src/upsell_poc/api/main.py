@@ -12,7 +12,7 @@ from fastapi.responses import FileResponse, JSONResponse, RedirectResponse, Resp
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
-from upsell_poc import __version__, auth, dashboard, jobs, outcomes
+from upsell_poc import __version__, auth, dashboard, jobs, live, outcomes
 from upsell_poc.api import public
 from upsell_poc.config import get_settings
 from upsell_poc.logging_setup import setup_logging
@@ -103,6 +103,30 @@ def me(request: Request) -> auth.PublicUser:
     if user is None and get_settings().auth_required:
         raise HTTPException(401, "Please log in to continue.")
     return user or auth.PublicUser(id="local", name="Local user", email="", role="admin")
+
+
+class LiveText(BaseModel):
+    text: str
+
+
+@app.post("/api/live-transcribe")
+async def live_transcribe(
+    file: Annotated[UploadFile, File(description="A few seconds of audio from a recording in progress")],
+    context: Annotated[str | None, Form()] = None,
+) -> LiveText:
+    """Preview text for the recorder: words only, no speakers. The saved recording is analysed separately."""
+    data = await file.read(live.MAX_CLIP_BYTES + 1)
+    if not data:
+        raise HTTPException(400, "empty clip")
+    if len(data) > live.MAX_CLIP_BYTES:
+        raise HTTPException(413, "clip too large")
+    try:
+        text = await run_in_threadpool(
+            live.transcribe_clip, get_settings(), data, file.filename or "clip.webm", context
+        )
+    except live.LiveUnavailable as e:
+        raise HTTPException(502, "Live text is unavailable right now.") from e
+    return LiveText(text=text)
 
 
 @app.get("/api/auth/options")

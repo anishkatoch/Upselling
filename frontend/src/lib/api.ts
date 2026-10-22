@@ -379,5 +379,11 @@ export const api = {
     if (salesperson?.trim()) body.append("salesperson_name", salesperson.trim());
     return req<Job>("/jobs", { method: "POST", body });
   },
+  liveTranscribe: (clip: Blob, filename: string, context: string) => {
+    const body = new FormData();
+    body.append("file", clip, filename);
+    if (context) body.append("context", context);
+    return req<{ text: string }>("/live-transcribe", { method: "POST", body });
+  },
   personRecordings: (name: string) => req<RecordingSummary[]>(`/people/${encodeURIComponent(name)}/recordings`),
 };
