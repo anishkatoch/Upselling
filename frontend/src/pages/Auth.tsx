@@ -59,6 +59,7 @@ export function Login() {
   const [error, setError] = useState<string | null>(null);
   const [canSignup, setCanSignup] = useState(true);
   const [demo, setDemo] = useState<{ email: string; password: string } | null>(null);
+  const [filled, setFilled] = useState(false);
 
   useEffect(() => {
     fetch("/api/auth/options")
@@ -71,16 +72,16 @@ export function Login() {
     document.title = "Log in - SalesIQ";
   }, []);
 
-  const useDemo = async () => {
+  /** Ticking fills the form with the demo login (the user still presses Log in); unticking clears what it filled. */
+  const fillDemo = (on: boolean) => {
     if (!demo) return;
-    setBusy(true);
-    setError(null);
-    try {
-      await login(demo.email, demo.password);
-      done();
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "We couldn't log you in. Please try again.");
-      setBusy(false);
+    setFilled(on);
+    if (on) {
+      setEmail(demo.email);
+      setPassword(demo.password);
+    } else {
+      setEmail((e) => (e === demo.email ? "" : e));
+      setPassword((p) => (p === demo.password ? "" : p));
     }
   };
 
@@ -131,12 +132,10 @@ export function Login() {
         </button>
       </form>
       {demo && (
-        <div className="auth-demo">
-          <p>You&apos;re running SalesIQ on this computer, so a built-in demo account is available.</p>
-          <button type="button" className="auth-demo-btn" onClick={() => void useDemo()} disabled={busy}>
-            Sign in with the demo account
-          </button>
-        </div>
+        <label className="auth-fill">
+          <input type="checkbox" checked={filled} onChange={(e) => fillDemo(e.target.checked)} />
+          Fill in the demo login <span>(this computer only)</span>
+        </label>
       )}
     </Shell>
   );
