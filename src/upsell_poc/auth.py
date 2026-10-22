@@ -16,6 +16,7 @@ import secrets
 import threading
 import time
 import uuid
+from collections.abc import Iterable
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
@@ -33,6 +34,14 @@ _N, _R, _P = 2**14, 8, 1
 _lock = threading.Lock()
 _failures: dict[str, list[float]] = {}
 MAX_FAILURES, FAILURE_WINDOW = 5, 600
+
+
+# A built-in account for trying the app on this computer. It only works when the app is opened on localhost (see
+# `is_local`), so it can never be used to get into a deployed copy even though this file is in the repository.
+DEMO_EMAIL = "demo@salesiq.app"
+DEMO_PASSWORD = "SalesIQ-demo-2026"
+DEMO_NAME = "Demo User"
+_LOCAL_NAMES = {"localhost", "127.0.0.1", "::1", "[::1]"}
 
 
 class AuthError(Exception):
@@ -107,8 +116,50 @@ def _public(u: dict[str, Any]) -> PublicUser:
     return PublicUser(id=u["id"], name=u["name"], email=u["email"], role=u["role"])
 
 
+def _real_users(users: dict[str, dict[str, Any]]) -> dict[str, dict[str, Any]]:
+    """The accounts people made, not the built-in demo one (which must not count as "the first account")."""
+    return {e: u for e, u in users.items() if e != DEMO_EMAIL}
+
+
 def has_users(settings: Settings) -> bool:
-    return bool(_load(settings))
+    return bool(_real_users(_load(settings)))
+
+
+# Headers a proxy or load balancer adds. A browser talking straight to this computer never sends them, a deployed copy
+# always receives them, and (unlike the client address) a caller cannot make them disappear.
+PROXY_HEADERS = ("x-forwarded-for", "x-forwarded-host", "x-forwarded-proto", "x-real-ip", "forwarded", "via")
+
+
+def is_local(host_header: str | None, client_ip: str | None, header_names: Iterable[str] = ()) -> bool:
+    """True only for a request that comes from this computer, was addressed to localhost, and came through no proxy."""
+    if any(h.lower() in PROXY_HEADERS for h in header_names):
+        return False
+    host = (host_header or "").strip().lower()
+    host = host[: host.index("]") + 1] if host.startswith("[") else host.split(":")[0]
+    return host in _LOCAL_NAMES and (client_ip or "") in _LOCAL_NAMES
+
+
+def is_demo_credentials(email: str, password: str) -> bool:
+    return normalise_email(email) == DEMO_EMAIL and hmac.compare_digest(password.encode(), DEMO_PASSWORD.encode())
+
+
+def demo_login(settings: Settings) -> PublicUser:
+    """The demo account, created (or its password reset) on first use. A plain member, never the admin."""
+    with _lock:
+        users = _load(settings)
+        user = users.get(DEMO_EMAIL)
+        if user is None or not verify_password(DEMO_PASSWORD, user["password"]):
+            user = {
+                "id": user["id"] if user else uuid.uuid4().hex,
+                "name": DEMO_NAME,
+                "email": DEMO_EMAIL,
+                "password": hash_password(DEMO_PASSWORD),
+                "role": "member",
+                "created_at": user["created_at"] if user else datetime.now(UTC).isoformat(),
+            }
+            users[DEMO_EMAIL] = user
+            _save(settings, users)
+    return _public(user)
 
 
 def normalise_email(email: str) -> str:
@@ -117,7 +168,7 @@ def normalise_email(email: str) -> str:
 
 def signup(settings: Settings, name: str, email: str, password: str) -> PublicUser:
     name, email = name.strip(), normalise_email(email)
-    if not settings.auth_allow_signup and _load(settings):
+    if not settings.auth_allow_signup and _real_users(_load(settings)):
         raise AuthError(403, "Sign-ups are closed. Ask an administrator for an account.")
     if not 1 <= len(name) <= 80:
         raise AuthError(422, "Please enter your name.")
@@ -135,7 +186,7 @@ def signup(settings: Settings, name: str, email: str, password: str) -> PublicUs
             "name": name,
             "email": email,
             "password": pw,
-            "role": "admin" if not users else "member",
+            "role": "admin" if not _real_users(users) else "member",
             "created_at": datetime.now(UTC).isoformat(),
         }
         users[email] = user

@@ -58,14 +58,31 @@ export function Login() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [canSignup, setCanSignup] = useState(true);
+  const [demo, setDemo] = useState<{ email: string; password: string } | null>(null);
 
   useEffect(() => {
     fetch("/api/auth/options")
       .then((r) => r.json())
-      .then((o: { signup: boolean }) => setCanSignup(o.signup))
+      .then((o: { signup: boolean; demo?: { email: string; password: string } | null }) => {
+        setCanSignup(o.signup);
+        setDemo(o.demo ?? null); // only sent when the app is opened on this computer
+      })
       .catch(() => undefined);
     document.title = "Log in - SalesIQ";
   }, []);
+
+  const useDemo = async () => {
+    if (!demo) return;
+    setBusy(true);
+    setError(null);
+    try {
+      await login(demo.email, demo.password);
+      done();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "We couldn't log you in. Please try again.");
+      setBusy(false);
+    }
+  };
 
   const submit = async (e: FormEvent) => {
     e.preventDefault();
@@ -113,6 +130,14 @@ export function Login() {
           {busy ? "Logging in…" : "Log in"}
         </button>
       </form>
+      {demo && (
+        <div className="auth-demo">
+          <p>You&apos;re running SalesIQ on this computer, so a built-in demo account is available.</p>
+          <button type="button" className="auth-demo-btn" onClick={() => void useDemo()} disabled={busy}>
+            Sign in with the demo account
+          </button>
+        </div>
+      )}
     </Shell>
   );
 }

@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import tempfile
 from pathlib import Path
-from typing import Annotated
+from typing import Annotated, Any
 
 from fastapi import FastAPI, File, Form, HTTPException, Request, UploadFile
 from fastapi.concurrency import run_in_threadpool
@@ -84,10 +84,16 @@ def signup(body: SignupBody, request: Request, response: Response) -> auth.Publi
 
 @app.post("/api/auth/login")
 def login(body: LoginBody, request: Request, response: Response) -> auth.PublicUser:
-    try:
-        user = auth.login(get_settings(), body.email, body.password, request.client.host if request.client else "")
-    except auth.AuthError as e:
-        raise HTTPException(e.status, e.message) from e
+    client_ip = request.client.host if request.client else ""
+    if auth.is_demo_credentials(body.email, body.password) and auth.is_local(
+        request.headers.get("host"), client_ip, request.headers.keys()
+    ):
+        user = auth.demo_login(get_settings())  # only ever from this computer, never from a deployed copy
+    else:
+        try:
+            user = auth.login(get_settings(), body.email, body.password, client_ip)
+        except auth.AuthError as e:
+            raise HTTPException(e.status, e.message) from e
     _set_session(request, response, user)
     return user
 
@@ -130,10 +136,17 @@ async def live_transcribe(
 
 
 @app.get("/api/auth/options")
-def auth_options() -> dict[str, bool]:
-    """What the login page may offer: sign-up is hidden once an admin has closed it."""
+def auth_options(request: Request) -> dict[str, Any]:
+    """What the login page may offer: sign-up is hidden once an admin has closed it, and the demo login is only
+    offered (and only works) when the app is opened on this computer."""
     s = get_settings()
-    return {"signup": s.auth_allow_signup or not auth.has_users(s)}
+    local = auth.is_local(
+        request.headers.get("host"), request.client.host if request.client else "", request.headers.keys()
+    )
+    return {
+        "signup": s.auth_allow_signup or not auth.has_users(s),
+        "demo": {"email": auth.DEMO_EMAIL, "password": auth.DEMO_PASSWORD} if local else None,
+    }
 
 
 # Job status / report / transcript responses go through `public` so spend, per-call logs and

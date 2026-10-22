@@ -45,3 +45,11 @@
 .brand-text { font-weight: 600; letter-spacing: -0.02em; }
 .brand-iq { font-weight: 800; color: #a5a8ff; margin-left: 1px; }
 .auth-brand { font-size: 18px; gap: 10px; }
+
+/* Demo account: offered only when the app is opened on this computer */
+.auth-demo { margin-top: 20px; padding: 14px 16px; border: 1px dashed var(--line); border-radius: 10px; background: #fff; }
+.auth-demo p { margin: 0 0 10px; color: var(--muted); font-size: 13px; line-height: 1.5; }
+.auth-demo-btn { width: 100%; padding: 10px 14px; border: 1px solid var(--accent); border-radius: 8px; background: var(--accent-soft); color: var(--accent-ink); font: 600 14px/1 var(--font); cursor: pointer; transition: background 0.15s; }
+.auth-demo-btn:hover:not(:disabled) { background: #e3e4fd; }
+.auth-demo-btn:disabled { opacity: 0.55; cursor: not-allowed; }
+.auth-demo-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
