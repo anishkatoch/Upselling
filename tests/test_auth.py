@@ -21,7 +21,7 @@ def client(monkeypatch, tmp_path):
 
 def test_api_needs_a_login_but_health_and_auth_routes_do_not(client):
     assert client.get("/health").status_code == 200
-    assert client.get("/api/auth/options").json() == {"signup": True, "demo": None}
+    assert client.get("/api/auth/options").json()["signup"] is True
     assert client.get("/api/jobs").status_code == 401
     assert client.get("/api/dashboard?period=month").status_code == 401
     assert client.get("/api/auth/me").status_code == 401
@@ -97,69 +97,34 @@ def test_closed_signup_still_lets_the_very_first_account_in(client, monkeypatch)
     monkeypatch.setenv("AUTH_ALLOW_SIGNUP", "false")
     get_settings.cache_clear()
     assert client.post("/api/auth/signup", json=GOOD).status_code == 201
-    assert client.get("/api/auth/options").json() == {"signup": False, "demo": None}
+    assert client.get("/api/auth/options").json()["signup"] is False
     assert TestClient(client.app).post("/api/auth/signup", json={**GOOD, "email": "c@example.com"}).status_code == 403
 
 
-def _local(app):
-    """A client that looks like a browser on this computer opening http://localhost:8000."""
-    return TestClient(app, base_url="http://localhost:8000", client=("127.0.0.1", 50000))
-
-
-def test_demo_login_works_only_from_this_computer(client):
+def test_demo_login_works_anywhere_while_it_is_on_and_not_at_all_when_switched_off(client, monkeypatch):
     demo = {"email": auth.DEMO_EMAIL, "password": auth.DEMO_PASSWORD}
-    # an ordinary (remote) request, e.g. the live site: refused, whatever the credentials are
-    assert client.post("/api/auth/login", json=demo).status_code == 401
-    assert client.get("/api/auth/options").json()["demo"] is None
-    # a request that comes from this computer but is addressed to the public site name: still refused
-    spoof = TestClient(client.app, base_url="https://sales.example.com", client=("127.0.0.1", 50000))
-    assert spoof.post("/api/auth/login", json=demo).status_code == 401
-    # a remote machine claiming to be localhost in the Host header: still refused
-    remote = TestClient(client.app, base_url="http://localhost:8000", client=("203.0.113.9", 50000))
-    assert remote.post("/api/auth/login", json=demo).status_code == 401
-    # forwarded through a proxy (as on Render), even if every address is faked to look local: refused
-    for header in ("X-Forwarded-For", "X-Real-IP", "Forwarded", "X-Forwarded-Host"):
-        proxied = _local(client.app)
-        r = proxied.post("/api/auth/login", json=demo, headers={header: "127.0.0.1"})
-        assert r.status_code == 401, header
-        assert proxied.get("/api/auth/options", headers={header: "127.0.0.1"}).json()["demo"] is None
-    # this computer, addressed as localhost: works, and the login page is told the details
-    here = _local(client.app)
-    assert here.get("/api/auth/options").json()["demo"] == {"email": auth.DEMO_EMAIL, "password": auth.DEMO_PASSWORD}
-    r = here.post("/api/auth/login", json=demo)
+    # on by default, from any machine (as on a deployed copy): the login page is told the details and they work
+    assert client.get("/api/auth/options").json()["demo"] == {"email": auth.DEMO_EMAIL, "password": auth.DEMO_PASSWORD}
+    r = client.post("/api/auth/login", json=demo)
     assert r.status_code == 200 and r.json()["role"] == "member"
-    assert here.get("/api/jobs").status_code == 200
+    assert client.get("/api/jobs").status_code == 200
+    # DEMO_LOGIN=false: the checkbox is not offered and the details stop working (an account made earlier too)
+    monkeypatch.setenv("DEMO_LOGIN", "false")
+    get_settings.cache_clear()
+    off = TestClient(client.app)
+    assert off.get("/api/auth/options").json()["demo"] is None
+    assert off.post("/api/auth/login", json=demo).status_code == 401
 
 
 def test_the_demo_account_never_takes_the_first_account_slot(client):
-    _local(client.app).post("/api/auth/login", json={"email": auth.DEMO_EMAIL, "password": auth.DEMO_PASSWORD})
+    client.post("/api/auth/login", json={"email": auth.DEMO_EMAIL, "password": auth.DEMO_PASSWORD})
     assert client.get("/api/auth/options").json()["signup"] is True
     first = TestClient(client.app).post("/api/auth/signup", json=GOOD)
     assert first.json()["role"] == "admin"  # the first real account is still the admin
 
 
 def test_wrong_demo_password_and_normal_logins_still_behave(client):
-    here = _local(client.app)
-    assert here.post("/api/auth/login", json={"email": auth.DEMO_EMAIL, "password": "not it"}).status_code == 401
+    assert client.post("/api/auth/login", json={"email": auth.DEMO_EMAIL, "password": "not it"}).status_code == 401
     client.post("/api/auth/signup", json=GOOD)
-    assert here.post("/api/auth/login", json={"email": GOOD["email"], "password": GOOD["password"]}).status_code == 200
-
-
-@pytest.mark.parametrize(
-    ("host", "ip", "expected"),
-    [
-        ("localhost:8000", "127.0.0.1", True),
-        ("127.0.0.1:8000", "127.0.0.1", True),
-        ("[::1]:8000", "::1", True),
-        ("localhost", "10.0.0.5", False),  # not from this computer
-        ("salesiq.onrender.com", "127.0.0.1", False),  # not addressed to localhost
-        (None, None, False),
-    ],
-)
-def test_is_local(host, ip, expected):
-    assert auth.is_local(host, ip) is expected
-
-
-def test_is_local_refuses_anything_that_came_through_a_proxy():
-    assert auth.is_local("localhost:8000", "127.0.0.1", ["host", "accept"]) is True
-    assert auth.is_local("localhost:8000", "127.0.0.1", ["host", "X-Forwarded-For"]) is False
+    other = TestClient(client.app)
+    assert other.post("/api/auth/login", json={"email": GOOD["email"], "password": GOOD["password"]}).status_code == 200

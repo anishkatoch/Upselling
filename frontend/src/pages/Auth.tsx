@@ -66,7 +66,7 @@ export function Login() {
       .then((r) => r.json())
       .then((o: { signup: boolean; demo?: { email: string; password: string } | null }) => {
         setCanSignup(o.signup);
-        setDemo(o.demo ?? null); // only sent when the app is opened on this computer
+        setDemo(o.demo ?? null); // only sent while the demo login is switched on
       })
       .catch(() => undefined);
     document.title = "Log in - SalesIQ";
@@ -134,7 +134,7 @@ export function Login() {
       {demo && (
         <label className="auth-fill">
           <input type="checkbox" checked={filled} onChange={(e) => fillDemo(e.target.checked)} />
-          Fill in the demo login <span>(this computer only)</span>
+          Fill in the demo login
         </label>
       )}
     </Shell>

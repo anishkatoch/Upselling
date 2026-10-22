@@ -85,10 +85,8 @@ def signup(body: SignupBody, request: Request, response: Response) -> auth.Publi
 @app.post("/api/auth/login")
 def login(body: LoginBody, request: Request, response: Response) -> auth.PublicUser:
     client_ip = request.client.host if request.client else ""
-    if auth.is_demo_credentials(body.email, body.password) and auth.is_local(
-        request.headers.get("host"), client_ip, request.headers.keys()
-    ):
-        user = auth.demo_login(get_settings())  # only ever from this computer, never from a deployed copy
+    if get_settings().demo_login and auth.is_demo_credentials(body.email, body.password):
+        user = auth.demo_login(get_settings())
     else:
         try:
             user = auth.login(get_settings(), body.email, body.password, client_ip)
@@ -136,16 +134,13 @@ async def live_transcribe(
 
 
 @app.get("/api/auth/options")
-def auth_options(request: Request) -> dict[str, Any]:
-    """What the login page may offer: sign-up is hidden once an admin has closed it, and the demo login is only
-    offered (and only works) when the app is opened on this computer."""
+def auth_options() -> dict[str, Any]:
+    """What the login page may offer: sign-up is hidden once an admin has closed it, and the demo login is offered
+    while it is switched on."""
     s = get_settings()
-    local = auth.is_local(
-        request.headers.get("host"), request.client.host if request.client else "", request.headers.keys()
-    )
     return {
         "signup": s.auth_allow_signup or not auth.has_users(s),
-        "demo": {"email": auth.DEMO_EMAIL, "password": auth.DEMO_PASSWORD} if local else None,
+        "demo": {"email": auth.DEMO_EMAIL, "password": auth.DEMO_PASSWORD} if s.demo_login else None,
     }
 
 

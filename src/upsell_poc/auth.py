@@ -16,7 +16,6 @@ import secrets
 import threading
 import time
 import uuid
-from collections.abc import Iterable
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
@@ -36,12 +35,12 @@ _failures: dict[str, list[float]] = {}
 MAX_FAILURES, FAILURE_WINDOW = 5, 600
 
 
-# A built-in account for trying the app on this computer. It only works when the app is opened on localhost (see
-# `is_local`), so it can never be used to get into a deployed copy even though this file is in the repository.
+# A built-in account for trying the app, offered on the login page as a checkbox that fills the form. It is on
+# wherever the app runs; the DEMO_LOGIN setting (DEMO_LOGIN=false) switches it off. These details are in the repository,
+# so anyone who can reach a running copy can use them while it is on.
 DEMO_EMAIL = "demo@salesiq.app"
 DEMO_PASSWORD = "SalesIQ-demo-2026"
 DEMO_NAME = "Demo User"
-_LOCAL_NAMES = {"localhost", "127.0.0.1", "::1", "[::1]"}
 
 
 class AuthError(Exception):
@@ -125,20 +124,6 @@ def has_users(settings: Settings) -> bool:
     return bool(_real_users(_load(settings)))
 
 
-# Headers a proxy or load balancer adds. A browser talking straight to this computer never sends them, a deployed copy
-# always receives them, and (unlike the client address) a caller cannot make them disappear.
-PROXY_HEADERS = ("x-forwarded-for", "x-forwarded-host", "x-forwarded-proto", "x-real-ip", "forwarded", "via")
-
-
-def is_local(host_header: str | None, client_ip: str | None, header_names: Iterable[str] = ()) -> bool:
-    """True only for a request that comes from this computer, was addressed to localhost, and came through no proxy."""
-    if any(h.lower() in PROXY_HEADERS for h in header_names):
-        return False
-    host = (host_header or "").strip().lower()
-    host = host[: host.index("]") + 1] if host.startswith("[") else host.split(":")[0]
-    return host in _LOCAL_NAMES and (client_ip or "") in _LOCAL_NAMES
-
-
 def is_demo_credentials(email: str, password: str) -> bool:
     return normalise_email(email) == DEMO_EMAIL and hmac.compare_digest(password.encode(), DEMO_PASSWORD.encode())
 
@@ -203,6 +188,9 @@ def _throttled(key: str) -> bool:
 
 def login(settings: Settings, email: str, password: str, client: str = "") -> PublicUser:
     email = normalise_email(email)
+    if email == DEMO_EMAIL and not settings.demo_login:
+        # Switched off: the demo account stops working even if it was created while the demo login was on.
+        raise AuthError(401, "That email and password don't match.")
     key = f"{client}|{email}"
     if _throttled(key):
         raise AuthError(429, "Too many attempts. Please wait a few minutes and try again.")

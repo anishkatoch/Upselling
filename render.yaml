@@ -25,5 +25,7 @@ services:
         value: inline
       - key: WEB_CONCURRENCY
         value: "1" # accounts live in a file, so one web process
+      - key: DEMO_LOGIN
+        value: "true" # the demo-login checkbox on the login page; set to "false" to switch it off
       - key: AUTH_ALLOW_SIGNUP
         value: "true" # set to "false" after you have created your own account

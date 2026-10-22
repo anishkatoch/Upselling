@@ -48,6 +48,7 @@ class Settings(BaseSettings):
     auth_allow_signup: bool = True
     auth_dir: Path = PROJECT_ROOT / "data" / "auth"
     auth_secret: str | None = None
+    demo_login: bool = True  # the built-in demo account on the login page; DEMO_LOGIN=false turns it off
 
     # Live transcript preview while recording (short clips, no speaker labels).
     live_transcribe_model: str = "gpt-4o-transcribe"
