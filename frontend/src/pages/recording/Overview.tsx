@@ -1,6 +1,6 @@
-import { useState } from "react";
 import { Check, Headset, Minus, TrendUp } from "../../icons/Icons";
 import { clock, pct } from "../../lib/format";
+import { moodFromFrustration } from "../../lib/teamLabels";
 import { canon, type RecCtx, Spk, colorFor } from "./shared";
 
 export default function Overview({ ctx }: { ctx: RecCtx }) {
@@ -17,8 +17,6 @@ export default function Overview({ ctx }: { ctx: RecCtx }) {
   const avgFrust = custFrust.length ? (custFrust.reduce((a, b) => a + b, 0) / custFrust.length).toFixed(1) : "–";
   const maxTalk = Math.max(1, ...r.speakers.map((s) => s.talk_time_s));
 
-  const [fullBreakdown, setFullBreakdown] = useState(false);
-
   return (
     <>
       <div className="kpis">
@@ -32,65 +30,53 @@ export default function Overview({ ctx }: { ctx: RecCtx }) {
 
       <h2 style={{ marginTop: 28 }}>Salespeople</h2>
       {r.salespeople.length > 0 ? (
-        <>
-          <div className="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>Salesperson</th>
-                  <th className="num">Tries to upsell</th>
-                  {fullBreakdown && (
-                    <>
-                      <th className="num">Conversations</th>
-                      <th className="num">Offers made</th>
-                      <th className="num">Selling effort</th>
-                      <th className="num">Talk time on upsells</th>
-                      <th className="num">Customers said yes</th>
-                      <th className="num">Pushy conversations</th>
-                      <th>Approaches</th>
-                    </>
-                  )}
-                </tr>
-              </thead>
-              <tbody>
-                {r.salespeople.map((p) => (
+        <div className="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Salesperson</th>
+                <th className="num">Greeted the customer</th>
+                <th className="num">Questions left unanswered</th>
+                <th className="num">Pushy after a "no"</th>
+                <th>Worst customer mood</th>
+                <th className="num">Tries to upsell</th>
+              </tr>
+            </thead>
+            <tbody>
+              {r.salespeople.map((p) => {
+                // Conversation-level findings are counted only where this was the one salesperson (as everywhere else).
+                const solo = sales.filter((c) => c.salespeople.length === 1 && c.salespeople[0] === p.speaker);
+                const greetedN = solo.filter((c) => c.upsell?.greeting_given).length;
+                const unansweredN = solo.reduce((a, c) => a + (c.upsell?.unanswered_questions.length ?? 0), 0);
+                const moods = sales
+                  .filter((c) => c.salespeople.includes(p.speaker))
+                  .flatMap((c) => (c.mood?.speakers ?? []).filter((m) => c.customers.includes(m.speaker)).map((m) => m.frustration_level));
+                const worst = moods.length ? Math.max(...moods) : null;
+                const mood = moodFromFrustration(worst);
+                return (
                   <tr key={p.speaker}>
                     <td>
                       <Spk speaker={p.speaker} report={r} who={who} />
                     </td>
-                    <td className="num">
-                      <b>{pct(p.upsell_rate)}</b>
+                    <td className="num">{solo.length ? `${greetedN} of ${solo.length}` : "–"}</td>
+                    <td className="num">{solo.length ? unansweredN : "–"}</td>
+                    <td className="num">{p.pushy_conversations ? <span className="pill bad">{p.pushy_conversations}</span> : "0"}</td>
+                    <td>
+                      {worst == null ? (
+                        <span className="sub">–</span>
+                      ) : (
+                        <span className={`wd wd-${mood.tone}`}>
+                          {mood.label} <span className="sub small">({worst}/10)</span>
+                        </span>
+                      )}
                     </td>
-                    {fullBreakdown && (
-                      <>
-                        <td className="num reveal">{p.conversations}</td>
-                        <td className="num reveal">{p.attempts_total}</td>
-                        <td className="num reveal">{p.avg_effort_score.toFixed(1)}/10</td>
-                        <td className="num reveal">{pct(p.upsell_talk_time_share)}</td>
-                        <td className="num reveal">{pct(p.acceptance_rate)}</td>
-                        <td className="num reveal">
-                          {p.pushy_conversations ? <span className="pill bad">{p.pushy_conversations}</span> : "0"}
-                        </td>
-                        <td className="reveal">
-                          <div className="row" style={{ gap: 5 }}>
-                            {p.techniques_used.map((t) => (
-                              <span className="pill neutral" key={t}>
-                                {t.replace(/_/g, " ")}
-                              </span>
-                            ))}
-                          </div>
-                        </td>
-                      </>
-                    )}
+                    <td className="num">{pct(p.upsell_rate)}</td>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <button className="btn ghost small" style={{ marginTop: 10 }} onClick={() => setFullBreakdown((v) => !v)}>
-            {fullBreakdown ? "Show less" : "Show full breakdown"}
-          </button>
-        </>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
       ) : (
         <p className="sub">No salesperson detected in this recording.</p>
       )}
