@@ -12,11 +12,11 @@ function Shell({ title, lead, children, footer }: { title: string; lead: string;
           <span className="brand-mark">
             <Headset size={15} />
           </span>
-          Sales Insights
+          SalesIQ
         </div>
         <h2>See how every salesperson is really doing.</h2>
         <ul>
-          <li>Which offers customers say yes to</li>
+          <li>How every salesperson treats customers</li>
           <li>Who needs support, and what to coach</li>
           <li>The exact words behind every finding</li>
         </ul>
@@ -67,7 +67,7 @@ export function Login() {
       .then((r) => r.json())
       .then((o: { signup: boolean }) => setCanSignup(o.signup))
       .catch(() => undefined);
-    document.title = "Log in - Sales Insights";
+    document.title = "Log in - SalesIQ";
   }, []);
 
   const submit = async (e: FormEvent) => {
@@ -130,7 +130,7 @@ export function Signup() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    document.title = "Create account - Sales Insights";
+    document.title = "Create account - SalesIQ";
   }, []);
 
   const tooShort = password.length > 0 && password.length < 8;

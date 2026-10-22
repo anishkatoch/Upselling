@@ -21,11 +21,11 @@ export default function Nav() {
       </a>
       <header className="topbar">
         <div className="topbar-in">
-          <Link to="/" className="brand" aria-label="Sales Insights home">
+          <Link to="/" className="brand" aria-label="SalesIQ home">
             <span className="brand-mark">
               <Headset size={15} />
             </span>
-            <span className="brand-text">Sales Insights</span>
+            <span className="brand-text">SalesIQ</span>
           </Link>
           <nav className="top-nav" aria-label="Primary">
             {ITEMS.map((item) => {
