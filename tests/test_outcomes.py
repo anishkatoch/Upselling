@@ -73,6 +73,7 @@ def _bucket(**kw) -> dashboard.Bucket:
 def test_assessment_strong_and_weak():
     strong = dashboard.assess(_bucket(), [_bucket()])
     assert strong.rating == "strong" and strong.effort_level == "high" and not strong.improvements
+    assert not strong.upsell_tips
     weak = dashboard.assess(
         _bucket(
             upsell_rate=0.1, acceptance_rate=0.0, avg_effort=1.5, greeting_rate=0.2, unanswered_questions=6,
@@ -81,7 +82,8 @@ def test_assessment_strong_and_weak():
         [],
     )  # fmt: skip
     assert weak.rating == "needs_work" and weak.effort_level == "low"
-    assert len(weak.improvements) >= 5
+    # customer handling (greeting, listening, pressure, mood) is advice; upselling is a separate optional list
+    assert len(weak.improvements) >= 4 and len(weak.upsell_tips) >= 2
 
 
 def test_assessment_no_attempts_and_small_sample_and_trend():

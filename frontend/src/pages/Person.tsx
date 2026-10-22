@@ -203,7 +203,7 @@ function PersonDetail({
         </Reveal>
       )}
 
-      {(a.strengths.length > 0 || a.improvements.length > 0) && (
+      {(a.strengths.length > 0 || a.improvements.length > 0 || (a.upsell_tips?.length ?? 0) > 0) && (
         <Reveal className="two">
           <section className="flat-card good">
             <h3>Doing well</h3>
@@ -225,12 +225,22 @@ function PersonDetail({
               {shownImprovements.map((s) => (
                 <li key={s}>{s}</li>
               ))}
-              {a.improvements.length === 0 && <li className="sub">Nothing to flag</li>}
+              {a.improvements.length === 0 && <li className="sub">Nothing urgent - keep it up.</li>}
             </ul>
             {a.improvements.length > 2 && (
               <button className="link small" style={{ marginTop: 8 }} onClick={() => setShowAllImprovements((v) => !v)}>
                 {showAllImprovements ? "Show fewer" : `+${a.improvements.length - 2} more`}
               </button>
+            )}
+            {(a.upsell_tips?.length ?? 0) > 0 && (
+              <div className="optional-tips">
+                <h4>Upselling (optional)</h4>
+                <ul>
+                  {a.upsell_tips!.map((s) => (
+                    <li key={s}>{s}</li>
+                  ))}
+                </ul>
+              </div>
             )}
           </section>
         </Reveal>

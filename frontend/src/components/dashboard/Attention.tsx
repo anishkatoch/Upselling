@@ -37,17 +37,18 @@ function Row({ p, reason }: { p: Person; reason: string | undefined }) {
   );
 }
 
-const rate = (p: Person) => p.total.upsell_rate ?? 0;
+// Who needs attention first is judged on how customers were treated (their worst conversation), not on upselling.
+const worstMood = (p: Person) => p.total.max_customer_frustration ?? p.total.avg_customer_frustration ?? 0;
 
 export default function Attention({ people }: { people: Person[] }) {
   const rated = people.filter((p) => !isNotRated(p));
   const needs = rated
     .filter((p) => p.assessment.rating === "needs_work")
-    .sort((a, b) => Number(b.assessment.trend === "declining") - Number(a.assessment.trend === "declining") || rate(a) - rate(b))
+    .sort((a, b) => Number(b.assessment.trend === "declining") - Number(a.assessment.trend === "declining") || worstMood(b) - worstMood(a))
     .slice(0, 4);
   const well = rated
     .filter((p) => p.assessment.rating === "strong")
-    .sort((a, b) => rate(b) - rate(a))
+    .sort((a, b) => worstMood(a) - worstMood(b))
     .slice(0, 3);
 
   return (
@@ -59,7 +60,7 @@ export default function Attention({ people }: { people: Person[] }) {
         {needs.length ? (
           <ul className="attn-list">
             {needs.map((p) => (
-              <Row key={p.name} p={p} reason={p.assessment.improvements[0]} />
+              <Row key={p.name} p={p} reason={p.assessment.improvements[0] ?? p.assessment.upsell_tips?.[0]} />
             ))}
           </ul>
         ) : (

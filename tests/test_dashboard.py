@@ -379,7 +379,7 @@ def test_a_strong_upseller_who_treats_customers_badly_is_not_rated_well():
     )
     a = dashboard.assess(bad, [])
     assert a.rating == "needs_work"
-    assert any("Pushy" in line for line in a.improvements)
+    assert any("Kept pitching after a clear 'no'" in line for line in a.improvements)
 
 
 def _set_first_conversation_attempts(storage, job_id: str, attempts: list[tuple[str, str]]) -> None:
@@ -457,9 +457,9 @@ def _mood_bucket(avg: float) -> dashboard.Bucket:
 @pytest.mark.parametrize(
     ("avg", "expected"),
     [
-        (2.9, "Customers stay calm"),  # under 3 is calm, as in the prompt's bands
-        (3.0, "somewhat frustrated"),  # 3 to 4 is some tension (was still "calm" at exactly 3 before)
-        (4.9, "somewhat frustrated"),
+        (2.9, "Most customers stay calm"),  # under 3 is calm, as in the prompt's bands
+        (3.0, "somewhat tense"),  # 3 to 4 is some tension (was still "calm" at exactly 3 before)
+        (4.9, "somewhat tense"),
         (5.0, "leave frustrated"),  # 5 and over is frustrated
     ],
 )
@@ -474,3 +474,63 @@ def test_a_period_reports_its_worst_conversation_as_well_as_the_average():
     b = acc.bucket("p")
     assert b.avg_customer_frustration == 3.3 and b.max_customer_frustration == 7.0
     assert dashboard._Acc().bucket("p").max_customer_frustration is None
+
+
+def test_advice_puts_customer_handling_first_and_upselling_last_as_optional_tips():
+    t = dashboard.Bucket(
+        period="p",
+        conversations=6,
+        analysed_conversations=6,
+        solo_analysed_conversations=6,
+        greeting_rate=1.0,
+        upsell_rate=0.5,
+        acceptance_rate=0.1,
+        attempts=8,
+        techniques=["bundle"],
+        pushy_conversations=3,
+        unanswered_questions=9,
+        avg_customer_frustration=2.6,
+        max_customer_frustration=8.0,
+    )
+    a = dashboard.assess(t, [])
+    # the first things to fix are about customers, in this order: questions, pressure, the worst conversation
+    assert "went unanswered" in a.improvements[0]
+    assert "Kept pitching after a clear 'no'" in a.improvements[1]
+    assert "very frustrated" in a.improvements[2] and "8/10" in a.improvements[2]
+    assert not any("upsell" in line.lower() or "offer" in line.lower() for line in a.improvements)
+    # upselling is its own optional list
+    assert any("Tries an upsell" in tip for tip in a.upsell_tips) and any("accepted" in tip for tip in a.upsell_tips)
+    # a sales technique is no longer praised as a strength
+    assert not any("different techniques" in line for line in a.strengths)
+    assert a.strengths[0].startswith("Greets customers")
+
+
+def test_someone_with_nothing_to_fix_about_customers_has_only_optional_upsell_tips():
+    t = dashboard.Bucket(
+        period="p",
+        conversations=5,
+        analysed_conversations=5,
+        solo_analysed_conversations=5,
+        greeting_rate=1.0,
+        upsell_rate=0.0,
+        avg_customer_frustration=0.0,
+        max_customer_frustration=0.0,
+    )
+    a = dashboard.assess(t, [])
+    assert a.rating == "strong" and a.improvements == []
+    assert len(a.upsell_tips) == 1 and "Rarely offers an add-on" in a.upsell_tips[0]
+
+
+def test_unanswered_question_advice_uses_the_right_singular_and_plural():
+    def advice(unanswered: int, convs: int) -> str:
+        b = dashboard.Bucket(
+            period="p",
+            conversations=convs,
+            analysed_conversations=convs,
+            solo_analysed_conversations=convs,
+            unanswered_questions=unanswered,
+        )
+        return next(x for x in dashboard.assess(b, []).improvements if "unanswered" in x)
+
+    assert advice(1, 2).startswith("1 customer question went unanswered across 2 conversations")
+    assert advice(3, 4).startswith("3 customer questions went unanswered")

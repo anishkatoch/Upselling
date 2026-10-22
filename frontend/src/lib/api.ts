@@ -320,6 +320,8 @@ export interface Person {
     trend: "improving" | "steady" | "declining" | null;
     strengths: string[];
     improvements: string[];
+    /** Optional ideas about upselling, shown after the advice about how they treat customers. */
+    upsell_tips?: string[];
   };
   recent_coaching: string[];
   recent_calls: RecentCall[];
