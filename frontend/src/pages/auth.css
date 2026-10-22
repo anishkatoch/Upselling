@@ -40,3 +40,8 @@
 .user-menu button:hover { color: #fff; border-color: rgba(255, 255, 255, 0.45); }
 .user-menu button:focus-visible { outline: 2px solid #a5a8ff; outline-offset: 2px; }
 @media (max-width: 760px) { .user-menu .name { display: none; } }
+
+/* Wordmark: "Sales" in white, "IQ" picked out in the brand's light indigo */
+.brand-text { font-weight: 600; letter-spacing: -0.02em; }
+.brand-iq { font-weight: 800; color: #a5a8ff; margin-left: 1px; }
+.auth-brand { font-size: 18px; gap: 10px; }

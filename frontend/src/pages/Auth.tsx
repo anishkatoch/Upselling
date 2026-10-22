@@ -1,6 +1,6 @@
 import { useEffect, useState, type FormEvent, type ReactNode } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Headset } from "../icons/Icons";
+import Brand from "../components/Brand";
 import { useAuth } from "../lib/auth";
 import "./auth.css";
 
@@ -9,10 +9,7 @@ function Shell({ title, lead, children, footer }: { title: string; lead: string;
     <div className="auth">
       <aside className="auth-side" aria-hidden="true">
         <div className="auth-brand">
-          <span className="brand-mark">
-            <Headset size={15} />
-          </span>
-          SalesIQ
+          <Brand size={30} />
         </div>
         <h2>See how every salesperson is really doing.</h2>
         <ul>

@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Link, useLocation } from "react-router-dom";
-import { Grid, Headset, Mic, Users } from "../icons/Icons";
+import { Grid, Mic, Users } from "../icons/Icons";
+import Brand from "./Brand";
 import { EASE } from "../lib/motion";
 import StartRecording from "./StartRecording";
 import UserMenu from "./UserMenu";
@@ -22,10 +23,7 @@ export default function Nav() {
       <header className="topbar">
         <div className="topbar-in">
           <Link to="/" className="brand" aria-label="SalesIQ home">
-            <span className="brand-mark">
-              <Headset size={15} />
-            </span>
-            <span className="brand-text">SalesIQ</span>
+            <Brand />
           </Link>
           <nav className="top-nav" aria-label="Primary">
             {ITEMS.map((item) => {
