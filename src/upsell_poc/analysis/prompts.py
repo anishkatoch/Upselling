@@ -1,6 +1,6 @@
 """System prompts. Bump PROMPT_VERSION on any change so cached stage results refresh."""
 
-PROMPT_VERSION = "2026-10-22.1"
+PROMPT_VERSION = "2026-10-26.2"
 
 _TRANSCRIPT_NOTE = """\
 Transcript lines look like: [#<segment_id> <start>-<end> <speaker>] <text>
@@ -182,3 +182,25 @@ neutral, confused, impatient, irritated, frustrated, angry>", "intensity": <1-5>
 "mood" MUST be exactly one of those eight words and nothing else - never invent another word \
 (not "friendly", "curious", "satisfied", "playful", "polite"...). If none fits exactly, choose \
 the closest of the eight. Include every turn listed."""
+
+
+SPEAKER_REPAIR = f"""\
+The speech-to-text diarizer sometimes gives two different people the same speaker label. You \
+repair that from the dialogue alone.
+
+{_TRANSCRIPT_NOTE}
+
+Each line is "[#id time label (role)] text". Read the whole conversation and decide, for every \
+line, who is really speaking. Typical clues: a question is answered by a different person; one \
+voice offers products and prices while another objects, hesitates ("I need to think about it") \
+or decides; greetings and goodbyes come from opposite sides; a line answers or refuses what the \
+previous line said while carrying the same label; a new customer arrives; a person addresses \
+another by name or title.
+
+Rules:
+- Return only the lines whose label is wrong, in `fixes`. If the labels are already right, return \
+an empty list. Do not change a label on weak evidence.
+- Move a line to an existing label when that person already has one. Use a new label \
+("Speaker 3", "Speaker 4"...) only for a person who has no label yet; give its role and a short title.
+- Different customers served one after another are different people, even if the label is shared.
+- Never invent text. Only change who says a line."""

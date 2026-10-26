@@ -1,0 +1,562 @@
+{
+  "job_id": "0ebecfd6624a084ea46ced7ccf197c86",
+  "source_filename": "2026-10-21_reem_floor_session.mp3",
+  "duration_s": 127.9,
+  "transcription_provider": "hand-authored:saudi-demo-sample",
+  "speakers": [
+    {
+      "speaker": "A",
+      "role": "salesperson",
+      "title": "Appliance store salesperson (Jeddah)",
+      "talk_time_s": 63.4
+    },
+    {
+      "speaker": "B",
+      "role": "customer",
+      "title": "Washing machine buyer",
+      "talk_time_s": 8.5
+    },
+    {
+      "speaker": "C",
+      "role": "customer",
+      "title": "Coffee machine buyer",
+      "talk_time_s": 10.1
+    },
+    {
+      "speaker": "D",
+      "role": "customer",
+      "title": "Microwave buyer",
+      "talk_time_s": 9.7
+    }
+  ],
+  "has_sales_activity": true,
+  "conversations": [
+    {
+      "conversation_id": 1,
+      "start": 0.0,
+      "end": 38.12,
+      "topic": "Washing machine",
+      "language": "other",
+      "is_sales_interaction": true,
+      "salespeople": [
+        "A"
+      ],
+      "customers": [
+        "B"
+      ],
+      "mood": {
+        "speakers": [
+          {
+            "speaker": "A",
+            "overall_mood": "happy",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Gives a specific delivery window and her own number."
+          },
+          {
+            "speaker": "B",
+            "overall_mood": "happy",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Satisfied with a clear delivery promise."
+          }
+        ],
+        "frustration_moments": []
+      },
+      "upsell": {
+        "customer_requested": [
+          "A 9 kg automatic washing machine.",
+          "Warranty information."
+        ],
+        "upsell_attempts": [
+          {
+            "salesperson": "A",
+            "segment_id": 4,
+            "quote": "سنتين على الجهاز و10 سنوات على المحرك. وإذا تحب، التمديد خمس سنوات كاملة بـ 249 ريال.",
+            "technique": "warranty_protection",
+            "offered_item": "Five-year extended warranty for 249 SAR",
+            "salesperson_initiated": true,
+            "after_customer_rejection": false,
+            "handled_objection": false,
+            "customer_response": "rejected",
+            "customer_mood": "neutral"
+          }
+        ],
+        "excluded_candidates": [
+          "عندي هذي بـ 1,899 ريال، وفيها بخار للتعقيم. والتوصيل خلال يومين، وأتصل فيك الصبح قبل ما يوصل. -> Presents the machine with a delivery window.",
+          "سنتين على الجهاز و10 سنوات على المحرك. وإذا تحب، التمديد خمس سنوات كاملة بـ 249 ريال. -> Standard warranty details as asked."
+        ],
+        "pushy_upsell": false,
+        "pushy_reason": "No offer was repeated after a customer said no.",
+        "confidence": 0.92,
+        "summary": "A delivery promise and personal contact, plus one warranty offer that the customer declined. A clear change from the October 14 delivery complaint.",
+        "greeting_given": true,
+        "greeting_quote": "السلام عليكم، أهلاً بك.",
+        "greeting_segment_id": 0,
+        "products_discussed": [
+          "washing machine 1,899 SAR",
+          "extended warranty 249 SAR"
+        ],
+        "customer_feedback": null,
+        "customer_feedback_segment_id": null,
+        "unanswered_questions": [],
+        "coaching_feedback": "Giving a delivery window and your own number prevents the kind of complaint seen in the earlier recording."
+      },
+      "attempted_upsell": true,
+      "effort_score": 2.2,
+      "analyzed_by": "hand-authored:saudi-demo-sample",
+      "escalated": false,
+      "budget_note": null
+    },
+    {
+      "conversation_id": 2,
+      "start": 47.12,
+      "end": 82.58,
+      "topic": "Coffee machine",
+      "language": "other",
+      "is_sales_interaction": true,
+      "salespeople": [
+        "A"
+      ],
+      "customers": [
+        "C"
+      ],
+      "mood": {
+        "speakers": [
+          {
+            "speaker": "A",
+            "overall_mood": "calm",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Combines two needs of the customer in one offer."
+          },
+          {
+            "speaker": "C",
+            "overall_mood": "neutral",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Pleased with the electric dallah kettle idea."
+          }
+        ],
+        "frustration_moments": []
+      },
+      "upsell": {
+        "customer_requested": [
+          "A coffee machine.",
+          "Something for Saudi coffee."
+        ],
+        "upsell_attempts": [
+          {
+            "salesperson": "A",
+            "segment_id": 9,
+            "quote": "أنصحك بهذي، ماكينة اسبريسو بـ 799 ريال. وللقهوة السعودية عندنا غلاية كهربائية للدلة بـ 189 ريال.",
+            "technique": "bundle",
+            "offered_item": "Electric dallah kettle for 189 SAR with 10% off the pair",
+            "salesperson_initiated": false,
+            "after_customer_rejection": false,
+            "handled_objection": false,
+            "customer_response": "accepted",
+            "customer_mood": "happy"
+          }
+        ],
+        "excluded_candidates": [],
+        "pushy_upsell": false,
+        "pushy_reason": "No offer was repeated after a customer said no.",
+        "confidence": 0.9,
+        "summary": "The customer mentioned Saudi coffee, and the salesperson offered a product for that and a pair discount. Accepted.",
+        "greeting_given": true,
+        "greeting_quote": "السلام عليكم، حياك الله.",
+        "greeting_segment_id": 7,
+        "products_discussed": [
+          "espresso machine 799 SAR",
+          "electric dallah kettle 189 SAR"
+        ],
+        "customer_feedback": null,
+        "customer_feedback_segment_id": null,
+        "unanswered_questions": [],
+        "coaching_feedback": "Local, relevant add-on that matched what the customer said she wanted."
+      },
+      "attempted_upsell": true,
+      "effort_score": 2.2,
+      "analyzed_by": "hand-authored:saudi-demo-sample",
+      "escalated": false,
+      "budget_note": null
+    },
+    {
+      "conversation_id": 3,
+      "start": 91.58,
+      "end": 125.9,
+      "topic": "Microwave oven",
+      "language": "english",
+      "is_sales_interaction": true,
+      "salespeople": [
+        "A"
+      ],
+      "customers": [
+        "D"
+      ],
+      "mood": {
+        "speakers": [
+          {
+            "speaker": "A",
+            "overall_mood": "calm",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "English-language service."
+          },
+          {
+            "speaker": "D",
+            "overall_mood": "neutral",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Direct."
+          }
+        ],
+        "frustration_moments": []
+      },
+      "upsell": {
+        "customer_requested": [
+          "A small microwave for a flat."
+        ],
+        "upsell_attempts": [
+          {
+            "salesperson": "A",
+            "segment_id": 18,
+            "quote": "Good. Do you need a microwave-safe cover set? It's 35 riyals.",
+            "technique": "cross_sell",
+            "offered_item": "Microwave cover set for 35 SAR",
+            "salesperson_initiated": true,
+            "after_customer_rejection": false,
+            "handled_objection": false,
+            "customer_response": "rejected",
+            "customer_mood": "neutral"
+          }
+        ],
+        "excluded_candidates": [
+          "This one is 20 litres, 389 riyals, and this is 25 litres at 449. -> Two sizes quoted."
+        ],
+        "pushy_upsell": false,
+        "pushy_reason": "No offer was repeated after a customer said no.",
+        "confidence": 0.9,
+        "summary": "One small optional add-on, declined and dropped.",
+        "greeting_given": true,
+        "greeting_quote": "Hello, welcome. How can I help?",
+        "greeting_segment_id": 14,
+        "products_discussed": [
+          "microwave 20 L 389 SAR",
+          "cover set 35 SAR"
+        ],
+        "customer_feedback": null,
+        "customer_feedback_segment_id": null,
+        "unanswered_questions": [],
+        "coaching_feedback": "Short and good."
+      },
+      "attempted_upsell": true,
+      "effort_score": 2.2,
+      "analyzed_by": "hand-authored:saudi-demo-sample",
+      "escalated": false,
+      "budget_note": null
+    }
+  ],
+  "salespeople": [
+    {
+      "speaker": "A",
+      "conversations": 3,
+      "conversations_with_upsell": 3,
+      "upsell_rate": 1.0,
+      "attempts_total": 3,
+      "attempts_per_conversation": 1.0,
+      "avg_effort_score": 2.2,
+      "upsell_talk_time_share": 0.314,
+      "acceptance_rate": 0.333,
+      "pushy_conversations": 0,
+      "techniques_used": [
+        "bundle",
+        "cross_sell",
+        "warranty_protection"
+      ]
+    }
+  ],
+  "calls": [],
+  "evidence": [
+    {
+      "kind": "greeting",
+      "conversation_id": 1,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 0,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 0,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 0.0,
+          "end": 2.72,
+          "text": "السلام عليكم، أهلاً بك.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 1,
+          "speaker": "B",
+          "role": "customer",
+          "start": 3.62,
+          "end": 7.48,
+          "text": "وعليكم السلام. أبي غسالة أوتوماتيك، 9 كيلو.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 2,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 8.38,
+          "end": 16.04,
+          "text": "عندي هذي بـ 1,899 ريال، وفيها بخار للتعقيم. والتوصيل خلال يومين، وأتصل فيك الصبح قبل ما يوصل.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "upsell_attempt",
+      "conversation_id": 1,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 4,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 2,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 8.38,
+          "end": 16.04,
+          "text": "عندي هذي بـ 1,899 ريال، وفيها بخار للتعقيم. والتوصيل خلال يومين، وأتصل فيك الصبح قبل ما يوصل.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 3,
+          "speaker": "B",
+          "role": "customer",
+          "start": 16.94,
+          "end": 19.28,
+          "text": "حلو. فيه ضمان؟",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 4,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 20.18,
+          "end": 27.46,
+          "text": "سنتين على الجهاز و10 سنوات على المحرك. وإذا تحب، التمديد خمس سنوات كاملة بـ 249 ريال.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 5,
+          "speaker": "B",
+          "role": "customer",
+          "start": 28.36,
+          "end": 30.7,
+          "text": "لا، يكفي هذا.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 6,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 31.6,
+          "end": 38.12,
+          "text": "تمام. أرسل لك رسالة بموعد التوصيل. وإذا تأخر أي شي أنا موجودة على رقمي.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "greeting",
+      "conversation_id": 2,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 7,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 7,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 47.12,
+          "end": 49.84,
+          "text": "السلام عليكم، حياك الله.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 8,
+          "speaker": "C",
+          "role": "customer",
+          "start": 50.74,
+          "end": 55.74,
+          "text": "وعليكم السلام. أبي ماكينة قهوة، وأبي أسوي دلة سعودية بعد.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 9,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 56.64,
+          "end": 63.92,
+          "text": "أنصحك بهذي، ماكينة اسبريسو بـ 799 ريال. وللقهوة السعودية عندنا غلاية كهربائية للدلة بـ 189 ريال.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "upsell_attempt",
+      "conversation_id": 2,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 9,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 7,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 47.12,
+          "end": 49.84,
+          "text": "السلام عليكم، حياك الله.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 8,
+          "speaker": "C",
+          "role": "customer",
+          "start": 50.74,
+          "end": 55.74,
+          "text": "وعليكم السلام. أبي ماكينة قهوة، وأبي أسوي دلة سعودية بعد.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 9,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 56.64,
+          "end": 63.92,
+          "text": "أنصحك بهذي، ماكينة اسبريسو بـ 799 ريال. وللقهوة السعودية عندنا غلاية كهربائية للدلة بـ 189 ريال.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 10,
+          "speaker": "C",
+          "role": "customer",
+          "start": 64.82,
+          "end": 67.54,
+          "text": "الاثنين؟ وش فيها الغلاية؟",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 11,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 68.44,
+          "end": 72.68,
+          "text": "تحافظ على حرارة القهوة وتسخن بسرعة. جربها لك.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "greeting",
+      "conversation_id": 3,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 14,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 14,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 91.58,
+          "end": 95.06,
+          "text": "Hello, welcome. How can I help?",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 15,
+          "speaker": "D",
+          "role": "customer",
+          "start": 95.96,
+          "end": 100.58,
+          "text": "Hi, I need a small microwave for my flat.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 16,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 101.48,
+          "end": 108.0,
+          "text": "This one is 20 litres, 389 riyals, and this is 25 litres at 449.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "upsell_attempt",
+      "conversation_id": 3,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 18,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 16,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 101.48,
+          "end": 108.0,
+          "text": "This one is 20 litres, 389 riyals, and this is 25 litres at 449.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 17,
+          "speaker": "D",
+          "role": "customer",
+          "start": 108.9,
+          "end": 112.0,
+          "text": "The 20 litre is enough.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 18,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 112.9,
+          "end": 118.28,
+          "text": "Good. Do you need a microwave-safe cover set? It's 35 riyals.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 19,
+          "speaker": "D",
+          "role": "customer",
+          "start": 119.18,
+          "end": 121.14,
+          "text": "No thanks.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 20,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 122.04,
+          "end": 125.9,
+          "text": "No problem. 389 riyals. Cash or card?",
+          "is_highlighted": false
+        }
+      ]
+    }
+  ],
+  "spent_usd": 0.0,
+  "budget_usd": null,
+  "unpriced_calls": 0
+}

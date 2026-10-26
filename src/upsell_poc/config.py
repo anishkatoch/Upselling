@@ -68,6 +68,7 @@ class LLMEndpoint(BaseModel):
 
 
 class LLMStepConfig(BaseModel):
+    enabled: bool = True
     effort: Literal["low", "medium", "high"] = "medium"
     escalate_below_confidence: float | None = None
     escalation: LLMEndpoint | None = None
@@ -92,6 +93,8 @@ class TranscriberConfig(BaseModel):
     overlap_seconds: float = 2
     max_parallel_chunks: int = 3
     mp3_bitrate: str = "48k"
+    # Single-chunk audio is diarized this many times; the run with most distinct speakers wins.
+    diarize_attempts: int = 1
     languages: list[str] = Field(default_factory=lambda: ["en-IN", "hi-IN"])
     max_speakers: int = 10
     poll_seconds: int = 10

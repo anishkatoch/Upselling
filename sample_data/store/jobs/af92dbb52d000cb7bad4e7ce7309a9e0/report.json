@@ -1,0 +1,709 @@
+{
+  "job_id": "af92dbb52d000cb7bad4e7ce7309a9e0",
+  "source_filename": "2026-10-21_faisal_floor_session.mp3",
+  "duration_s": 168.4,
+  "transcription_provider": "hand-authored:saudi-demo-sample",
+  "speakers": [
+    {
+      "speaker": "A",
+      "role": "salesperson",
+      "title": "Phone store salesperson (Riyadh)",
+      "talk_time_s": 79.1
+    },
+    {
+      "speaker": "B",
+      "role": "customer",
+      "title": "Gift buyer",
+      "talk_time_s": 17.0
+    },
+    {
+      "speaker": "C",
+      "role": "customer",
+      "title": "Customer upgrading a phone",
+      "talk_time_s": 17.3
+    },
+    {
+      "speaker": "D",
+      "role": "customer",
+      "title": "Headphone buyer",
+      "talk_time_s": 14.3
+    }
+  ],
+  "has_sales_activity": true,
+  "conversations": [
+    {
+      "conversation_id": 1,
+      "start": 0.0,
+      "end": 50.68,
+      "topic": "Smartwatch for a gift",
+      "language": "other",
+      "is_sales_interaction": true,
+      "salespeople": [
+        "A"
+      ],
+      "customers": [
+        "B"
+      ],
+      "mood": {
+        "speakers": [
+          {
+            "speaker": "A",
+            "overall_mood": "happy",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Warm; steers the customer away from an incompatible purchase."
+          },
+          {
+            "speaker": "B",
+            "overall_mood": "happy",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Starts with a budget, accepts a small stretch once told the cheaper watch will not work with his brother's phone."
+          }
+        ],
+        "frustration_moments": []
+      },
+      "upsell": {
+        "customer_requested": [
+          "A smartwatch around 1,000 SAR as a gift.",
+          "Compatibility with an iPhone."
+        ],
+        "upsell_attempts": [
+          {
+            "salesperson": "A",
+            "segment_id": 4,
+            "quote": "للأسف لا، هذي للأندرويد. لكن عندي هذي الثانية تشتغل مع الاثنين بـ 1,099 ريال.",
+            "technique": "upgrade",
+            "offered_item": "Cross-platform smartwatch for 1,099 SAR (100 SAR over budget)",
+            "salesperson_initiated": false,
+            "after_customer_rejection": false,
+            "handled_objection": false,
+            "customer_response": "accepted",
+            "customer_mood": "happy"
+          },
+          {
+            "salesperson": "A",
+            "segment_id": 6,
+            "quote": "قرارك صحيح، وما راح تضطر ترجعها. تبي نلفها لك هدية مع سير إضافي بـ 59 ريال؟",
+            "technique": "cross_sell",
+            "offered_item": "Extra watch strap for 59 SAR",
+            "salesperson_initiated": true,
+            "after_customer_rejection": false,
+            "handled_objection": false,
+            "customer_response": "accepted",
+            "customer_mood": "happy"
+          }
+        ],
+        "excluded_candidates": [
+          "أبشر. هذي ساعة بـ 949 ريال، بطارية أسبوع وتقيس النبض والنوم. وهذي أرخص بـ 649. -> Presents the options the customer asked for."
+        ],
+        "pushy_upsell": false,
+        "pushy_reason": "The upgrade solved a real compatibility problem and the strap was a light add-on.",
+        "confidence": 0.9,
+        "summary": "The salesperson found the budget watch would not work with the recipient's phone, moved the customer to a compatible model slightly above budget, then added a strap. Both accepted.",
+        "greeting_given": true,
+        "greeting_quote": "أهلاً وسهلاً، حياك الله.",
+        "greeting_segment_id": 0,
+        "products_discussed": [
+          "smartwatch 949 SAR (Android only)",
+          "smartwatch 1,099 SAR (cross-platform)",
+          "extra strap 59 SAR"
+        ],
+        "customer_feedback": "The customer accepted the higher price after the compatibility explanation.",
+        "customer_feedback_segment_id": 5,
+        "unanswered_questions": [],
+        "coaching_feedback": "A good upgrade because it fixed the customer's problem. Say plainly why the higher-priced item is the right one, as you did here."
+      },
+      "attempted_upsell": true,
+      "effort_score": 4.3,
+      "analyzed_by": "hand-authored:saudi-demo-sample",
+      "escalated": false,
+      "budget_note": null
+    },
+    {
+      "conversation_id": 2,
+      "start": 59.68,
+      "end": 106.36,
+      "topic": "Phone trade-in and new purchase",
+      "language": "other",
+      "is_sales_interaction": true,
+      "salespeople": [
+        "A"
+      ],
+      "customers": [
+        "C"
+      ],
+      "mood": {
+        "speakers": [
+          {
+            "speaker": "A",
+            "overall_mood": "calm",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Helpful; offers free data transfer."
+          },
+          {
+            "speaker": "C",
+            "overall_mood": "neutral",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Cooperative; declines the protection plan briefly and moves on."
+          }
+        ],
+        "frustration_moments": []
+      },
+      "upsell": {
+        "customer_requested": [
+          "Trade in an old phone against a new one.",
+          "Not to pay much extra."
+        ],
+        "upsell_attempts": [
+          {
+            "salesperson": "A",
+            "segment_id": 13,
+            "quote": "الجديد بـ 2,499، يعني بعد الخصم تدفع 1,799 ريال. وبعد ما تشتريه أنصحك بخطة حماية الجهاز لسنتين بـ 249 ريال.",
+            "technique": "warranty_protection",
+            "offered_item": "Two-year device protection plan for 249 SAR",
+            "salesperson_initiated": true,
+            "after_customer_rejection": false,
+            "handled_objection": false,
+            "customer_response": "rejected",
+            "customer_mood": "neutral"
+          }
+        ],
+        "excluded_candidates": [
+          "أكيد، نقيّمه لك الحين. تقدير الجهاز 700 ريال خصم على الجديد. -> Gives the trade-in value the customer asked about.",
+          "تمام، بدون مشكلة. بس تأكد أنك نقلت بياناتك، نقدر نساعدك بنقلها مجاناً. -> Free data transfer service; no purchase involved."
+        ],
+        "pushy_upsell": false,
+        "pushy_reason": "The protection plan was mentioned once and not repeated.",
+        "confidence": 0.9,
+        "summary": "The salesperson valued the trade-in, quoted the price after discount and offered a protection plan once. The customer declined and the sale closed with free data transfer.",
+        "greeting_given": true,
+        "greeting_quote": "السلام عليكم، تفضل يا أخوي.",
+        "greeting_segment_id": 9,
+        "products_discussed": [
+          "new phone 2,499 SAR",
+          "trade-in discount 700 SAR",
+          "protection plan 249 SAR"
+        ],
+        "customer_feedback": "The customer said he does not like add-ons like this.",
+        "customer_feedback_segment_id": 14,
+        "unanswered_questions": [],
+        "coaching_feedback": "Respectful close. The customer asked not to pay much extra, so the plan could be mentioned after the price was agreed, as a single sentence."
+      },
+      "attempted_upsell": true,
+      "effort_score": 2.2,
+      "analyzed_by": "hand-authored:saudi-demo-sample",
+      "escalated": false,
+      "budget_note": null
+    },
+    {
+      "conversation_id": 3,
+      "start": 115.36,
+      "end": 166.42,
+      "topic": "Headphones",
+      "language": "english",
+      "is_sales_interaction": true,
+      "salespeople": [
+        "A"
+      ],
+      "customers": [
+        "D"
+      ],
+      "mood": {
+        "speakers": [
+          {
+            "speaker": "A",
+            "overall_mood": "calm",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Relaxed, in English throughout."
+          },
+          {
+            "speaker": "D",
+            "overall_mood": "neutral",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Practical and friendly; accepts a low-cost warranty."
+          }
+        ],
+        "frustration_moments": []
+      },
+      "upsell": {
+        "customer_requested": [
+          "Noise-cancelling headphones under 800 SAR.",
+          "To try them before buying."
+        ],
+        "upsell_attempts": [
+          {
+            "salesperson": "A",
+            "segment_id": 23,
+            "quote": "Great. If you like, a 2-year warranty is 79 riyals. Your call.",
+            "technique": "warranty_protection",
+            "offered_item": "Two-year warranty for 79 SAR",
+            "salesperson_initiated": true,
+            "after_customer_rejection": false,
+            "handled_objection": false,
+            "customer_response": "accepted",
+            "customer_mood": "neutral"
+          }
+        ],
+        "excluded_candidates": [
+          "Sure. These are 749 riyals, 30 hours of battery. The ones next to them are 549 but the noise cancelling is weaker. -> Presents the requested headphones and a cheaper alternative with an honest trade-off."
+        ],
+        "pushy_upsell": false,
+        "pushy_reason": "No offer was repeated after a customer said no.",
+        "confidence": 0.92,
+        "summary": "The customer tried the headphones he wanted, then accepted a single, low-priced warranty offer. Total 828 SAR.",
+        "greeting_given": true,
+        "greeting_quote": "Good afternoon, welcome. Looking for anything in particular?",
+        "greeting_segment_id": 17,
+        "products_discussed": [
+          "noise-cancelling headphones 749 SAR",
+          "headphones 549 SAR",
+          "2-year warranty 79 SAR"
+        ],
+        "customer_feedback": null,
+        "customer_feedback_segment_id": null,
+        "unanswered_questions": [],
+        "coaching_feedback": "Offering the warranty after the customer had decided worked well, and saying 'your call' kept it comfortable."
+      },
+      "attempted_upsell": true,
+      "effort_score": 2.2,
+      "analyzed_by": "hand-authored:saudi-demo-sample",
+      "escalated": false,
+      "budget_note": null
+    }
+  ],
+  "salespeople": [
+    {
+      "speaker": "A",
+      "conversations": 3,
+      "conversations_with_upsell": 3,
+      "upsell_rate": 1.0,
+      "attempts_total": 4,
+      "attempts_per_conversation": 1.33,
+      "avg_effort_score": 2.9,
+      "upsell_talk_time_share": 0.358,
+      "acceptance_rate": 0.75,
+      "pushy_conversations": 0,
+      "techniques_used": [
+        "cross_sell",
+        "upgrade",
+        "warranty_protection"
+      ]
+    }
+  ],
+  "calls": [],
+  "evidence": [
+    {
+      "kind": "greeting",
+      "conversation_id": 1,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 0,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 0,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 0.0,
+          "end": 2.72,
+          "text": "أهلاً وسهلاً، حياك الله.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 1,
+          "speaker": "B",
+          "role": "customer",
+          "start": 3.62,
+          "end": 8.62,
+          "text": "الله يحييك. أبي هدية لأخوي، ساعة ذكية تقريباً ألف ريال.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 2,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 9.52,
+          "end": 16.42,
+          "text": "أبشر. هذي ساعة بـ 949 ريال، بطارية أسبوع وتقيس النبض والنوم. وهذي أرخص بـ 649.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "upsell_attempt",
+      "conversation_id": 1,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 4,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 2,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 9.52,
+          "end": 16.42,
+          "text": "أبشر. هذي ساعة بـ 949 ريال، بطارية أسبوع وتقيس النبض والنوم. وهذي أرخص بـ 649.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 3,
+          "speaker": "B",
+          "role": "customer",
+          "start": 17.32,
+          "end": 20.8,
+          "text": "الأولى حلوة. هل تنفع مع الآيفون؟",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 4,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 21.7,
+          "end": 28.22,
+          "text": "للأسف لا، هذي للأندرويد. لكن عندي هذي الثانية تشتغل مع الاثنين بـ 1,099 ريال.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 5,
+          "speaker": "B",
+          "role": "customer",
+          "start": 29.12,
+          "end": 34.12,
+          "text": "أخوي عنده آيفون، فخلني آخذ هذي. أعلى شوي بس مناسبة.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 6,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 35.02,
+          "end": 42.3,
+          "text": "قرارك صحيح، وما راح تضطر ترجعها. تبي نلفها لك هدية مع سير إضافي بـ 59 ريال؟",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "upsell_attempt",
+      "conversation_id": 1,
+      "index": 1,
+      "speaker": "A",
+      "segment_id": 6,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 4,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 21.7,
+          "end": 28.22,
+          "text": "للأسف لا، هذي للأندرويد. لكن عندي هذي الثانية تشتغل مع الاثنين بـ 1,099 ريال.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 5,
+          "speaker": "B",
+          "role": "customer",
+          "start": 29.12,
+          "end": 34.12,
+          "text": "أخوي عنده آيفون، فخلني آخذ هذي. أعلى شوي بس مناسبة.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 6,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 35.02,
+          "end": 42.3,
+          "text": "قرارك صحيح، وما راح تضطر ترجعها. تبي نلفها لك هدية مع سير إضافي بـ 59 ريال؟",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 7,
+          "speaker": "B",
+          "role": "customer",
+          "start": 43.2,
+          "end": 46.68,
+          "text": "ليش لا، أضف السير. والتغليف ببلاش؟",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 8,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 47.58,
+          "end": 50.68,
+          "text": "التغليف مجاني. المجموع 1,158 ريال.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "customer_feedback",
+      "conversation_id": 1,
+      "index": 0,
+      "speaker": "B",
+      "segment_id": 5,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 4,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 21.7,
+          "end": 28.22,
+          "text": "للأسف لا، هذي للأندرويد. لكن عندي هذي الثانية تشتغل مع الاثنين بـ 1,099 ريال.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 5,
+          "speaker": "B",
+          "role": "customer",
+          "start": 29.12,
+          "end": 34.12,
+          "text": "أخوي عنده آيفون، فخلني آخذ هذي. أعلى شوي بس مناسبة.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 6,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 35.02,
+          "end": 42.3,
+          "text": "قرارك صحيح، وما راح تضطر ترجعها. تبي نلفها لك هدية مع سير إضافي بـ 59 ريال؟",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "greeting",
+      "conversation_id": 2,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 9,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 9,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 59.68,
+          "end": 62.78,
+          "text": "السلام عليكم، تفضل يا أخوي.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 10,
+          "speaker": "C",
+          "role": "customer",
+          "start": 63.68,
+          "end": 68.68,
+          "text": "وعليكم السلام. أبي أغير جوالي، عندي هذا القديم، تاخذونه تبديل؟",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 11,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 69.58,
+          "end": 74.96,
+          "text": "أكيد، نقيّمه لك الحين. تقدير الجهاز 700 ريال خصم على الجديد.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "upsell_attempt",
+      "conversation_id": 2,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 13,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 11,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 69.58,
+          "end": 74.96,
+          "text": "أكيد، نقيّمه لك الحين. تقدير الجهاز 700 ريال خصم على الجديد.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 12,
+          "speaker": "C",
+          "role": "customer",
+          "start": 75.86,
+          "end": 81.62,
+          "text": "حلو. أبي جهاز مثل هذا بس أجدد، ما أبي أدفع زيادة كثير.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 13,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 82.52,
+          "end": 91.32,
+          "text": "الجديد بـ 2,499، يعني بعد الخصم تدفع 1,799 ريال. وبعد ما تشتريه أنصحك بخطة حماية الجهاز لسنتين بـ 249 ريال.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 14,
+          "speaker": "C",
+          "role": "customer",
+          "start": 92.22,
+          "end": 95.7,
+          "text": "لا، ما أحب هالأشياء. حطه بس.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 15,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 96.6,
+          "end": 102.36,
+          "text": "تمام، بدون مشكلة. بس تأكد أنك نقلت بياناتك، نقدر نساعدك بنقلها مجاناً.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "customer_feedback",
+      "conversation_id": 2,
+      "index": 0,
+      "speaker": "C",
+      "segment_id": 14,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 13,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 82.52,
+          "end": 91.32,
+          "text": "الجديد بـ 2,499، يعني بعد الخصم تدفع 1,799 ريال. وبعد ما تشتريه أنصحك بخطة حماية الجهاز لسنتين بـ 249 ريال.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 14,
+          "speaker": "C",
+          "role": "customer",
+          "start": 92.22,
+          "end": 95.7,
+          "text": "لا، ما أحب هالأشياء. حطه بس.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 15,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 96.6,
+          "end": 102.36,
+          "text": "تمام، بدون مشكلة. بس تأكد أنك نقلت بياناتك، نقدر نساعدك بنقلها مجاناً.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "greeting",
+      "conversation_id": 3,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 17,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 17,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 115.36,
+          "end": 119.6,
+          "text": "Good afternoon, welcome. Looking for anything in particular?",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 18,
+          "speaker": "D",
+          "role": "customer",
+          "start": 120.5,
+          "end": 125.88,
+          "text": "Hi. I need noise-cancelling headphones for the office, under 800 riyals.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 19,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 126.78,
+          "end": 136.34,
+          "text": "Sure. These are 749 riyals, 30 hours of battery. The ones next to them are 549 but the noise cancelling is weaker.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "upsell_attempt",
+      "conversation_id": 3,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 23,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 21,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 141.62,
+          "end": 147.38,
+          "text": "Of course, here you go. The case is included in the price.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 22,
+          "speaker": "D",
+          "role": "customer",
+          "start": 148.28,
+          "end": 151.38,
+          "text": "Sounds good. I'll take them.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 23,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 152.28,
+          "end": 158.04,
+          "text": "Great. If you like, a 2-year warranty is 79 riyals. Your call.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 24,
+          "speaker": "D",
+          "role": "customer",
+          "start": 158.94,
+          "end": 161.28,
+          "text": "Sure, add it.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 25,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 162.18,
+          "end": 166.42,
+          "text": "Done. Total is 828 riyals. Card or cash?",
+          "is_highlighted": false
+        }
+      ]
+    }
+  ],
+  "spent_usd": 0.0,
+  "budget_usd": null,
+  "unpriced_calls": 0
+}

@@ -1,0 +1,198 @@
+{
+  "transcript": {
+    "duration": 124.3,
+    "segments": [
+      {
+        "id": 0,
+        "speaker": "A",
+        "start": 0.0,
+        "end": 2.34,
+        "text": "السلام عليكم، تفضل."
+      },
+      {
+        "id": 1,
+        "speaker": "B",
+        "start": 3.24,
+        "end": 7.1,
+        "text": "وعليكم السلام. أبي باور بانك، السعر مهم."
+      },
+      {
+        "id": 2,
+        "speaker": "A",
+        "start": 8.0,
+        "end": 13.38,
+        "text": "عندي واحد 10,000 بـ 99 ريال، وواحد 20,000 بـ 169 ريال."
+      },
+      {
+        "id": 3,
+        "speaker": "B",
+        "start": 14.28,
+        "end": 17.38,
+        "text": "الأرخص يكفي. وهل يشحن جوالين؟"
+      },
+      {
+        "id": 4,
+        "speaker": "A",
+        "start": 18.28,
+        "end": 22.52,
+        "text": "أيوه، فيه مخرجين. Good choice, ويجي بضمان سنة."
+      },
+      {
+        "id": 5,
+        "speaker": "B",
+        "start": 23.42,
+        "end": 25.38,
+        "text": "تمام خذه."
+      },
+      {
+        "id": 6,
+        "speaker": "A",
+        "start": 34.38,
+        "end": 37.1,
+        "text": "أهلاً أخوي، أقدر أساعدك؟"
+      },
+      {
+        "id": 7,
+        "speaker": "C",
+        "start": 38.0,
+        "end": 41.48,
+        "text": "أبي سماعات بلوتوث للجيم، تتحمل العرق."
+      },
+      {
+        "id": 8,
+        "speaker": "A",
+        "start": 42.38,
+        "end": 50.42,
+        "text": "هذي بـ 229 ريال مقاومة للماء والعرق، وفيها ثبات ممتاز. وفيه نسخة برو بـ 399 فيها عزل للضجيج."
+      },
+      {
+        "id": 9,
+        "speaker": "C",
+        "start": 51.32,
+        "end": 54.8,
+        "text": "للجيم ما أحتاج عزل. الأولى تكفي."
+      },
+      {
+        "id": 10,
+        "speaker": "A",
+        "start": 55.7,
+        "end": 61.46,
+        "text": "صح كلامك. نضيف لك كيس تنظيف وأطراف سيليكون إضافية بـ 25 ريال؟"
+      },
+      {
+        "id": 11,
+        "speaker": "C",
+        "start": 62.36,
+        "end": 64.7,
+        "text": "لا، شكراً. حاسبني."
+      },
+      {
+        "id": 12,
+        "speaker": "A",
+        "start": 65.6,
+        "end": 68.32,
+        "text": "تمام. 229 ريال، مدى؟"
+      },
+      {
+        "id": 13,
+        "speaker": "C",
+        "start": 69.22,
+        "end": 70.8,
+        "text": "مدى."
+      },
+      {
+        "id": 14,
+        "speaker": "D",
+        "start": 79.8,
+        "end": 85.56,
+        "text": "السلام عليكم. اشتريت هذا الكيبل من عندكم قبل ثلاثة أيام وما يشحن."
+      },
+      {
+        "id": 15,
+        "speaker": "A",
+        "start": 86.46,
+        "end": 90.7,
+        "text": "هلا والله. خلني أشوفه. أيوه، المنفذ فيه مشكلة."
+      },
+      {
+        "id": 16,
+        "speaker": "D",
+        "start": 91.6,
+        "end": 95.08,
+        "text": "طيب أبي أبدله اليوم، وعندي مشوار."
+      },
+      {
+        "id": 17,
+        "speaker": "A",
+        "start": 95.98,
+        "end": 102.88,
+        "text": "أكيد، نبدله لك. فيه نوع أقوى بـ 59 ريال بدل 35، وبعدها ما تحتاج تغيره."
+      },
+      {
+        "id": 18,
+        "speaker": "D",
+        "start": 103.78,
+        "end": 109.16,
+        "text": "أنا أبي نفس الكيبل بس شغال. وين الفاتورة تقول فيها ضمان؟"
+      },
+      {
+        "id": 19,
+        "speaker": "A",
+        "start": 110.06,
+        "end": 113.54,
+        "text": "الجديد يجي معه ضمان سنة بعد."
+      },
+      {
+        "id": 20,
+        "speaker": "D",
+        "start": 114.44,
+        "end": 118.3,
+        "text": "ما جاوبتني على الفاتورة، المهم بدله وخلصني."
+      },
+      {
+        "id": 21,
+        "speaker": "A",
+        "start": 119.2,
+        "end": 122.3,
+        "text": "ولا يهمك، تفضل الكيبل الجديد."
+      }
+    ],
+    "provider": "hand-authored:saudi-demo-sample",
+    "model": null,
+    "chunks": 1
+  },
+  "roles": {
+    "has_sales_activity": true,
+    "speakers": [
+      {
+        "speaker": "A",
+        "canonical_speaker": "A",
+        "role": "salesperson",
+        "title": "Accessories counter salesperson (Jeddah)",
+        "reasoning": ""
+      },
+      {
+        "speaker": "B",
+        "canonical_speaker": "B",
+        "role": "customer",
+        "title": "Power bank buyer",
+        "reasoning": ""
+      },
+      {
+        "speaker": "C",
+        "canonical_speaker": "C",
+        "role": "customer",
+        "title": "Earbuds buyer",
+        "reasoning": ""
+      },
+      {
+        "speaker": "D",
+        "canonical_speaker": "D",
+        "role": "customer",
+        "title": "Customer returning a cable",
+        "reasoning": ""
+      }
+    ]
+  },
+  "acoustics": []
+}

@@ -75,9 +75,12 @@ export default function Recordings() {
                           <span className={`rec-av${name ? "" : " none"}`} aria-hidden="true">
                             {name ? initials(name) : "?"}
                           </span>
-                          <Link to={href} className="name-link">
-                            {name ?? "Not named"}
-                          </Link>
+                          <div>
+                            <Link to={href} className="name-link">
+                              {name ?? "Not named"}
+                            </Link>
+                            <div className="sub rec-file" dir="auto">{j.filename}</div>
+                          </div>
                         </div>
                       </th>
                       <td className="rec-date">

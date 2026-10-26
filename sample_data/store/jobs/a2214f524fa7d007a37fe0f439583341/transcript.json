@@ -1,0 +1,177 @@
+{
+  "transcript": {
+    "duration": 114.6,
+    "segments": [
+      {
+        "id": 0,
+        "speaker": "A",
+        "start": 0.0,
+        "end": 2.72,
+        "text": "السلام عليكم، أهلاً بحضرتك."
+      },
+      {
+        "id": 1,
+        "speaker": "B",
+        "start": 3.62,
+        "end": 8.24,
+        "text": "وعليكم السلام. الإنترنت في البيت بطيء، ومعايا خمسة أجهزة."
+      },
+      {
+        "id": 2,
+        "speaker": "A",
+        "start": 9.14,
+        "end": 18.32,
+        "text": "تمام. حضرتك على باقة 100 ميجا، صح؟ مع خمسة أجهزة فيديو وألعاب، الباقة 300 ميجا أنسب. الفرق 60 ريال في الشهر."
+      },
+      {
+        "id": 3,
+        "speaker": "B",
+        "start": 19.22,
+        "end": 21.56,
+        "text": "ليه 300 بالذات؟"
+      },
+      {
+        "id": 4,
+        "speaker": "A",
+        "start": 22.46,
+        "end": 30.88,
+        "text": "لأن 100 تتقسم على الأجهزة، وكل جهاز هياخد 20 تقريباً. بس لو حبيت أجرب لك الأول شهر بدون التزام."
+      },
+      {
+        "id": 5,
+        "speaker": "B",
+        "start": 31.78,
+        "end": 35.64,
+        "text": "أيوه، حلو. بس لو ما اتغيرش الحال؟"
+      },
+      {
+        "id": 6,
+        "speaker": "A",
+        "start": 36.54,
+        "end": 40.02,
+        "text": "ترجع للباقة القديمة بدون رسوم. Deal?"
+      },
+      {
+        "id": 7,
+        "speaker": "B",
+        "start": 40.92,
+        "end": 42.5,
+        "text": "Deal."
+      },
+      {
+        "id": 8,
+        "speaker": "A",
+        "start": 51.5,
+        "end": 54.22,
+        "text": "أهلاً يا فندم، اتفضل."
+      },
+      {
+        "id": 9,
+        "speaker": "C",
+        "start": 55.12,
+        "end": 58.98,
+        "text": "السلام عليكم. أبي ثلاث خطوط شهرية للعيلة."
+      },
+      {
+        "id": 10,
+        "speaker": "A",
+        "start": 59.88,
+        "end": 68.3,
+        "text": "طبعاً. الباقة العائلية: ثلاث خطوط بـ 299 ريال في الشهر مع 300 جيجا مشتركة. لو أخدتهم منفصلين يطلعوا 390."
+      },
+      {
+        "id": 11,
+        "speaker": "C",
+        "start": 69.2,
+        "end": 72.3,
+        "text": "يعني أوفر تسعين. تمام، سجلهم."
+      },
+      {
+        "id": 12,
+        "speaker": "A",
+        "start": 73.2,
+        "end": 76.3,
+        "text": "وهتحتاج رخصة الإقامة لكل واحد."
+      },
+      {
+        "id": 13,
+        "speaker": "C",
+        "start": 77.2,
+        "end": 79.16,
+        "text": "معي كلها."
+      },
+      {
+        "id": 14,
+        "speaker": "A",
+        "start": 88.16,
+        "end": 90.88,
+        "text": "السلام عليكم، أهلاً بك."
+      },
+      {
+        "id": 15,
+        "speaker": "D",
+        "start": 91.78,
+        "end": 96.4,
+        "text": "وعليكم السلام. بسافر البحرين يوم السبت، وين أفعل النت؟"
+      },
+      {
+        "id": 16,
+        "speaker": "A",
+        "start": 97.3,
+        "end": 104.58,
+        "text": "خلّني أشوف لك على النظام. فيه باقة جيجا لسبعة أيام بـ 79 ريال بدل التجوال العادي."
+      },
+      {
+        "id": 17,
+        "speaker": "D",
+        "start": 105.48,
+        "end": 107.82,
+        "text": "ممتاز، فعّلها لي."
+      },
+      {
+        "id": 18,
+        "speaker": "A",
+        "start": 108.72,
+        "end": 112.58,
+        "text": "تمام، فعّلتها، وتبدأ لما توصل. مع السلامة."
+      }
+    ],
+    "provider": "hand-authored:saudi-demo-sample",
+    "model": null,
+    "chunks": 1
+  },
+  "roles": {
+    "has_sales_activity": true,
+    "speakers": [
+      {
+        "speaker": "A",
+        "canonical_speaker": "A",
+        "role": "salesperson",
+        "title": "Telecom store representative (Riyadh)",
+        "reasoning": ""
+      },
+      {
+        "speaker": "B",
+        "canonical_speaker": "B",
+        "role": "customer",
+        "title": "Home internet subscriber",
+        "reasoning": ""
+      },
+      {
+        "speaker": "C",
+        "canonical_speaker": "C",
+        "role": "customer",
+        "title": "Father adding lines for a family",
+        "reasoning": ""
+      },
+      {
+        "speaker": "D",
+        "canonical_speaker": "D",
+        "role": "customer",
+        "title": "Customer travelling to Bahrain",
+        "reasoning": ""
+      }
+    ]
+  },
+  "acoustics": []
+}

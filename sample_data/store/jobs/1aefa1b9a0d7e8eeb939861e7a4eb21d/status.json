@@ -1,0 +1,17 @@
+{
+  "job_id": "1aefa1b9a0d7e8eeb939861e7a4eb21d",
+  "status": "completed",
+  "stage": "done",
+  "progress": 1.0,
+  "error": null,
+  "filename": "2026-10-14_reem_floor_session.mp3",
+  "input_key": "jobs/1aefa1b9a0d7e8eeb939861e7a4eb21d/input/2026-10-14_reem_floor_session.mp3",
+  "industry": "home appliances",
+  "product_catalog": null,
+  "salesperson_name": "Reem Al-Harbi",
+  "created_at": "2026-10-14T10:30:00+00:00",
+  "updated_at": "2026-10-14T10:30:00+00:00",
+  "spent_usd": 0.0,
+  "budget_usd": null,
+  "cancel_requested": false
+}

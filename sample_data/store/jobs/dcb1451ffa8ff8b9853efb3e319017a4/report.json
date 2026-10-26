@@ -1,0 +1,527 @@
+{
+  "job_id": "dcb1451ffa8ff8b9853efb3e319017a4",
+  "source_filename": "2026-10-14_noura_floor_session.mp3",
+  "duration_s": 162.7,
+  "transcription_provider": "hand-authored:saudi-demo-sample",
+  "speakers": [
+    {
+      "speaker": "A",
+      "role": "salesperson",
+      "title": "Perfume boutique consultant (Riyadh)",
+      "talk_time_s": 81.0
+    },
+    {
+      "speaker": "B",
+      "role": "customer",
+      "title": "Gift buyer",
+      "talk_time_s": 19.3
+    },
+    {
+      "speaker": "C",
+      "role": "customer",
+      "title": "Visitor choosing a perfume",
+      "talk_time_s": 17.3
+    },
+    {
+      "speaker": "D",
+      "role": "customer",
+      "title": "Student with a small budget",
+      "talk_time_s": 6.2
+    }
+  ],
+  "has_sales_activity": true,
+  "conversations": [
+    {
+      "conversation_id": 1,
+      "start": 0.0,
+      "end": 59.24,
+      "topic": "Oud gift for a father",
+      "language": "other",
+      "is_sales_interaction": true,
+      "salespeople": [
+        "A"
+      ],
+      "customers": [
+        "B"
+      ],
+      "mood": {
+        "speakers": [
+          {
+            "speaker": "A",
+            "overall_mood": "happy",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Warm hospitality; asks about taste and budget before suggesting anything."
+          },
+          {
+            "speaker": "B",
+            "overall_mood": "happy",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Unsure at the start, relaxed once he smells the oud; chooses to stretch his budget by 60 SAR."
+          }
+        ],
+        "frustration_moments": []
+      },
+      "upsell": {
+        "customer_requested": [
+          "An oud gift for his father, about 600 SAR."
+        ],
+        "upsell_attempts": [
+          {
+            "salesperson": "A",
+            "segment_id": 6,
+            "quote": "وإذا تبي الهدية تكمل، المبخرة الفضية مع علبة بخور 80 جرام بـ 140 ريال، وأغلب من يشتري العود ياخذها معه.",
+            "technique": "bundle",
+            "offered_item": "Silver burner with 80g bakhoor for 140 SAR (total 660, 60 over budget)",
+            "salesperson_initiated": true,
+            "after_customer_rejection": false,
+            "handled_objection": false,
+            "customer_response": "accepted",
+            "customer_mood": "happy"
+          }
+        ],
+        "excluded_candidates": [
+          "عندي عود كمبودي بـ 520 ريال، ريحته دافية وثابتة. جرّب هذا على يدك. -> Recommends an oud inside the stated budget, after asking about taste."
+        ],
+        "pushy_upsell": false,
+        "pushy_reason": "One bundle offer, tied to the gift; the customer was not pressured over his budget.",
+        "confidence": 0.94,
+        "summary": "The consultant asked about taste and budget, let the customer try the oud, then offered a burner and bakhoor set that completed the gift. Accepted, 60 SAR over the stated budget, with free gift wrapping.",
+        "greeting_given": true,
+        "greeting_quote": "السلام عليكم، حياك الله، نورتنا. تحب أعطيك تجربة بخور وأنت تتفرج؟",
+        "greeting_segment_id": 0,
+        "products_discussed": [
+          "Cambodian oud 520 SAR",
+          "silver burner and bakhoor 140 SAR"
+        ],
+        "customer_feedback": null,
+        "customer_feedback_segment_id": null,
+        "unanswered_questions": [],
+        "coaching_feedback": "Excellent discovery and a bundle that completes the gift. Careful when the total passes the stated budget: name the new total, as you did."
+      },
+      "attempted_upsell": true,
+      "effort_score": 2.2,
+      "analyzed_by": "hand-authored:saudi-demo-sample",
+      "escalated": false,
+      "budget_note": null
+    },
+    {
+      "conversation_id": 2,
+      "start": 68.24,
+      "end": 125.76,
+      "topic": "Perfume for a tourist",
+      "language": "english",
+      "is_sales_interaction": true,
+      "salespeople": [
+        "A"
+      ],
+      "customers": [
+        "C"
+      ],
+      "mood": {
+        "speakers": [
+          {
+            "speaker": "A",
+            "overall_mood": "calm",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Patient English-language consultation."
+          },
+          {
+            "speaker": "C",
+            "overall_mood": "neutral",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Friendly; clear about wanting one bottle."
+          }
+        ],
+        "frustration_moments": []
+      },
+      "upsell": {
+        "customer_requested": [
+          "A Saudi perfume for his wife, not too strong."
+        ],
+        "upsell_attempts": [
+          {
+            "salesperson": "A",
+            "segment_id": 16,
+            "quote": "We also have a travel set of three small rose, musk and amber for 190 riyals, if you want a few options for her.",
+            "technique": "bundle",
+            "offered_item": "Travel discovery set for 190 SAR",
+            "salesperson_initiated": true,
+            "after_customer_rejection": false,
+            "handled_objection": false,
+            "customer_response": "rejected",
+            "customer_mood": "neutral"
+          }
+        ],
+        "excluded_candidates": [
+          "Then I recommend this Taif rose, 310 riyals for 50 ml. Please try it. -> Recommends one perfume based on the preference stated."
+        ],
+        "pushy_upsell": false,
+        "pushy_reason": "Offered once; the refusal was accepted.",
+        "confidence": 0.9,
+        "summary": "The consultant asked about preferences, recommended one perfume and made a single set offer that the customer declined.",
+        "greeting_given": true,
+        "greeting_quote": "Welcome, السلام عليكم. Can I help you find something?",
+        "greeting_segment_id": 10,
+        "products_discussed": [
+          "Taif rose 50 ml 310 SAR",
+          "travel set 190 SAR"
+        ],
+        "customer_feedback": null,
+        "customer_feedback_segment_id": null,
+        "unanswered_questions": [],
+        "coaching_feedback": "Good questions for a customer who is buying blind for someone else. The offer worked as a choice, not a push."
+      },
+      "attempted_upsell": true,
+      "effort_score": 2.2,
+      "analyzed_by": "hand-authored:saudi-demo-sample",
+      "escalated": false,
+      "budget_note": null
+    },
+    {
+      "conversation_id": 3,
+      "start": 134.76,
+      "end": 160.7,
+      "topic": "Small budget, student",
+      "language": "other",
+      "is_sales_interaction": true,
+      "salespeople": [
+        "A"
+      ],
+      "customers": [
+        "D"
+      ],
+      "mood": {
+        "speakers": [
+          {
+            "speaker": "A",
+            "overall_mood": "calm",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Respectful of a tight budget."
+          },
+          {
+            "speaker": "D",
+            "overall_mood": "neutral",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Grateful; leaves with what she planned."
+          }
+        ],
+        "frustration_moments": []
+      },
+      "upsell": {
+        "customer_requested": [
+          "A perfume under 100 SAR."
+        ],
+        "upsell_attempts": [],
+        "excluded_candidates": [
+          "أبشري، عندي بخاخ شعر وعطر 50 مل بـ 89 ريال، ريحة خفيفة تنفع للجامعة. -> Recommends one perfume within the stated budget."
+        ],
+        "pushy_upsell": false,
+        "pushy_reason": "No offer was repeated after a customer said no.",
+        "confidence": 0.9,
+        "summary": "No upsell, deliberately: the consultant stayed inside a student's budget.",
+        "greeting_given": true,
+        "greeting_quote": "هلا وغلا، تفضلي.",
+        "greeting_segment_id": 19,
+        "products_discussed": [
+          "perfume 50 ml 89 SAR"
+        ],
+        "customer_feedback": "The customer said it was exactly what she wanted.",
+        "customer_feedback_segment_id": 22,
+        "unanswered_questions": [],
+        "coaching_feedback": "Right call not to push a customer with a hard limit. This kind of sale builds a repeat customer."
+      },
+      "attempted_upsell": false,
+      "effort_score": 0.0,
+      "analyzed_by": "hand-authored:saudi-demo-sample",
+      "escalated": false,
+      "budget_note": null
+    }
+  ],
+  "salespeople": [
+    {
+      "speaker": "A",
+      "conversations": 3,
+      "conversations_with_upsell": 2,
+      "upsell_rate": 0.667,
+      "attempts_total": 2,
+      "attempts_per_conversation": 0.67,
+      "avg_effort_score": 1.5,
+      "upsell_talk_time_share": 0.236,
+      "acceptance_rate": 0.5,
+      "pushy_conversations": 0,
+      "techniques_used": [
+        "bundle"
+      ]
+    }
+  ],
+  "calls": [],
+  "evidence": [
+    {
+      "kind": "greeting",
+      "conversation_id": 1,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 0,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 0,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 0.0,
+          "end": 5.38,
+          "text": "السلام عليكم، حياك الله، نورتنا. تحب أعطيك تجربة بخور وأنت تتفرج؟",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 1,
+          "speaker": "B",
+          "role": "customer",
+          "start": 6.28,
+          "end": 11.66,
+          "text": "الله يحييك. أبي هدية لأبوي، عود بس ما أعرف أي نوع.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 2,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 12.56,
+          "end": 17.94,
+          "text": "يا هلا. أبوك يحب الدخن الثقيل ولا الخفيف؟ وكم تقريباً الميزانية؟",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "upsell_attempt",
+      "conversation_id": 1,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 6,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 4,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 23.6,
+          "end": 29.74,
+          "text": "عندي عود كمبودي بـ 520 ريال، ريحته دافية وثابتة. جرّب هذا على يدك.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 5,
+          "speaker": "B",
+          "role": "customer",
+          "start": 30.64,
+          "end": 33.36,
+          "text": "والله ريحته تهبل. خذه.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 6,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 34.26,
+          "end": 43.06,
+          "text": "وإذا تبي الهدية تكمل، المبخرة الفضية مع علبة بخور 80 جرام بـ 140 ريال، وأغلب من يشتري العود ياخذها معه.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 7,
+          "speaker": "B",
+          "role": "customer",
+          "start": 43.96,
+          "end": 48.96,
+          "text": "ما أبي أتعدى 600، بس المبخرة حلوة... خلاص حطها، آخذهم.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 8,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 49.86,
+          "end": 56.0,
+          "text": "ممتاز. بس المجموع 660 ريال. عشان ما تتعدى ميزانيتك أعطيك تغليف الهدية مجاناً.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "greeting",
+      "conversation_id": 2,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 10,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 10,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 68.24,
+          "end": 72.86,
+          "text": "Welcome, السلام عليكم. Can I help you find something?",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 11,
+          "speaker": "C",
+          "role": "customer",
+          "start": 73.76,
+          "end": 80.66,
+          "text": "Hello. I'd like a Saudi perfume to take home for my wife. Nothing too strong.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 12,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 81.56,
+          "end": 87.32,
+          "text": "Of course. May I ask what she usually wears, flowers or woody?",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "upsell_attempt",
+      "conversation_id": 2,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 16,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 14,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 92.22,
+          "end": 98.74,
+          "text": "Then I recommend this Taif rose, 310 riyals for 50 ml. Please try it.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 15,
+          "speaker": "C",
+          "role": "customer",
+          "start": 99.64,
+          "end": 103.12,
+          "text": "It's lovely. Yes, I'll take it.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 16,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 104.02,
+          "end": 114.34,
+          "text": "We also have a travel set of three small rose, musk and amber for 190 riyals, if you want a few options for her.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 17,
+          "speaker": "C",
+          "role": "customer",
+          "start": 115.24,
+          "end": 119.1,
+          "text": "No, one is enough. She is picky.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 18,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 120.0,
+          "end": 125.76,
+          "text": "Perfect. 310 riyals. I can also give you the tax refund form.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "greeting",
+      "conversation_id": 3,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 19,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 19,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 134.76,
+          "end": 137.1,
+          "text": "هلا وغلا، تفضلي.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 20,
+          "speaker": "D",
+          "role": "customer",
+          "start": 138.0,
+          "end": 142.24,
+          "text": "السلام عليكم. أبي عطر ما يتعدى مئة ريال.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 21,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 143.14,
+          "end": 149.66,
+          "text": "أبشري، عندي بخاخ شعر وعطر 50 مل بـ 89 ريال، ريحة خفيفة تنفع للجامعة.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "customer_feedback",
+      "conversation_id": 3,
+      "index": 0,
+      "speaker": "D",
+      "segment_id": 22,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 21,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 143.14,
+          "end": 149.66,
+          "text": "أبشري، عندي بخاخ شعر وعطر 50 مل بـ 89 ريال، ريحة خفيفة تنفع للجامعة.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 22,
+          "speaker": "D",
+          "role": "customer",
+          "start": 150.56,
+          "end": 152.52,
+          "text": "ممتاز، آخذه.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 23,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 153.42,
+          "end": 160.7,
+          "text": "تمام. بس ما أبي أخليك تدفعين أكثر، ما فيه شي زيادة تحتاجينه. الله يوفقك في دراستك.",
+          "is_highlighted": false
+        }
+      ]
+    }
+  ],
+  "spent_usd": 0.0,
+  "budget_usd": null,
+  "unpriced_calls": 0
+}

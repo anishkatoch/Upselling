@@ -1,0 +1,567 @@
+{
+  "job_id": "3400c0ef9fc0cfafc22ff32426bb00af",
+  "source_filename": "2026-10-14_faisal_floor_session.mp3",
+  "duration_s": 170.9,
+  "transcription_provider": "hand-authored:saudi-demo-sample",
+  "speakers": [
+    {
+      "speaker": "A",
+      "role": "salesperson",
+      "title": "Phone store salesperson (Riyadh)",
+      "talk_time_s": 78.8
+    },
+    {
+      "speaker": "B",
+      "role": "customer",
+      "title": "Phone buyer",
+      "talk_time_s": 19.7
+    },
+    {
+      "speaker": "C",
+      "role": "customer",
+      "title": "Charger buyer",
+      "talk_time_s": 12.7
+    },
+    {
+      "speaker": "D",
+      "role": "customer",
+      "title": "Parent buying a laptop",
+      "talk_time_s": 16.3
+    }
+  ],
+  "has_sales_activity": true,
+  "conversations": [
+    {
+      "conversation_id": 1,
+      "start": 0.0,
+      "end": 63.82,
+      "topic": "New phone with case and screen protector",
+      "language": "other",
+      "is_sales_interaction": true,
+      "salespeople": [
+        "A"
+      ],
+      "customers": [
+        "B"
+      ],
+      "mood": {
+        "speakers": [
+          {
+            "speaker": "A",
+            "overall_mood": "calm",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Welcoming and unhurried; answers every question and accepts the refusal without comment."
+          },
+          {
+            "speaker": "B",
+            "overall_mood": "happy",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Clear about budget and priorities, warms up when the camera is mentioned, pays without hesitation."
+          }
+        ],
+        "frustration_moments": []
+      },
+      "upsell": {
+        "customer_requested": [
+          "A phone around 3,000 SAR with a good camera and battery.",
+          "Information about the warranty."
+        ],
+        "upsell_attempts": [
+          {
+            "salesperson": "A",
+            "segment_id": 6,
+            "quote": "بالمناسبة، الغطاء مع واقي الشاشة الاثنين بـ 129 ريال بدل 180، تبي أضيفهم لك؟",
+            "technique": "bundle",
+            "offered_item": "Case and screen protector for 129 SAR",
+            "salesperson_initiated": true,
+            "after_customer_rejection": false,
+            "handled_objection": false,
+            "customer_response": "accepted",
+            "customer_mood": "happy"
+          },
+          {
+            "salesperson": "A",
+            "segment_id": 8,
+            "quote": "وفيه كمان حماية الشاشة المكسورة لمدة سنة بـ 199 ريال، إذا حاب.",
+            "technique": "warranty_protection",
+            "offered_item": "One-year broken-screen protection for 199 SAR",
+            "salesperson_initiated": true,
+            "after_customer_rejection": false,
+            "handled_objection": false,
+            "customer_response": "rejected",
+            "customer_mood": "neutral"
+          }
+        ],
+        "excluded_candidates": [
+          "أبشر. عندي جهازين مناسبين: هذا بـ 2,899 ريال، كاميرا 50 ميجا وبطارية تكفي يومين، وهذا بـ 3,199 أغلى شوي. -> Presents two phones inside the customer's stated budget; this answers the request.",
+          "أكيد، ضمان سنتين من الوكيل. Excellent choice, الكاميرا فيه ممتازة بالليل. -> Answers the warranty question with the standard manufacturer warranty."
+        ],
+        "pushy_upsell": false,
+        "pushy_reason": "The broken-screen protection was offered once; after the customer said no, the salesperson moved straight to payment.",
+        "confidence": 0.93,
+        "summary": "The salesperson matched a phone to the customer's budget, then offered a case and screen-protector bundle (accepted) and optional screen-damage cover (declined, not repeated). Total 3,028 SAR.",
+        "greeting_given": true,
+        "greeting_quote": "السلام عليكم، حياك الله. أقدر أخدمك بشيء؟",
+        "greeting_segment_id": 0,
+        "products_discussed": [
+          "phone 2,899 SAR",
+          "case and screen protector bundle",
+          "broken-screen protection"
+        ],
+        "customer_feedback": null,
+        "customer_feedback_segment_id": null,
+        "unanswered_questions": [],
+        "coaching_feedback": "You asked about budget and priorities first, then offered add-ons that matched a new phone. Keep doing this: one bundle, one optional cover, and stop at the first no."
+      },
+      "attempted_upsell": true,
+      "effort_score": 4.3,
+      "analyzed_by": "hand-authored:saudi-demo-sample",
+      "escalated": false,
+      "budget_note": null
+    },
+    {
+      "conversation_id": 2,
+      "start": 72.82,
+      "end": 107.9,
+      "topic": "Phone charger purchase",
+      "language": "other",
+      "is_sales_interaction": true,
+      "salespeople": [
+        "A"
+      ],
+      "customers": [
+        "C"
+      ],
+      "mood": {
+        "speakers": [
+          {
+            "speaker": "A",
+            "overall_mood": "calm",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Polite and efficient."
+          },
+          {
+            "speaker": "C",
+            "overall_mood": "neutral",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Pleasant, buys the first item shown."
+          }
+        ],
+        "frustration_moments": []
+      },
+      "upsell": {
+        "customer_requested": [
+          "A fast charger for an older phone.",
+          "Something usable for travel."
+        ],
+        "upsell_attempts": [],
+        "excluded_candidates": [
+          "عندي شاحن 45 واط بـ 89 ريال، يشتغل مع كل الأجهزة. -> Quotes the charger the customer asked for.",
+          "خذ الشاحن هذا وكيبل تايب سي، المجموع 89 ريال بس الشاحن، الكيبل معاه. -> Confirms the cable is included; not an extra purchase."
+        ],
+        "pushy_upsell": false,
+        "pushy_reason": "No offer was repeated after a customer said no.",
+        "confidence": 0.88,
+        "summary": "No upsell. The customer said he was travelling next week, which was a natural opening for a power bank, but the salesperson only sold the charger.",
+        "greeting_given": true,
+        "greeting_quote": "مساء الخير، تفضل.",
+        "greeting_segment_id": 12,
+        "products_discussed": [
+          "45W charger 89 SAR",
+          "USB-C cable"
+        ],
+        "customer_feedback": null,
+        "customer_feedback_segment_id": null,
+        "unanswered_questions": [],
+        "coaching_feedback": "When the customer said he was travelling, that was the moment for one light suggestion, such as a 10,000 mAh power bank, then accept the answer. Missed chance, not a failing."
+      },
+      "attempted_upsell": false,
+      "effort_score": 0.0,
+      "analyzed_by": "hand-authored:saudi-demo-sample",
+      "escalated": false,
+      "budget_note": null
+    },
+    {
+      "conversation_id": 3,
+      "start": 116.9,
+      "end": 168.92,
+      "topic": "Laptop for a student",
+      "language": "other",
+      "is_sales_interaction": true,
+      "salespeople": [
+        "A"
+      ],
+      "customers": [
+        "D"
+      ],
+      "mood": {
+        "speakers": [
+          {
+            "speaker": "A",
+            "overall_mood": "calm",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Patient and honest about the cheaper option."
+          },
+          {
+            "speaker": "D",
+            "overall_mood": "neutral",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Careful with money but trusts the advice; leaves satisfied."
+          }
+        ],
+        "frustration_moments": []
+      },
+      "upsell": {
+        "customer_requested": [
+          "A university laptop for presentations and research.",
+          "A cheaper option if available."
+        ],
+        "upsell_attempts": [
+          {
+            "salesperson": "A",
+            "segment_id": 25,
+            "quote": "ضمان سنتين. ولو حابين، عندنا حقيبة لابتوب مع ماوس لاسلكي بـ 149 ريال.",
+            "technique": "bundle",
+            "offered_item": "Laptop bag with wireless mouse for 149 SAR",
+            "salesperson_initiated": true,
+            "after_customer_rejection": false,
+            "handled_objection": false,
+            "customer_response": "rejected",
+            "customer_mood": "neutral"
+          }
+        ],
+        "excluded_candidates": [
+          "تمام. للجامعة أنصحك بهذا، 16 جيجا رام و512 تخزين، السعر 3,499 ريال. -> Recommends one suitable laptop; no upgrade beyond what the use needs.",
+          "فيه نسخة 8 جيجا بـ 2,799 ريال، بس ما أنصحك فيها لأنها تبطأ مع البرامج الثقيلة. الخيار لك. -> Gives the cheaper option and explains the trade-off honestly."
+        ],
+        "pushy_upsell": false,
+        "pushy_reason": "One accessory offer, accepted refusal immediately.",
+        "confidence": 0.9,
+        "summary": "The salesperson recommended the right laptop for a student, was honest about the cheaper model, made one optional accessory offer and stopped when the customer said she already had a bag.",
+        "greeting_given": true,
+        "greeting_quote": "Good evening, welcome. كيف أقدر أساعدك؟",
+        "greeting_segment_id": 19,
+        "products_discussed": [
+          "laptop 16GB/512GB 3,499 SAR",
+          "laptop 8GB 2,799 SAR",
+          "bag and wireless mouse bundle"
+        ],
+        "customer_feedback": null,
+        "customer_feedback_segment_id": null,
+        "unanswered_questions": [],
+        "coaching_feedback": "Strong consultative sale. Honest about the trade-off, which builds trust. Next time ask what the student already owns before offering the bag."
+      },
+      "attempted_upsell": true,
+      "effort_score": 2.2,
+      "analyzed_by": "hand-authored:saudi-demo-sample",
+      "escalated": false,
+      "budget_note": null
+    }
+  ],
+  "salespeople": [
+    {
+      "speaker": "A",
+      "conversations": 3,
+      "conversations_with_upsell": 2,
+      "upsell_rate": 0.667,
+      "attempts_total": 3,
+      "attempts_per_conversation": 1.0,
+      "avg_effort_score": 2.2,
+      "upsell_talk_time_share": 0.234,
+      "acceptance_rate": 0.333,
+      "pushy_conversations": 0,
+      "techniques_used": [
+        "bundle",
+        "warranty_protection"
+      ]
+    }
+  ],
+  "calls": [],
+  "evidence": [
+    {
+      "kind": "greeting",
+      "conversation_id": 1,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 0,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 0,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 0.0,
+          "end": 3.86,
+          "text": "السلام عليكم، حياك الله. أقدر أخدمك بشيء؟",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 1,
+          "speaker": "B",
+          "role": "customer",
+          "start": 4.76,
+          "end": 11.66,
+          "text": "وعليكم السلام. أبي جوال جديد، ميزانيتي في حدود ثلاثة آلاف ريال، وأهم شيء الكاميرا والبطارية.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 2,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 12.56,
+          "end": 20.98,
+          "text": "أبشر. عندي جهازين مناسبين: هذا بـ 2,899 ريال، كاميرا 50 ميجا وبطارية تكفي يومين، وهذا بـ 3,199 أغلى شوي.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "upsell_attempt",
+      "conversation_id": 1,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 6,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 4,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 25.88,
+          "end": 31.26,
+          "text": "أكيد، ضمان سنتين من الوكيل. Excellent choice, الكاميرا فيه ممتازة بالليل.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 5,
+          "speaker": "B",
+          "role": "customer",
+          "start": 32.16,
+          "end": 34.12,
+          "text": "طيب خذه.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 6,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 35.02,
+          "end": 41.54,
+          "text": "بالمناسبة، الغطاء مع واقي الشاشة الاثنين بـ 129 ريال بدل 180، تبي أضيفهم لك؟",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 7,
+          "speaker": "B",
+          "role": "customer",
+          "start": 42.44,
+          "end": 45.54,
+          "text": "أكيد، هذي فكرة حلوة. حطهم.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 8,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 46.44,
+          "end": 52.2,
+          "text": "وفيه كمان حماية الشاشة المكسورة لمدة سنة بـ 199 ريال، إذا حاب.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "upsell_attempt",
+      "conversation_id": 1,
+      "index": 1,
+      "speaker": "A",
+      "segment_id": 8,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 6,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 35.02,
+          "end": 41.54,
+          "text": "بالمناسبة، الغطاء مع واقي الشاشة الاثنين بـ 129 ريال بدل 180، تبي أضيفهم لك؟",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 7,
+          "speaker": "B",
+          "role": "customer",
+          "start": 42.44,
+          "end": 45.54,
+          "text": "أكيد، هذي فكرة حلوة. حطهم.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 8,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 46.44,
+          "end": 52.2,
+          "text": "وفيه كمان حماية الشاشة المكسورة لمدة سنة بـ 199 ريال، إذا حاب.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 9,
+          "speaker": "B",
+          "role": "customer",
+          "start": 53.1,
+          "end": 56.2,
+          "text": "لا، يكفي الغطاء والواقي. شكراً.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 10,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 57.1,
+          "end": 61.34,
+          "text": "ولا يهمك. المجموع 3,028 ريال، مدى أو فيزا؟",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "greeting",
+      "conversation_id": 2,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 12,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 12,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 72.82,
+          "end": 75.16,
+          "text": "مساء الخير، تفضل.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 13,
+          "speaker": "C",
+          "role": "customer",
+          "start": 76.06,
+          "end": 80.68,
+          "text": "مساء النور. أبي شاحن سريع لجوالي، سامسونج قديم شوي.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 14,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 81.58,
+          "end": 86.96,
+          "text": "عندي شاحن 45 واط بـ 89 ريال، يشتغل مع كل الأجهزة.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "greeting",
+      "conversation_id": 3,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 19,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 19,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 116.9,
+          "end": 120.38,
+          "text": "Good evening, welcome. كيف أقدر أساعدك؟",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 20,
+          "speaker": "D",
+          "role": "customer",
+          "start": 121.28,
+          "end": 126.28,
+          "text": "السلام عليكم. أبي لابتوب لبنتي، تدرس جامعة، تحتاجه للبرزنتيشن والبحوث.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 21,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 127.18,
+          "end": 132.94,
+          "text": "تمام. للجامعة أنصحك بهذا، 16 جيجا رام و512 تخزين، السعر 3,499 ريال.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "upsell_attempt",
+      "conversation_id": 3,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 25,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 23,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 137.08,
+          "end": 145.12,
+          "text": "فيه نسخة 8 جيجا بـ 2,799 ريال، بس ما أنصحك فيها لأنها تبطأ مع البرامج الثقيلة. الخيار لك.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 24,
+          "speaker": "D",
+          "role": "customer",
+          "start": 146.02,
+          "end": 149.88,
+          "text": "طيب، خلني أخذ الأول. وش فيه ضمان؟",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 25,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 150.78,
+          "end": 156.92,
+          "text": "ضمان سنتين. ولو حابين، عندنا حقيبة لابتوب مع ماوس لاسلكي بـ 149 ريال.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 26,
+          "speaker": "D",
+          "role": "customer",
+          "start": 157.82,
+          "end": 160.54,
+          "text": "لا شكراً، عندها حقيبة.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 27,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 161.44,
+          "end": 165.68,
+          "text": "ممتاز. المجموع 3,499 ريال. تقسيط ولا دفع كامل؟",
+          "is_highlighted": false
+        }
+      ]
+    }
+  ],
+  "spent_usd": 0.0,
+  "budget_usd": null,
+  "unpriced_calls": 0
+}

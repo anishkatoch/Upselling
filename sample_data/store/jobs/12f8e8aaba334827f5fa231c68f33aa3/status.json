@@ -1,0 +1,17 @@
+{
+  "job_id": "12f8e8aaba334827f5fa231c68f33aa3",
+  "status": "completed",
+  "stage": "done",
+  "progress": 1.0,
+  "error": null,
+  "filename": "2026-10-21_imran_floor_session.mp3",
+  "input_key": "jobs/12f8e8aaba334827f5fa231c68f33aa3/input/2026-10-21_imran_floor_session.mp3",
+  "industry": "electronics retail",
+  "product_catalog": null,
+  "salesperson_name": "Imran Siddiqui",
+  "created_at": "2026-10-21T10:30:00+00:00",
+  "updated_at": "2026-10-21T10:30:00+00:00",
+  "spent_usd": 0.0,
+  "budget_usd": null,
+  "cancel_requested": false
+}

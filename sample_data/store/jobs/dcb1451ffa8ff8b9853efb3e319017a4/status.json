@@ -1,0 +1,17 @@
+{
+  "job_id": "dcb1451ffa8ff8b9853efb3e319017a4",
+  "status": "completed",
+  "stage": "done",
+  "progress": 1.0,
+  "error": null,
+  "filename": "2026-10-14_noura_floor_session.mp3",
+  "input_key": "jobs/dcb1451ffa8ff8b9853efb3e319017a4/input/2026-10-14_noura_floor_session.mp3",
+  "industry": "perfume retail",
+  "product_catalog": null,
+  "salesperson_name": "Noura Al-Qahtani",
+  "created_at": "2026-10-14T10:30:00+00:00",
+  "updated_at": "2026-10-14T10:30:00+00:00",
+  "spent_usd": 0.0,
+  "budget_usd": null,
+  "cancel_requested": false
+}

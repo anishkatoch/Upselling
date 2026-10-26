@@ -1,0 +1,177 @@
+{
+  "transcript": {
+    "duration": 120.7,
+    "segments": [
+      {
+        "id": 0,
+        "speaker": "A",
+        "start": 0.0,
+        "end": 3.1,
+        "text": "السلام عليكم، حياكم الله، تفضلوا."
+      },
+      {
+        "id": 1,
+        "speaker": "B",
+        "start": 4.0,
+        "end": 9.76,
+        "text": "وعليكم السلام. أبي هدية لعرس بنت خالتي، شي فخم بس مو مبالغ."
+      },
+      {
+        "id": 2,
+        "speaker": "A",
+        "start": 10.66,
+        "end": 19.46,
+        "text": "مبروك لها. هذا طقم عطر مع دهن عود بـ 780 ريال، وهذا أخف بـ 430 ريال عطر مع مبخرة صغيرة."
+      },
+      {
+        "id": 3,
+        "speaker": "B",
+        "start": 20.36,
+        "end": 23.08,
+        "text": "الثاني حلو، ريحته ناعمة."
+      },
+      {
+        "id": 4,
+        "speaker": "A",
+        "start": 23.98,
+        "end": 30.88,
+        "text": "اختيار راقي. وإذا تبين شي زيادة، العلبة الفاخرة المخملية بـ 60 ريال وتغليف خاص بالعروس."
+      },
+      {
+        "id": 5,
+        "speaker": "B",
+        "start": 31.78,
+        "end": 34.5,
+        "text": "إي، حطي لي العلبة."
+      },
+      {
+        "id": 6,
+        "speaker": "A",
+        "start": 35.4,
+        "end": 41.54,
+        "text": "أبشري. عندنا كذلك بطاقة الولاء، تعطيك خصم 10% على مشترياتك الجاية، مجاناً الحين."
+      },
+      {
+        "id": 7,
+        "speaker": "B",
+        "start": 42.44,
+        "end": 45.16,
+        "text": "ليش لا، سجلي لي."
+      },
+      {
+        "id": 8,
+        "speaker": "A",
+        "start": 54.16,
+        "end": 57.64,
+        "text": "أهلاً وسهلاً بأبو سعود، وش أخبارك؟"
+      },
+      {
+        "id": 9,
+        "speaker": "C",
+        "start": 58.54,
+        "end": 64.3,
+        "text": "الله يسلمك. آخر عطر أخذته منك الناس تسأل عنه. أبي شي جديد."
+      },
+      {
+        "id": 10,
+        "speaker": "A",
+        "start": 65.2,
+        "end": 71.72,
+        "text": "الحمد لله. عندي إصدار جديد من نفس العائلة، فيه لمسة عنبر، بـ 540 ريال."
+      },
+      {
+        "id": 11,
+        "speaker": "C",
+        "start": 72.62,
+        "end": 74.58,
+        "text": "جربيه لي."
+      },
+      {
+        "id": 12,
+        "speaker": "A",
+        "start": 75.48,
+        "end": 85.8,
+        "text": "تفضل. وبما إنك من عملائنا الدائمين، الحين فيه عرض: لو أخذت العطر مع الدهن المرافق بـ 190 ريال يصير الحبّتين بـ 690 بدل 730."
+      },
+      {
+        "id": 13,
+        "speaker": "C",
+        "start": 86.7,
+        "end": 90.18,
+        "text": "يعني أوفر أربعين؟ طيب خذ الاثنين."
+      },
+      {
+        "id": 14,
+        "speaker": "A",
+        "start": 91.08,
+        "end": 93.42,
+        "text": "تمام، مبروك عليك."
+      },
+      {
+        "id": 15,
+        "speaker": "A",
+        "start": 102.42,
+        "end": 105.52,
+        "text": "السلام عليكم، تفضلي، خذي راحتك."
+      },
+      {
+        "id": 16,
+        "speaker": "D",
+        "start": 106.42,
+        "end": 110.66,
+        "text": "وعليكم السلام. بس أتفرج، ما أبي شي حالياً."
+      },
+      {
+        "id": 17,
+        "speaker": "A",
+        "start": 111.56,
+        "end": 116.18,
+        "text": "على راحتك. إذا حبيتي تجربين أي عطر أنا موجودة."
+      },
+      {
+        "id": 18,
+        "speaker": "D",
+        "start": 117.08,
+        "end": 118.66,
+        "text": "شكراً."
+      }
+    ],
+    "provider": "hand-authored:saudi-demo-sample",
+    "model": null,
+    "chunks": 1
+  },
+  "roles": {
+    "has_sales_activity": true,
+    "speakers": [
+      {
+        "speaker": "A",
+        "canonical_speaker": "A",
+        "role": "salesperson",
+        "title": "Perfume boutique consultant (Riyadh)",
+        "reasoning": ""
+      },
+      {
+        "speaker": "B",
+        "canonical_speaker": "B",
+        "role": "customer",
+        "title": "Wedding guest buying a gift",
+        "reasoning": ""
+      },
+      {
+        "speaker": "C",
+        "canonical_speaker": "C",
+        "role": "customer",
+        "title": "Returning customer",
+        "reasoning": ""
+      },
+      {
+        "speaker": "D",
+        "canonical_speaker": "D",
+        "role": "customer",
+        "title": "Browsing customer",
+        "reasoning": ""
+      }
+    ]
+  },
+  "acoustics": []
+}

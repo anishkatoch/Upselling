@@ -1,0 +1,573 @@
+{
+  "job_id": "12f8e8aaba334827f5fa231c68f33aa3",
+  "source_filename": "2026-10-21_imran_floor_session.mp3",
+  "duration_s": 116.9,
+  "transcription_provider": "hand-authored:saudi-demo-sample",
+  "speakers": [
+    {
+      "speaker": "A",
+      "role": "salesperson",
+      "title": "Accessories counter salesperson (Jeddah)",
+      "talk_time_s": 50.1
+    },
+    {
+      "speaker": "B",
+      "role": "customer",
+      "title": "Parent buying a tablet",
+      "talk_time_s": 15.4
+    },
+    {
+      "speaker": "C",
+      "role": "customer",
+      "title": "Case buyer",
+      "talk_time_s": 4.7
+    },
+    {
+      "speaker": "D",
+      "role": "customer",
+      "title": "Charger buyer",
+      "talk_time_s": 10.5
+    }
+  ],
+  "has_sales_activity": true,
+  "conversations": [
+    {
+      "conversation_id": 1,
+      "start": 0.0,
+      "end": 45.16,
+      "topic": "Tablet for a child",
+      "language": "other",
+      "is_sales_interaction": true,
+      "salespeople": [
+        "A"
+      ],
+      "customers": [
+        "B"
+      ],
+      "mood": {
+        "speakers": [
+          {
+            "speaker": "A",
+            "overall_mood": "happy",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Listens to the use case and suggests only what fits it."
+          },
+          {
+            "speaker": "B",
+            "overall_mood": "happy",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Grateful for honest advice; buys what is needed."
+          }
+        ],
+        "frustration_moments": []
+      },
+      "upsell": {
+        "customer_requested": [
+          "A tablet for a nine-year-old for study and games."
+        ],
+        "upsell_attempts": [
+          {
+            "salesperson": "A",
+            "segment_id": 4,
+            "quote": "في هالحالة أنصحك بغطاء مقوّى للأطفال بـ 79 ريال، يتحمل السقطات، وهو الأكثر مبيعاً مع هذا الجهاز.",
+            "technique": "cross_sell",
+            "offered_item": "Rugged child case for 79 SAR",
+            "salesperson_initiated": true,
+            "after_customer_rejection": false,
+            "handled_objection": false,
+            "customer_response": "accepted",
+            "customer_mood": "happy"
+          },
+          {
+            "salesperson": "A",
+            "segment_id": 6,
+            "quote": "واقي الشاشة بـ 29 ريال. بس الغطاء يكفي إذا ما تبي تدفع زيادة.",
+            "technique": "cross_sell",
+            "offered_item": "Screen protector for 29 SAR",
+            "salesperson_initiated": false,
+            "after_customer_rejection": false,
+            "handled_objection": false,
+            "customer_response": "rejected",
+            "customer_mood": "happy"
+          }
+        ],
+        "excluded_candidates": [
+          "أبشر. هذا بـ 899 ريال، شاشة 10 إنش وفيه وضع الأطفال والتحكم الأبوي. -> Presents the tablet that fits the stated use."
+        ],
+        "pushy_upsell": false,
+        "pushy_reason": "The salesperson told the customer the case was enough, so he did not need the protector.",
+        "confidence": 0.91,
+        "summary": "A good, need-based upsell: the child drops the tablet, so a rugged case makes sense. The salesperson told the customer a second item was optional.",
+        "greeting_given": true,
+        "greeting_quote": "السلام عليكم ورحمة الله، أهلاً بك.",
+        "greeting_segment_id": 0,
+        "products_discussed": [
+          "tablet 899 SAR",
+          "rugged case 79 SAR",
+          "screen protector 29 SAR"
+        ],
+        "customer_feedback": null,
+        "customer_feedback_segment_id": null,
+        "unanswered_questions": [],
+        "coaching_feedback": "Tied the add-on to a real problem the parent described. That is the pattern to repeat."
+      },
+      "attempted_upsell": true,
+      "effort_score": 3.7,
+      "analyzed_by": "hand-authored:saudi-demo-sample",
+      "escalated": false,
+      "budget_note": null
+    },
+    {
+      "conversation_id": 2,
+      "start": 54.16,
+      "end": 70.6,
+      "topic": "Phone case",
+      "language": "other",
+      "is_sales_interaction": true,
+      "salespeople": [
+        "A"
+      ],
+      "customers": [
+        "C"
+      ],
+      "mood": {
+        "speakers": [
+          {
+            "speaker": "A",
+            "overall_mood": "calm",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Efficient but minimal."
+          },
+          {
+            "speaker": "C",
+            "overall_mood": "neutral",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Knows what he wants."
+          }
+        ],
+        "frustration_moments": []
+      },
+      "upsell": {
+        "customer_requested": [
+          "A clear case for a specific phone."
+        ],
+        "upsell_attempts": [],
+        "excluded_candidates": [
+          "عندي شفاف بـ 39 وجلد بـ 69. -> Quotes the two cases available."
+        ],
+        "pushy_upsell": false,
+        "pushy_reason": "No offer was repeated after a customer said no.",
+        "confidence": 0.9,
+        "summary": "Fast sale with no greeting beyond 'welcome' and no add-on such as a screen protector.",
+        "greeting_given": false,
+        "greeting_quote": null,
+        "greeting_segment_id": null,
+        "products_discussed": [
+          "clear case 39 SAR",
+          "leather case 69 SAR"
+        ],
+        "customer_feedback": null,
+        "customer_feedback_segment_id": null,
+        "unanswered_questions": [],
+        "coaching_feedback": "A screen protector next to the case is a natural single suggestion. Also ask how the customer is doing before jumping to prices."
+      },
+      "attempted_upsell": false,
+      "effort_score": 0.0,
+      "analyzed_by": "hand-authored:saudi-demo-sample",
+      "escalated": false,
+      "budget_note": null
+    },
+    {
+      "conversation_id": 3,
+      "start": 79.6,
+      "end": 114.88,
+      "topic": "Laptop charger",
+      "language": "other",
+      "is_sales_interaction": true,
+      "salespeople": [
+        "A"
+      ],
+      "customers": [
+        "D"
+      ],
+      "mood": {
+        "speakers": [
+          {
+            "speaker": "A",
+            "overall_mood": "calm",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Honest explanation of the difference."
+          },
+          {
+            "speaker": "D",
+            "overall_mood": "neutral",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Practical."
+          }
+        ],
+        "frustration_moments": []
+      },
+      "upsell": {
+        "customer_requested": [
+          "A charger for a specific laptop model."
+        ],
+        "upsell_attempts": [
+          {
+            "salesperson": "A",
+            "segment_id": 17,
+            "quote": "الأصلي ضمان سنتين وما يسخن. المتوافق ضمانه ثلاثة شهور.",
+            "technique": "upgrade",
+            "offered_item": "Original charger for 189 SAR instead of compatible 99",
+            "salesperson_initiated": false,
+            "after_customer_rejection": false,
+            "handled_objection": false,
+            "customer_response": "accepted",
+            "customer_mood": "neutral"
+          },
+          {
+            "salesperson": "A",
+            "segment_id": 19,
+            "quote": "تمام. وإذا تبي تحمي جهازك من تذبذب الكهرباء فيه موزع كهرباء بـ 69 ريال.",
+            "technique": "cross_sell",
+            "offered_item": "Surge protector for 69 SAR",
+            "salesperson_initiated": true,
+            "after_customer_rejection": false,
+            "handled_objection": false,
+            "customer_response": "rejected",
+            "customer_mood": "neutral"
+          }
+        ],
+        "excluded_candidates": [
+          "تمام، عندي الأصلي بـ 189 ريال، والمتوافق بـ 99. -> Offers both charger options."
+        ],
+        "pushy_upsell": false,
+        "pushy_reason": "The surge protector was mentioned once.",
+        "confidence": 0.88,
+        "summary": "The customer asked for the difference and chose the original charger on the salesperson's explanation. One extra offer, declined and dropped.",
+        "greeting_given": true,
+        "greeting_quote": "السلام عليكم، حياك الله.",
+        "greeting_segment_id": 13,
+        "products_discussed": [
+          "original charger 189 SAR",
+          "compatible charger 99 SAR",
+          "surge protector 69 SAR"
+        ],
+        "customer_feedback": null,
+        "customer_feedback_segment_id": null,
+        "unanswered_questions": [],
+        "coaching_feedback": "Clear explanation of the two options. The surge protector was a stretch; offer it only if the customer mentions power cuts."
+      },
+      "attempted_upsell": true,
+      "effort_score": 4.3,
+      "analyzed_by": "hand-authored:saudi-demo-sample",
+      "escalated": false,
+      "budget_note": null
+    }
+  ],
+  "salespeople": [
+    {
+      "speaker": "A",
+      "conversations": 3,
+      "conversations_with_upsell": 2,
+      "upsell_rate": 0.667,
+      "attempts_total": 4,
+      "attempts_per_conversation": 1.33,
+      "avg_effort_score": 2.7,
+      "upsell_talk_time_share": 0.498,
+      "acceptance_rate": 0.5,
+      "pushy_conversations": 0,
+      "techniques_used": [
+        "cross_sell",
+        "upgrade"
+      ]
+    }
+  ],
+  "calls": [],
+  "evidence": [
+    {
+      "kind": "greeting",
+      "conversation_id": 1,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 0,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 0,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 0.0,
+          "end": 3.48,
+          "text": "السلام عليكم ورحمة الله، أهلاً بك.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 1,
+          "speaker": "B",
+          "role": "customer",
+          "start": 4.38,
+          "end": 9.76,
+          "text": "وعليكم السلام. أبي تابلت لولدي عمره تسع سنوات، للدراسة وشوية ألعاب.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 2,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 10.66,
+          "end": 16.8,
+          "text": "أبشر. هذا بـ 899 ريال، شاشة 10 إنش وفيه وضع الأطفال والتحكم الأبوي.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "upsell_attempt",
+      "conversation_id": 1,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 4,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 2,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 10.66,
+          "end": 16.8,
+          "text": "أبشر. هذا بـ 899 ريال، شاشة 10 إنش وفيه وضع الأطفال والتحكم الأبوي.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 3,
+          "speaker": "B",
+          "role": "customer",
+          "start": 17.7,
+          "end": 20.8,
+          "text": "حلو. بس هو يطيّحه كثير.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 4,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 21.7,
+          "end": 29.36,
+          "text": "في هالحالة أنصحك بغطاء مقوّى للأطفال بـ 79 ريال، يتحمل السقطات، وهو الأكثر مبيعاً مع هذا الجهاز.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 5,
+          "speaker": "B",
+          "role": "customer",
+          "start": 30.26,
+          "end": 33.74,
+          "text": "ممتاز، حطه. وفيه شي ثاني ينفع؟",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 6,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 34.64,
+          "end": 40.78,
+          "text": "واقي الشاشة بـ 29 ريال. بس الغطاء يكفي إذا ما تبي تدفع زيادة.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "upsell_attempt",
+      "conversation_id": 1,
+      "index": 1,
+      "speaker": "A",
+      "segment_id": 6,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 4,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 21.7,
+          "end": 29.36,
+          "text": "في هالحالة أنصحك بغطاء مقوّى للأطفال بـ 79 ريال، يتحمل السقطات، وهو الأكثر مبيعاً مع هذا الجهاز.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 5,
+          "speaker": "B",
+          "role": "customer",
+          "start": 30.26,
+          "end": 33.74,
+          "text": "ممتاز، حطه. وفيه شي ثاني ينفع؟",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 6,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 34.64,
+          "end": 40.78,
+          "text": "واقي الشاشة بـ 29 ريال. بس الغطاء يكفي إذا ما تبي تدفع زيادة.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 7,
+          "speaker": "B",
+          "role": "customer",
+          "start": 41.68,
+          "end": 45.16,
+          "text": "الله يجزيك خير، خذ الغطاء بس.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "greeting",
+      "conversation_id": 3,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 13,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 13,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 79.6,
+          "end": 82.32,
+          "text": "السلام عليكم، حياك الله.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 14,
+          "speaker": "D",
+          "role": "customer",
+          "start": 83.22,
+          "end": 87.08,
+          "text": "وعليكم السلام. شاحن لابتوب، الموديل مكتوب هنا.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 15,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 87.98,
+          "end": 92.6,
+          "text": "تمام، عندي الأصلي بـ 189 ريال، والمتوافق بـ 99.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "upsell_attempt",
+      "conversation_id": 3,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 17,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 15,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 87.98,
+          "end": 92.6,
+          "text": "تمام، عندي الأصلي بـ 189 ريال، والمتوافق بـ 99.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 16,
+          "speaker": "D",
+          "role": "customer",
+          "start": 93.5,
+          "end": 95.46,
+          "text": "وش الفرق؟",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 17,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 96.36,
+          "end": 100.98,
+          "text": "الأصلي ضمان سنتين وما يسخن. المتوافق ضمانه ثلاثة شهور.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 18,
+          "speaker": "D",
+          "role": "customer",
+          "start": 101.88,
+          "end": 104.22,
+          "text": "طيب خذ الأصلي.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 19,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 105.12,
+          "end": 111.64,
+          "text": "تمام. وإذا تبي تحمي جهازك من تذبذب الكهرباء فيه موزع كهرباء بـ 69 ريال.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "upsell_attempt",
+      "conversation_id": 3,
+      "index": 1,
+      "speaker": "A",
+      "segment_id": 19,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 17,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 96.36,
+          "end": 100.98,
+          "text": "الأصلي ضمان سنتين وما يسخن. المتوافق ضمانه ثلاثة شهور.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 18,
+          "speaker": "D",
+          "role": "customer",
+          "start": 101.88,
+          "end": 104.22,
+          "text": "طيب خذ الأصلي.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 19,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 105.12,
+          "end": 111.64,
+          "text": "تمام. وإذا تبي تحمي جهازك من تذبذب الكهرباء فيه موزع كهرباء بـ 69 ريال.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 20,
+          "speaker": "D",
+          "role": "customer",
+          "start": 112.54,
+          "end": 114.88,
+          "text": "لا، الشاحن بس.",
+          "is_highlighted": false
+        }
+      ]
+    }
+  ],
+  "spent_usd": 0.0,
+  "budget_usd": null,
+  "unpriced_calls": 0
+}

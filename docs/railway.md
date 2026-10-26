@@ -1,4 +1,4 @@
-# Deploying SalesIQ on Railway
+# Deploying SouqCue on Railway
 
 1. **New project → Deploy from GitHub repo** → pick this repo and the branch you want live (`dev`). Railway finds `railway.toml` and builds the `Dockerfile`.
 2. **Add a Volume** to the service and mount it at `/app/data` (10 GB is plenty). Without it, every redeploy wipes recordings and accounts.

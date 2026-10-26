@@ -1,0 +1,191 @@
+{
+  "transcript": {
+    "duration": 116.9,
+    "segments": [
+      {
+        "id": 0,
+        "speaker": "A",
+        "start": 0.0,
+        "end": 3.48,
+        "text": "السلام عليكم ورحمة الله، أهلاً بك."
+      },
+      {
+        "id": 1,
+        "speaker": "B",
+        "start": 4.38,
+        "end": 9.76,
+        "text": "وعليكم السلام. أبي تابلت لولدي عمره تسع سنوات، للدراسة وشوية ألعاب."
+      },
+      {
+        "id": 2,
+        "speaker": "A",
+        "start": 10.66,
+        "end": 16.8,
+        "text": "أبشر. هذا بـ 899 ريال، شاشة 10 إنش وفيه وضع الأطفال والتحكم الأبوي."
+      },
+      {
+        "id": 3,
+        "speaker": "B",
+        "start": 17.7,
+        "end": 20.8,
+        "text": "حلو. بس هو يطيّحه كثير."
+      },
+      {
+        "id": 4,
+        "speaker": "A",
+        "start": 21.7,
+        "end": 29.36,
+        "text": "في هالحالة أنصحك بغطاء مقوّى للأطفال بـ 79 ريال، يتحمل السقطات، وهو الأكثر مبيعاً مع هذا الجهاز."
+      },
+      {
+        "id": 5,
+        "speaker": "B",
+        "start": 30.26,
+        "end": 33.74,
+        "text": "ممتاز، حطه. وفيه شي ثاني ينفع؟"
+      },
+      {
+        "id": 6,
+        "speaker": "A",
+        "start": 34.64,
+        "end": 40.78,
+        "text": "واقي الشاشة بـ 29 ريال. بس الغطاء يكفي إذا ما تبي تدفع زيادة."
+      },
+      {
+        "id": 7,
+        "speaker": "B",
+        "start": 41.68,
+        "end": 45.16,
+        "text": "الله يجزيك خير، خذ الغطاء بس."
+      },
+      {
+        "id": 8,
+        "speaker": "A",
+        "start": 54.16,
+        "end": 56.12,
+        "text": "مرحبا، تفضل."
+      },
+      {
+        "id": 9,
+        "speaker": "C",
+        "start": 57.02,
+        "end": 60.12,
+        "text": "أبي غطاء لجوالي، هذا الموديل."
+      },
+      {
+        "id": 10,
+        "speaker": "A",
+        "start": 61.02,
+        "end": 64.88,
+        "text": "عندي شفاف بـ 39 وجلد بـ 69."
+      },
+      {
+        "id": 11,
+        "speaker": "C",
+        "start": 65.78,
+        "end": 67.36,
+        "text": "الشفاف."
+      },
+      {
+        "id": 12,
+        "speaker": "A",
+        "start": 68.26,
+        "end": 70.6,
+        "text": "تمام. 39 ريال."
+      },
+      {
+        "id": 13,
+        "speaker": "A",
+        "start": 79.6,
+        "end": 82.32,
+        "text": "السلام عليكم، حياك الله."
+      },
+      {
+        "id": 14,
+        "speaker": "D",
+        "start": 83.22,
+        "end": 87.08,
+        "text": "وعليكم السلام. شاحن لابتوب، الموديل مكتوب هنا."
+      },
+      {
+        "id": 15,
+        "speaker": "A",
+        "start": 87.98,
+        "end": 92.6,
+        "text": "تمام، عندي الأصلي بـ 189 ريال، والمتوافق بـ 99."
+      },
+      {
+        "id": 16,
+        "speaker": "D",
+        "start": 93.5,
+        "end": 95.46,
+        "text": "وش الفرق؟"
+      },
+      {
+        "id": 17,
+        "speaker": "A",
+        "start": 96.36,
+        "end": 100.98,
+        "text": "الأصلي ضمان سنتين وما يسخن. المتوافق ضمانه ثلاثة شهور."
+      },
+      {
+        "id": 18,
+        "speaker": "D",
+        "start": 101.88,
+        "end": 104.22,
+        "text": "طيب خذ الأصلي."
+      },
+      {
+        "id": 19,
+        "speaker": "A",
+        "start": 105.12,
+        "end": 111.64,
+        "text": "تمام. وإذا تبي تحمي جهازك من تذبذب الكهرباء فيه موزع كهرباء بـ 69 ريال."
+      },
+      {
+        "id": 20,
+        "speaker": "D",
+        "start": 112.54,
+        "end": 114.88,
+        "text": "لا، الشاحن بس."
+      }
+    ],
+    "provider": "hand-authored:saudi-demo-sample",
+    "model": null,
+    "chunks": 1
+  },
+  "roles": {
+    "has_sales_activity": true,
+    "speakers": [
+      {
+        "speaker": "A",
+        "canonical_speaker": "A",
+        "role": "salesperson",
+        "title": "Accessories counter salesperson (Jeddah)",
+        "reasoning": ""
+      },
+      {
+        "speaker": "B",
+        "canonical_speaker": "B",
+        "role": "customer",
+        "title": "Parent buying a tablet",
+        "reasoning": ""
+      },
+      {
+        "speaker": "C",
+        "canonical_speaker": "C",
+        "role": "customer",
+        "title": "Case buyer",
+        "reasoning": ""
+      },
+      {
+        "speaker": "D",
+        "canonical_speaker": "D",
+        "role": "customer",
+        "title": "Charger buyer",
+        "reasoning": ""
+      }
+    ]
+  },
+  "acoustics": []
+}

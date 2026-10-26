@@ -78,6 +78,17 @@ class SpeakerRole(BaseModel):
     reasoning: str = Field(description="One short sentence citing what they say.")
 
 
+class SpeakerFix(BaseModel):
+    segment_id: int
+    speaker: str = Field(description="Existing label, or a new label such as 'Speaker 3' for a person not yet labelled.")
+    role: Literal["salesperson", "customer", "other"]
+    title: str = Field(description="Short real-world description of this person; used only for new labels.")
+
+
+class SpeakerRepair(BaseModel):
+    fixes: list[SpeakerFix] = Field(description="Only segments whose speaker label is wrong. Empty if the labels are right.")
+
+
 class RoleDetection(BaseModel):
     has_sales_activity: bool
     speakers: list[SpeakerRole]

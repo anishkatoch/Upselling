@@ -1,0 +1,632 @@
+{
+  "job_id": "493fd572ae216bc57eed0963dc9f0297",
+  "source_filename": "2026-10-21_khalid_floor_session.mp3",
+  "duration_s": 150.2,
+  "transcription_provider": "hand-authored:saudi-demo-sample",
+  "speakers": [
+    {
+      "speaker": "A",
+      "role": "salesperson",
+      "title": "Car sales advisor (Dammam)",
+      "talk_time_s": 68.5
+    },
+    {
+      "speaker": "B",
+      "role": "customer",
+      "title": "First-time car buyer",
+      "talk_time_s": 16.6
+    },
+    {
+      "speaker": "C",
+      "role": "customer",
+      "title": "Customer asking about financing",
+      "talk_time_s": 15.4
+    },
+    {
+      "speaker": "D",
+      "role": "customer",
+      "title": "Customer collecting a new car",
+      "talk_time_s": 8.9
+    }
+  ],
+  "has_sales_activity": true,
+  "conversations": [
+    {
+      "conversation_id": 1,
+      "start": 0.0,
+      "end": 59.82,
+      "topic": "Compact car for a first-time buyer",
+      "language": "other",
+      "is_sales_interaction": true,
+      "salespeople": [
+        "A"
+      ],
+      "customers": [
+        "B"
+      ],
+      "mood": {
+        "speakers": [
+          {
+            "speaker": "A",
+            "overall_mood": "calm",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Asks about daily driving before pricing; takes 'let me think' for an answer."
+          },
+          {
+            "speaker": "B",
+            "overall_mood": "neutral",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Cautious about money but comfortable; leaves to think about the maintenance plan."
+          }
+        ],
+        "frustration_moments": []
+      },
+      "upsell": {
+        "customer_requested": [
+          "An economical first car."
+        ],
+        "upsell_attempts": [
+          {
+            "salesperson": "A",
+            "segment_id": 4,
+            "quote": "طيب، هالسيارة الصغيرة بـ 68 ألف ريال، استهلاكها قليل. أما الهايبرد بـ 89 ألف يوفر لك بنزين، بس السعر أعلى، والقرار لك.",
+            "technique": "upgrade",
+            "offered_item": "Hybrid at 89,000 SAR vs compact at 68,000",
+            "salesperson_initiated": true,
+            "after_customer_rejection": false,
+            "handled_objection": false,
+            "customer_response": "rejected",
+            "customer_mood": "neutral"
+          },
+          {
+            "salesperson": "A",
+            "segment_id": 6,
+            "quote": "تمام. بس لأنها أول سيارة، فيه ضمان صيانة ثلاث سنوات بـ 2,400 ريال يغطي الصيانة الدورية. تبيه؟",
+            "technique": "warranty_protection",
+            "offered_item": "Three-year service plan for 2,400 SAR",
+            "salesperson_initiated": true,
+            "after_customer_rejection": false,
+            "handled_objection": true,
+            "customer_response": "undecided",
+            "customer_mood": "neutral"
+          }
+        ],
+        "excluded_candidates": [
+          "طيب، هالسيارة الصغيرة بـ 68 ألف ريال، استهلاكها قليل. أما الهايبرد بـ 89 ألف يوفر لك بنزين، بس السعر أعلى، والقرار لك. -> Recommends the compact car that suits the stated use."
+        ],
+        "pushy_upsell": false,
+        "pushy_reason": "The advisor answered the price objection with numbers and let the customer leave to think.",
+        "confidence": 0.92,
+        "summary": "This time the advisor asked about daily distance first, gave the customer the choice between a cheaper car and a hybrid, and handled the price concern on the service plan with a saving figure. The customer will think about it.",
+        "greeting_given": true,
+        "greeting_quote": "السلام عليكم، حياك الله. وش تدور؟",
+        "greeting_segment_id": 0,
+        "products_discussed": [
+          "compact car 68,000 SAR",
+          "hybrid 89,000 SAR",
+          "service plan 2,400 SAR"
+        ],
+        "customer_feedback": null,
+        "customer_feedback_segment_id": null,
+        "unanswered_questions": [],
+        "coaching_feedback": "Much better than the earlier recording: discovery first, one offer at a time, and 'no pressure' when the customer wanted time. Follow up in a day or two with the saving figure."
+      },
+      "attempted_upsell": true,
+      "effort_score": 5.3,
+      "analyzed_by": "hand-authored:saudi-demo-sample",
+      "escalated": false,
+      "budget_note": null
+    },
+    {
+      "conversation_id": 2,
+      "start": 68.82,
+      "end": 112.28,
+      "topic": "Financing question",
+      "language": "other",
+      "is_sales_interaction": true,
+      "salespeople": [
+        "A"
+      ],
+      "customers": [
+        "C"
+      ],
+      "mood": {
+        "speakers": [
+          {
+            "speaker": "A",
+            "overall_mood": "calm",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Gives numbers on the spot."
+          },
+          {
+            "speaker": "C",
+            "overall_mood": "neutral",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Practical and in control."
+          }
+        ],
+        "frustration_moments": []
+      },
+      "upsell": {
+        "customer_requested": [
+          "Monthly payment for a 95,000 SAR car over five years.",
+          "The effect of a 20,000 SAR down payment."
+        ],
+        "upsell_attempts": [
+          {
+            "salesperson": "A",
+            "segment_id": 17,
+            "quote": "تفضل. وفيه تأمين شامل مع التمويل بـ 2,900 ريال في السنة، أحسب لك إياه معه؟",
+            "technique": "cross_sell",
+            "offered_item": "Comprehensive insurance for 2,900 SAR per year",
+            "salesperson_initiated": true,
+            "after_customer_rejection": false,
+            "handled_objection": false,
+            "customer_response": "rejected",
+            "customer_mood": "neutral"
+          }
+        ],
+        "excluded_candidates": [
+          "تقريباً 1,900 ريال في الشهر، حسب الدفعة الأولى ونسبة البنك. -> Gives the monthly payment the customer asked for.",
+          "يصير حوالي 1,500. أقدر أطبع لك الحساب التفصيلي. -> Gives the payment with the down payment."
+        ],
+        "pushy_upsell": false,
+        "pushy_reason": "One offer; accepted the customer's answer that he has his own insurance.",
+        "confidence": 0.9,
+        "summary": "The advisor answered the financing questions with figures, printed the calculation and offered insurance once.",
+        "greeting_given": true,
+        "greeting_quote": "السلام عليكم، تفضل.",
+        "greeting_segment_id": 11,
+        "products_discussed": [
+          "financing 5 years",
+          "comprehensive insurance 2,900 SAR/year"
+        ],
+        "customer_feedback": null,
+        "customer_feedback_segment_id": null,
+        "unanswered_questions": [],
+        "coaching_feedback": "Concrete figures build trust. Ask about existing insurance before quoting yours."
+      },
+      "attempted_upsell": true,
+      "effort_score": 2.2,
+      "analyzed_by": "hand-authored:saudi-demo-sample",
+      "escalated": false,
+      "budget_note": null
+    },
+    {
+      "conversation_id": 3,
+      "start": 121.28,
+      "end": 148.18,
+      "topic": "Accessories on delivery",
+      "language": "other",
+      "is_sales_interaction": true,
+      "salespeople": [
+        "A"
+      ],
+      "customers": [
+        "D"
+      ],
+      "mood": {
+        "speakers": [
+          {
+            "speaker": "A",
+            "overall_mood": "calm",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Efficient delivery."
+          },
+          {
+            "speaker": "D",
+            "overall_mood": "neutral",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Happy with the handover."
+          }
+        ],
+        "frustration_moments": []
+      },
+      "upsell": {
+        "customer_requested": [
+          "To confirm his ordered accessories are fitted."
+        ],
+        "upsell_attempts": [
+          {
+            "salesperson": "A",
+            "segment_id": 22,
+            "quote": "أيوه، أرضيات مطاطية، وكاميرا خلفية. وفيه حزمة تنظيف سنوية بـ 450 ريال، اختيارية.",
+            "technique": "cross_sell",
+            "offered_item": "Annual cleaning package for 450 SAR",
+            "salesperson_initiated": true,
+            "after_customer_rejection": false,
+            "handled_objection": false,
+            "customer_response": "rejected",
+            "customer_mood": "neutral"
+          }
+        ],
+        "excluded_candidates": [
+          "أيوه، أرضيات مطاطية، وكاميرا خلفية. وفيه حزمة تنظيف سنوية بـ 450 ريال، اختيارية. -> Confirms the accessories the customer already ordered."
+        ],
+        "pushy_upsell": false,
+        "pushy_reason": "No offer was repeated after a customer said no.",
+        "confidence": 0.9,
+        "summary": "Delivery handover with one optional service mentioned and not repeated.",
+        "greeting_given": true,
+        "greeting_quote": "السلام عليكم، مبروك. تفضل، السيارة جاهزة.",
+        "greeting_segment_id": 20,
+        "products_discussed": [
+          "floor mats",
+          "rear camera",
+          "cleaning package 450 SAR"
+        ],
+        "customer_feedback": null,
+        "customer_feedback_segment_id": null,
+        "unanswered_questions": [],
+        "coaching_feedback": "Light and respectful. The phone pairing help is a nice service touch to mention in coaching examples."
+      },
+      "attempted_upsell": true,
+      "effort_score": 2.2,
+      "analyzed_by": "hand-authored:saudi-demo-sample",
+      "escalated": false,
+      "budget_note": null
+    }
+  ],
+  "salespeople": [
+    {
+      "speaker": "A",
+      "conversations": 3,
+      "conversations_with_upsell": 3,
+      "upsell_rate": 1.0,
+      "attempts_total": 4,
+      "attempts_per_conversation": 1.33,
+      "avg_effort_score": 3.2,
+      "upsell_talk_time_share": 0.442,
+      "acceptance_rate": 0.0,
+      "pushy_conversations": 0,
+      "techniques_used": [
+        "cross_sell",
+        "upgrade",
+        "warranty_protection"
+      ]
+    }
+  ],
+  "calls": [],
+  "evidence": [
+    {
+      "kind": "greeting",
+      "conversation_id": 1,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 0,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 0,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 0.0,
+          "end": 3.48,
+          "text": "السلام عليكم، حياك الله. وش تدور؟",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 1,
+          "speaker": "B",
+          "role": "customer",
+          "start": 4.38,
+          "end": 9.38,
+          "text": "وعليكم السلام. أول سيارة لي، أبي شي اقتصادي في البنزين.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 2,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 10.28,
+          "end": 14.14,
+          "text": "مبروك مقدماً. كم تمشي في اليوم تقريباً؟",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "upsell_attempt",
+      "conversation_id": 1,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 4,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 2,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 10.28,
+          "end": 14.14,
+          "text": "مبروك مقدماً. كم تمشي في اليوم تقريباً؟",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 3,
+          "speaker": "B",
+          "role": "customer",
+          "start": 15.04,
+          "end": 18.14,
+          "text": "حوالي 50 كيلو للدوام ورجوع.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 4,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 19.04,
+          "end": 28.6,
+          "text": "طيب، هالسيارة الصغيرة بـ 68 ألف ريال، استهلاكها قليل. أما الهايبرد بـ 89 ألف يوفر لك بنزين، بس السعر أعلى، والقرار لك.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 5,
+          "speaker": "B",
+          "role": "customer",
+          "start": 29.5,
+          "end": 31.46,
+          "text": "الصغيرة تكفي.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 6,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 32.36,
+          "end": 40.02,
+          "text": "تمام. بس لأنها أول سيارة، فيه ضمان صيانة ثلاث سنوات بـ 2,400 ريال يغطي الصيانة الدورية. تبيه؟",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "upsell_attempt",
+      "conversation_id": 1,
+      "index": 1,
+      "speaker": "A",
+      "segment_id": 6,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 4,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 19.04,
+          "end": 28.6,
+          "text": "طيب، هالسيارة الصغيرة بـ 68 ألف ريال، استهلاكها قليل. أما الهايبرد بـ 89 ألف يوفر لك بنزين، بس السعر أعلى، والقرار لك.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 5,
+          "speaker": "B",
+          "role": "customer",
+          "start": 29.5,
+          "end": 31.46,
+          "text": "الصغيرة تكفي.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 6,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 32.36,
+          "end": 40.02,
+          "text": "تمام. بس لأنها أول سيارة، فيه ضمان صيانة ثلاث سنوات بـ 2,400 ريال يغطي الصيانة الدورية. تبيه؟",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 7,
+          "speaker": "B",
+          "role": "customer",
+          "start": 40.92,
+          "end": 44.4,
+          "text": "يعني كم أوفر؟ أحس أنه غالي.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 8,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 45.3,
+          "end": 51.82,
+          "text": "ممكن توفر 3 آلاف على ثلاث سنوات، لكن لو ما تبيه عادي، تمشي بدونه.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "greeting",
+      "conversation_id": 2,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 11,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 11,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 68.82,
+          "end": 71.16,
+          "text": "السلام عليكم، تفضل.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 12,
+          "speaker": "C",
+          "role": "customer",
+          "start": 72.06,
+          "end": 78.58,
+          "text": "وعليكم السلام. أبي أعرف كم القسط الشهري لسيارة بـ 95 ألف، على خمس سنوات.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 13,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 79.48,
+          "end": 84.48,
+          "text": "تقريباً 1,900 ريال في الشهر، حسب الدفعة الأولى ونسبة البنك.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "upsell_attempt",
+      "conversation_id": 2,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 17,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 15,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 89.38,
+          "end": 93.62,
+          "text": "يصير حوالي 1,500. أقدر أطبع لك الحساب التفصيلي.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 16,
+          "speaker": "C",
+          "role": "customer",
+          "start": 94.52,
+          "end": 96.86,
+          "text": "اطبع لي، وأشوف.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 17,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 97.76,
+          "end": 104.66,
+          "text": "تفضل. وفيه تأمين شامل مع التمويل بـ 2,900 ريال في السنة، أحسب لك إياه معه؟",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 18,
+          "speaker": "C",
+          "role": "customer",
+          "start": 105.56,
+          "end": 109.04,
+          "text": "لا، التأمين عندي من شركة ثانية.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 19,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 109.94,
+          "end": 112.28,
+          "text": "تمام، سجلت ذلك.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "greeting",
+      "conversation_id": 3,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 20,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 20,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 121.28,
+          "end": 124.76,
+          "text": "السلام عليكم، مبروك. تفضل، السيارة جاهزة.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 21,
+          "speaker": "D",
+          "role": "customer",
+          "start": 125.66,
+          "end": 129.9,
+          "text": "الله يبارك فيك. فيها كل شي اللي طلبته؟",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 22,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 130.8,
+          "end": 136.94,
+          "text": "أيوه، أرضيات مطاطية، وكاميرا خلفية. وفيه حزمة تنظيف سنوية بـ 450 ريال، اختيارية.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "upsell_attempt",
+      "conversation_id": 3,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 22,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 20,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 121.28,
+          "end": 124.76,
+          "text": "السلام عليكم، مبروك. تفضل، السيارة جاهزة.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 21,
+          "speaker": "D",
+          "role": "customer",
+          "start": 125.66,
+          "end": 129.9,
+          "text": "الله يبارك فيك. فيها كل شي اللي طلبته؟",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 22,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 130.8,
+          "end": 136.94,
+          "text": "أيوه، أرضيات مطاطية، وكاميرا خلفية. وفيه حزمة تنظيف سنوية بـ 450 ريال، اختيارية.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 23,
+          "speaker": "D",
+          "role": "customer",
+          "start": 137.84,
+          "end": 140.56,
+          "text": "لا، شكراً، أنظفها بنفسي.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 24,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 141.46,
+          "end": 145.32,
+          "text": "تمام. تحتاج مساعدة في ربط الجوال بالسيارة؟",
+          "is_highlighted": false
+        }
+      ]
+    }
+  ],
+  "spent_usd": 0.0,
+  "budget_usd": null,
+  "unpriced_calls": 0
+}

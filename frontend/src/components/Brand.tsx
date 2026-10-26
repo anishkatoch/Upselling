@@ -1,7 +1,7 @@
 import { useId } from "react";
 
 /**
- * The SalesIQ mark: a speech bubble (the conversation) holding three rising bars (what we learn from it),
+ * The SouqCue mark: a speech bubble (the conversation) holding three rising bars (what we learn from it),
  * on the indigo gradient. Same drawing as public/favicon.svg.
  */
 export function Logo({ size = 26 }: { size?: number }) {
@@ -26,14 +26,14 @@ export function Logo({ size = 26 }: { size?: number }) {
   );
 }
 
-/** Mark plus the name, with "IQ" picked out. */
+/** Mark plus the name, with "Souq" and "Cue" in two colours. */
 export default function Brand({ size = 26, text = true }: { size?: number; text?: boolean }) {
   return (
     <>
       <Logo size={size} />
       {text && (
         <span className="brand-text">
-          Sales<b className="brand-iq">IQ</b>
+          <span className="brand-souq">Souq</span><b className="brand-cue">Cue</b>
         </span>
       )}
     </>

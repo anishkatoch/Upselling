@@ -1,0 +1,813 @@
+{
+  "job_id": "1aefa1b9a0d7e8eeb939861e7a4eb21d",
+  "source_filename": "2026-10-14_reem_floor_session.mp3",
+  "duration_s": 145.8,
+  "transcription_provider": "hand-authored:saudi-demo-sample",
+  "speakers": [
+    {
+      "speaker": "A",
+      "role": "salesperson",
+      "title": "Appliance store salesperson (Jeddah)",
+      "talk_time_s": 59.3
+    },
+    {
+      "speaker": "B",
+      "role": "customer",
+      "title": "Customer with a delayed delivery",
+      "talk_time_s": 27.3
+    },
+    {
+      "speaker": "C",
+      "role": "customer",
+      "title": "Couple buying a refrigerator",
+      "talk_time_s": 11.6
+    },
+    {
+      "speaker": "D",
+      "role": "customer",
+      "title": "Air fryer buyer",
+      "talk_time_s": 7.8
+    }
+  ],
+  "has_sales_activity": true,
+  "conversations": [
+    {
+      "conversation_id": 1,
+      "start": 0.0,
+      "end": 59.62,
+      "topic": "Delayed washing machine delivery",
+      "language": "other",
+      "is_sales_interaction": true,
+      "salespeople": [
+        "A"
+      ],
+      "customers": [
+        "B"
+      ],
+      "mood": {
+        "speakers": [
+          {
+            "speaker": "A",
+            "overall_mood": "calm",
+            "frustration_level": 2,
+            "trend": "stable",
+            "summary": "Apologises and stays calm, but offers a sale before giving the delivery date the customer asked for."
+          },
+          {
+            "speaker": "B",
+            "overall_mood": "frustrated",
+            "frustration_level": 8,
+            "trend": "worsening",
+            "summary": "Has chased the order for two weeks, is told it will take another week, is offered a different machine, and asks for the manager."
+          }
+        ],
+        "frustration_moments": [
+          {
+            "segment_id": 4,
+            "speaker": "B",
+            "quote": "الأسبوع الجاي؟ عندي ضيوف وبيتي بدون غسالة. وش أسوي أنا؟",
+            "evidence_source": "words",
+            "evidence": "The customer says he has guests and no washing machine: frustration about the delay."
+          },
+          {
+            "segment_id": 6,
+            "speaker": "B",
+            "quote": "أنا دفعت على غسالة، مو على غيرها! أبي أعرف متى توصل أو أسترد فلوسي.",
+            "evidence_source": "words",
+            "evidence": "The customer rejects the replacement offer: he paid for a specific machine and wants a date or a refund."
+          },
+          {
+            "segment_id": 8,
+            "speaker": "B",
+            "quote": "أنتظر؟ أنا في هالمحل من نص ساعة. خلاص، أبي المدير.",
+            "evidence_source": "words",
+            "evidence": "The customer says he has waited half an hour and asks for the manager."
+          }
+        ]
+      },
+      "upsell": {
+        "customer_requested": [
+          "The delivery date of an order paid two weeks ago.",
+          "A refund if there is no date."
+        ],
+        "upsell_attempts": [
+          {
+            "salesperson": "A",
+            "segment_id": 5,
+            "quote": "أقدر أعرض عليك غسالة ثانية متوفرة الحين في المعرض، بـ 2,399 ريال، وتاخذها اليوم.",
+            "technique": "other",
+            "offered_item": "A different washing machine in stock for 2,399 SAR",
+            "salesperson_initiated": true,
+            "after_customer_rejection": false,
+            "handled_objection": false,
+            "customer_response": "rejected",
+            "customer_mood": "angry"
+          }
+        ],
+        "excluded_candidates": [
+          "أرى أن الطلب مأخر في المستودع. ممكن الأسبوع الجاي. -> Reports the order status; not an offer."
+        ],
+        "pushy_upsell": false,
+        "pushy_reason": "A single replacement offer, but badly timed for an angry customer who wanted a date.",
+        "confidence": 0.9,
+        "summary": "An unhappy customer: the delivery was two weeks late and he had called three times without an answer. The salesperson apologised but could not give a date, offered a different machine (rejected) and passed him to the manager.",
+        "greeting_given": false,
+        "greeting_quote": null,
+        "greeting_segment_id": null,
+        "products_discussed": [
+          "washing machine (ordered)",
+          "washing machine in stock 2,399 SAR"
+        ],
+        "customer_feedback": "The customer said he paid for a specific machine and wants a delivery date or a refund.",
+        "customer_feedback_segment_id": 6,
+        "unanswered_questions": [
+          {
+            "segment_id": 2,
+            "speaker": "B",
+            "question": "الرقم 4471. اتصلت ثلاث مرات ولا أحد رد.",
+            "note": "The customer said nobody answered his three calls; this was not acknowledged or explained."
+          },
+          {
+            "segment_id": 4,
+            "speaker": "B",
+            "question": "الأسبوع الجاي؟ عندي ضيوف وبيتي بدون غسالة. وش أسوي أنا؟",
+            "note": "The customer asked what he should do; the answer was an offer for a different machine."
+          }
+        ],
+        "coaching_feedback": "Fix the problem before selling. Give a firm date or start the refund before offering anything else, and tell the customer you will personally call him with an update. Acknowledge the three unanswered calls."
+      },
+      "attempted_upsell": true,
+      "effort_score": 2.2,
+      "analyzed_by": "hand-authored:saudi-demo-sample",
+      "escalated": false,
+      "budget_note": null
+    },
+    {
+      "conversation_id": 2,
+      "start": 68.62,
+      "end": 106.18,
+      "topic": "Refrigerator purchase",
+      "language": "other",
+      "is_sales_interaction": true,
+      "salespeople": [
+        "A"
+      ],
+      "customers": [
+        "C"
+      ],
+      "mood": {
+        "speakers": [
+          {
+            "speaker": "A",
+            "overall_mood": "happy",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Clear and reassuring."
+          },
+          {
+            "speaker": "C",
+            "overall_mood": "happy",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Knows what they need and asks for more warranty."
+          }
+        ],
+        "frustration_moments": []
+      },
+      "upsell": {
+        "customer_requested": [
+          "A large refrigerator for a family of six.",
+          "Free delivery.",
+          "An extended warranty."
+        ],
+        "upsell_attempts": [
+          {
+            "salesperson": "A",
+            "segment_id": 16,
+            "quote": "ضمان خمس سنوات على الضاغط بـ 299 ريال.",
+            "technique": "warranty_protection",
+            "offered_item": "Five-year compressor warranty for 299 SAR",
+            "salesperson_initiated": false,
+            "after_customer_rejection": false,
+            "handled_objection": false,
+            "customer_response": "accepted",
+            "customer_mood": "happy"
+          }
+        ],
+        "excluded_candidates": [
+          "أبشروا. هذي بـ 3,299 ريال، سعة 600 لتر، ودرجة التوفير الكهربائي ممتازة، وهذي 2,699 أقل سعة. -> Presents two refrigerators at different prices.",
+          "مجاني داخل جدة، خلال يومين. وفيه تركيب وتنظيف مجاني للثلاجة القديمة. -> Free delivery and installation as the customer asked."
+        ],
+        "pushy_upsell": false,
+        "pushy_reason": "No offer was repeated after a customer said no.",
+        "confidence": 0.9,
+        "summary": "The customer asked for an extended warranty and bought it; no pressure.",
+        "greeting_given": true,
+        "greeting_quote": "السلام عليكم، حياكم الله.",
+        "greeting_segment_id": 10,
+        "products_discussed": [
+          "refrigerator 3,299 SAR",
+          "refrigerator 2,699 SAR",
+          "compressor warranty 299 SAR"
+        ],
+        "customer_feedback": null,
+        "customer_feedback_segment_id": null,
+        "unanswered_questions": [],
+        "coaching_feedback": "Customers who ask for warranty are an easy yes: price it clearly and move on."
+      },
+      "attempted_upsell": true,
+      "effort_score": 2.2,
+      "analyzed_by": "hand-authored:saudi-demo-sample",
+      "escalated": false,
+      "budget_note": null
+    },
+    {
+      "conversation_id": 3,
+      "start": 115.18,
+      "end": 143.8,
+      "topic": "Air fryer",
+      "language": "other",
+      "is_sales_interaction": true,
+      "salespeople": [
+        "A"
+      ],
+      "customers": [
+        "D"
+      ],
+      "mood": {
+        "speakers": [
+          {
+            "speaker": "A",
+            "overall_mood": "calm",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Short and polite."
+          },
+          {
+            "speaker": "D",
+            "overall_mood": "neutral",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Knows what she wants."
+          }
+        ],
+        "frustration_moments": []
+      },
+      "upsell": {
+        "customer_requested": [
+          "A medium air fryer."
+        ],
+        "upsell_attempts": [
+          {
+            "salesperson": "A",
+            "segment_id": 22,
+            "quote": "تمام. عندنا أيضاً طقم أدوات سيليكون للقلاية بـ 59 ريال.",
+            "technique": "cross_sell",
+            "offered_item": "Silicone accessory set for 59 SAR",
+            "salesperson_initiated": true,
+            "after_customer_rejection": false,
+            "handled_objection": false,
+            "customer_response": "rejected",
+            "customer_mood": "neutral"
+          }
+        ],
+        "excluded_candidates": [
+          "هذي 5 لتر بـ 349 ريال، وهذي 7 لتر بـ 449 ريال. -> Quotes two sizes."
+        ],
+        "pushy_upsell": false,
+        "pushy_reason": "No offer was repeated after a customer said no.",
+        "confidence": 0.9,
+        "summary": "A quick sale with one add-on offered and dropped.",
+        "greeting_given": true,
+        "greeting_quote": "أهلاً وسهلاً، تفضلي.",
+        "greeting_segment_id": 18,
+        "products_discussed": [
+          "air fryer 5 L 349 SAR",
+          "accessory set 59 SAR"
+        ],
+        "customer_feedback": null,
+        "customer_feedback_segment_id": null,
+        "unanswered_questions": [],
+        "coaching_feedback": "Fine. Ask what she will cook first, so the accessory makes sense."
+      },
+      "attempted_upsell": true,
+      "effort_score": 2.2,
+      "analyzed_by": "hand-authored:saudi-demo-sample",
+      "escalated": false,
+      "budget_note": null
+    }
+  ],
+  "salespeople": [
+    {
+      "speaker": "A",
+      "conversations": 3,
+      "conversations_with_upsell": 3,
+      "upsell_rate": 1.0,
+      "attempts_total": 3,
+      "attempts_per_conversation": 1.0,
+      "avg_effort_score": 2.2,
+      "upsell_talk_time_share": 0.266,
+      "acceptance_rate": 0.333,
+      "pushy_conversations": 0,
+      "techniques_used": [
+        "cross_sell",
+        "other",
+        "warranty_protection"
+      ]
+    }
+  ],
+  "calls": [],
+  "evidence": [
+    {
+      "kind": "frustration",
+      "conversation_id": 1,
+      "index": 0,
+      "speaker": "B",
+      "segment_id": 4,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 3,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 18.84,
+          "end": 23.46,
+          "text": "أرى أن الطلب مأخر في المستودع. ممكن الأسبوع الجاي.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 4,
+          "speaker": "B",
+          "role": "customer",
+          "start": 24.36,
+          "end": 29.36,
+          "text": "الأسبوع الجاي؟ عندي ضيوف وبيتي بدون غسالة. وش أسوي أنا؟",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 5,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 30.26,
+          "end": 36.78,
+          "text": "أقدر أعرض عليك غسالة ثانية متوفرة الحين في المعرض، بـ 2,399 ريال، وتاخذها اليوم.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 6,
+          "speaker": "B",
+          "role": "customer",
+          "start": 37.68,
+          "end": 44.2,
+          "text": "أنا دفعت على غسالة، مو على غيرها! أبي أعرف متى توصل أو أسترد فلوسي.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "frustration",
+      "conversation_id": 1,
+      "index": 1,
+      "speaker": "B",
+      "segment_id": 6,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 5,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 30.26,
+          "end": 36.78,
+          "text": "أقدر أعرض عليك غسالة ثانية متوفرة الحين في المعرض، بـ 2,399 ريال، وتاخذها اليوم.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 6,
+          "speaker": "B",
+          "role": "customer",
+          "start": 37.68,
+          "end": 44.2,
+          "text": "أنا دفعت على غسالة، مو على غيرها! أبي أعرف متى توصل أو أسترد فلوسي.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 7,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 45.1,
+          "end": 48.96,
+          "text": "الاسترداد يحتاج موافقة المدير. ممكن تنتظر دقايق.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 8,
+          "speaker": "B",
+          "role": "customer",
+          "start": 49.86,
+          "end": 54.86,
+          "text": "أنتظر؟ أنا في هالمحل من نص ساعة. خلاص، أبي المدير.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "frustration",
+      "conversation_id": 1,
+      "index": 2,
+      "speaker": "B",
+      "segment_id": 8,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 7,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 45.1,
+          "end": 48.96,
+          "text": "الاسترداد يحتاج موافقة المدير. ممكن تنتظر دقايق.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 8,
+          "speaker": "B",
+          "role": "customer",
+          "start": 49.86,
+          "end": 54.86,
+          "text": "أنتظر؟ أنا في هالمحل من نص ساعة. خلاص، أبي المدير.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 9,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 55.76,
+          "end": 59.62,
+          "text": "طيب، أنادي لك المدير. أعتذر مرة ثانية.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "upsell_attempt",
+      "conversation_id": 1,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 5,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 3,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 18.84,
+          "end": 23.46,
+          "text": "أرى أن الطلب مأخر في المستودع. ممكن الأسبوع الجاي.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 4,
+          "speaker": "B",
+          "role": "customer",
+          "start": 24.36,
+          "end": 29.36,
+          "text": "الأسبوع الجاي؟ عندي ضيوف وبيتي بدون غسالة. وش أسوي أنا؟",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 5,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 30.26,
+          "end": 36.78,
+          "text": "أقدر أعرض عليك غسالة ثانية متوفرة الحين في المعرض، بـ 2,399 ريال، وتاخذها اليوم.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 6,
+          "speaker": "B",
+          "role": "customer",
+          "start": 37.68,
+          "end": 44.2,
+          "text": "أنا دفعت على غسالة، مو على غيرها! أبي أعرف متى توصل أو أسترد فلوسي.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 7,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 45.1,
+          "end": 48.96,
+          "text": "الاسترداد يحتاج موافقة المدير. ممكن تنتظر دقايق.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "unanswered_question",
+      "conversation_id": 1,
+      "index": 0,
+      "speaker": "B",
+      "segment_id": 2,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 1,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 7.42,
+          "end": 12.8,
+          "text": "وعليكم السلام ورحمة الله. أعتذر لك. خلني أشوف لك رقم الطلب.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 2,
+          "speaker": "B",
+          "role": "customer",
+          "start": 13.7,
+          "end": 17.94,
+          "text": "الرقم 4471. اتصلت ثلاث مرات ولا أحد رد.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 3,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 18.84,
+          "end": 23.46,
+          "text": "أرى أن الطلب مأخر في المستودع. ممكن الأسبوع الجاي.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 4,
+          "speaker": "B",
+          "role": "customer",
+          "start": 24.36,
+          "end": 29.36,
+          "text": "الأسبوع الجاي؟ عندي ضيوف وبيتي بدون غسالة. وش أسوي أنا؟",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "unanswered_question",
+      "conversation_id": 1,
+      "index": 1,
+      "speaker": "B",
+      "segment_id": 4,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 3,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 18.84,
+          "end": 23.46,
+          "text": "أرى أن الطلب مأخر في المستودع. ممكن الأسبوع الجاي.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 4,
+          "speaker": "B",
+          "role": "customer",
+          "start": 24.36,
+          "end": 29.36,
+          "text": "الأسبوع الجاي؟ عندي ضيوف وبيتي بدون غسالة. وش أسوي أنا؟",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 5,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 30.26,
+          "end": 36.78,
+          "text": "أقدر أعرض عليك غسالة ثانية متوفرة الحين في المعرض، بـ 2,399 ريال، وتاخذها اليوم.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 6,
+          "speaker": "B",
+          "role": "customer",
+          "start": 37.68,
+          "end": 44.2,
+          "text": "أنا دفعت على غسالة، مو على غيرها! أبي أعرف متى توصل أو أسترد فلوسي.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "customer_feedback",
+      "conversation_id": 1,
+      "index": 0,
+      "speaker": "B",
+      "segment_id": 6,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 5,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 30.26,
+          "end": 36.78,
+          "text": "أقدر أعرض عليك غسالة ثانية متوفرة الحين في المعرض، بـ 2,399 ريال، وتاخذها اليوم.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 6,
+          "speaker": "B",
+          "role": "customer",
+          "start": 37.68,
+          "end": 44.2,
+          "text": "أنا دفعت على غسالة، مو على غيرها! أبي أعرف متى توصل أو أسترد فلوسي.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 7,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 45.1,
+          "end": 48.96,
+          "text": "الاسترداد يحتاج موافقة المدير. ممكن تنتظر دقايق.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "greeting",
+      "conversation_id": 2,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 10,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 10,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 68.62,
+          "end": 71.34,
+          "text": "السلام عليكم، حياكم الله.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 11,
+          "speaker": "C",
+          "role": "customer",
+          "start": 72.24,
+          "end": 76.86,
+          "text": "وعليكم السلام. نبي ثلاجة كبيرة لعائلة من ستة أشخاص.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 12,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 77.76,
+          "end": 85.04,
+          "text": "أبشروا. هذي بـ 3,299 ريال، سعة 600 لتر، ودرجة التوفير الكهربائي ممتازة، وهذي 2,699 أقل سعة.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "upsell_attempt",
+      "conversation_id": 2,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 16,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 14,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 89.56,
+          "end": 94.94,
+          "text": "مجاني داخل جدة، خلال يومين. وفيه تركيب وتنظيف مجاني للثلاجة القديمة.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 15,
+          "speaker": "C",
+          "role": "customer",
+          "start": 95.84,
+          "end": 98.56,
+          "text": "ممتاز. ونبي ضمان زيادة.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 16,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 99.46,
+          "end": 103.7,
+          "text": "ضمان خمس سنوات على الضاغط بـ 299 ريال.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 17,
+          "speaker": "C",
+          "role": "customer",
+          "start": 104.6,
+          "end": 106.18,
+          "text": "حطه.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "greeting",
+      "conversation_id": 3,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 18,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 18,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 115.18,
+          "end": 117.52,
+          "text": "أهلاً وسهلاً، تفضلي.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 19,
+          "speaker": "D",
+          "role": "customer",
+          "start": 118.42,
+          "end": 121.9,
+          "text": "السلام عليكم. أبي قلاية هوائية متوسطة.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 20,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 122.8,
+          "end": 128.56,
+          "text": "هذي 5 لتر بـ 349 ريال، وهذي 7 لتر بـ 449 ريال.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "upsell_attempt",
+      "conversation_id": 3,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 22,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 20,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 122.8,
+          "end": 128.56,
+          "text": "هذي 5 لتر بـ 349 ريال، وهذي 7 لتر بـ 449 ريال.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 21,
+          "speaker": "D",
+          "role": "customer",
+          "start": 129.46,
+          "end": 131.8,
+          "text": "الـ 5 لتر.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 22,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 132.7,
+          "end": 137.7,
+          "text": "تمام. عندنا أيضاً طقم أدوات سيليكون للقلاية بـ 59 ريال.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 23,
+          "speaker": "D",
+          "role": "customer",
+          "start": 138.6,
+          "end": 140.56,
+          "text": "لا شكراً.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 24,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 141.46,
+          "end": 143.8,
+          "text": "تفضلي. 349 ريال.",
+          "is_highlighted": false
+        }
+      ]
+    }
+  ],
+  "spent_usd": 0.0,
+  "budget_usd": null,
+  "unpriced_calls": 0
+}

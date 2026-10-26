@@ -69,7 +69,7 @@ export function Login() {
         setDemo(o.demo ?? null); // only sent while the demo login is switched on
       })
       .catch(() => undefined);
-    document.title = "Log in - SalesIQ";
+    document.title = "Log in - SouqCue";
   }, []);
 
   /** Ticking fills the form with the demo login (the user still presses Log in); unticking clears what it filled. */
@@ -151,7 +151,7 @@ export function Signup() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    document.title = "Create account - SalesIQ";
+    document.title = "Create account - SouqCue";
   }, []);
 
   const tooShort = password.length > 0 && password.length < 8;

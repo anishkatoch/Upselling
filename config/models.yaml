@@ -11,6 +11,7 @@ transcription:
       overlap_seconds: 2
       max_parallel_chunks: 3
       mp3_bitrate: 48k
+      diarize_attempts: 3
     - provider: aws_transcribe
       languages: [en-IN, hi-IN]
       max_speakers: 10
@@ -18,11 +19,12 @@ transcription:
       timeout_minutes: 90
   # Optional second pass that re-transcribes each speaker turn for cleaner text.
   quality_pass:
-    enabled: false
-    model: gpt-transcribe
+    enabled: true
+    model: gpt-4o-transcribe
     min_segment_seconds: 1.0
     max_parallel: 4
-    extra_params: {}
+    extra_params:
+      prompt: "Transcribe Arabic in Arabic script. Keep English words, brand names, model names and numbers like Galaxy A56, iPhone 17 Pro, AirPods in Latin letters."
 
 llm:
   sdk_max_retries: 3
@@ -46,6 +48,9 @@ llm:
   steps:
     role_detection:
       effort: low
+    # Re-attributes lines the diarizer gave to the wrong person (merged voices), from dialogue content.
+    speaker_repair:
+      effort: high
     conversation_splitting:
       effort: medium
     mood_fusion:

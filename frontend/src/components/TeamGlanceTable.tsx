@@ -85,6 +85,8 @@ export default function TeamGlanceTable({ people, collapsedRows }: { people: Per
     });
   }, [people, sort]);
   if (people.length === 0) return null;
+  // When everyone is on an earlier period (demo data), a badge on every row is noise.
+  const allStale = people.every((p) => p.is_current === false);
   const limited = collapsedRows != null && !expanded && sorted.length > collapsedRows;
   const shown = limited ? sorted.slice(0, collapsedRows) : sorted;
 
@@ -155,7 +157,7 @@ export default function TeamGlanceTable({ people, collapsedRows }: { people: Per
                     <Link to={href} className="name-link">
                       {p.name}
                     </Link>{" "}
-                    <StalePeriodBadge person={p} />
+                    {!allStale && <StalePeriodBadge person={p} />}
                     <div
                       className="sub small"
                       title={

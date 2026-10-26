@@ -1,0 +1,552 @@
+{
+  "job_id": "a2214f524fa7d007a37fe0f439583341",
+  "source_filename": "2026-10-21_mohammed_floor_session.mp3",
+  "duration_s": 114.6,
+  "transcription_provider": "hand-authored:saudi-demo-sample",
+  "speakers": [
+    {
+      "speaker": "A",
+      "role": "salesperson",
+      "title": "Telecom store representative (Riyadh)",
+      "talk_time_s": 51.9
+    },
+    {
+      "speaker": "B",
+      "role": "customer",
+      "title": "Home internet subscriber",
+      "talk_time_s": 12.4
+    },
+    {
+      "speaker": "C",
+      "role": "customer",
+      "title": "Father adding lines for a family",
+      "talk_time_s": 8.9
+    },
+    {
+      "speaker": "D",
+      "role": "customer",
+      "title": "Customer travelling to Bahrain",
+      "talk_time_s": 7.0
+    }
+  ],
+  "has_sales_activity": true,
+  "conversations": [
+    {
+      "conversation_id": 1,
+      "start": 0.0,
+      "end": 42.5,
+      "topic": "Home internet upgrade",
+      "language": "other",
+      "is_sales_interaction": true,
+      "salespeople": [
+        "A"
+      ],
+      "customers": [
+        "B"
+      ],
+      "mood": {
+        "speakers": [
+          {
+            "speaker": "A",
+            "overall_mood": "happy",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Explains the reason for the upgrade in simple terms."
+          },
+          {
+            "speaker": "B",
+            "overall_mood": "calm",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Frustrated with slow internet at the start, reassured once there is no commitment."
+          }
+        ],
+        "frustration_moments": []
+      },
+      "upsell": {
+        "customer_requested": [
+          "Faster home internet for five devices."
+        ],
+        "upsell_attempts": [
+          {
+            "salesperson": "A",
+            "segment_id": 2,
+            "quote": "تمام. حضرتك على باقة 100 ميجا، صح؟ مع خمسة أجهزة فيديو وألعاب، الباقة 300 ميجا أنسب. الفرق 60 ريال في الشهر.",
+            "technique": "plan_upgrade",
+            "offered_item": "300 Mbps plan for 60 SAR more per month with a one-month trial",
+            "salesperson_initiated": true,
+            "after_customer_rejection": false,
+            "handled_objection": true,
+            "customer_response": "accepted",
+            "customer_mood": "calm"
+          }
+        ],
+        "excluded_candidates": [],
+        "pushy_upsell": false,
+        "pushy_reason": "No offer was repeated after a customer said no.",
+        "confidence": 0.93,
+        "summary": "The representative linked the customer's problem (five devices on 100 Mbps) to a plan upgrade and removed the risk with a one-month no-commitment trial. Accepted.",
+        "greeting_given": true,
+        "greeting_quote": "السلام عليكم، أهلاً بحضرتك.",
+        "greeting_segment_id": 0,
+        "products_discussed": [
+          "100 Mbps plan",
+          "300 Mbps plan +60 SAR/month"
+        ],
+        "customer_feedback": null,
+        "customer_feedback_segment_id": null,
+        "unanswered_questions": [],
+        "coaching_feedback": "Textbook plan upgrade: problem, reason in plain numbers, risk-free trial. Use this wording for family plans too."
+      },
+      "attempted_upsell": true,
+      "effort_score": 3.2,
+      "analyzed_by": "hand-authored:saudi-demo-sample",
+      "escalated": false,
+      "budget_note": null
+    },
+    {
+      "conversation_id": 2,
+      "start": 51.5,
+      "end": 79.16,
+      "topic": "Family plan for three lines",
+      "language": "other",
+      "is_sales_interaction": true,
+      "salespeople": [
+        "A"
+      ],
+      "customers": [
+        "C"
+      ],
+      "mood": {
+        "speakers": [
+          {
+            "speaker": "A",
+            "overall_mood": "calm",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Compares the family plan with separate lines, in riyals."
+          },
+          {
+            "speaker": "C",
+            "overall_mood": "neutral",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Quickly sees the saving."
+          }
+        ],
+        "frustration_moments": []
+      },
+      "upsell": {
+        "customer_requested": [
+          "Three postpaid lines for his family."
+        ],
+        "upsell_attempts": [
+          {
+            "salesperson": "A",
+            "segment_id": 10,
+            "quote": "طبعاً. الباقة العائلية: ثلاث خطوط بـ 299 ريال في الشهر مع 300 جيجا مشتركة. لو أخدتهم منفصلين يطلعوا 390.",
+            "technique": "plan_upgrade",
+            "offered_item": "Family plan, 299 SAR per month instead of 390",
+            "salesperson_initiated": true,
+            "after_customer_rejection": false,
+            "handled_objection": false,
+            "customer_response": "accepted",
+            "customer_mood": "happy"
+          }
+        ],
+        "excluded_candidates": [],
+        "pushy_upsell": false,
+        "pushy_reason": "No offer was repeated after a customer said no.",
+        "confidence": 0.92,
+        "summary": "Compared with the October 14 recording, the representative now offers the family plan and shows the saving. Accepted.",
+        "greeting_given": true,
+        "greeting_quote": "أهلاً يا فندم، اتفضل.",
+        "greeting_segment_id": 8,
+        "products_discussed": [
+          "family plan 299 SAR/month"
+        ],
+        "customer_feedback": null,
+        "customer_feedback_segment_id": null,
+        "unanswered_questions": [],
+        "coaching_feedback": "This is the opposite of the earlier family-lines sale: you led with the family plan and showed the saving."
+      },
+      "attempted_upsell": true,
+      "effort_score": 2.2,
+      "analyzed_by": "hand-authored:saudi-demo-sample",
+      "escalated": false,
+      "budget_note": null
+    },
+    {
+      "conversation_id": 3,
+      "start": 88.16,
+      "end": 112.58,
+      "topic": "Roaming pack",
+      "language": "other",
+      "is_sales_interaction": true,
+      "salespeople": [
+        "A"
+      ],
+      "customers": [
+        "D"
+      ],
+      "mood": {
+        "speakers": [
+          {
+            "speaker": "A",
+            "overall_mood": "calm",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Checks the system and gives a specific answer."
+          },
+          {
+            "speaker": "D",
+            "overall_mood": "neutral",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Relieved to get a price and a pack."
+          }
+        ],
+        "frustration_moments": []
+      },
+      "upsell": {
+        "customer_requested": [
+          "Internet access in Bahrain."
+        ],
+        "upsell_attempts": [
+          {
+            "salesperson": "A",
+            "segment_id": 16,
+            "quote": "خلّني أشوف لك على النظام. فيه باقة جيجا لسبعة أيام بـ 79 ريال بدل التجوال العادي.",
+            "technique": "other",
+            "offered_item": "Seven-day roaming pack for 79 SAR",
+            "salesperson_initiated": false,
+            "after_customer_rejection": false,
+            "handled_objection": false,
+            "customer_response": "accepted",
+            "customer_mood": "happy"
+          }
+        ],
+        "excluded_candidates": [],
+        "pushy_upsell": false,
+        "pushy_reason": "No offer was repeated after a customer said no.",
+        "confidence": 0.9,
+        "summary": "The customer asked how to use data abroad; the representative looked up and sold the roaming pack. It answers the customer's request directly, so it is a service answer rather than a pushed upsell.",
+        "greeting_given": true,
+        "greeting_quote": "السلام عليكم، أهلاً بك.",
+        "greeting_segment_id": 14,
+        "products_discussed": [
+          "7-day roaming pack 79 SAR"
+        ],
+        "customer_feedback": null,
+        "customer_feedback_segment_id": null,
+        "unanswered_questions": [],
+        "coaching_feedback": "Good. Compare this with the October 14 roaming conversation: looking up the pack was the whole difference."
+      },
+      "attempted_upsell": true,
+      "effort_score": 2.2,
+      "analyzed_by": "hand-authored:saudi-demo-sample",
+      "escalated": false,
+      "budget_note": null
+    }
+  ],
+  "salespeople": [
+    {
+      "speaker": "A",
+      "conversations": 3,
+      "conversations_with_upsell": 3,
+      "upsell_rate": 1.0,
+      "attempts_total": 3,
+      "attempts_per_conversation": 1.0,
+      "avg_effort_score": 2.5,
+      "upsell_talk_time_share": 0.479,
+      "acceptance_rate": 1.0,
+      "pushy_conversations": 0,
+      "techniques_used": [
+        "other",
+        "plan_upgrade"
+      ]
+    }
+  ],
+  "calls": [],
+  "evidence": [
+    {
+      "kind": "greeting",
+      "conversation_id": 1,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 0,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 0,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 0.0,
+          "end": 2.72,
+          "text": "السلام عليكم، أهلاً بحضرتك.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 1,
+          "speaker": "B",
+          "role": "customer",
+          "start": 3.62,
+          "end": 8.24,
+          "text": "وعليكم السلام. الإنترنت في البيت بطيء، ومعايا خمسة أجهزة.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 2,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 9.14,
+          "end": 18.32,
+          "text": "تمام. حضرتك على باقة 100 ميجا، صح؟ مع خمسة أجهزة فيديو وألعاب، الباقة 300 ميجا أنسب. الفرق 60 ريال في الشهر.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "upsell_attempt",
+      "conversation_id": 1,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 2,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 0,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 0.0,
+          "end": 2.72,
+          "text": "السلام عليكم، أهلاً بحضرتك.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 1,
+          "speaker": "B",
+          "role": "customer",
+          "start": 3.62,
+          "end": 8.24,
+          "text": "وعليكم السلام. الإنترنت في البيت بطيء، ومعايا خمسة أجهزة.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 2,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 9.14,
+          "end": 18.32,
+          "text": "تمام. حضرتك على باقة 100 ميجا، صح؟ مع خمسة أجهزة فيديو وألعاب، الباقة 300 ميجا أنسب. الفرق 60 ريال في الشهر.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 3,
+          "speaker": "B",
+          "role": "customer",
+          "start": 19.22,
+          "end": 21.56,
+          "text": "ليه 300 بالذات؟",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 4,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 22.46,
+          "end": 30.88,
+          "text": "لأن 100 تتقسم على الأجهزة، وكل جهاز هياخد 20 تقريباً. بس لو حبيت أجرب لك الأول شهر بدون التزام.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "greeting",
+      "conversation_id": 2,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 8,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 8,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 51.5,
+          "end": 54.22,
+          "text": "أهلاً يا فندم، اتفضل.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 9,
+          "speaker": "C",
+          "role": "customer",
+          "start": 55.12,
+          "end": 58.98,
+          "text": "السلام عليكم. أبي ثلاث خطوط شهرية للعيلة.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 10,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 59.88,
+          "end": 68.3,
+          "text": "طبعاً. الباقة العائلية: ثلاث خطوط بـ 299 ريال في الشهر مع 300 جيجا مشتركة. لو أخدتهم منفصلين يطلعوا 390.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "upsell_attempt",
+      "conversation_id": 2,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 10,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 8,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 51.5,
+          "end": 54.22,
+          "text": "أهلاً يا فندم، اتفضل.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 9,
+          "speaker": "C",
+          "role": "customer",
+          "start": 55.12,
+          "end": 58.98,
+          "text": "السلام عليكم. أبي ثلاث خطوط شهرية للعيلة.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 10,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 59.88,
+          "end": 68.3,
+          "text": "طبعاً. الباقة العائلية: ثلاث خطوط بـ 299 ريال في الشهر مع 300 جيجا مشتركة. لو أخدتهم منفصلين يطلعوا 390.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 11,
+          "speaker": "C",
+          "role": "customer",
+          "start": 69.2,
+          "end": 72.3,
+          "text": "يعني أوفر تسعين. تمام، سجلهم.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 12,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 73.2,
+          "end": 76.3,
+          "text": "وهتحتاج رخصة الإقامة لكل واحد.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "greeting",
+      "conversation_id": 3,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 14,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 14,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 88.16,
+          "end": 90.88,
+          "text": "السلام عليكم، أهلاً بك.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 15,
+          "speaker": "D",
+          "role": "customer",
+          "start": 91.78,
+          "end": 96.4,
+          "text": "وعليكم السلام. بسافر البحرين يوم السبت، وين أفعل النت؟",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 16,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 97.3,
+          "end": 104.58,
+          "text": "خلّني أشوف لك على النظام. فيه باقة جيجا لسبعة أيام بـ 79 ريال بدل التجوال العادي.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "upsell_attempt",
+      "conversation_id": 3,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 16,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 14,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 88.16,
+          "end": 90.88,
+          "text": "السلام عليكم، أهلاً بك.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 15,
+          "speaker": "D",
+          "role": "customer",
+          "start": 91.78,
+          "end": 96.4,
+          "text": "وعليكم السلام. بسافر البحرين يوم السبت، وين أفعل النت؟",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 16,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 97.3,
+          "end": 104.58,
+          "text": "خلّني أشوف لك على النظام. فيه باقة جيجا لسبعة أيام بـ 79 ريال بدل التجوال العادي.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 17,
+          "speaker": "D",
+          "role": "customer",
+          "start": 105.48,
+          "end": 107.82,
+          "text": "ممتاز، فعّلها لي.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 18,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 108.72,
+          "end": 112.58,
+          "text": "تمام، فعّلتها، وتبدأ لما توصل. مع السلامة.",
+          "is_highlighted": false
+        }
+      ]
+    }
+  ],
+  "spent_usd": 0.0,
+  "budget_usd": null,
+  "unpriced_calls": 0
+}

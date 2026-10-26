@@ -132,6 +132,13 @@ export default function Dashboard() {
         </div>
       </StaggerItem>
 
+      {!!board?.unassigned_conversations && (
+        <StaggerItem className="card" style={{ padding: "12px 18px" }}>
+          {board.unassigned_conversations} conversation(s) have no salesperson name yet, so they are not counted
+          here. <Link to="/recordings">Open Recordings</Link> to name them.
+        </StaggerItem>
+      )}
+
       {(jobsError || boardError) && (
         <p className="error">
           <AlertTriangle size={16} /> {jobsError ?? boardError}

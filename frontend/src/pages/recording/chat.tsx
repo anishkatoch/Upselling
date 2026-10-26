@@ -28,10 +28,14 @@ export function ChatBubble({
   children: ReactNode;
 }) {
   return (
-    <div className={`chat-msg ${side}`} id={id} ref={bubbleRef}>
+    <div
+      className={`chat-msg ${side}`}
+      id={id}
+      ref={bubbleRef}
+    >
       <div className={`chat-bubble ${edge ? `edge-${edge}` : ""}`}>
         {tag && <span className={`chat-tag ${edge ?? ""}`}>{tag}</span>}
-        <div className="chat-text">{children}</div>
+        <div className="chat-text" dir="auto">{children}</div>
       </div>
       <span className="chat-time">{time}</span>
     </div>
