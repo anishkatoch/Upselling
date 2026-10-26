@@ -17,14 +17,14 @@ ENV UV_COMPILE_BYTECODE=1 \
 WORKDIR /app
 
 # Dependencies first (cached layer), project code second.
-RUN --mount=type=cache,target=/root/.cache/uv \
+RUN --mount=type=cache,id=s/4750c0ed-f53e-4d73-a7b0-03882a4a6d01-/root/.cache/uv,target=/root/.cache/uv \
     --mount=type=bind,source=uv.lock,target=uv.lock \
     --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
     uv sync --frozen --no-dev --no-install-project
 
 COPY pyproject.toml uv.lock ./
 COPY src ./src
-RUN --mount=type=cache,target=/root/.cache/uv \
+RUN --mount=type=cache,id=s/4750c0ed-f53e-4d73-a7b0-03882a4a6d01-/root/.cache/uv,target=/root/.cache/uv \
     uv sync --frozen --no-dev --no-editable
 
 # ---------- runtime ----------
