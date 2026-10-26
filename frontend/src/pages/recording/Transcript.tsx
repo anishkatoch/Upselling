@@ -5,7 +5,15 @@ import { ChatBubble, ChatGroup } from "./chat";
 import { highlight, sideOf } from "./chatUtils";
 import { canon, convWho, type RecCtx } from "./shared";
 
-export default function TranscriptTab({ ctx, scrollTo, onScrolled }: { ctx: RecCtx; scrollTo: number | null; onScrolled: () => void }) {
+export default function TranscriptTab({
+  ctx,
+  scrollTo,
+  onScrolled,
+}: {
+  ctx: RecCtx;
+  scrollTo: number | null;
+  onScrolled: () => void;
+}) {
   const { report: r, segments, who } = ctx;
   const convs = r.conversations;
   const [convId, setConvId] = useState("");
@@ -13,7 +21,6 @@ export default function TranscriptTab({ ctx, scrollTo, onScrolled }: { ctx: RecC
   const [q, setQ] = useState("");
   const refs = useRef<Record<number, HTMLDivElement | null>>({});
   const [copied, setCopied] = useState(false);
-
   const upsellSegs = useMemo(() => {
     const m = new Map<number, string>();
     convs.forEach((c) => c.upsell?.upsell_attempts.forEach((a) => m.set(a.segment_id, a.technique)));

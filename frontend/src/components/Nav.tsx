@@ -22,7 +22,7 @@ export default function Nav() {
       </a>
       <header className="topbar">
         <div className="topbar-in">
-          <Link to="/" className="brand" aria-label="SalesIQ home">
+          <Link to="/" className="brand" aria-label="SouqCue home">
             <Brand />
           </Link>
           <nav className="top-nav" aria-label="Primary">

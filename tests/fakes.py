@@ -7,6 +7,7 @@ from pathlib import Path
 from upsell_poc import audio
 from upsell_poc.llm.base import Usage
 from upsell_poc.schemas import (
+    SpeakerRepair,
     ConversationSpan,
     ConversationSplit,
     MoodAnalysis,
@@ -150,6 +151,8 @@ class FakeLLM:
                 coaching_feedback="Good opening greeting; next time confirm the customer's budget before offering "
                 "a discount.",
             ), Usage()
+        if schema is SpeakerRepair:
+            return SpeakerRepair(fixes=[]), Usage()
         raise AssertionError(f"unexpected schema {schema}")
 
 

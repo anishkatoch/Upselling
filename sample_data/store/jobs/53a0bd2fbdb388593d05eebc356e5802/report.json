@@ -1,0 +1,592 @@
+{
+  "job_id": "53a0bd2fbdb388593d05eebc356e5802",
+  "source_filename": "2026-10-14_imran_floor_session.mp3",
+  "duration_s": 124.3,
+  "transcription_provider": "hand-authored:saudi-demo-sample",
+  "speakers": [
+    {
+      "speaker": "A",
+      "role": "salesperson",
+      "title": "Accessories counter salesperson (Jeddah)",
+      "talk_time_s": 48.9
+    },
+    {
+      "speaker": "B",
+      "role": "customer",
+      "title": "Power bank buyer",
+      "talk_time_s": 8.9
+    },
+    {
+      "speaker": "C",
+      "role": "customer",
+      "title": "Earbuds buyer",
+      "talk_time_s": 10.9
+    },
+    {
+      "speaker": "D",
+      "role": "customer",
+      "title": "Customer returning a cable",
+      "talk_time_s": 18.5
+    }
+  ],
+  "has_sales_activity": true,
+  "conversations": [
+    {
+      "conversation_id": 1,
+      "start": 0.0,
+      "end": 25.38,
+      "topic": "Power bank",
+      "language": "other",
+      "is_sales_interaction": true,
+      "salespeople": [
+        "A"
+      ],
+      "customers": [
+        "B"
+      ],
+      "mood": {
+        "speakers": [
+          {
+            "speaker": "A",
+            "overall_mood": "calm",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Quick and clear."
+          },
+          {
+            "speaker": "B",
+            "overall_mood": "neutral",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Price-focused, satisfied."
+          }
+        ],
+        "frustration_moments": []
+      },
+      "upsell": {
+        "customer_requested": [
+          "A cheap power bank that can charge two phones."
+        ],
+        "upsell_attempts": [],
+        "excluded_candidates": [
+          "عندي واحد 10,000 بـ 99 ريال، وواحد 20,000 بـ 169 ريال. -> Quotes both sizes the customer might want."
+        ],
+        "pushy_upsell": false,
+        "pushy_reason": "No offer was repeated after a customer said no.",
+        "confidence": 0.9,
+        "summary": "No upsell; the customer wanted the cheapest option that fits and got it.",
+        "greeting_given": true,
+        "greeting_quote": "السلام عليكم، تفضل.",
+        "greeting_segment_id": 0,
+        "products_discussed": [
+          "10,000 mAh power bank 99 SAR",
+          "20,000 mAh power bank 169 SAR"
+        ],
+        "customer_feedback": null,
+        "customer_feedback_segment_id": null,
+        "unanswered_questions": [],
+        "coaching_feedback": "Fine as the customer's priority was price. A 20,000 mAh upgrade was not needed."
+      },
+      "attempted_upsell": false,
+      "effort_score": 0.0,
+      "analyzed_by": "hand-authored:saudi-demo-sample",
+      "escalated": false,
+      "budget_note": null
+    },
+    {
+      "conversation_id": 2,
+      "start": 34.38,
+      "end": 70.8,
+      "topic": "Wireless earbuds",
+      "language": "other",
+      "is_sales_interaction": true,
+      "salespeople": [
+        "A"
+      ],
+      "customers": [
+        "C"
+      ],
+      "mood": {
+        "speakers": [
+          {
+            "speaker": "A",
+            "overall_mood": "calm",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Agrees with the customer's reasoning."
+          },
+          {
+            "speaker": "C",
+            "overall_mood": "neutral",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Direct and decisive."
+          }
+        ],
+        "frustration_moments": []
+      },
+      "upsell": {
+        "customer_requested": [
+          "Sweat-resistant earbuds for the gym."
+        ],
+        "upsell_attempts": [
+          {
+            "salesperson": "A",
+            "segment_id": 10,
+            "quote": "صح كلامك. نضيف لك كيس تنظيف وأطراف سيليكون إضافية بـ 25 ريال؟",
+            "technique": "cross_sell",
+            "offered_item": "Cleaning kit and extra silicone tips for 25 SAR",
+            "salesperson_initiated": true,
+            "after_customer_rejection": false,
+            "handled_objection": false,
+            "customer_response": "rejected",
+            "customer_mood": "neutral"
+          }
+        ],
+        "excluded_candidates": [
+          "هذي بـ 229 ريال مقاومة للماء والعرق، وفيها ثبات ممتاز. وفيه نسخة برو بـ 399 فيها عزل للضجيج. -> Presents the requested earbuds and mentions the pro model for comparison."
+        ],
+        "pushy_upsell": false,
+        "pushy_reason": "The add-on was offered once.",
+        "confidence": 0.9,
+        "summary": "The salesperson did not push the 399 SAR pro model after the customer said he did not need noise cancelling, and made one small add-on offer.",
+        "greeting_given": true,
+        "greeting_quote": "أهلاً أخوي، أقدر أساعدك؟",
+        "greeting_segment_id": 6,
+        "products_discussed": [
+          "earbuds 229 SAR",
+          "pro earbuds 399 SAR",
+          "cleaning kit 25 SAR"
+        ],
+        "customer_feedback": null,
+        "customer_feedback_segment_id": null,
+        "unanswered_questions": [],
+        "coaching_feedback": "Good call to agree with the customer instead of upgrading him. Keep the add-on offer this short."
+      },
+      "attempted_upsell": true,
+      "effort_score": 2.2,
+      "analyzed_by": "hand-authored:saudi-demo-sample",
+      "escalated": false,
+      "budget_note": null
+    },
+    {
+      "conversation_id": 3,
+      "start": 79.8,
+      "end": 122.3,
+      "topic": "Return of a faulty phone cable",
+      "language": "other",
+      "is_sales_interaction": true,
+      "salespeople": [
+        "A"
+      ],
+      "customers": [
+        "D"
+      ],
+      "mood": {
+        "speakers": [
+          {
+            "speaker": "A",
+            "overall_mood": "calm",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Stays calm, but pitches an upgrade before fixing the problem."
+          },
+          {
+            "speaker": "D",
+            "overall_mood": "impatient",
+            "frustration_level": 4,
+            "trend": "stable",
+            "summary": "Came with a faulty product and a time limit; becomes short with the salesperson when the upgrade is offered and a question about the invoice goes unanswered."
+          }
+        ],
+        "frustration_moments": [
+          {
+            "segment_id": 20,
+            "speaker": "D",
+            "quote": "ما جاوبتني على الفاتورة، المهم بدله وخلصني.",
+            "evidence_source": "words",
+            "evidence": "The customer says his question was not answered and asks to be served quickly: impatience directed at the process."
+          }
+        ]
+      },
+      "upsell": {
+        "customer_requested": [
+          "Replace a faulty cable with the same one.",
+          "Know whether the invoice shows the warranty."
+        ],
+        "upsell_attempts": [
+          {
+            "salesperson": "A",
+            "segment_id": 17,
+            "quote": "أكيد، نبدله لك. فيه نوع أقوى بـ 59 ريال بدل 35، وبعدها ما تحتاج تغيره.",
+            "technique": "upgrade",
+            "offered_item": "Stronger cable for 59 SAR instead of 35",
+            "salesperson_initiated": true,
+            "after_customer_rejection": false,
+            "handled_objection": false,
+            "customer_response": "rejected",
+            "customer_mood": "impatient"
+          }
+        ],
+        "excluded_candidates": [
+          "الجديد يجي معه ضمان سنة بعد. -> Describes the warranty on the replacement."
+        ],
+        "pushy_upsell": false,
+        "pushy_reason": "A single upgrade offer, though badly timed: the customer was still waiting to have the problem fixed.",
+        "confidence": 0.86,
+        "summary": "The customer returned a faulty cable and was offered a paid upgrade before the replacement. The customer's question about the invoice went unanswered and he left impatient.",
+        "greeting_given": false,
+        "greeting_quote": null,
+        "greeting_segment_id": null,
+        "products_discussed": [
+          "USB cable 35 SAR",
+          "braided cable 59 SAR"
+        ],
+        "customer_feedback": "The customer said his question about the invoice was not answered.",
+        "customer_feedback_segment_id": 20,
+        "unanswered_questions": [
+          {
+            "segment_id": 18,
+            "speaker": "D",
+            "question": "أنا أبي نفس الكيبل بس شغال. وين الفاتورة تقول فيها ضمان؟",
+            "note": "The salesperson mentioned the new warranty instead of checking the invoice."
+          }
+        ],
+        "coaching_feedback": "Fix the customer's problem first and offer nothing else until it is solved. Answer the invoice question directly, even if the answer is 'let me check'."
+      },
+      "attempted_upsell": true,
+      "effort_score": 2.2,
+      "analyzed_by": "hand-authored:saudi-demo-sample",
+      "escalated": false,
+      "budget_note": null
+    }
+  ],
+  "salespeople": [
+    {
+      "speaker": "A",
+      "conversations": 3,
+      "conversations_with_upsell": 2,
+      "upsell_rate": 0.667,
+      "attempts_total": 2,
+      "attempts_per_conversation": 0.67,
+      "avg_effort_score": 1.5,
+      "upsell_talk_time_share": 0.259,
+      "acceptance_rate": 0.0,
+      "pushy_conversations": 0,
+      "techniques_used": [
+        "cross_sell",
+        "upgrade"
+      ]
+    }
+  ],
+  "calls": [],
+  "evidence": [
+    {
+      "kind": "greeting",
+      "conversation_id": 1,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 0,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 0,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 0.0,
+          "end": 2.34,
+          "text": "السلام عليكم، تفضل.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 1,
+          "speaker": "B",
+          "role": "customer",
+          "start": 3.24,
+          "end": 7.1,
+          "text": "وعليكم السلام. أبي باور بانك، السعر مهم.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 2,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 8.0,
+          "end": 13.38,
+          "text": "عندي واحد 10,000 بـ 99 ريال، وواحد 20,000 بـ 169 ريال.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "greeting",
+      "conversation_id": 2,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 6,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 6,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 34.38,
+          "end": 37.1,
+          "text": "أهلاً أخوي، أقدر أساعدك؟",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 7,
+          "speaker": "C",
+          "role": "customer",
+          "start": 38.0,
+          "end": 41.48,
+          "text": "أبي سماعات بلوتوث للجيم، تتحمل العرق.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 8,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 42.38,
+          "end": 50.42,
+          "text": "هذي بـ 229 ريال مقاومة للماء والعرق، وفيها ثبات ممتاز. وفيه نسخة برو بـ 399 فيها عزل للضجيج.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "upsell_attempt",
+      "conversation_id": 2,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 10,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 8,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 42.38,
+          "end": 50.42,
+          "text": "هذي بـ 229 ريال مقاومة للماء والعرق، وفيها ثبات ممتاز. وفيه نسخة برو بـ 399 فيها عزل للضجيج.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 9,
+          "speaker": "C",
+          "role": "customer",
+          "start": 51.32,
+          "end": 54.8,
+          "text": "للجيم ما أحتاج عزل. الأولى تكفي.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 10,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 55.7,
+          "end": 61.46,
+          "text": "صح كلامك. نضيف لك كيس تنظيف وأطراف سيليكون إضافية بـ 25 ريال؟",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 11,
+          "speaker": "C",
+          "role": "customer",
+          "start": 62.36,
+          "end": 64.7,
+          "text": "لا، شكراً. حاسبني.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 12,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 65.6,
+          "end": 68.32,
+          "text": "تمام. 229 ريال، مدى؟",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "frustration",
+      "conversation_id": 3,
+      "index": 0,
+      "speaker": "D",
+      "segment_id": 20,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 19,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 110.06,
+          "end": 113.54,
+          "text": "الجديد يجي معه ضمان سنة بعد.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 20,
+          "speaker": "D",
+          "role": "customer",
+          "start": 114.44,
+          "end": 118.3,
+          "text": "ما جاوبتني على الفاتورة، المهم بدله وخلصني.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 21,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 119.2,
+          "end": 122.3,
+          "text": "ولا يهمك، تفضل الكيبل الجديد.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "upsell_attempt",
+      "conversation_id": 3,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 17,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 15,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 86.46,
+          "end": 90.7,
+          "text": "هلا والله. خلني أشوفه. أيوه، المنفذ فيه مشكلة.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 16,
+          "speaker": "D",
+          "role": "customer",
+          "start": 91.6,
+          "end": 95.08,
+          "text": "طيب أبي أبدله اليوم، وعندي مشوار.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 17,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 95.98,
+          "end": 102.88,
+          "text": "أكيد، نبدله لك. فيه نوع أقوى بـ 59 ريال بدل 35، وبعدها ما تحتاج تغيره.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 18,
+          "speaker": "D",
+          "role": "customer",
+          "start": 103.78,
+          "end": 109.16,
+          "text": "أنا أبي نفس الكيبل بس شغال. وين الفاتورة تقول فيها ضمان؟",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 19,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 110.06,
+          "end": 113.54,
+          "text": "الجديد يجي معه ضمان سنة بعد.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "unanswered_question",
+      "conversation_id": 3,
+      "index": 0,
+      "speaker": "D",
+      "segment_id": 18,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 17,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 95.98,
+          "end": 102.88,
+          "text": "أكيد، نبدله لك. فيه نوع أقوى بـ 59 ريال بدل 35، وبعدها ما تحتاج تغيره.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 18,
+          "speaker": "D",
+          "role": "customer",
+          "start": 103.78,
+          "end": 109.16,
+          "text": "أنا أبي نفس الكيبل بس شغال. وين الفاتورة تقول فيها ضمان؟",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 19,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 110.06,
+          "end": 113.54,
+          "text": "الجديد يجي معه ضمان سنة بعد.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 20,
+          "speaker": "D",
+          "role": "customer",
+          "start": 114.44,
+          "end": 118.3,
+          "text": "ما جاوبتني على الفاتورة، المهم بدله وخلصني.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "customer_feedback",
+      "conversation_id": 3,
+      "index": 0,
+      "speaker": "D",
+      "segment_id": 20,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 19,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 110.06,
+          "end": 113.54,
+          "text": "الجديد يجي معه ضمان سنة بعد.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 20,
+          "speaker": "D",
+          "role": "customer",
+          "start": 114.44,
+          "end": 118.3,
+          "text": "ما جاوبتني على الفاتورة، المهم بدله وخلصني.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 21,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 119.2,
+          "end": 122.3,
+          "text": "ولا يهمك، تفضل الكيبل الجديد.",
+          "is_highlighted": false
+        }
+      ]
+    }
+  ],
+  "spent_usd": 0.0,
+  "budget_usd": null,
+  "unpriced_calls": 0
+}

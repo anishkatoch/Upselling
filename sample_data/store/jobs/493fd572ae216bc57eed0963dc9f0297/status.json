@@ -1,0 +1,17 @@
+{
+  "job_id": "493fd572ae216bc57eed0963dc9f0297",
+  "status": "completed",
+  "stage": "done",
+  "progress": 1.0,
+  "error": null,
+  "filename": "2026-10-21_khalid_floor_session.mp3",
+  "input_key": "jobs/493fd572ae216bc57eed0963dc9f0297/input/2026-10-21_khalid_floor_session.mp3",
+  "industry": "car showroom",
+  "product_catalog": null,
+  "salesperson_name": "Khalid Al-Dosari",
+  "created_at": "2026-10-21T10:30:00+00:00",
+  "updated_at": "2026-10-21T10:30:00+00:00",
+  "spent_usd": 0.0,
+  "budget_usd": null,
+  "cancel_requested": false
+}

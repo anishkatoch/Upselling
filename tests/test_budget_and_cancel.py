@@ -157,4 +157,4 @@ def test_conversation_budget_degrades_that_conversation_without_failing_the_job(
     [conv] = report.conversations
     assert conv.budget_note is not None and "per-conversation budget" in conv.budget_note
     assert conv.upsell is None and conv.mood is not None
-    assert llm.calls == ["RoleDetection", "ConversationSplit", "MoodAnalysis"]
+    assert llm.calls == ["RoleDetection", "SpeakerRepair", "ConversationSplit", "MoodAnalysis"]

@@ -1,0 +1,17 @@
+{
+  "job_id": "0a04730dc90690005f76fa8eadc722f7",
+  "status": "completed",
+  "stage": "done",
+  "progress": 1.0,
+  "error": null,
+  "filename": "2026-10-14_mohammed_floor_session.mp3",
+  "input_key": "jobs/0a04730dc90690005f76fa8eadc722f7/input/2026-10-14_mohammed_floor_session.mp3",
+  "industry": "telecom retail",
+  "product_catalog": null,
+  "salesperson_name": "Mohammed Hassan",
+  "created_at": "2026-10-14T10:30:00+00:00",
+  "updated_at": "2026-10-14T10:30:00+00:00",
+  "spent_usd": 0.0,
+  "budget_usd": null,
+  "cancel_requested": false
+}

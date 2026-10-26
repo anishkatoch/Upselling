@@ -26,7 +26,13 @@ from upsell_poc.analysis import acoustics, prompts
 from upsell_poc.analysis.conversation import analyze_conversation
 from upsell_poc.analysis.evidence import attach_evidence
 from upsell_poc.analysis.scoring import salesperson_metrics
-from upsell_poc.analysis.structure import apply_speaker_merge, detect_roles, split_conversations
+from upsell_poc.analysis.structure import (
+    apply_speaker_merge,
+    detect_roles,
+    repair_speakers,
+    split_conversations,
+    split_sentences,
+)
 from upsell_poc.analysis.tone import ToneAnalyzer
 from upsell_poc.config import ModelsConfig, Settings, get_settings, load_models_config
 from upsell_poc.control import ConversationBudgetExceeded, JobStopped
@@ -45,7 +51,7 @@ from upsell_poc.schemas import (
 )
 from upsell_poc.storage import Storage, get_storage
 from upsell_poc.transcription import build_transcription_chain
-from upsell_poc.transcription.base import TranscriptionChain
+from upsell_poc.transcription.base import TranscriptionChain, merge_adjacent
 
 log = logging.getLogger(__name__)
 
@@ -61,6 +67,24 @@ MAX_PARALLEL_CONVERSATIONS = 5
 def _fp(*parts: Any) -> str:
     blob = json.dumps(parts, sort_keys=True, default=str).encode()
     return hashlib.sha256(blob).hexdigest()[:16]
+
+
+def apply_speaker_edits(
+    transcript: Transcript, role_map: dict[str, str], title_map: dict[str, str], edits: dict
+) -> tuple[Transcript, dict[str, str], dict[str, str]]:
+    """Apply a user's manual speaker fixes: `moves` {segment id: speaker label}, `roles` {label: role}."""
+    moves = {int(k): v for k, v in (edits.get("moves") or {}).items()}
+    if not moves:
+        return transcript, role_map, title_map
+    segments = [s.model_copy(update={"speaker": moves[s.id]}) if s.id in moves else s for s in transcript.segments]
+    role_map, title_map = dict(role_map), dict(title_map)
+    for label, role in (edits.get("roles") or {}).items():
+        role_map[label] = role
+        title_map.setdefault(label, (edits.get("titles") or {}).get(label, "Added by you"))
+    used = {s.speaker for s in segments}
+    role_map = {k: v for k, v in role_map.items() if k in used}
+    title_map = {k: v for k, v in title_map.items() if k in used}
+    return transcript.model_copy(update={"segments": segments}), role_map, title_map
 
 
 def sha256_file(path: Path) -> str:
@@ -189,6 +213,19 @@ class Pipeline:
         self.storage.put_json(key, result.model_dump(mode="json"))
         return result
 
+    def _cached_dict(self, key: str, compute: Callable[[], dict]) -> dict:
+        data = self.storage.get_json(key)
+        if data is not None:
+            return data
+        self._check_stop()
+        try:
+            result = compute()
+        except Exception:  # noqa: BLE001 - repair is best effort; the labelled transcript still stands
+            log.warning("speaker repair failed; keeping diarizer labels", exc_info=True)
+            return {}
+        self.storage.put_json(key, result)
+        return result
+
     def run(
         self,
         source: Path,
@@ -217,10 +254,21 @@ class Pipeline:
         r_fp = _fp(t_fp, prompts.PROMPT_VERSION, self.models.llm.model_dump())
         roles = self._cached(f"{cache}/roles-{r_fp}.json", RoleDetection, lambda: detect_roles(self.llm, transcript))
         merged, role_map, title_map = apply_speaker_merge(transcript, roles)
+        auto: dict = {}
+        if self.models.llm.step("speaker_repair").enabled:
+            # Repair works per sentence (a diarizer segment can hold two people), then lines are joined back.
+            sentences = split_sentences(merged)
+            auto = self._cached_dict(
+                f"{cache}/repair-{r_fp}.json", lambda: repair_speakers(self.llm, sentences, role_map)
+            )
+            fixed, role_map, title_map = apply_speaker_edits(sentences, role_map, title_map, auto)
+            merged = fixed.model_copy(update={"segments": merge_adjacent(fixed.segments)})
+        edits = self.storage.get_json(jobs.edits_key(job_id)) or {}
+        merged, role_map, title_map = apply_speaker_edits(merged, role_map, title_map, edits)
 
         # 3. conversations
         self.progress("splitting_conversations", 0.5)
-        s_fp = _fp(r_fp, "split")
+        s_fp = _fp(r_fp, "split", auto, edits)
         split = self._cached(
             f"{cache}/conversations-{s_fp}.json",
             ConversationSplit,

@@ -348,6 +348,7 @@ export interface Dashboard {
   current_period?: string;
   jobs_counted: number;
   jobs_skipped: number;
+  unassigned_conversations?: number;
   technique_stats?: TechniqueStat[];
 }
 

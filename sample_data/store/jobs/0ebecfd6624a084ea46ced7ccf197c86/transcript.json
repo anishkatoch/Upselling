@@ -1,0 +1,191 @@
+{
+  "transcript": {
+    "duration": 127.9,
+    "segments": [
+      {
+        "id": 0,
+        "speaker": "A",
+        "start": 0.0,
+        "end": 2.72,
+        "text": "السلام عليكم، أهلاً بك."
+      },
+      {
+        "id": 1,
+        "speaker": "B",
+        "start": 3.62,
+        "end": 7.48,
+        "text": "وعليكم السلام. أبي غسالة أوتوماتيك، 9 كيلو."
+      },
+      {
+        "id": 2,
+        "speaker": "A",
+        "start": 8.38,
+        "end": 16.04,
+        "text": "عندي هذي بـ 1,899 ريال، وفيها بخار للتعقيم. والتوصيل خلال يومين، وأتصل فيك الصبح قبل ما يوصل."
+      },
+      {
+        "id": 3,
+        "speaker": "B",
+        "start": 16.94,
+        "end": 19.28,
+        "text": "حلو. فيه ضمان؟"
+      },
+      {
+        "id": 4,
+        "speaker": "A",
+        "start": 20.18,
+        "end": 27.46,
+        "text": "سنتين على الجهاز و10 سنوات على المحرك. وإذا تحب، التمديد خمس سنوات كاملة بـ 249 ريال."
+      },
+      {
+        "id": 5,
+        "speaker": "B",
+        "start": 28.36,
+        "end": 30.7,
+        "text": "لا، يكفي هذا."
+      },
+      {
+        "id": 6,
+        "speaker": "A",
+        "start": 31.6,
+        "end": 38.12,
+        "text": "تمام. أرسل لك رسالة بموعد التوصيل. وإذا تأخر أي شي أنا موجودة على رقمي."
+      },
+      {
+        "id": 7,
+        "speaker": "A",
+        "start": 47.12,
+        "end": 49.84,
+        "text": "السلام عليكم، حياك الله."
+      },
+      {
+        "id": 8,
+        "speaker": "C",
+        "start": 50.74,
+        "end": 55.74,
+        "text": "وعليكم السلام. أبي ماكينة قهوة، وأبي أسوي دلة سعودية بعد."
+      },
+      {
+        "id": 9,
+        "speaker": "A",
+        "start": 56.64,
+        "end": 63.92,
+        "text": "أنصحك بهذي، ماكينة اسبريسو بـ 799 ريال. وللقهوة السعودية عندنا غلاية كهربائية للدلة بـ 189 ريال."
+      },
+      {
+        "id": 10,
+        "speaker": "C",
+        "start": 64.82,
+        "end": 67.54,
+        "text": "الاثنين؟ وش فيها الغلاية؟"
+      },
+      {
+        "id": 11,
+        "speaker": "A",
+        "start": 68.44,
+        "end": 72.68,
+        "text": "تحافظ على حرارة القهوة وتسخن بسرعة. جربها لك."
+      },
+      {
+        "id": 12,
+        "speaker": "C",
+        "start": 73.58,
+        "end": 75.92,
+        "text": "حلوة. حطهم، الاثنين."
+      },
+      {
+        "id": 13,
+        "speaker": "A",
+        "start": 76.82,
+        "end": 82.58,
+        "text": "المجموع 988 ريال. وفي عرض على الاثنين، خصم 10%، يصير 889 ريال."
+      },
+      {
+        "id": 14,
+        "speaker": "A",
+        "start": 91.58,
+        "end": 95.06,
+        "text": "Hello, welcome. How can I help?"
+      },
+      {
+        "id": 15,
+        "speaker": "D",
+        "start": 95.96,
+        "end": 100.58,
+        "text": "Hi, I need a small microwave for my flat."
+      },
+      {
+        "id": 16,
+        "speaker": "A",
+        "start": 101.48,
+        "end": 108.0,
+        "text": "This one is 20 litres, 389 riyals, and this is 25 litres at 449."
+      },
+      {
+        "id": 17,
+        "speaker": "D",
+        "start": 108.9,
+        "end": 112.0,
+        "text": "The 20 litre is enough."
+      },
+      {
+        "id": 18,
+        "speaker": "A",
+        "start": 112.9,
+        "end": 118.28,
+        "text": "Good. Do you need a microwave-safe cover set? It's 35 riyals."
+      },
+      {
+        "id": 19,
+        "speaker": "D",
+        "start": 119.18,
+        "end": 121.14,
+        "text": "No thanks."
+      },
+      {
+        "id": 20,
+        "speaker": "A",
+        "start": 122.04,
+        "end": 125.9,
+        "text": "No problem. 389 riyals. Cash or card?"
+      }
+    ],
+    "provider": "hand-authored:saudi-demo-sample",
+    "model": null,
+    "chunks": 1
+  },
+  "roles": {
+    "has_sales_activity": true,
+    "speakers": [
+      {
+        "speaker": "A",
+        "canonical_speaker": "A",
+        "role": "salesperson",
+        "title": "Appliance store salesperson (Jeddah)",
+        "reasoning": ""
+      },
+      {
+        "speaker": "B",
+        "canonical_speaker": "B",
+        "role": "customer",
+        "title": "Washing machine buyer",
+        "reasoning": ""
+      },
+      {
+        "speaker": "C",
+        "canonical_speaker": "C",
+        "role": "customer",
+        "title": "Coffee machine buyer",
+        "reasoning": ""
+      },
+      {
+        "speaker": "D",
+        "canonical_speaker": "D",
+        "role": "customer",
+        "title": "Microwave buyer",
+        "reasoning": ""
+      }
+    ]
+  },
+  "acoustics": []
+}

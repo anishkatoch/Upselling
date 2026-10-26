@@ -33,6 +33,10 @@ def transcript_key(job_id: str) -> str:
     return f"jobs/{job_id}/transcript.json"
 
 
+def edits_key(job_id: str) -> str:
+    return f"jobs/{job_id}/speaker_edits.json"
+
+
 def create_job(
     storage: Storage,
     local_file: Path,

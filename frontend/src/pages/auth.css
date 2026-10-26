@@ -43,7 +43,8 @@
 
 /* Wordmark: "Sales" in white, "IQ" picked out in the brand's light indigo */
 .brand-text { font-weight: 600; letter-spacing: -0.02em; }
-.brand-iq { font-weight: 800; color: #a5a8ff; margin-left: 1px; }
+.brand-souq { font-weight: 700; color: #f5b84a; }
+.brand-cue { font-weight: 800; color: #a5a8ff; }
 .auth-brand { font-size: 18px; gap: 10px; }
 
 /* Demo login: a small checkbox that fills the form (offered while DEMO_LOGIN is on) */

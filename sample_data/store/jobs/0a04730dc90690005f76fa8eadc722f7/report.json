@@ -1,0 +1,487 @@
+{
+  "job_id": "0a04730dc90690005f76fa8eadc722f7",
+  "source_filename": "2026-10-14_mohammed_floor_session.mp3",
+  "duration_s": 117.8,
+  "transcription_provider": "hand-authored:saudi-demo-sample",
+  "speakers": [
+    {
+      "speaker": "A",
+      "role": "salesperson",
+      "title": "Telecom store representative (Riyadh)",
+      "talk_time_s": 44.8
+    },
+    {
+      "speaker": "B",
+      "role": "customer",
+      "title": "New arrival buying a SIM",
+      "talk_time_s": 13.1
+    },
+    {
+      "speaker": "C",
+      "role": "customer",
+      "title": "Father adding lines for a family",
+      "talk_time_s": 8.9
+    },
+    {
+      "speaker": "D",
+      "role": "customer",
+      "title": "Customer travelling abroad",
+      "talk_time_s": 13.9
+    }
+  ],
+  "has_sales_activity": true,
+  "conversations": [
+    {
+      "conversation_id": 1,
+      "start": 0.0,
+      "end": 33.94,
+      "topic": "New SIM for a newcomer",
+      "language": "other",
+      "is_sales_interaction": true,
+      "salespeople": [
+        "A"
+      ],
+      "customers": [
+        "B"
+      ],
+      "mood": {
+        "speakers": [
+          {
+            "speaker": "A",
+            "overall_mood": "calm",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Helpful with paperwork but does not answer the question about calling Egypt."
+          },
+          {
+            "speaker": "B",
+            "overall_mood": "neutral",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Polite; asks a buying question that is not really answered."
+          }
+        ],
+        "frustration_moments": []
+      },
+      "upsell": {
+        "customer_requested": [
+          "A SIM and top-up.",
+          "A plan for frequent calls to family abroad."
+        ],
+        "upsell_attempts": [],
+        "excluded_candidates": [
+          "تمام، أنا هاعمل لك شريحة بـ 50 ريال، وشحن 100 ريال. -> Quotes the SIM and top-up requested."
+        ],
+        "pushy_upsell": false,
+        "pushy_reason": "No offer was repeated after a customer said no.",
+        "confidence": 0.9,
+        "summary": "The customer said he calls Egypt often and asked about a plan. The representative sold a SIM and a standard top-up and did not mention an international calling pack. Missed chance.",
+        "greeting_given": true,
+        "greeting_quote": "أهلاً وسهلاً، السلام عليكم، اتفضل.",
+        "greeting_segment_id": 0,
+        "products_discussed": [
+          "SIM 50 SAR",
+          "top-up 100 SAR"
+        ],
+        "customer_feedback": null,
+        "customer_feedback_segment_id": null,
+        "unanswered_questions": [
+          {
+            "segment_id": 3,
+            "speaker": "B",
+            "question": "طيب، وبرضه أتصل بأهلي كتير في مصر، يفضل أي باقة؟",
+            "note": "The customer asked about a plan for calling family abroad; the answer was that international minutes are at the regular rate."
+          }
+        ],
+        "coaching_feedback": "The customer asked directly for a better plan for calls to Egypt. Offer the international pack and the price before taking the paperwork."
+      },
+      "attempted_upsell": false,
+      "effort_score": 0.0,
+      "analyzed_by": "hand-authored:saudi-demo-sample",
+      "escalated": false,
+      "budget_note": null
+    },
+    {
+      "conversation_id": 2,
+      "start": 42.94,
+      "end": 71.56,
+      "topic": "Family lines",
+      "language": "other",
+      "is_sales_interaction": true,
+      "salespeople": [
+        "A"
+      ],
+      "customers": [
+        "C"
+      ],
+      "mood": {
+        "speakers": [
+          {
+            "speaker": "A",
+            "overall_mood": "calm",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Processes the order quickly."
+          },
+          {
+            "speaker": "C",
+            "overall_mood": "neutral",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Knows what he wants."
+          }
+        ],
+        "frustration_moments": []
+      },
+      "upsell": {
+        "customer_requested": [
+          "Three SIM cards for his family with top-ups."
+        ],
+        "upsell_attempts": [],
+        "excluded_candidates": [
+          "300 للشحن و150 للشرائح، يعني 450 ريال. -> Totals what the customer asked for."
+        ],
+        "pushy_upsell": false,
+        "pushy_reason": "No offer was repeated after a customer said no.",
+        "confidence": 0.9,
+        "summary": "Three lines sold at standard prepaid prices. A family plan would likely have saved the customer money and been a plan upgrade for the store; it was not mentioned.",
+        "greeting_given": false,
+        "greeting_quote": null,
+        "greeting_segment_id": null,
+        "products_discussed": [
+          "3 SIMs 150 SAR",
+          "3 top-ups 300 SAR"
+        ],
+        "customer_feedback": null,
+        "customer_feedback_segment_id": null,
+        "unanswered_questions": [],
+        "coaching_feedback": "When one person buys three lines, tell him about the family plan and compare the monthly cost. If the prepaid is better for him, say that too."
+      },
+      "attempted_upsell": false,
+      "effort_score": 0.0,
+      "analyzed_by": "hand-authored:saudi-demo-sample",
+      "escalated": false,
+      "budget_note": null
+    },
+    {
+      "conversation_id": 3,
+      "start": 80.56,
+      "end": 115.84,
+      "topic": "Roaming for a trip",
+      "language": "other",
+      "is_sales_interaction": true,
+      "salespeople": [
+        "A"
+      ],
+      "customers": [
+        "D"
+      ],
+      "mood": {
+        "speakers": [
+          {
+            "speaker": "A",
+            "overall_mood": "neutral",
+            "frustration_level": 1,
+            "trend": "stable",
+            "summary": "Admits he does not remember the cheaper pack but does not look it up."
+          },
+          {
+            "speaker": "D",
+            "overall_mood": "confused",
+            "frustration_level": 3,
+            "trend": "stable",
+            "summary": "Understands that pay-as-you-go roaming will be very expensive and leaves without a clear answer."
+          }
+        ],
+        "frustration_moments": [
+          {
+            "segment_id": 21,
+            "speaker": "D",
+            "quote": "طيب خلاص، بشوف في التطبيق.",
+            "evidence_source": "words",
+            "evidence": "The customer gives up on getting a clear answer and says he will look in the app."
+          }
+        ]
+      },
+      "upsell": {
+        "customer_requested": [
+          "How to use the internet in Dubai.",
+          "The roaming price."
+        ],
+        "upsell_attempts": [],
+        "excluded_candidates": [
+          "تقدر تفعل التجوال من تطبيق الجوال، والسعر حسب الاستخدام. -> Explains the pay-as-you-go roaming option."
+        ],
+        "pushy_upsell": false,
+        "pushy_reason": "No offer was repeated after a customer said no.",
+        "confidence": 0.87,
+        "summary": "The customer was travelling in two days and the representative could not name the cheaper roaming pack. The customer left to use the app. Missed chance and an unanswered question.",
+        "greeting_given": true,
+        "greeting_quote": "السلام عليكم، أهلاً بك.",
+        "greeting_segment_id": 14,
+        "products_discussed": [
+          "pay-as-you-go roaming"
+        ],
+        "customer_feedback": "The customer said he would look it up in the app.",
+        "customer_feedback_segment_id": 21,
+        "unanswered_questions": [
+          {
+            "segment_id": 17,
+            "speaker": "D",
+            "question": "وكم السعر؟",
+            "note": "The customer asked the price; the answer was an approximation. The cheaper roaming pack was never named."
+          }
+        ],
+        "coaching_feedback": "Look up the roaming pack on the system while the customer is there. It saves him roughly 900 SAR and makes the sale."
+      },
+      "attempted_upsell": false,
+      "effort_score": 0.0,
+      "analyzed_by": "hand-authored:saudi-demo-sample",
+      "escalated": false,
+      "budget_note": null
+    }
+  ],
+  "salespeople": [
+    {
+      "speaker": "A",
+      "conversations": 3,
+      "conversations_with_upsell": 0,
+      "upsell_rate": 0.0,
+      "attempts_total": 0,
+      "attempts_per_conversation": 0.0,
+      "avg_effort_score": 0.0,
+      "upsell_talk_time_share": 0.0,
+      "acceptance_rate": null,
+      "pushy_conversations": 0,
+      "techniques_used": []
+    }
+  ],
+  "calls": [],
+  "evidence": [
+    {
+      "kind": "greeting",
+      "conversation_id": 1,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 0,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 0,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 0.0,
+          "end": 3.1,
+          "text": "أهلاً وسهلاً، السلام عليكم، اتفضل.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 1,
+          "speaker": "B",
+          "role": "customer",
+          "start": 4.0,
+          "end": 10.14,
+          "text": "وعليكم السلام. أنا وصلت السعودية من أسبوع، محتاج شريحة وأتكلم مع أهلي برا.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 2,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 11.04,
+          "end": 16.42,
+          "text": "تمام، أنا هاعمل لك شريحة بـ 50 ريال، وشحن 100 ريال.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "unanswered_question",
+      "conversation_id": 1,
+      "index": 0,
+      "speaker": "B",
+      "segment_id": 3,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 2,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 11.04,
+          "end": 16.42,
+          "text": "تمام، أنا هاعمل لك شريحة بـ 50 ريال، وشحن 100 ريال.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 3,
+          "speaker": "B",
+          "role": "customer",
+          "start": 17.32,
+          "end": 22.32,
+          "text": "طيب، وبرضه أتصل بأهلي كتير في مصر، يفضل أي باقة؟",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 4,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 23.22,
+          "end": 27.46,
+          "text": "الشريحة فيها دقايق دولية بالسعر العادي. معاك الإقامة؟",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 5,
+          "speaker": "B",
+          "role": "customer",
+          "start": 28.36,
+          "end": 30.32,
+          "text": "أيوه، تفضل.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "frustration",
+      "conversation_id": 3,
+      "index": 0,
+      "speaker": "D",
+      "segment_id": 21,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 20,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 106.84,
+          "end": 111.84,
+          "text": "أيوه. Roaming, يعني. في باقة أرخص بس مش فاكرها دلوقتي.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 21,
+          "speaker": "D",
+          "role": "customer",
+          "start": 112.74,
+          "end": 115.84,
+          "text": "طيب خلاص، بشوف في التطبيق.",
+          "is_highlighted": true
+        }
+      ]
+    },
+    {
+      "kind": "greeting",
+      "conversation_id": 3,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 14,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 14,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 80.56,
+          "end": 83.28,
+          "text": "السلام عليكم، أهلاً بك.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 15,
+          "speaker": "D",
+          "role": "customer",
+          "start": 84.18,
+          "end": 89.56,
+          "text": "وعليكم السلام. أنا مسافر لدبي يوم الخميس، شلون أستخدم النت هناك؟",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 16,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 90.46,
+          "end": 95.08,
+          "text": "تقدر تفعل التجوال من تطبيق الجوال، والسعر حسب الاستخدام.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "unanswered_question",
+      "conversation_id": 3,
+      "index": 0,
+      "speaker": "D",
+      "segment_id": 17,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 16,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 90.46,
+          "end": 95.08,
+          "text": "تقدر تفعل التجوال من تطبيق الجوال، والسعر حسب الاستخدام.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 17,
+          "speaker": "D",
+          "role": "customer",
+          "start": 95.98,
+          "end": 97.94,
+          "text": "وكم السعر؟",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 18,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 98.84,
+          "end": 101.56,
+          "text": "الميجا بـ ريال تقريباً.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 19,
+          "speaker": "D",
+          "role": "customer",
+          "start": 102.46,
+          "end": 105.94,
+          "text": "يعني لو استخدمت جيجا يصير ألف؟",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "customer_feedback",
+      "conversation_id": 3,
+      "index": 0,
+      "speaker": "D",
+      "segment_id": 21,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 20,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 106.84,
+          "end": 111.84,
+          "text": "أيوه. Roaming, يعني. في باقة أرخص بس مش فاكرها دلوقتي.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 21,
+          "speaker": "D",
+          "role": "customer",
+          "start": 112.74,
+          "end": 115.84,
+          "text": "طيب خلاص، بشوف في التطبيق.",
+          "is_highlighted": true
+        }
+      ]
+    }
+  ],
+  "spent_usd": 0.0,
+  "budget_usd": null,
+  "unpriced_calls": 0
+}

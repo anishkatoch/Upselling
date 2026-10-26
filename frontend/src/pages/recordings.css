@@ -19,3 +19,4 @@
 .rec-chev { width: 44px; text-align: right; color: var(--faint); transition: color 0.12s ease, transform 0.12s ease; }
 .rec-chev svg { vertical-align: middle; }
 @media (max-width: 640px) { .rec-table thead th, .rec-table tbody td, .rec-table tbody th.rowhead { padding: 12px; } .rec-date .sub { display: none; } }
+.rec-file { font-size: 12px; }

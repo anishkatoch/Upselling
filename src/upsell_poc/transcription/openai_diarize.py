@@ -24,6 +24,7 @@ log = logging.getLogger(__name__)
 
 MAX_KNOWN_SPEAKERS = 4
 REF_MIN_S, REF_MAX_S = 2.0, 8.0
+MIN_SPEAKER_TALK_S = 2.0
 
 
 class OpenAIDiarizeTranscriber:
@@ -46,7 +47,7 @@ class OpenAIDiarizeTranscriber:
         chunks = audio.plan_chunks(duration, silences, self.cfg.chunk_minutes * 60, self.cfg.overlap_seconds)
         log.info("openai diarize: %.0fs audio in %d chunk(s)", duration, len(chunks))
 
-        first = self._transcribe_chunk(wav, workdir, chunks[0], refs=None)
+        first = self._best_of(wav, workdir, chunks[0]) if len(chunks) == 1 else self._transcribe_chunk(wav, workdir, chunks[0], refs=None)
         refs = self._speaker_refs(wav, workdir, first)
         segments = keep_chunk_segments(first, chunks[0])
 
@@ -67,6 +68,21 @@ class OpenAIDiarizeTranscriber:
             model=self.model,
             chunks=len(chunks),
         )
+
+    def _best_of(self, wav: Path, workdir: Path, chunk: audio.Chunk) -> list[Segment]:
+        """The model sometimes merges voices; repeat the call and keep the run with most speakers."""
+        best: list[Segment] = []
+        best_n = -1
+        for _ in range(max(1, self.cfg.diarize_attempts)):
+            segs = self._transcribe_chunk(wav, workdir, chunk, refs=None)
+            talk: dict[str, float] = {}
+            for s in segs:
+                talk[s.speaker] = talk.get(s.speaker, 0.0) + s.duration
+            n = sum(1 for t in talk.values() if t >= MIN_SPEAKER_TALK_S)
+            if n > best_n:
+                best, best_n = segs, n
+        log.info("openai diarize: best of %d attempts has %d speakers", self.cfg.diarize_attempts, best_n)
+        return best
 
     def _transcribe_chunk(
         self, wav: Path, workdir: Path, chunk: audio.Chunk, refs: dict[str, str] | None

@@ -1,0 +1,545 @@
+{
+  "job_id": "4310cf10b88184e354235fa1e42f7337",
+  "source_filename": "2026-10-21_noura_floor_session.mp3",
+  "duration_s": 120.7,
+  "transcription_provider": "hand-authored:saudi-demo-sample",
+  "speakers": [
+    {
+      "speaker": "A",
+      "role": "salesperson",
+      "title": "Perfume boutique consultant (Riyadh)",
+      "talk_time_s": 55.3
+    },
+    {
+      "speaker": "B",
+      "role": "customer",
+      "title": "Wedding guest buying a gift",
+      "talk_time_s": 13.9
+    },
+    {
+      "speaker": "C",
+      "role": "customer",
+      "title": "Returning customer",
+      "talk_time_s": 11.2
+    },
+    {
+      "speaker": "D",
+      "role": "customer",
+      "title": "Browsing customer",
+      "talk_time_s": 5.8
+    }
+  ],
+  "has_sales_activity": true,
+  "conversations": [
+    {
+      "conversation_id": 1,
+      "start": 0.0,
+      "end": 45.16,
+      "topic": "Wedding gift set",
+      "language": "other",
+      "is_sales_interaction": true,
+      "salespeople": [
+        "A"
+      ],
+      "customers": [
+        "B"
+      ],
+      "mood": {
+        "speakers": [
+          {
+            "speaker": "A",
+            "overall_mood": "happy",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Warm and attentive; congratulates the customer."
+          },
+          {
+            "speaker": "B",
+            "overall_mood": "happy",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Relaxed; knows the effect she wants and accepts the extras that fit."
+          }
+        ],
+        "frustration_moments": []
+      },
+      "upsell": {
+        "customer_requested": [
+          "A refined wedding gift, not excessive."
+        ],
+        "upsell_attempts": [
+          {
+            "salesperson": "A",
+            "segment_id": 4,
+            "quote": "اختيار راقي. وإذا تبين شي زيادة، العلبة الفاخرة المخملية بـ 60 ريال وتغليف خاص بالعروس.",
+            "technique": "cross_sell",
+            "offered_item": "Velvet gift box for 60 SAR",
+            "salesperson_initiated": true,
+            "after_customer_rejection": false,
+            "handled_objection": false,
+            "customer_response": "accepted",
+            "customer_mood": "happy"
+          },
+          {
+            "salesperson": "A",
+            "segment_id": 6,
+            "quote": "أبشري. عندنا كذلك بطاقة الولاء، تعطيك خصم 10% على مشترياتك الجاية، مجاناً الحين.",
+            "technique": "membership_loyalty",
+            "offered_item": "Free loyalty card with 10% off future purchases",
+            "salesperson_initiated": true,
+            "after_customer_rejection": false,
+            "handled_objection": false,
+            "customer_response": "accepted",
+            "customer_mood": "happy"
+          }
+        ],
+        "excluded_candidates": [
+          "مبروك لها. هذا طقم عطر مع دهن عود بـ 780 ريال، وهذا أخف بـ 430 ريال عطر مع مبخرة صغيرة. -> Offers two sets at different price points."
+        ],
+        "pushy_upsell": false,
+        "pushy_reason": "No offer was repeated after a customer said no.",
+        "confidence": 0.92,
+        "summary": "The consultant gave two clear options, then offered a gift box and a free loyalty card. Both accepted.",
+        "greeting_given": true,
+        "greeting_quote": "السلام عليكم، حياكم الله، تفضلوا.",
+        "greeting_segment_id": 0,
+        "products_discussed": [
+          "perfume with burner 430 SAR",
+          "velvet gift box 60 SAR",
+          "loyalty card"
+        ],
+        "customer_feedback": null,
+        "customer_feedback_segment_id": null,
+        "unanswered_questions": [],
+        "coaching_feedback": "Good fit between occasion and add-on. The loyalty card is a low-friction ask; keep it as the last step."
+      },
+      "attempted_upsell": true,
+      "effort_score": 4.3,
+      "analyzed_by": "hand-authored:saudi-demo-sample",
+      "escalated": false,
+      "budget_note": null
+    },
+    {
+      "conversation_id": 2,
+      "start": 54.16,
+      "end": 93.42,
+      "topic": "Returning customer, new fragrance",
+      "language": "other",
+      "is_sales_interaction": true,
+      "salespeople": [
+        "A"
+      ],
+      "customers": [
+        "C"
+      ],
+      "mood": {
+        "speakers": [
+          {
+            "speaker": "A",
+            "overall_mood": "calm",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Remembers the customer and the previous purchase."
+          },
+          {
+            "speaker": "C",
+            "overall_mood": "neutral",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Happy to be recognised; asks for the price difference and accepts."
+          }
+        ],
+        "frustration_moments": []
+      },
+      "upsell": {
+        "customer_requested": [
+          "A new fragrance after a previous purchase."
+        ],
+        "upsell_attempts": [
+          {
+            "salesperson": "A",
+            "segment_id": 12,
+            "quote": "تفضل. وبما إنك من عملائنا الدائمين، الحين فيه عرض: لو أخذت العطر مع الدهن المرافق بـ 190 ريال يصير الحبّتين بـ 690 بدل 730.",
+            "technique": "bundle",
+            "offered_item": "Matching oil with perfume for 690 SAR instead of 730",
+            "salesperson_initiated": true,
+            "after_customer_rejection": false,
+            "handled_objection": false,
+            "customer_response": "accepted",
+            "customer_mood": "happy"
+          }
+        ],
+        "excluded_candidates": [
+          "الحمد لله. عندي إصدار جديد من نفس العائلة، فيه لمسة عنبر، بـ 540 ريال. -> Suggests a new fragrance in the same family as the customer's last purchase."
+        ],
+        "pushy_upsell": false,
+        "pushy_reason": "No offer was repeated after a customer said no.",
+        "confidence": 0.9,
+        "summary": "A returning-customer sale where the consultant used the purchase history and a small bundle saving of 40 SAR.",
+        "greeting_given": true,
+        "greeting_quote": "أهلاً وسهلاً بأبو سعود، وش أخبارك؟",
+        "greeting_segment_id": 8,
+        "products_discussed": [
+          "new fragrance 540 SAR",
+          "matching oil 190 SAR"
+        ],
+        "customer_feedback": null,
+        "customer_feedback_segment_id": null,
+        "unanswered_questions": [],
+        "coaching_feedback": "Good recognition of a regular and a saving that the customer could verify himself. Keep stating the saving in riyals."
+      },
+      "attempted_upsell": true,
+      "effort_score": 2.2,
+      "analyzed_by": "hand-authored:saudi-demo-sample",
+      "escalated": false,
+      "budget_note": null
+    },
+    {
+      "conversation_id": 3,
+      "start": 102.42,
+      "end": 118.66,
+      "topic": "Customer is just browsing",
+      "language": "other",
+      "is_sales_interaction": true,
+      "salespeople": [
+        "A"
+      ],
+      "customers": [
+        "D"
+      ],
+      "mood": {
+        "speakers": [
+          {
+            "speaker": "A",
+            "overall_mood": "calm",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Gives space without pressure."
+          },
+          {
+            "speaker": "D",
+            "overall_mood": "neutral",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Neutral; just looking."
+          }
+        ],
+        "frustration_moments": []
+      },
+      "upsell": {
+        "customer_requested": [],
+        "upsell_attempts": [],
+        "excluded_candidates": [],
+        "pushy_upsell": false,
+        "pushy_reason": "No offer was repeated after a customer said no.",
+        "confidence": 0.9,
+        "summary": "The customer was only browsing and the consultant left her alone after a greeting. Correctly no sales attempt.",
+        "greeting_given": true,
+        "greeting_quote": "السلام عليكم، تفضلي، خذي راحتك.",
+        "greeting_segment_id": 15,
+        "products_discussed": [],
+        "customer_feedback": null,
+        "customer_feedback_segment_id": null,
+        "unanswered_questions": [],
+        "coaching_feedback": "Right approach to a browsing customer: greet, offer help once, step back."
+      },
+      "attempted_upsell": false,
+      "effort_score": 0.0,
+      "analyzed_by": "hand-authored:saudi-demo-sample",
+      "escalated": false,
+      "budget_note": null
+    }
+  ],
+  "salespeople": [
+    {
+      "speaker": "A",
+      "conversations": 3,
+      "conversations_with_upsell": 2,
+      "upsell_rate": 0.667,
+      "attempts_total": 3,
+      "attempts_per_conversation": 1.0,
+      "avg_effort_score": 2.2,
+      "upsell_talk_time_share": 0.422,
+      "acceptance_rate": 1.0,
+      "pushy_conversations": 0,
+      "techniques_used": [
+        "bundle",
+        "cross_sell",
+        "membership_loyalty"
+      ]
+    }
+  ],
+  "calls": [],
+  "evidence": [
+    {
+      "kind": "greeting",
+      "conversation_id": 1,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 0,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 0,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 0.0,
+          "end": 3.1,
+          "text": "السلام عليكم، حياكم الله، تفضلوا.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 1,
+          "speaker": "B",
+          "role": "customer",
+          "start": 4.0,
+          "end": 9.76,
+          "text": "وعليكم السلام. أبي هدية لعرس بنت خالتي، شي فخم بس مو مبالغ.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 2,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 10.66,
+          "end": 19.46,
+          "text": "مبروك لها. هذا طقم عطر مع دهن عود بـ 780 ريال، وهذا أخف بـ 430 ريال عطر مع مبخرة صغيرة.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "upsell_attempt",
+      "conversation_id": 1,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 4,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 2,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 10.66,
+          "end": 19.46,
+          "text": "مبروك لها. هذا طقم عطر مع دهن عود بـ 780 ريال، وهذا أخف بـ 430 ريال عطر مع مبخرة صغيرة.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 3,
+          "speaker": "B",
+          "role": "customer",
+          "start": 20.36,
+          "end": 23.08,
+          "text": "الثاني حلو، ريحته ناعمة.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 4,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 23.98,
+          "end": 30.88,
+          "text": "اختيار راقي. وإذا تبين شي زيادة، العلبة الفاخرة المخملية بـ 60 ريال وتغليف خاص بالعروس.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 5,
+          "speaker": "B",
+          "role": "customer",
+          "start": 31.78,
+          "end": 34.5,
+          "text": "إي، حطي لي العلبة.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 6,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 35.4,
+          "end": 41.54,
+          "text": "أبشري. عندنا كذلك بطاقة الولاء، تعطيك خصم 10% على مشترياتك الجاية، مجاناً الحين.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "upsell_attempt",
+      "conversation_id": 1,
+      "index": 1,
+      "speaker": "A",
+      "segment_id": 6,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 4,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 23.98,
+          "end": 30.88,
+          "text": "اختيار راقي. وإذا تبين شي زيادة، العلبة الفاخرة المخملية بـ 60 ريال وتغليف خاص بالعروس.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 5,
+          "speaker": "B",
+          "role": "customer",
+          "start": 31.78,
+          "end": 34.5,
+          "text": "إي، حطي لي العلبة.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 6,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 35.4,
+          "end": 41.54,
+          "text": "أبشري. عندنا كذلك بطاقة الولاء، تعطيك خصم 10% على مشترياتك الجاية، مجاناً الحين.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 7,
+          "speaker": "B",
+          "role": "customer",
+          "start": 42.44,
+          "end": 45.16,
+          "text": "ليش لا، سجلي لي.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "greeting",
+      "conversation_id": 2,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 8,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 8,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 54.16,
+          "end": 57.64,
+          "text": "أهلاً وسهلاً بأبو سعود، وش أخبارك؟",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 9,
+          "speaker": "C",
+          "role": "customer",
+          "start": 58.54,
+          "end": 64.3,
+          "text": "الله يسلمك. آخر عطر أخذته منك الناس تسأل عنه. أبي شي جديد.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 10,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 65.2,
+          "end": 71.72,
+          "text": "الحمد لله. عندي إصدار جديد من نفس العائلة، فيه لمسة عنبر، بـ 540 ريال.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "upsell_attempt",
+      "conversation_id": 2,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 12,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 10,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 65.2,
+          "end": 71.72,
+          "text": "الحمد لله. عندي إصدار جديد من نفس العائلة، فيه لمسة عنبر، بـ 540 ريال.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 11,
+          "speaker": "C",
+          "role": "customer",
+          "start": 72.62,
+          "end": 74.58,
+          "text": "جربيه لي.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 12,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 75.48,
+          "end": 85.8,
+          "text": "تفضل. وبما إنك من عملائنا الدائمين، الحين فيه عرض: لو أخذت العطر مع الدهن المرافق بـ 190 ريال يصير الحبّتين بـ 690 بدل 730.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 13,
+          "speaker": "C",
+          "role": "customer",
+          "start": 86.7,
+          "end": 90.18,
+          "text": "يعني أوفر أربعين؟ طيب خذ الاثنين.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 14,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 91.08,
+          "end": 93.42,
+          "text": "تمام، مبروك عليك.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "greeting",
+      "conversation_id": 3,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 15,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 15,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 102.42,
+          "end": 105.52,
+          "text": "السلام عليكم، تفضلي، خذي راحتك.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 16,
+          "speaker": "D",
+          "role": "customer",
+          "start": 106.42,
+          "end": 110.66,
+          "text": "وعليكم السلام. بس أتفرج، ما أبي شي حالياً.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 17,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 111.56,
+          "end": 116.18,
+          "text": "على راحتك. إذا حبيتي تجربين أي عطر أنا موجودة.",
+          "is_highlighted": false
+        }
+      ]
+    }
+  ],
+  "spent_usd": 0.0,
+  "budget_usd": null,
+  "unpriced_calls": 0
+}

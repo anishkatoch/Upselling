@@ -8,7 +8,6 @@ import { pct } from "../lib/format";
 import { useLoad } from "../lib/hooks";
 import { METRIC_INFO } from "../lib/metricInfo";
 import { Reveal } from "../components/motion";
-import AnimatedNumber from "../components/motion/AnimatedNumber";
 import { DeltaChip, Metric, MetricRow } from "../components/ui";
 import { EFFORT, moodFromFrustration, PERIOD_LABEL } from "../lib/teamLabels";
 import VsTeamBars from "../components/people/VsTeamBars";
@@ -84,9 +83,9 @@ function PersonDetail({
   const [showAllImprovements, setShowAllImprovements] = useState(false);
 
   // The sample size is stated once in the caption under the headline (SampleNote), and "compared with ..." once above the tiles.
-  // Numeric figures count up once; words and dashes stay as they are.
+  // Shown as final values (a count-up could be captured mid-animation as a wrong figure).
   const num = (v: number | null | undefined, kind: "pct" | "dec" | "int") =>
-    v == null ? "–" : kind === "pct" ? <><AnimatedNumber value={Math.round(v * 100)} />%</> : kind === "dec" ? <AnimatedNumber value={Math.round(v * 10) / 10} decimals={1} /> : <AnimatedNumber value={v} />;
+    v == null ? "–" : kind === "pct" ? `${Math.round(v * 100)}%` : kind === "dec" ? (Math.round(v * 10) / 10).toFixed(1) : String(v);
   const vs = (value: number | null | undefined) => (value == null ? null : <DeltaChip value={value} />);
   const mood = moodFromFrustration(t.avg_customer_frustration);
   const moodChange = seriesDelta(p.series, "avg_customer_frustration");

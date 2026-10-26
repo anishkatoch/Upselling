@@ -1,0 +1,17 @@
+{
+  "job_id": "3400c0ef9fc0cfafc22ff32426bb00af",
+  "status": "completed",
+  "stage": "done",
+  "progress": 1.0,
+  "error": null,
+  "filename": "2026-10-14_faisal_floor_session.mp3",
+  "input_key": "jobs/3400c0ef9fc0cfafc22ff32426bb00af/input/2026-10-14_faisal_floor_session.mp3",
+  "industry": "electronics retail",
+  "product_catalog": null,
+  "salesperson_name": "Faisal Al-Otaibi",
+  "created_at": "2026-10-14T10:30:00+00:00",
+  "updated_at": "2026-10-14T10:30:00+00:00",
+  "spent_usd": 0.0,
+  "budget_usd": null,
+  "cancel_requested": false
+}

@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import re
+
 from upsell_poc.analysis import prompts
 from upsell_poc.analysis.formatting import render_segments
 from upsell_poc.llm.chain import LLMChain
@@ -9,6 +11,8 @@ from upsell_poc.schemas import (
     ConversationSpan,
     ConversationSplit,
     RoleDetection,
+    Segment,
+    SpeakerRepair,
     SpeakerRole,
     Transcript,
 )
@@ -105,3 +109,43 @@ def normalize_spans(
     elif cursor <= last_id:
         fixed[-1] = fixed[-1].model_copy(update={"end_segment_id": last_id})
     return [s.model_copy(update={"conversation_id": i + 1}) for i, s in enumerate(fixed)]
+
+
+_SENTENCE_END = re.compile(r"(?<=[.!?؟])\s+")
+
+
+def split_sentences(transcript: Transcript) -> Transcript:
+    """One segment per sentence (time shared by text length) so a fix can move part of a diarizer segment."""
+    out: list[Segment] = []
+    for seg in transcript.segments:
+        parts = [p for p in _SENTENCE_END.split(seg.text.strip()) if p]
+        total = sum(len(p) for p in parts) or 1
+        t = seg.start
+        for p in parts or [seg.text]:
+            end = t + seg.duration * len(p) / total
+            out.append(Segment(id=len(out), speaker=seg.speaker, start=t, end=end, text=p))
+            t = end
+    return transcript.model_copy(update={"segments": out})
+
+
+def repair_speakers(chain: LLMChain, transcript: Transcript, role_map: dict[str, str]) -> dict:
+    """Ask a strong model which lines the diarizer attributed to the wrong person.
+
+    Returns edits in the `apply_speaker_edits` shape: {"moves": {id: label}, "roles": {label: role}, "titles": {...}}.
+    """
+    if len(transcript.segments) < 4:
+        return {}
+    user = f"Speaker labels: {', '.join(transcript.speakers)}\n\nTranscript:\n{render_segments(transcript.segments, role_map)}"
+    result, _ = chain.generate(step="speaker_repair", system=prompts.SPEAKER_REPAIR, user=user, schema=SpeakerRepair)
+    ids = {s.id: s.speaker for s in transcript.segments}
+    moves: dict[int, str] = {}
+    roles: dict[str, str] = {}
+    titles: dict[str, str] = {}
+    for f in result.fixes:
+        if f.segment_id not in ids or ids[f.segment_id] == f.speaker:
+            continue
+        moves[f.segment_id] = f.speaker
+        if f.speaker not in role_map:
+            roles[f.speaker] = f.role
+            titles[f.speaker] = f.title or "Added automatically"
+    return {"moves": moves, "roles": roles, "titles": titles}

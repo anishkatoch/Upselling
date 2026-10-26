@@ -1,0 +1,198 @@
+{
+  "transcript": {
+    "duration": 117.8,
+    "segments": [
+      {
+        "id": 0,
+        "speaker": "A",
+        "start": 0.0,
+        "end": 3.1,
+        "text": "أهلاً وسهلاً، السلام عليكم، اتفضل."
+      },
+      {
+        "id": 1,
+        "speaker": "B",
+        "start": 4.0,
+        "end": 10.14,
+        "text": "وعليكم السلام. أنا وصلت السعودية من أسبوع، محتاج شريحة وأتكلم مع أهلي برا."
+      },
+      {
+        "id": 2,
+        "speaker": "A",
+        "start": 11.04,
+        "end": 16.42,
+        "text": "تمام، أنا هاعمل لك شريحة بـ 50 ريال، وشحن 100 ريال."
+      },
+      {
+        "id": 3,
+        "speaker": "B",
+        "start": 17.32,
+        "end": 22.32,
+        "text": "طيب، وبرضه أتصل بأهلي كتير في مصر، يفضل أي باقة؟"
+      },
+      {
+        "id": 4,
+        "speaker": "A",
+        "start": 23.22,
+        "end": 27.46,
+        "text": "الشريحة فيها دقايق دولية بالسعر العادي. معاك الإقامة؟"
+      },
+      {
+        "id": 5,
+        "speaker": "B",
+        "start": 28.36,
+        "end": 30.32,
+        "text": "أيوه، تفضل."
+      },
+      {
+        "id": 6,
+        "speaker": "A",
+        "start": 31.22,
+        "end": 33.94,
+        "text": "تمام، خلصنا. الشريحة جاهزة."
+      },
+      {
+        "id": 7,
+        "speaker": "A",
+        "start": 42.94,
+        "end": 45.28,
+        "text": "اتفضل يا فندم."
+      },
+      {
+        "id": 8,
+        "speaker": "C",
+        "start": 46.18,
+        "end": 50.42,
+        "text": "السلام عليكم. أبي ثلاث خطوط، لي ولزوجتي وولدي."
+      },
+      {
+        "id": 9,
+        "speaker": "A",
+        "start": 51.32,
+        "end": 56.7,
+        "text": "ثلاثة خطوط، كل خط بـ 50 ريال للشريحة، والشحن اللي تحبه."
+      },
+      {
+        "id": 10,
+        "speaker": "C",
+        "start": 57.6,
+        "end": 60.7,
+        "text": "الشحن 100 لكل واحد، حاسب."
+      },
+      {
+        "id": 11,
+        "speaker": "A",
+        "start": 61.6,
+        "end": 65.46,
+        "text": "300 للشحن و150 للشرائح، يعني 450 ريال."
+      },
+      {
+        "id": 12,
+        "speaker": "C",
+        "start": 66.36,
+        "end": 67.94,
+        "text": "تمام."
+      },
+      {
+        "id": 13,
+        "speaker": "A",
+        "start": 68.84,
+        "end": 71.56,
+        "text": "اتفضل، الله يعطيك العافية."
+      },
+      {
+        "id": 14,
+        "speaker": "A",
+        "start": 80.56,
+        "end": 83.28,
+        "text": "السلام عليكم، أهلاً بك."
+      },
+      {
+        "id": 15,
+        "speaker": "D",
+        "start": 84.18,
+        "end": 89.56,
+        "text": "وعليكم السلام. أنا مسافر لدبي يوم الخميس، شلون أستخدم النت هناك؟"
+      },
+      {
+        "id": 16,
+        "speaker": "A",
+        "start": 90.46,
+        "end": 95.08,
+        "text": "تقدر تفعل التجوال من تطبيق الجوال، والسعر حسب الاستخدام."
+      },
+      {
+        "id": 17,
+        "speaker": "D",
+        "start": 95.98,
+        "end": 97.94,
+        "text": "وكم السعر؟"
+      },
+      {
+        "id": 18,
+        "speaker": "A",
+        "start": 98.84,
+        "end": 101.56,
+        "text": "الميجا بـ ريال تقريباً."
+      },
+      {
+        "id": 19,
+        "speaker": "D",
+        "start": 102.46,
+        "end": 105.94,
+        "text": "يعني لو استخدمت جيجا يصير ألف؟"
+      },
+      {
+        "id": 20,
+        "speaker": "A",
+        "start": 106.84,
+        "end": 111.84,
+        "text": "أيوه. Roaming, يعني. في باقة أرخص بس مش فاكرها دلوقتي."
+      },
+      {
+        "id": 21,
+        "speaker": "D",
+        "start": 112.74,
+        "end": 115.84,
+        "text": "طيب خلاص، بشوف في التطبيق."
+      }
+    ],
+    "provider": "hand-authored:saudi-demo-sample",
+    "model": null,
+    "chunks": 1
+  },
+  "roles": {
+    "has_sales_activity": true,
+    "speakers": [
+      {
+        "speaker": "A",
+        "canonical_speaker": "A",
+        "role": "salesperson",
+        "title": "Telecom store representative (Riyadh)",
+        "reasoning": ""
+      },
+      {
+        "speaker": "B",
+        "canonical_speaker": "B",
+        "role": "customer",
+        "title": "New arrival buying a SIM",
+        "reasoning": ""
+      },
+      {
+        "speaker": "C",
+        "canonical_speaker": "C",
+        "role": "customer",
+        "title": "Father adding lines for a family",
+        "reasoning": ""
+      },
+      {
+        "speaker": "D",
+        "canonical_speaker": "D",
+        "role": "customer",
+        "title": "Customer travelling abroad",
+        "reasoning": ""
+      }
+    ]
+  },
+  "acoustics": []
+}

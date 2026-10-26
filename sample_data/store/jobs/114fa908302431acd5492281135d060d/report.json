@@ -1,0 +1,843 @@
+{
+  "job_id": "114fa908302431acd5492281135d060d",
+  "source_filename": "2026-10-14_khalid_floor_session.mp3",
+  "duration_s": 139.7,
+  "transcription_provider": "hand-authored:saudi-demo-sample",
+  "speakers": [
+    {
+      "speaker": "A",
+      "role": "salesperson",
+      "title": "Car sales advisor (Dammam)",
+      "talk_time_s": 60.8
+    },
+    {
+      "speaker": "B",
+      "role": "customer",
+      "title": "Family car buyer",
+      "talk_time_s": 21.6
+    },
+    {
+      "speaker": "C",
+      "role": "customer",
+      "title": "Customer asking for a test drive",
+      "talk_time_s": 9.7
+    },
+    {
+      "speaker": "D",
+      "role": "customer",
+      "title": "New car owner",
+      "talk_time_s": 9.7
+    }
+  ],
+  "has_sales_activity": true,
+  "conversations": [
+    {
+      "conversation_id": 1,
+      "start": 0.0,
+      "end": 60.0,
+      "topic": "Family sedan, base trim",
+      "language": "other",
+      "is_sales_interaction": true,
+      "salespeople": [
+        "A"
+      ],
+      "customers": [
+        "B"
+      ],
+      "mood": {
+        "speakers": [
+          {
+            "speaker": "A",
+            "overall_mood": "calm",
+            "frustration_level": 1,
+            "trend": "stable",
+            "summary": "Tone stays friendly, but he repeats the same upgrade three times after a clear no."
+          },
+          {
+            "speaker": "B",
+            "overall_mood": "irritated",
+            "frustration_level": 6,
+            "trend": "worsening",
+            "summary": "Starts open and clear on budget, then becomes irritated as the upgrade is repeated; leaves for another dealer."
+          }
+        ],
+        "frustration_moments": [
+          {
+            "segment_id": 7,
+            "speaker": "B",
+            "quote": "لا. وش هالأسلوب؟ كل ما قلت لك لا تعيد.",
+            "evidence_source": "words",
+            "evidence": "The customer objects to the repeated offers: 'every time I say no you repeat it'."
+          },
+          {
+            "segment_id": 9,
+            "speaker": "B",
+            "quote": "لا، شكراً. أبي أروح لمعرض ثاني.",
+            "evidence_source": "words",
+            "evidence": "The customer says he will go to another showroom."
+          }
+        ]
+      },
+      "upsell": {
+        "customer_requested": [
+          "A base-trim family sedan under 85,000 SAR."
+        ],
+        "upsell_attempts": [
+          {
+            "salesperson": "A",
+            "segment_id": 2,
+            "quote": "عندنا الفئة الأساسية بـ 82 ألف ريال. بس صراحة الفئة الوسطى أحسن بكثير، بـ 96 ألف.",
+            "technique": "upgrade",
+            "offered_item": "Mid trim at 96,000 SAR",
+            "salesperson_initiated": true,
+            "after_customer_rejection": false,
+            "handled_objection": false,
+            "customer_response": "rejected",
+            "customer_mood": "neutral"
+          },
+          {
+            "salesperson": "A",
+            "segment_id": 4,
+            "quote": "يا أخي، الفرق بس 14 ألف وتقسطها، والمقاعد جلد وفتحة سقف. تبيها بدون جلد؟",
+            "technique": "upgrade",
+            "offered_item": "Mid trim with leather seats and sunroof (14,000 SAR more)",
+            "salesperson_initiated": true,
+            "after_customer_rejection": true,
+            "handled_objection": false,
+            "customer_response": "rejected",
+            "customer_mood": "impatient"
+          },
+          {
+            "salesperson": "A",
+            "segment_id": 6,
+            "quote": "طيب، على الأقل خذ الضمان الممتد، 6,500 ريال، وإلا ما أضمن لك شي بعد السنة الثالثة.",
+            "technique": "warranty_protection",
+            "offered_item": "Extended warranty for 6,500 SAR",
+            "salesperson_initiated": true,
+            "after_customer_rejection": true,
+            "handled_objection": false,
+            "customer_response": "rejected",
+            "customer_mood": "irritated"
+          },
+          {
+            "salesperson": "A",
+            "segment_id": 8,
+            "quote": "أنا أبي مصلحتك بس. اللي يشتري الأساسية يندم، فكر مرة ثانية في الوسطى.",
+            "technique": "scarcity_urgency",
+            "offered_item": "Mid trim again, with a warning that base buyers regret it",
+            "salesperson_initiated": true,
+            "after_customer_rejection": true,
+            "handled_objection": false,
+            "customer_response": "rejected",
+            "customer_mood": "irritated"
+          }
+        ],
+        "excluded_candidates": [
+          "عندنا الفئة الأساسية بـ 82 ألف ريال. بس صراحة الفئة الوسطى أحسن بكثير، بـ 96 ألف. -> Quotes the base-trim price the customer asked for."
+        ],
+        "pushy_upsell": true,
+        "pushy_reason": "Four offers in ten turns; three came after a clear 'no' and the last one used regret as pressure. The customer left.",
+        "confidence": 0.96,
+        "summary": "The customer asked for the base trim within a stated budget. The advisor pushed the mid trim, then an extended warranty, then the mid trim again, ignoring three refusals. The customer became irritated and said he would go to another dealer.",
+        "greeting_given": true,
+        "greeting_quote": "السلام عليكم. تفضل، وش تدور؟",
+        "greeting_segment_id": 0,
+        "products_discussed": [
+          "base trim 82,000 SAR",
+          "mid trim 96,000 SAR",
+          "extended warranty 6,500 SAR"
+        ],
+        "customer_feedback": "The customer complained that every refusal was answered with another offer.",
+        "customer_feedback_segment_id": 7,
+        "unanswered_questions": [],
+        "coaching_feedback": "The customer told you his budget and the trim twice. After the first 'no' stop offering upgrades. Ask what matters to him (space, safety, running costs) and let the base trim win on his terms. Telling a customer he will regret his choice closes the sale."
+      },
+      "attempted_upsell": true,
+      "effort_score": 9.0,
+      "analyzed_by": "hand-authored:saudi-demo-sample",
+      "escalated": false,
+      "budget_note": null
+    },
+    {
+      "conversation_id": 2,
+      "start": 69.0,
+      "end": 96.28,
+      "topic": "Test drive request",
+      "language": "other",
+      "is_sales_interaction": true,
+      "salespeople": [
+        "A"
+      ],
+      "customers": [
+        "C"
+      ],
+      "mood": {
+        "speakers": [
+          {
+            "speaker": "A",
+            "overall_mood": "calm",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Straightforward."
+          },
+          {
+            "speaker": "C",
+            "overall_mood": "neutral",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Interested and polite."
+          }
+        ],
+        "frustration_moments": []
+      },
+      "upsell": {
+        "customer_requested": [
+          "A test drive of the SUV.",
+          "The price."
+        ],
+        "upsell_attempts": [],
+        "excluded_candidates": [
+          "الفئة الأعلى 168 ألف ريال، والمتوسطة 149 ألف. إذا عجبتك نشوف لك تمويل. -> Gives the prices the customer asked for."
+        ],
+        "pushy_upsell": false,
+        "pushy_reason": "No offer was repeated after a customer said no.",
+        "confidence": 0.88,
+        "summary": "A test-drive handover with prices. No greeting ('hello') before getting to documents, but no pressure.",
+        "greeting_given": false,
+        "greeting_quote": null,
+        "greeting_segment_id": null,
+        "products_discussed": [
+          "SUV top trim 168,000 SAR",
+          "SUV mid trim 149,000 SAR"
+        ],
+        "customer_feedback": null,
+        "customer_feedback_segment_id": null,
+        "unanswered_questions": [],
+        "coaching_feedback": "Fine, but greet the customer before the paperwork. A test drive is the best moment to ask what he will use the car for."
+      },
+      "attempted_upsell": false,
+      "effort_score": 0.0,
+      "analyzed_by": "hand-authored:saudi-demo-sample",
+      "escalated": false,
+      "budget_note": null
+    },
+    {
+      "conversation_id": 3,
+      "start": 105.28,
+      "end": 137.7,
+      "topic": "Car care package",
+      "language": "other",
+      "is_sales_interaction": true,
+      "salespeople": [
+        "A"
+      ],
+      "customers": [
+        "D"
+      ],
+      "mood": {
+        "speakers": [
+          {
+            "speaker": "A",
+            "overall_mood": "calm",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Friendly to a returning buyer."
+          },
+          {
+            "speaker": "D",
+            "overall_mood": "neutral",
+            "frustration_level": 0,
+            "trend": "stable",
+            "summary": "Easy-going; picks one item from the package."
+          }
+        ],
+        "frustration_moments": []
+      },
+      "upsell": {
+        "customer_requested": [
+          "To collect the new car."
+        ],
+        "upsell_attempts": [
+          {
+            "salesperson": "A",
+            "segment_id": 18,
+            "quote": "تفضل. عندنا حزمة العناية، حماية الطلاء والتظليل بـ 1,800 ريال، تحفظ لونها في حر الدمام.",
+            "technique": "bundle",
+            "offered_item": "Paint protection and window tint package for 1,800 SAR",
+            "salesperson_initiated": true,
+            "after_customer_rejection": false,
+            "handled_objection": false,
+            "customer_response": "rejected",
+            "customer_mood": "neutral"
+          },
+          {
+            "salesperson": "A",
+            "segment_id": 20,
+            "quote": "أكيد، التظليل لوحده بـ 650 ريال.",
+            "technique": "cross_sell",
+            "offered_item": "Window tint only for 650 SAR",
+            "salesperson_initiated": false,
+            "after_customer_rejection": false,
+            "handled_objection": false,
+            "customer_response": "accepted",
+            "customer_mood": "neutral"
+          }
+        ],
+        "excluded_candidates": [],
+        "pushy_upsell": false,
+        "pushy_reason": "When the customer wanted only part of the package, the advisor gave him the single item.",
+        "confidence": 0.9,
+        "summary": "The advisor offered a care package; the customer wanted only the tint and the advisor sold just that.",
+        "greeting_given": true,
+        "greeting_quote": "السلام عليكم يا أبو فهد، مبروك السيارة.",
+        "greeting_segment_id": 16,
+        "products_discussed": [
+          "care package 1,800 SAR",
+          "window tint 650 SAR"
+        ],
+        "customer_feedback": null,
+        "customer_feedback_segment_id": null,
+        "unanswered_questions": [],
+        "coaching_feedback": "Good flexibility: splitting the package when the customer asked for one item. This is the opposite of the pattern in the first conversation."
+      },
+      "attempted_upsell": true,
+      "effort_score": 4.3,
+      "analyzed_by": "hand-authored:saudi-demo-sample",
+      "escalated": false,
+      "budget_note": null
+    }
+  ],
+  "salespeople": [
+    {
+      "speaker": "A",
+      "conversations": 3,
+      "conversations_with_upsell": 2,
+      "upsell_rate": 0.667,
+      "attempts_total": 6,
+      "attempts_per_conversation": 2.0,
+      "avg_effort_score": 4.4,
+      "upsell_talk_time_share": 0.619,
+      "acceptance_rate": 0.167,
+      "pushy_conversations": 1,
+      "techniques_used": [
+        "bundle",
+        "cross_sell",
+        "scarcity_urgency",
+        "upgrade",
+        "warranty_protection"
+      ]
+    }
+  ],
+  "calls": [],
+  "evidence": [
+    {
+      "kind": "frustration",
+      "conversation_id": 1,
+      "index": 0,
+      "speaker": "B",
+      "segment_id": 7,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 6,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 35.78,
+          "end": 43.06,
+          "text": "طيب، على الأقل خذ الضمان الممتد، 6,500 ريال، وإلا ما أضمن لك شي بعد السنة الثالثة.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 7,
+          "speaker": "B",
+          "role": "customer",
+          "start": 43.96,
+          "end": 48.58,
+          "text": "لا. وش هالأسلوب؟ كل ما قلت لك لا تعيد.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 8,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 49.48,
+          "end": 55.62,
+          "text": "أنا أبي مصلحتك بس. اللي يشتري الأساسية يندم، فكر مرة ثانية في الوسطى.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 9,
+          "speaker": "B",
+          "role": "customer",
+          "start": 56.52,
+          "end": 60.0,
+          "text": "لا، شكراً. أبي أروح لمعرض ثاني.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "frustration",
+      "conversation_id": 1,
+      "index": 1,
+      "speaker": "B",
+      "segment_id": 9,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 8,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 49.48,
+          "end": 55.62,
+          "text": "أنا أبي مصلحتك بس. اللي يشتري الأساسية يندم، فكر مرة ثانية في الوسطى.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 9,
+          "speaker": "B",
+          "role": "customer",
+          "start": 56.52,
+          "end": 60.0,
+          "text": "لا، شكراً. أبي أروح لمعرض ثاني.",
+          "is_highlighted": true
+        }
+      ]
+    },
+    {
+      "kind": "greeting",
+      "conversation_id": 1,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 0,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 0,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 0.0,
+          "end": 3.1,
+          "text": "السلام عليكم. تفضل، وش تدور؟",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 1,
+          "speaker": "B",
+          "role": "customer",
+          "start": 4.0,
+          "end": 9.76,
+          "text": "وعليكم السلام. أبي سيدان عائلية، أقل فئة، ميزانيتي ما تتعدى 85 ألف.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 2,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 10.66,
+          "end": 17.94,
+          "text": "عندنا الفئة الأساسية بـ 82 ألف ريال. بس صراحة الفئة الوسطى أحسن بكثير، بـ 96 ألف.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "upsell_attempt",
+      "conversation_id": 1,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 2,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 0,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 0.0,
+          "end": 3.1,
+          "text": "السلام عليكم. تفضل، وش تدور؟",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 1,
+          "speaker": "B",
+          "role": "customer",
+          "start": 4.0,
+          "end": 9.76,
+          "text": "وعليكم السلام. أبي سيدان عائلية، أقل فئة، ميزانيتي ما تتعدى 85 ألف.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 2,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 10.66,
+          "end": 17.94,
+          "text": "عندنا الفئة الأساسية بـ 82 ألف ريال. بس صراحة الفئة الوسطى أحسن بكثير، بـ 96 ألف.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 3,
+          "speaker": "B",
+          "role": "customer",
+          "start": 18.84,
+          "end": 23.08,
+          "text": "لا، الأساسية تكفي، أنا ما أبي أتعدى الميزانية.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 4,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 23.98,
+          "end": 30.5,
+          "text": "يا أخي، الفرق بس 14 ألف وتقسطها، والمقاعد جلد وفتحة سقف. تبيها بدون جلد؟",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "upsell_attempt",
+      "conversation_id": 1,
+      "index": 1,
+      "speaker": "A",
+      "segment_id": 4,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 2,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 10.66,
+          "end": 17.94,
+          "text": "عندنا الفئة الأساسية بـ 82 ألف ريال. بس صراحة الفئة الوسطى أحسن بكثير، بـ 96 ألف.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 3,
+          "speaker": "B",
+          "role": "customer",
+          "start": 18.84,
+          "end": 23.08,
+          "text": "لا، الأساسية تكفي، أنا ما أبي أتعدى الميزانية.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 4,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 23.98,
+          "end": 30.5,
+          "text": "يا أخي، الفرق بس 14 ألف وتقسطها، والمقاعد جلد وفتحة سقف. تبيها بدون جلد؟",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 5,
+          "speaker": "B",
+          "role": "customer",
+          "start": 31.4,
+          "end": 34.88,
+          "text": "قلت لك الميزانية محددة. أبي الأساسية.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 6,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 35.78,
+          "end": 43.06,
+          "text": "طيب، على الأقل خذ الضمان الممتد، 6,500 ريال، وإلا ما أضمن لك شي بعد السنة الثالثة.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "upsell_attempt",
+      "conversation_id": 1,
+      "index": 2,
+      "speaker": "A",
+      "segment_id": 6,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 4,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 23.98,
+          "end": 30.5,
+          "text": "يا أخي، الفرق بس 14 ألف وتقسطها، والمقاعد جلد وفتحة سقف. تبيها بدون جلد؟",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 5,
+          "speaker": "B",
+          "role": "customer",
+          "start": 31.4,
+          "end": 34.88,
+          "text": "قلت لك الميزانية محددة. أبي الأساسية.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 6,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 35.78,
+          "end": 43.06,
+          "text": "طيب، على الأقل خذ الضمان الممتد، 6,500 ريال، وإلا ما أضمن لك شي بعد السنة الثالثة.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 7,
+          "speaker": "B",
+          "role": "customer",
+          "start": 43.96,
+          "end": 48.58,
+          "text": "لا. وش هالأسلوب؟ كل ما قلت لك لا تعيد.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 8,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 49.48,
+          "end": 55.62,
+          "text": "أنا أبي مصلحتك بس. اللي يشتري الأساسية يندم، فكر مرة ثانية في الوسطى.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "upsell_attempt",
+      "conversation_id": 1,
+      "index": 3,
+      "speaker": "A",
+      "segment_id": 8,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 6,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 35.78,
+          "end": 43.06,
+          "text": "طيب، على الأقل خذ الضمان الممتد، 6,500 ريال، وإلا ما أضمن لك شي بعد السنة الثالثة.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 7,
+          "speaker": "B",
+          "role": "customer",
+          "start": 43.96,
+          "end": 48.58,
+          "text": "لا. وش هالأسلوب؟ كل ما قلت لك لا تعيد.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 8,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 49.48,
+          "end": 55.62,
+          "text": "أنا أبي مصلحتك بس. اللي يشتري الأساسية يندم، فكر مرة ثانية في الوسطى.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 9,
+          "speaker": "B",
+          "role": "customer",
+          "start": 56.52,
+          "end": 60.0,
+          "text": "لا، شكراً. أبي أروح لمعرض ثاني.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "customer_feedback",
+      "conversation_id": 1,
+      "index": 0,
+      "speaker": "B",
+      "segment_id": 7,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 6,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 35.78,
+          "end": 43.06,
+          "text": "طيب، على الأقل خذ الضمان الممتد، 6,500 ريال، وإلا ما أضمن لك شي بعد السنة الثالثة.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 7,
+          "speaker": "B",
+          "role": "customer",
+          "start": 43.96,
+          "end": 48.58,
+          "text": "لا. وش هالأسلوب؟ كل ما قلت لك لا تعيد.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 8,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 49.48,
+          "end": 55.62,
+          "text": "أنا أبي مصلحتك بس. اللي يشتري الأساسية يندم، فكر مرة ثانية في الوسطى.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "greeting",
+      "conversation_id": 3,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 16,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 16,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 105.28,
+          "end": 109.14,
+          "text": "السلام عليكم يا أبو فهد، مبروك السيارة.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 17,
+          "speaker": "D",
+          "role": "customer",
+          "start": 110.04,
+          "end": 113.52,
+          "text": "الله يبارك فيك. جاي أستلمها الحين.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 18,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 114.42,
+          "end": 121.32,
+          "text": "تفضل. عندنا حزمة العناية، حماية الطلاء والتظليل بـ 1,800 ريال، تحفظ لونها في حر الدمام.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "upsell_attempt",
+      "conversation_id": 3,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 18,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 16,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 105.28,
+          "end": 109.14,
+          "text": "السلام عليكم يا أبو فهد، مبروك السيارة.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 17,
+          "speaker": "D",
+          "role": "customer",
+          "start": 110.04,
+          "end": 113.52,
+          "text": "الله يبارك فيك. جاي أستلمها الحين.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 18,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 114.42,
+          "end": 121.32,
+          "text": "تفضل. عندنا حزمة العناية، حماية الطلاء والتظليل بـ 1,800 ريال، تحفظ لونها في حر الدمام.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 19,
+          "speaker": "D",
+          "role": "customer",
+          "start": 122.22,
+          "end": 126.08,
+          "text": "ما أبي حماية الطلاء، بس التظليل ممكن؟",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 20,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 126.98,
+          "end": 130.46,
+          "text": "أكيد، التظليل لوحده بـ 650 ريال.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "upsell_attempt",
+      "conversation_id": 3,
+      "index": 1,
+      "speaker": "A",
+      "segment_id": 20,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 18,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 114.42,
+          "end": 121.32,
+          "text": "تفضل. عندنا حزمة العناية، حماية الطلاء والتظليل بـ 1,800 ريال، تحفظ لونها في حر الدمام.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 19,
+          "speaker": "D",
+          "role": "customer",
+          "start": 122.22,
+          "end": 126.08,
+          "text": "ما أبي حماية الطلاء، بس التظليل ممكن؟",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 20,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 126.98,
+          "end": 130.46,
+          "text": "أكيد، التظليل لوحده بـ 650 ريال.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 21,
+          "speaker": "D",
+          "role": "customer",
+          "start": 131.36,
+          "end": 133.7,
+          "text": "خلاص، التظليل بس.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 22,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 134.6,
+          "end": 137.7,
+          "text": "تمام، أجهزه لك قبل التسليم.",
+          "is_highlighted": false
+        }
+      ]
+    }
+  ],
+  "spent_usd": 0.0,
+  "budget_usd": null,
+  "unpriced_calls": 0
+}
