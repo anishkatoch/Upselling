@@ -66,7 +66,11 @@ function Progress({ job, onChange }: { job: Job; onChange: () => void }) {
         className="link"
         disabled={job.cancel_requested}
         onClick={async () => {
-          await api.cancel(job.job_id);
+          try {
+            await api.cancel(job.job_id);
+          } catch {
+            /* it finished on its own in the meantime: the refresh below shows how it ended */
+          }
           onChange();
         }}
       >
@@ -89,7 +93,11 @@ function Failed({ job, onChange, stopped }: { job: Job; onChange: () => void; st
       <button
         className="btn"
         onClick={async () => {
-          await api.retry(job.job_id);
+          try {
+            await api.retry(job.job_id);
+          } catch {
+            /* already running again: the refresh below shows where it is */
+          }
           onChange();
         }}
       >

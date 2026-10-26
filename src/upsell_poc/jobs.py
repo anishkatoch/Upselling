@@ -5,7 +5,7 @@ from __future__ import annotations
 import logging
 import threading
 import uuid
-from datetime import UTC, datetime
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
 from pydantic import ValidationError
@@ -118,6 +118,34 @@ def update_status(storage: Storage, job_id: str, **changes: object) -> JobStatus
     status = status.model_copy(update={**changes, "updated_at": _now()})
     storage.put_json(status_key(job_id), status.model_dump())
     return status
+
+
+INTERRUPTED = "This was interrupted when the app restarted. Press Try again - nothing already done is repeated."
+STUCK_AFTER = timedelta(minutes=30)  # a running job that has not moved for this long is treated as dead
+
+
+def is_stuck(status: JobStatus, now: datetime | None = None) -> bool:
+    """Queued or running, but no sign of life for STUCK_AFTER: its thread or worker is gone."""
+    if status.status not in ("queued", "running"):
+        return False
+    try:
+        last = datetime.fromisoformat(status.updated_at)
+    except ValueError:
+        return True
+    return (now or datetime.now(UTC)) - last > STUCK_AFTER
+
+
+def recover_interrupted(storage: Storage) -> int:
+    """After a restart no inline job is still running: mark the ones that were so the person can retry them.
+
+    Only for the in-process queue with a single web process; with Redis the worker owns its jobs.
+    """
+    n = 0
+    for status in list_statuses(storage, limit=10_000):
+        if status.status in ("queued", "running"):
+            update_status(storage, status.job_id, status="failed", stage="interrupted", error=INTERRUPTED)
+            n += 1
+    return n
 
 
 def enqueue(job_id: str, settings: Settings | None = None) -> None:

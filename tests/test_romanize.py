@@ -37,3 +37,14 @@ def test_unknown_words_are_looked_up_once_and_remembered(tmp_path, monkeypatch):
 def test_transcript_without_hindi_script_is_untouched_and_needs_no_model():
     t = Transcript(duration=1, segments=[Segment(id=0, start=0, end=1, speaker="A", text="hello sir")], provider="p")
     assert romanize_transcript(t, None) is t
+
+
+def test_a_failing_model_leaves_the_words_alone_instead_of_failing_the_job(tmp_path, monkeypatch):
+    monkeypatch.setattr(romanize, "LOOKUP_FILE", tmp_path / "words.json")
+
+    class Down:
+        def generate(self, **kw):
+            raise RuntimeError("model unavailable")
+
+    doc = {"q": "ऐऐऐ ओओओ"}
+    assert romanize_document(doc, Down()) == doc

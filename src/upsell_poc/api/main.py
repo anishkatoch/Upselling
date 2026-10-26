@@ -2,7 +2,10 @@
 
 from __future__ import annotations
 
+import logging
+import os
 import tempfile
+from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Annotated, Any
 
@@ -21,7 +24,20 @@ from upsell_poc.storage import get_storage
 settings = get_settings()
 setup_logging(settings.log_level)
 
-app = FastAPI(title="Speaker Upsell POC", version=__version__)
+@asynccontextmanager
+async def lifespan(_app: FastAPI):  # type: ignore[no-untyped-def]
+    # Inline jobs run in this process, so after a restart none of them is really running any more.
+    if settings.queue_backend == "inline" and os.environ.get("WEB_CONCURRENCY", "1") == "1":
+        try:
+            n = await run_in_threadpool(jobs.recover_interrupted, get_storage(settings))
+            if n:
+                logging.getLogger(__name__).warning("marked %d interrupted job(s) as failed so they can be retried", n)
+        except Exception:  # noqa: BLE001 - never stop the app from starting
+            logging.getLogger(__name__).exception("could not check for interrupted jobs")
+    yield
+
+
+app = FastAPI(title="Speaker Upsell POC", version=__version__, lifespan=lifespan)
 STATIC = Path(__file__).parent / "static"
 CHUNK = 1 << 20
 
@@ -270,7 +286,7 @@ def retry_job(job_id: str) -> dict:
     status = jobs.get_status(storage, _check_id(job_id))
     if status is None:
         raise HTTPException(404, "job not found")
-    if status.status not in ("failed", "completed", "cancelled"):
+    if status.status not in ("failed", "completed", "cancelled") and not jobs.is_stuck(status):
         raise HTTPException(409, f"job is {status.status}")
     status = jobs.update_status(
         storage,
@@ -299,6 +315,10 @@ def cancel_job(job_id: str) -> dict:
         raise HTTPException(404, "job not found")
     if status.status not in ("queued", "running"):
         raise HTTPException(409, f"job is {status.status}, nothing to cancel")
+    if jobs.is_stuck(status):  # nothing is running it, so there is nobody to notice a cancel request
+        return public.public_status(
+            jobs.update_status(storage, job_id, status="cancelled", stage="cancelled", error=jobs.INTERRUPTED)
+        )
     return public.public_status(jobs.update_status(storage, job_id, cancel_requested=True))
 
 

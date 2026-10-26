@@ -172,3 +172,28 @@ def test_list_jobs_returns_saved_jobs_newest_first(tmp_path, monkeypatch):
     listed = jobs.list_statuses(storage)
     assert {s.job_id for s in listed} == {first.job_id, second.job_id}
     assert listed[0].created_at >= listed[1].created_at
+
+
+def test_interrupted_jobs_can_be_retried_after_a_restart(tmp_path):
+    from datetime import UTC, datetime, timedelta
+
+    from upsell_poc import jobs
+    from upsell_poc.storage import LocalStorage
+
+    storage = LocalStorage(tmp_path)
+    audio = tmp_path / "a.mp3"
+    audio.write_bytes(b"x")
+    running = jobs.create_job(storage, audio, "a.mp3")
+    jobs.update_status(storage, running.job_id, status="running")
+    done = jobs.create_job(storage, audio, "b.mp3")
+    jobs.update_status(storage, done.job_id, status="completed")
+
+    assert jobs.recover_interrupted(storage) == 1
+    again = jobs.get_status(storage, running.job_id)
+    assert again.status == "failed" and "interrupted" in again.error
+    assert jobs.get_status(storage, done.job_id).status == "completed"
+
+    old = (datetime.now(UTC) - timedelta(hours=2)).isoformat(timespec="seconds")
+    stale = jobs.get_status(storage, done.job_id).model_copy(update={"status": "running", "updated_at": old})
+    assert jobs.is_stuck(stale)
+    assert not jobs.is_stuck(stale.model_copy(update={"updated_at": datetime.now(UTC).isoformat()}))
