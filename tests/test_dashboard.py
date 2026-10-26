@@ -606,3 +606,13 @@ def test_buckets_count_conversations_with_an_unanswered_question(tmp_path):
     assert t.conversations_with_unanswered is not None
     assert t.conversations_with_unanswered <= t.solo_analysed_conversations
     assert t.conversations_with_unanswered <= t.unanswered_questions
+
+
+def test_the_writing_rules_for_managers_are_in_the_prompts():
+    from upsell_poc.analysis import prompts
+
+    upsell = next(v for k, v in vars(prompts).items() if isinstance(v, str) and "coaching_feedback:" in v)
+    assert "about the salesperson" in upsell and "for the salesperson on" not in upsell  # not addressed to the salesperson
+    for rule in ('Never say "you"', "speaker letter", "he, she, him or her", "in English in brackets", "segment numbers"):
+        assert rule in upsell
+    assert "never a speaker letter" in prompts.MOOD_FUSION and "segment numbers" in prompts.MOOD_FUSION

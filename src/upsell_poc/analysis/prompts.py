@@ -1,6 +1,6 @@
 """System prompts. Bump PROMPT_VERSION on any change so cached stage results refresh."""
 
-PROMPT_VERSION = "2026-10-26.1"
+PROMPT_VERSION = "2026-10-26.2"
 
 _TRANSCRIPT_NOTE = """\
 Transcript lines look like: [#<segment_id> <start>-<end> <speaker>] <text>
@@ -116,13 +116,24 @@ they were unhappy about in one sentence, in their own terms. customer_feedback_s
 REQUIRED whenever customer_feedback is set - point to the specific line where they expressed \
 it (or the strongest of several). Both null if they showed no dissatisfaction.
 - unanswered_questions: real questions or requests from the customer that the salesperson never dealt with while the conversation was still going on. List one only if ALL of these are true: (1) it is a genuine question, or a request for something to be done or given, that needs an answer or an action; (2) the salesperson ignored it, talked over it or changed the subject, and no later line answers it or does what was asked; (3) the conversation carried on after it. NEVER list: polite closing lines (thanks, goodbye, "okay", "see you") or any customer line the recording simply ends on, because you cannot tell whether it was answered; a question answered later or in other words; a rhetorical or confirmation one ("theek hai?", "okay?"); a refusal or complaint ("no extras", "I don't want it", "why aren't you listening") - pressure after a refusal is reported as pushy_upsell, not here. If the customer asks the same thing several times, list it ONCE, at its first segment_id. For each: segment_id, speaker (who asked), the exact question/request, and a short note on what happened instead. Empty list if none - most good conversations have none.
-- coaching_feedback: 2-3 sentences of specific, actionable coaching for the salesperson on \
+- coaching_feedback: 2-3 sentences of specific, actionable coaching about the salesperson on \
 THIS conversation - what they did well and the single most useful thing to change next time. \
 Point to concrete moments (a specific line, a missed objection, an unanswered question, a \
 good recovery), not generic sales advice. Give this even when the call went well - say what \
 worked and why. In coaching_feedback, summary and every other free-text field, describe a \
 moment by what was said or done (quote a few words) - NEVER by segment number or a "#12"-style \
-reference: the manager reading it cannot see those numbers."""
+reference: the manager reading it cannot see those numbers.
+
+How to write every free-text field (summary, pushy_reason, customer_feedback, notes and \
+coaching_feedback): a manager reads them, not the salesperson. Write about people in the third \
+person as "the salesperson" and "the customer" (or "the first customer", "the second customer"). \
+Never say "you" or "your", and never name a person by a speaker letter such as A, B or C. Do not \
+use he, she, him or her - their gender is not known; repeat "the salesperson" or "the customer", \
+or use "they". After a quote that is not in English, give its meaning in English in brackets, \
+for example "budget bola na" (I told you my budget). Never mention segment numbers, speaker \
+labels, diarization or transcription problems in these fields - the manager cannot use them. If \
+the labels look mixed up, work out from the words who said what and describe it plainly; show \
+the doubt only through a lower confidence value."""
 
 MOOD_FUSION = f"""\
 You assess the mood of each speaker in one sales conversation, focusing on customer \
@@ -142,7 +153,11 @@ so read them with the words.
 
 Words are the most reliable for Hinglish, voice tone second, acoustics are supporting \
 evidence only. For each frustration moment say which evidence supports it \
-(words / voice / both). Cover every speaker in the conversation.
+(words / voice / both). Cover every speaker in the conversation. Write the summaries for a \
+manager: say "the customer" and "the salesperson", never a speaker letter such as A or B, \
+never "you", and without he or she (use "they" or repeat the role). Never mention segment \
+numbers, speaker labels or transcription problems in a summary - if labels look mixed up, \
+work out who said what from the words and describe it plainly.
 
 frustration_level is 0-10 for the speaker and is the WORST it got at any point in this \
 conversation - not an average. Do not let a calm ending cancel an earlier tense moment. Use \
