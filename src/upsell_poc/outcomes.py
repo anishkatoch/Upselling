@@ -16,7 +16,8 @@ from upsell_poc.schemas import ConversationResult, CustomerResponse, JobReport
 Sentiment = Literal["positive", "neutral", "negative"]
 UpsellResult = Literal["won", "lost", "open", "none", "unknown"]
 
-HIGH_FRUSTRATION = 6
+# The same cut-offs as the screens: under 3 calm, 3-4 some tension, 5 and over frustrated.
+HIGH_FRUSTRATION = 5
 SOME_FRUSTRATION = 3
 
 
@@ -83,7 +84,7 @@ def _sentiment(conv: ConversationResult, accepted: int, max_frustration: int | N
         reasons.append("No mood reading for the customer")
     elif max_frustration >= HIGH_FRUSTRATION:
         score -= 3
-        reasons.append(f"Customer became very frustrated ({max_frustration}/10)")
+        reasons.append(f"Customer got frustrated ({max_frustration}/10)")
     elif max_frustration >= SOME_FRUSTRATION:
         score -= 1
         reasons.append(f"Customer showed some frustration ({max_frustration}/10)")

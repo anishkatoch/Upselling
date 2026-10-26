@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { AnimatedNumber, Stagger, StaggerItem } from "../components/motion";
 import LineChart from "../components/LineChart";
-import { formatPeriod } from "../lib/period";
+import { describePrevious, formatPeriod } from "../lib/period";
 import Attention from "../components/dashboard/Attention";
 import Funnel from "../components/dashboard/Funnel";
 import OutcomeBars from "../components/dashboard/OutcomeBars";
@@ -51,7 +51,10 @@ export default function Dashboard() {
     );
   }
 
-  const totals = board?.people.reduce(
+  // Only people with activity in the current month count toward "this month": someone whose latest data is from an
+  // earlier month would otherwise be mixed in.
+  const activePeople = (board?.people ?? []).filter((p) => p.is_current !== false);
+  const totals = activePeople.reduce(
     (a, p) => ({
       recordings: a.recordings + p.total.recordings,
       analysed: a.analysed + analysedCount(p.total),
@@ -63,13 +66,15 @@ export default function Dashboard() {
       won: a.won + p.total.conversations_won,
       attempts: a.attempts + p.total.attempts,
       accepted: a.accepted + p.total.accepted,
+      answered: a.answered + (p.total.answered_offers ?? 0),
       frustSum: a.frustSum + (p.total.avg_customer_frustration ?? 0) * analysedCount(p.total),
       frustN: a.frustN + (p.total.avg_customer_frustration != null ? analysedCount(p.total) : 0),
     }),
-    { recordings: 0, analysed: 0, shared: 0, greeted: 0, solo: 0, unanswered: 0, withUpsell: 0, won: 0, attempts: 0, accepted: 0, frustSum: 0, frustN: 0 },
+    { recordings: 0, analysed: 0, shared: 0, greeted: 0, solo: 0, unanswered: 0, withUpsell: 0, won: 0, attempts: 0, accepted: 0, answered: 0, frustSum: 0, frustN: 0 },
   );
   const upsellRate = totals && totals.analysed ? totals.withUpsell / totals.analysed : null;
-  const acceptRate = totals && totals.attempts ? totals.accepted / totals.attempts : null;
+  // Of the offers that got a clear yes or no (the same base the Team table and Person page use).
+  const acceptRate = totals && totals.answered ? totals.accepted / totals.answered : null;
   const frustration = totals && totals.frustN ? totals.frustSum / totals.frustN : null;
   const greetRate = totals && totals.solo ? totals.greeted / totals.solo : null;
 
@@ -84,13 +89,13 @@ export default function Dashboard() {
 
   // Team point per period = weighted merge of every person's bucket for that period.
   const teamSeries = Object.entries(
-    (board?.people ?? []).reduce<Record<string, { convs: number; withUpsell: number; attempts: number; accepted: number; frustSum: number; frustN: number }>>((acc, p) => {
+    (board?.people ?? []).reduce<Record<string, { convs: number; withUpsell: number; answered: number; accepted: number; frustSum: number; frustN: number }>>((acc, p) => {
       for (const b of p.series) {
-        const e = (acc[b.period] ??= { convs: 0, withUpsell: 0, attempts: 0, accepted: 0, frustSum: 0, frustN: 0 });
+        const e = (acc[b.period] ??= { convs: 0, withUpsell: 0, answered: 0, accepted: 0, frustSum: 0, frustN: 0 });
         const n = analysedCount(b);
         e.convs += n;
         e.withUpsell += b.conversations_with_upsell;
-        e.attempts += b.attempts;
+        e.answered += b.answered_offers ?? 0;
         e.accepted += b.accepted;
         if (b.avg_customer_frustration != null) {
           e.frustSum += b.avg_customer_frustration * n;
@@ -104,7 +109,7 @@ export default function Dashboard() {
     .map(([period, v]) => ({
       period,
       rate: v.convs ? v.withUpsell / v.convs : null,
-      accept: v.attempts ? v.accepted / v.attempts : null,
+      accept: v.answered ? v.accepted / v.answered : null,
       frust: v.frustN ? v.frustSum / v.frustN : null,
     }));
   const orgTrend = teamSeries;
@@ -140,7 +145,7 @@ export default function Dashboard() {
 
       {hasChange && (
         <p className="sub small" style={{ margin: "0 0 8px" }}>
-          Arrows show the change compared with last month.
+          Arrows show the change compared with {describePrevious("month", prev.period)}.
         </p>
       )}
       <StaggerItem>

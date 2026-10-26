@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import LineChart from "../components/LineChart";
-import { formatPeriod, type Period } from "../lib/period";
+import { describePrevious, formatPeriod, type Period } from "../lib/period";
 import { AlertTriangle, ArrowLeft, Minus, TrendDown, TrendUp } from "../icons/Icons";
 import { api, type Person } from "../lib/api";
 import { pct } from "../lib/format";
@@ -92,7 +92,8 @@ function PersonDetail({
   const moodChange = seriesDelta(p.series, "avg_customer_frustration");
   const worst = t.max_customer_frustration != null ? moodFromFrustration(t.max_customer_frustration) : null;
   const showWorst = worst != null && worst.label !== mood.label;
-  const comparedWith = period === "day" ? "yesterday" : period === "week" ? "last week" : "last month";
+  const before = p.series.length >= 2 ? p.series[p.series.length - 2] : null;
+  const comparedWith = before ? describePrevious(period, before.period) : "";
   const hasChange = p.series.length >= 2;
   const shownStrengths = showAllStrengths ? a.strengths : a.strengths.slice(0, 2);
   const shownImprovements = showAllImprovements ? a.improvements : a.improvements.slice(0, 2);

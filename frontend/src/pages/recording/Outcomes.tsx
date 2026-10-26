@@ -7,7 +7,7 @@ import { RespPill, Spk, TimeBtn, type RecCtx } from "./shared";
 /** Same "what needs a look first" rule as Conversations: a call that read negative overall, or
  * where the customer got visibly frustrated, starts expanded - everything else starts closed. */
 function needsAttention(c: CallOutcome): boolean {
-  return c.sentiment === "negative" || (c.customer_max_frustration ?? 0) >= 6;
+  return c.sentiment === "negative" || (c.customer_max_frustration ?? 0) >= 5;
 }
 
 export default function Outcomes({ ctx }: { ctx: RecCtx }) {
