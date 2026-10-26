@@ -61,6 +61,8 @@ export default function StartRecording() {
   const [error, setError] = useState<string | null>(null);
   const [lines, setLines] = useState<Line[]>([]);
   const [note, setNote] = useState<string | null>(null);
+  // A finished recording that could not be uploaded; kept so one bad connection does not lose it.
+  const [unsaved, setUnsaved] = useState<{ blob: Blob; filename: string } | null>(null);
   const supported = typeof navigator !== "undefined" && !!navigator.mediaDevices?.getUserMedia && typeof MediaRecorder !== "undefined";
 
   useEffect(() => {
@@ -163,7 +165,7 @@ export default function StartRecording() {
   };
 
   const open = () => {
-    setError(null);
+    if (!unsaved) setError(null);
     setNote(null);
     setLines([]);
     seconds.current = 0;
@@ -189,15 +191,21 @@ export default function StartRecording() {
       setError("That was too short to analyse. Record at least a few seconds of the conversation.");
       return;
     }
+    const stamp = new Date().toISOString().slice(0, 16).replace(/[:T]/g, "-");
+    await save(blob, `recording-${stamp}.${ext}`);
+  };
+
+  const save = async (blob: Blob, filename: string) => {
     setPhase("saving");
     try {
-      const stamp = new Date().toISOString().slice(0, 16).replace(/[:T]/g, "-");
-      const job = await api.upload(blob, `recording-${stamp}.${ext}`, who);
+      const job = await api.upload(blob, filename, who);
+      setUnsaved(null);
       close();
       nav(`/recordings/${job.job_id}`);
     } catch (e) {
+      setUnsaved({ blob, filename });
       setPhase("idle");
-      setError(e instanceof Error ? e.message : "We couldn't save the recording. Please try again.");
+      setError(e instanceof Error ? e.message : "We couldn't save the recording.");
     }
   };
 
@@ -209,6 +217,7 @@ export default function StartRecording() {
     setError(null);
     setNote(null);
     setLines([]);
+    setUnsaved(null);
     try {
       stream.current = await navigator.mediaDevices.getUserMedia({ audio: true });
     } catch {
@@ -216,7 +225,14 @@ export default function StartRecording() {
       return;
     }
     const { mime, ext } = pickType();
-    const r = new MediaRecorder(stream.current, mime ? { mimeType: mime } : undefined);
+    let r: MediaRecorder;
+    try {
+      r = new MediaRecorder(stream.current, mime ? { mimeType: mime } : undefined);
+    } catch {
+      release(); // do not leave the microphone on
+      setError("This browser could not start recording. Try a recent Chrome, Edge or Safari.");
+      return;
+    }
     chunks.current = [];
     discard.current = false;
     r.ondataavailable = (e) => {
@@ -302,6 +318,19 @@ export default function StartRecording() {
                 ))}
               </datalist>
             </label>
+            {unsaved && (
+              <div className="rec-unsaved" role="alert">
+                <p>Your recording is finished but was not saved. It is still here, so you can try again.</p>
+                <div className="rec-actions">
+                  <button type="button" className="btn ghost" onClick={() => setUnsaved(null)}>
+                    Discard it
+                  </button>
+                  <button type="button" className="rec-go" onClick={() => void save(unsaved.blob, unsaved.filename)}>
+                    Try saving again
+                  </button>
+                </div>
+              </div>
+            )}
             {!supported && <p className="rec-error">This browser can&apos;t record audio. Try a recent Chrome, Edge or Safari.</p>}
             {error && (
               <p className="rec-error" role="alert">
@@ -312,7 +341,7 @@ export default function StartRecording() {
               <button type="button" className="btn ghost" onClick={close}>
                 Not now
               </button>
-              <button type="button" className="rec-go" onClick={start} disabled={!supported || !who.trim()}>
+              <button type="button" className="rec-go" onClick={start} disabled={!supported || !who.trim() || !!unsaved}>
                 <Mic size={15} /> Start recording
               </button>
             </div>

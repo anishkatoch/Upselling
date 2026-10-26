@@ -14,6 +14,7 @@ def client(monkeypatch, tmp_path):
     monkeypatch.setenv("LOCAL_STORAGE_DIR", str(tmp_path / "storage"))
     get_settings.cache_clear()
     auth._failures.clear()
+    auth._hits.clear()
     from upsell_poc.api import main
 
     return TestClient(main.app)
@@ -128,3 +129,42 @@ def test_wrong_demo_password_and_normal_logins_still_behave(client):
     client.post("/api/auth/signup", json=GOOD)
     other = TestClient(client.app)
     assert other.post("/api/auth/login", json={"email": GOOD["email"], "password": GOOD["password"]}).status_code == 200
+
+
+def test_demo_email_cannot_be_claimed_by_sign_up(client):
+    r = client.post("/api/auth/signup", json={**GOOD, "email": auth.DEMO_EMAIL})
+    assert r.status_code == 409
+    assert client.post("/api/auth/signup", json=GOOD).json()["role"] == "admin"  # still the first real account
+
+
+def test_demo_session_ends_when_the_demo_login_is_switched_off(client, monkeypatch):
+    r = client.post("/api/auth/login", json={"email": auth.DEMO_EMAIL, "password": auth.DEMO_PASSWORD})
+    assert r.status_code == 200 and client.get("/api/jobs").status_code == 200
+    monkeypatch.setenv("DEMO_LOGIN", "false")
+    get_settings.cache_clear()
+    assert client.get("/api/jobs").status_code == 401
+
+
+def test_faking_the_address_does_not_give_unlimited_guesses(client):
+    client.post("/api/auth/signup", json=GOOD)
+    other = TestClient(client.app)
+    for i in range(auth.MAX_FAILURES_PER_EMAIL):
+        auth._failures.pop(f"testclient|{GOOD['email'].lower()}", None)  # as if each guess came from a new address
+        other.post("/api/auth/login", json={"email": GOOD["email"], "password": f"bad{i}"})
+    assert other.post("/api/auth/login", json=GOOD).status_code == 429
+
+
+def test_only_an_admin_can_change_people(client):
+    client.post("/api/auth/signup", json=GOOD)  # admin
+    member = TestClient(client.app)
+    member.post("/api/auth/signup", json={**GOOD, "email": "m@example.com"})
+    body = {"from_name": "A", "into_name": "B"}
+    assert member.post("/api/people/merge", json=body).status_code == 403
+    assert member.post("/api/people/name", json={"job_id": "x", "speaker": "A", "name": "B"}).status_code == 403
+    assert client.post("/api/people/merge", json=body).status_code != 403
+
+
+def test_recording_endpoints_are_rate_limited(client):
+    client.post("/api/auth/signup", json=GOOD)
+    codes = [client.post("/api/live-transcribe", files={"file": ("c.webm", b"")}).status_code for _ in range(22)]
+    assert 429 in codes

@@ -33,6 +33,7 @@ _N, _R, _P = 2**14, 8, 1
 _lock = threading.Lock()
 _failures: dict[str, list[float]] = {}
 MAX_FAILURES, FAILURE_WINDOW = 5, 600
+MAX_FAILURES_PER_EMAIL = 25  # across all addresses, so faking the address cannot give unlimited guesses
 
 
 # A built-in account for trying the app, offered on the login page as a checkbox that fills the form. It is on
@@ -153,8 +154,8 @@ def normalise_email(email: str) -> str:
 
 def signup(settings: Settings, name: str, email: str, password: str) -> PublicUser:
     name, email = name.strip(), normalise_email(email)
-    if not settings.auth_allow_signup and _real_users(_load(settings)):
-        raise AuthError(403, "Sign-ups are closed. Ask an administrator for an account.")
+    if email == DEMO_EMAIL:
+        raise AuthError(409, "An account with this email already exists. Try logging in.")
     if not 1 <= len(name) <= 80:
         raise AuthError(422, "Please enter your name.")
     if not _EMAIL.match(email):
@@ -164,6 +165,8 @@ def signup(settings: Settings, name: str, email: str, password: str) -> PublicUs
     pw = hash_password(password)
     with _lock:
         users = _load(settings)
+        if not settings.auth_allow_signup and _real_users(users):
+            raise AuthError(403, "Sign-ups are closed. Ask an administrator for an account.")
         if email in users:
             raise AuthError(409, "An account with this email already exists. Try logging in.")
         user = {
@@ -179,11 +182,26 @@ def signup(settings: Settings, name: str, email: str, password: str) -> PublicUs
     return _public(user)
 
 
-def _throttled(key: str) -> bool:
+def _throttled(key: str, limit: int = MAX_FAILURES) -> bool:
     now = time.time()
     recent = [t for t in _failures.get(key, []) if now - t < FAILURE_WINDOW]
     _failures[key] = recent
-    return len(recent) >= MAX_FAILURES
+    return len(recent) >= limit
+
+
+_hits: dict[str, list[float]] = {}
+
+
+def allow(key: str, limit: int, window: float = 60.0) -> bool:
+    """True if `key` has made fewer than `limit` calls in the last `window` seconds (and counts this one)."""
+    now = time.time()
+    with _lock:
+        recent = [t for t in _hits.get(key, []) if now - t < window]
+        ok = len(recent) < limit
+        if ok:
+            recent.append(now)
+        _hits[key] = recent
+    return ok
 
 
 def login(settings: Settings, email: str, password: str, client: str = "") -> PublicUser:
@@ -192,14 +210,16 @@ def login(settings: Settings, email: str, password: str, client: str = "") -> Pu
         # Switched off: the demo account stops working even if it was created while the demo login was on.
         raise AuthError(401, "That email and password don't match.")
     key = f"{client}|{email}"
-    if _throttled(key):
+    if _throttled(key) or _throttled(email, MAX_FAILURES_PER_EMAIL):
         raise AuthError(429, "Too many attempts. Please wait a few minutes and try again.")
     user = _load(settings).get(email)
     ok = verify_password(password[:MAX_PASSWORD], user["password"] if user else _DUMMY_HASH)
     if not user or not ok:
         _failures.setdefault(key, []).append(time.time())
+        _failures.setdefault(email, []).append(time.time())
         raise AuthError(401, "That email and password don't match.")
     _failures.pop(key, None)
+    _failures.pop(email, None)
     return _public(user)
 
 
@@ -232,5 +252,7 @@ def user_from_token(settings: Settings, token: str | None) -> PublicUser | None:
         return None
     for u in _load(settings).values():
         if u["id"] == data.get("uid"):
+            if u["email"] == DEMO_EMAIL and not settings.demo_login:
+                return None  # switched off: sessions already open stop working too
             return _public(u)
     return None

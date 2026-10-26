@@ -109,16 +109,42 @@ def me(request: Request) -> auth.PublicUser:
     return user or auth.PublicUser(id="local", name="Local user", email="", role="admin")
 
 
+def _current_user(request: Request) -> auth.PublicUser:
+    s = get_settings()
+    user = auth.user_from_token(s, request.cookies.get(auth.COOKIE))
+    if user is None and not s.auth_required:
+        return auth.PublicUser(id="local", name="Local user", email="", role="admin")
+    if user is None:
+        raise HTTPException(401, "Please log in to continue.")
+    return user
+
+
+def _require_admin(request: Request) -> None:
+    if _current_user(request).role != "admin":
+        raise HTTPException(403, "Only an administrator can change people.")
+
+
+def _limit(request: Request, what: str, limit: int, window: float = 60.0) -> None:
+    """Each signed-in user (or address, with login off) gets only so many of these a minute: they cost money."""
+    who = _current_user(request).id
+    if who == "local":
+        who = request.client.host if request.client else ""
+    if not auth.allow(f"{what}|{who}", limit, window):
+        raise HTTPException(429, "Too many requests. Please wait a moment and try again.")
+
+
 class LiveText(BaseModel):
     text: str
 
 
 @app.post("/api/live-transcribe")
 async def live_transcribe(
+    request: Request,
     file: Annotated[UploadFile, File(description="A few seconds of audio from a recording in progress")],
     context: Annotated[str | None, Form()] = None,
 ) -> LiveText:
     """Preview text for the recorder: words only, no speakers. The saved recording is analysed separately."""
+    _limit(request, "live", 20)  # the recorder sends one clip every 6 seconds
     data = await file.read(live.MAX_CLIP_BYTES + 1)
     if not data:
         raise HTTPException(400, "empty clip")
@@ -154,11 +180,13 @@ def list_jobs(limit: int = 50) -> list[dict]:
 
 @app.post("/api/jobs", status_code=202)
 async def create_job(
+    request: Request,
     file: Annotated[UploadFile, File(description="Audio or video recording")],
     industry: Annotated[str | None, Form()] = None,
     product_catalog: Annotated[str | None, Form()] = None,
     salesperson_name: Annotated[str | None, Form()] = None,
 ) -> dict:
+    _limit(request, "upload", 10, 600.0)
     limit = settings.max_upload_mb * CHUNK
     size = 0
     with tempfile.NamedTemporaryFile(delete=False, suffix=Path(file.filename or "").suffix) as tmp:
@@ -299,8 +327,9 @@ class PersonName(BaseModel):
 
 
 @app.post("/api/people/name", status_code=204)
-def name_person(body: PersonName) -> Response:
+def name_person(body: PersonName, request: Request) -> Response:
     """Say who a speaker label in one recording really is, so their recordings are grouped."""
+    _require_admin(request)
     storage = get_storage(settings)
     if jobs.get_status(storage, _check_id(body.job_id)) is None:
         raise HTTPException(404, "job not found")
@@ -314,8 +343,9 @@ class PersonMerge(BaseModel):
 
 
 @app.post("/api/people/merge", status_code=204)
-def merge_people(body: PersonMerge) -> Response:
+def merge_people(body: PersonMerge, request: Request) -> Response:
     """Treat `from_name` as another spelling of `into_name`: everything under it now counts for `into_name`."""
+    _require_admin(request)
     try:
         dashboard.merge_people(get_storage(settings), body.from_name[:80], body.into_name[:80])
     except ValueError as e:

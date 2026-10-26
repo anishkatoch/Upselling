@@ -2,7 +2,7 @@
 # Start-up for every role (API or worker): make sure the data folder exists, is writable by the app user,
 # and has the sample data the first time it is empty (a fresh persistent disk), then hand over to the command.
 set -e
-seed() { [ -d /app/data/jobs ] || cp -a /app/seed/. /app/data/ 2>/dev/null || true; }
+seed() { [ -d /app/data/jobs ] || cp -a /app/seed/. /app/data/ || echo "entrypoint: could not copy the sample data" >&2; }
 mkdir -p /app/data /tmp/upsell-poc
 if [ "$(id -u)" = "0" ]; then
   seed

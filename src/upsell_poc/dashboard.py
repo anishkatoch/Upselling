@@ -495,7 +495,7 @@ def assess(t: Bucket, series: list[Bucket]) -> Assessment:
         if worst is not None and worst >= 5 and avg < 5:
             how = "very frustrated" if worst >= 7 else "clearly irritated"
             improvements.append(
-                f"One customer got {how} (worst conversation {worst:g}/10) - go through that conversation together."
+                f"A customer got {how} (worst conversation {worst:g}/10) - go through that conversation together."
             )
     # greeting
     if t.greeting_rate is not None:
