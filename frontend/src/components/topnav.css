@@ -22,6 +22,15 @@
 @media (max-width: 640px) {
   .brand-text { display: none; }
   .topbar-in { gap: 12px; }
-  .top-nav a { padding: 0 10px; }
+  /* Icons only, so all three pages and the buttons always fit; the underline marks the open page and the names stay for screen readers. */
+  .top-nav { overflow: visible; }
+  .top-nav a { padding: 0 12px; }
+  .top-nav a span:not(.nav-underline) { display: none; }
+  .top-nav a svg { width: 18px; height: 18px; }
   .nav-underline { left: 10px; right: 10px; }
+}
+@media (max-width: 400px) {
+  .user-menu .who .avatar { display: none; }
+  .top-nav a { padding: 0 9px; }
+  .topbar-in { gap: 8px; padding: 0 12px; }
 }

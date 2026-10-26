@@ -468,3 +468,10 @@ ul.plain.tight { padding-left: 18px; }
 /* Polish: a capital I with a serif so names like "Iyer" never read as "lyer" */
 body { font-feature-settings: "cv08" 1, "cv11" 0; }
 ::selection { background: var(--accent-soft); color: var(--ink); }
+
+/* Phones: fingers need bigger targets than a mouse. The visible size stays; the tappable area grows. */
+@media (max-width: 640px) {
+  .infotip > button, .link, .back, .cv-link, .tg th button.sort { position: relative; }
+  .infotip > button::after, .link::after, .back::after, .cv-link::after, .tg th button.sort::after { content: ""; position: absolute; inset: -9px -6px; }
+  .seg button { padding: 8px 14px; }
+}

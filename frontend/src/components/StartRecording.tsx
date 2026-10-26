@@ -265,7 +265,7 @@ export default function StartRecording() {
 
   return (
     <>
-      <button type="button" className="rec-btn" onClick={open}>
+      <button type="button" className="rec-btn" onClick={open} aria-label="Start recording">
         <span className="rec-dot" aria-hidden="true" />
         <span className="rec-btn-text">Start recording</span>
       </button>

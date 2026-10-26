@@ -29,7 +29,7 @@ export default function Nav() {
             {ITEMS.map((item) => {
               const on = item.match(pathname);
               return (
-                <Link key={item.to} to={item.to} className={on ? "on" : ""} aria-current={on ? "page" : undefined}>
+                <Link key={item.to} to={item.to} className={on ? "on" : ""} aria-label={item.label} aria-current={on ? "page" : undefined}>
                   <item.icon size={15} /> <span>{item.label}</span>
                   {on && <motion.span layoutId="nav-underline" className="nav-underline" transition={{ duration: 0.25, ease: EASE }} />}
                 </Link>
