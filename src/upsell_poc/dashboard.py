@@ -54,6 +54,9 @@ class Bucket(BaseModel):
     greeted: int = 0
     greeting_rate: float | None = None
     unanswered_questions: int = 0
+    # Conversations with at least one unanswered question. The rating and trend use this (one bad conversation counts
+    # once, however many things were ignored in it); None for data from before it was recorded.
+    conversations_with_unanswered: int | None = None
     pushy_conversations: int = 0
     avg_customer_frustration: float | None = None
     max_customer_frustration: float | None = None  # the worst single conversation in the period
@@ -294,6 +297,7 @@ class _Acc:
         self.efforts: list[float] = []
         self.greeted = 0
         self.unanswered = 0
+        self.unanswered_convs = 0
         self.pushy = 0
         self.frustration: list[float] = []
         self.re_offers = 0
@@ -326,6 +330,7 @@ class _Acc:
                 self.solo_analysed += 1
                 self.greeted += bool(u.greeting_given)
                 self.unanswered += len(u.unanswered_questions)
+                self.unanswered_convs += bool(u.unanswered_questions)
                 self.pushy += bool(u.pushy_upsell)
         outcome = call_outcome(conv)
         self.sentiment[outcome.sentiment] += 1
@@ -354,6 +359,7 @@ class _Acc:
             greeted=self.greeted,
             greeting_rate=ratio(self.greeted, self.solo_analysed),
             unanswered_questions=self.unanswered,
+            conversations_with_unanswered=self.unanswered_convs,
             pushy_conversations=self.pushy,
             avg_customer_frustration=mean(self.frustration),
             max_customer_frustration=max(self.frustration) if self.frustration else None,
@@ -383,6 +389,15 @@ def _pct(v: float | None) -> str:
     return "n/a" if v is None else f"{round(v * 100)}%"
 
 
+def _unanswered_share(b: Bucket) -> float | None:
+    """Share of single-salesperson conversations where a customer question went unanswered (None if there are none)."""
+    d = b.solo_analysed_conversations
+    if not d:
+        return None
+    n = b.unanswered_questions if b.conversations_with_unanswered is None else b.conversations_with_unanswered
+    return n / d
+
+
 TREND_MARGIN = 0.10  # a signal "moved" by 10 percentage points, 0.1 unanswered questions per conversation, or 1 point of frustration
 
 
@@ -405,13 +420,10 @@ def _customer_trend(series: list[Bucket]) -> Trend | None:
     def pushy(b: Bucket) -> float | None:
         return b.pushy_conversations / b.solo_analysed_conversations if b.solo_analysed_conversations else None
 
-    def unanswered(b: Bucket) -> float | None:
-        return b.unanswered_questions / b.solo_analysed_conversations if b.solo_analysed_conversations else None
-
     moves: list[float] = []  # positive = better
     for a, b, higher_is_better, scale in (
         (prev.greeting_rate, cur.greeting_rate, True, 1.0),
-        (unanswered(prev), unanswered(cur), False, 1.0),
+        (_unanswered_share(prev), _unanswered_share(cur), False, 1.0),
         (pushy(prev), pushy(cur), False, 1.0),
         (prev.avg_customer_frustration, cur.avg_customer_frustration, False, 10.0),
     ):
@@ -450,7 +462,7 @@ def assess(t: Bucket, series: list[Bucket]) -> Assessment:
     points = 0.0
     available = 0.0
     pushy_share = t.pushy_conversations / d if d else 0.0
-    unanswered_per = t.unanswered_questions / d if d else 0.0
+    unanswered_per = _unanswered_share(t) or 0.0
 
     if d:
         # listening
