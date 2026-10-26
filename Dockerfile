@@ -49,7 +49,7 @@ ENV PATH="/app/.venv/bin:$PATH" \
     LOCAL_STORAGE_DIR=/app/data \
     WORK_DIR=/tmp/upsell-poc \
     PORT=8000 \
-    WEB_CONCURRENCY=2
+    WEB_CONCURRENCY=1
 
 RUN chmod +x /app/entrypoint.sh && mkdir -p /app/data /tmp/upsell-poc && chown -R app:app /app/data /tmp/upsell-poc
 # Starts as root only to make a mounted disk writable (hosts mount it root-owned), then runs everything as `app`.
@@ -59,5 +59,6 @@ EXPOSE 8000
 HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
     CMD curl -fsS "http://127.0.0.1:${PORT}/health" || exit 1
 
-# --proxy-headers: correct client IP/scheme behind an AWS ALB.
+# --proxy-headers: correct client IP/scheme behind a load balancer or platform proxy (AWS ALB, Render, Railway).
+# One web process by default: accounts live in a file and analysis runs inside the web process.
 CMD ["sh", "-c", "exec uvicorn upsell_poc.api.main:app --host 0.0.0.0 --port ${PORT} --workers ${WEB_CONCURRENCY} --proxy-headers --forwarded-allow-ips='*' --timeout-keep-alive 75"]
