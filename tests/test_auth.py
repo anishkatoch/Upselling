@@ -168,3 +168,9 @@ def test_recording_endpoints_are_rate_limited(client):
     client.post("/api/auth/signup", json=GOOD)
     codes = [client.post("/api/live-transcribe", files={"file": ("c.webm", b"")}).status_code for _ in range(22)]
     assert 429 in codes
+
+
+def test_a_name_with_a_slash_still_reaches_the_people_route(client):
+    client.post("/api/auth/signup", json=GOOD)
+    r = client.get("/api/people/Priya%2FSam/recordings")
+    assert r.status_code == 200 and r.headers["content-type"].startswith("application/json") and r.json() == []

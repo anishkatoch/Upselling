@@ -334,7 +334,7 @@ def people_roster() -> list[dashboard.RosterEntry]:
     return dashboard.build_roster(get_storage(settings))
 
 
-@app.get("/api/people/{name}/recordings", response_model=list[dashboard.RecordingSummary])
+@app.get("/api/people/{name:path}/recordings", response_model=list[dashboard.RecordingSummary])
 def person_recordings(name: str) -> list[dashboard.RecordingSummary]:
     """Every completed recording one person appears in - newest first, not period-capped."""
     return dashboard.build_person_recordings(get_storage(settings), name)
