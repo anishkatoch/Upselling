@@ -580,3 +580,48 @@ def test_a_declined_offer_does_not_lower_the_rating_until_there_are_enough_answe
     # with enough answers the yes-rate does count
     many_no = dashboard.assess(_solo(upsell_rate=0.7, attempts=5, acceptance_rate=0.0, answered_offers=5), [])
     assert any("accepted" in tip for tip in many_no.upsell_tips)
+
+
+def test_one_salesperson_heard_as_two_voices_counts_once_and_is_not_shared(tmp_path):
+    report = _sample_report()
+    conv = _sales_convs(report)[0]
+    labels = conv["salespeople"]
+    assert len(labels) == 1  # the fixture conversation has one salesperson
+    first = labels[0]
+    conv["salespeople"] = [first, "Z"]  # the transcription split her into a second voice, "Z"
+    for a in (conv["upsell"] or {}).get("upsell_attempts", [])[:1]:
+        a["salesperson"] = "Z"  # and one offer was heard on that second voice
+    storage = LocalStorage(tmp_path / "s")
+    job_id = _add_custom_job(storage, tmp_path, "2026-10-14T10:00:00+00:00", report)
+    dashboard.set_name(storage, job_id, first, "Meena")
+    dashboard.set_name(storage, job_id, "Z", "meena ")  # same person, different spelling
+
+    one_voice = LocalStorage(tmp_path / "t")
+    ref = _add_custom_job(one_voice, tmp_path, "2026-10-14T10:00:00+00:00", _sample_report())
+    dashboard.set_name(one_voice, ref, first, "Meena")
+
+    got = dashboard.build_dashboard(storage, "month", NOW).people
+    want = dashboard.build_dashboard(one_voice, "month", NOW).people
+    assert [p.name for p in got] == ["Meena"]
+    a, b = got[0].total, want[0].total
+    assert a.conversations == b.conversations  # not counted twice
+    assert a.shared_conversations == 0 and a.solo_analysed_conversations == b.solo_analysed_conversations
+    assert a.attempts == b.attempts  # offers heard on either voice are hers
+    assert len(got[0].recent_coaching) == len(set(got[0].recent_coaching))  # no repeated coaching note
+    assert len(got[0].recent_calls) == len(want[0].recent_calls)
+    assert len(dashboard.build_person_recordings(storage, "Meena")) == 1
+    assert [r.name for r in dashboard.build_roster(storage)] == ["Meena"]
+
+
+def test_two_different_people_in_one_conversation_is_still_shared(tmp_path):
+    report = _sample_report()
+    conv = _sales_convs(report)[0]
+    first = conv["salespeople"][0]
+    conv["salespeople"] = [first, "Z"]
+    storage = LocalStorage(tmp_path / "s")
+    job_id = _add_custom_job(storage, tmp_path, "2026-10-14T10:00:00+00:00", report)
+    dashboard.set_name(storage, job_id, first, "Meena")
+    dashboard.set_name(storage, job_id, "Z", "Asha")
+    people = {p.name: p.total for p in dashboard.build_dashboard(storage, "month", NOW).people}
+    assert set(people) == {"Meena", "Asha"}
+    assert people["Meena"].shared_conversations == 1 and people["Asha"].shared_conversations == 1

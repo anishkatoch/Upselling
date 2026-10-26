@@ -302,23 +302,23 @@ class _Acc:
         self.sentiment = {"positive": 0, "neutral": 0, "negative": 0}
         self.won = 0
 
-    def add(self, job_id: str, conv: ConversationResult, person: str) -> None:
+    def add(self, job_id: str, conv: ConversationResult, labels: tuple[str, ...], shared: bool) -> None:
+        """Count one conversation for one person. `labels` are that person's speaker labels in it (usually one)."""
         self.recordings.add(job_id)
         self.convs += 1
         # Greeting, pushiness, unanswered questions and customer frustration describe the whole
         # conversation, not one salesperson: with two salespeople we can't say whose they are.
-        shared = len(set(conv.salespeople)) > 1
         self.shared += shared
         u = conv.upsell
         if u:
             self.analysed += 1
-            mine = [a for a in u.upsell_attempts if a.salesperson == person]
+            mine = [a for a in u.upsell_attempts if a.salesperson in labels]
             self.attempts += len(mine)
             self.with_upsell += bool(mine)
             decided = [a for a in mine if a.customer_response in ("accepted", "rejected")]
             self.decided += len(decided)
             self.accepted += sum(a.customer_response == "accepted" for a in decided)
-            self.efforts.append(effort_score(u, person))
+            self.efforts.append(effort_score(u, set(labels)))
             self.re_offers += sum(a.after_customer_rejection for a in mine)
             self.objections += sum(a.handled_objection for a in mine)
             self.techniques |= {a.technique for a in mine}
@@ -329,7 +329,7 @@ class _Acc:
                 self.pushy += bool(u.pushy_upsell)
         outcome = call_outcome(conv)
         self.sentiment[outcome.sentiment] += 1
-        self.won += any(p.response == "accepted" and p.salesperson == person for p in outcome.pitched)
+        self.won += any(p.response == "accepted" and p.salesperson in labels for p in outcome.pitched)
         if conv.mood and not shared:
             self.frustration += [m.frustration_level for m in conv.mood.speakers if m.speaker in conv.customers]
 
@@ -654,18 +654,34 @@ def _completed_reports(storage: Storage) -> Iterator[tuple[jobs.JobStatus, dict]
 
 def _iter_person_labels(
     report: JobReport, status: jobs.JobStatus, identity: _Identity
-) -> Iterator[tuple[ConversationResult, str, str | None]]:
-    """Every sales conversation in one parsed report, crossed with every salesperson label in it:
-    yields (conversation, label, resolved_name_or_None). The conversation/label walk shared by
-    build_dashboard, build_person_recordings and build_roster, so they can't drift apart on *which*
+) -> Iterator[tuple[ConversationResult, tuple[str, ...], str | None, bool]]:
+    """Every sales conversation in one parsed report, once per person who sold in it:
+    yields (conversation, that person's speaker labels, resolved_name_or_None, shared). The conversation/label walk
+    shared by build_dashboard, build_person_recordings and build_roster, so they can't drift apart on *which*
     conversations and labels count - only on what each caller does with the result.
+
+    The transcription sometimes splits one salesperson into two voices (labels "A" and "C"). When both labels resolve
+    to the same person they are ONE person: the conversation counts once for them, with both labels, and is not
+    "shared". `shared` is True only when different people (or labels nobody has named yet) sold in the conversation.
+    A label that resolves to nobody is yielded alone, with name None.
     """
     sales_people = sorted({sp for c in report.conversations if c.is_sales_interaction for sp in c.salespeople})
     for c in report.conversations:
         if not c.is_sales_interaction:
             continue
-        for sp in c.salespeople:
-            yield c, sp, identity.resolve(status, sales_people, sp)
+        by_person: dict[str, list[str]] = {}
+        unnamed: list[str] = []
+        for sp in dict.fromkeys(c.salespeople):
+            name = identity.resolve(status, sales_people, sp)
+            if name:
+                by_person.setdefault(name, []).append(sp)
+            else:
+                unnamed.append(sp)
+        shared = len(by_person) + len(unnamed) > 1
+        for name, labels in by_person.items():
+            yield c, tuple(labels), name, shared
+        for sp in unnamed:
+            yield c, (sp,), None, shared
 
 
 def _speaker_lines(storage: Storage, job_id: str) -> dict[str, list[tuple[float, str]]]:
@@ -710,8 +726,9 @@ def build_dashboard(storage: Storage, period: Period = "day", now: datetime | No
         when = datetime.fromisoformat(status.created_at)
         label = period_label(when, period)
         lines: dict[str, list[tuple[float, str]]] | None = None  # read the transcript at most once per job
-        for c, sp, name in _iter_person_labels(report, status, identity):
+        for c, labels, name, shared in _iter_person_labels(report, status, identity):
             if not name:
+                sp = labels[0]
                 key = (status.job_id, sp)
                 entry = unassigned.get(key)
                 if entry is None:
@@ -732,9 +749,9 @@ def build_dashboard(storage: Storage, period: Period = "day", now: datetime | No
                     )
                 entry.conversations += 1
                 continue
-            per_person[name][label].add(status.job_id, c, sp)
+            per_person[name][label].add(status.job_id, c, labels, shared)
             for a in c.upsell.upsell_attempts if c.upsell else []:
-                if a.salesperson != sp:
+                if a.salesperson not in labels:
                     continue
                 tech = tech_acc.setdefault(a.technique, [0, 0, 0])
                 tech[0] += 1
@@ -742,7 +759,7 @@ def build_dashboard(storage: Storage, period: Period = "day", now: datetime | No
                 tech[2] += a.customer_response == "rejected"
                 tech_people.setdefault(a.technique, set()).add(name)
             o = call_outcome(c)
-            mine = [p for p in o.pitched if p.salesperson == sp]
+            mine = [p for p in o.pitched if p.salesperson in labels]
             calls[name].append(
                 RecentCall(
                     when=status.created_at,
@@ -809,7 +826,7 @@ def build_roster(storage: Storage) -> list[RosterEntry]:
         report = jobs.parse_report(raw)
         if report is None:
             continue
-        for _c, _sp, name in _iter_person_labels(report, status, identity):
+        for _c, _labels, name, _shared in _iter_person_labels(report, status, identity):
             if name:
                 seen.setdefault(name, set()).add(status.job_id)
     names: dict[str, str] = {}  # casefolded -> display, after following merges
@@ -836,10 +853,10 @@ def build_person_recordings(storage: Storage, name: str) -> list[RecordingSummar
         report = jobs.parse_report(raw)
         if report is None:
             continue
-        for c, sp, resolved in _iter_person_labels(report, status, identity):
+        for c, labels, resolved, shared in _iter_person_labels(report, status, identity):
             if not wanted or not resolved or resolved.casefold() != wanted:
                 continue
-            per_job.setdefault(status.job_id, _Acc()).add(status.job_id, c, sp)
+            per_job.setdefault(status.job_id, _Acc()).add(status.job_id, c, labels, shared)
             meta[status.job_id] = (status.filename, status.created_at)
 
     recordings = [

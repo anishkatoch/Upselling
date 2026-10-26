@@ -5,9 +5,12 @@ from __future__ import annotations
 from upsell_poc.schemas import ConversationResult, SalespersonMetrics, Segment, UpsellAnalysis
 
 
-def effort_score(upsell: UpsellAnalysis, salesperson: str | None = None) -> float:
-    """0-10. Attempts (max 6) + technique variety (max 2) + persistence (1) + objection handling (1)."""
-    attempts = [a for a in upsell.upsell_attempts if salesperson is None or a.salesperson == salesperson]
+def effort_score(upsell: UpsellAnalysis, salesperson: str | set[str] | None = None) -> float:
+    """0-10. Attempts (max 6) + technique variety (max 2) + persistence (1) + objection handling (1).
+
+    `salesperson` is one speaker label, or several when the same person was heard as more than one voice."""
+    wanted = {salesperson} if isinstance(salesperson, str) else salesperson
+    attempts = [a for a in upsell.upsell_attempts if wanted is None or a.salesperson in wanted]
     if not attempts:
         return 0.0
     score = min(len(attempts), 4) * 1.5
