@@ -239,15 +239,11 @@ export interface Segment {
 export interface TranscriptBody {
   duration: number;
   segments: Segment[];
-  provider: string;
-  model: string | null;
   chunks: number;
 }
 /** GET /jobs/{id}/transcript - the transcript plus the raw intermediate role-detection output. */
 export interface Transcript {
   transcript: TranscriptBody;
-  roles: unknown;
-  acoustics: unknown[] | null;
 }
 
 /** One day/week/month (or the special "all" bucket) of a salesperson's numbers - every
