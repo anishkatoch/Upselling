@@ -260,6 +260,8 @@ export interface Bucket {
   upsell_rate: number | null;
   attempts: number;
   accepted: number;
+  /** Offers the customer clearly accepted or turned down: the base of acceptance_rate. */
+  answered_offers?: number;
   acceptance_rate: number | null;
   avg_effort: number | null;
   greeted: number;
@@ -309,7 +311,7 @@ export interface Person {
     rating: "strong" | "solid" | "needs_work";
     headline: string;
     low_sample: boolean;
-    /** True when too few analysed conversations to rate this person; do not show the rating label. */
+    /** True when fewer than 3 conversations had this person as the only salesperson; do not show the rating label. */
     insufficient_data?: boolean;
     effort_level: EffortLevel;
     effort_summary: string;
