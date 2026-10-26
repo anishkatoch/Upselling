@@ -580,3 +580,29 @@ def test_a_declined_offer_does_not_lower_the_rating_until_there_are_enough_answe
     # with enough answers the yes-rate does count
     many_no = dashboard.assess(_solo(upsell_rate=0.7, attempts=5, acceptance_rate=0.0, answered_offers=5), [])
     assert any("accepted" in tip for tip in many_no.upsell_tips)
+
+
+def test_one_conversation_with_many_ignored_requests_counts_once_for_listening():
+    # 6 flags, but all in one of 6 conversations: 1 of 6 conversations is ~17%, a half-mark, not a failure
+    one_bad = dashboard.assess(_solo(conversations=6, analysed_conversations=6, solo_analysed_conversations=6,
+                                     unanswered_questions=6, conversations_with_unanswered=1), [])  # fmt: skip
+    assert any("went unanswered" in line for line in one_bad.improvements)
+    spread = dashboard.assess(_solo(conversations=6, analysed_conversations=6, solo_analysed_conversations=6,
+                                    unanswered_questions=6, conversations_with_unanswered=4), [])  # fmt: skip
+    assert dashboard._unanswered_share(_solo(solo_analysed_conversations=6, unanswered_questions=6, conversations_with_unanswered=1)) == 1 / 6
+    assert dashboard._unanswered_share(_solo(solo_analysed_conversations=6, unanswered_questions=6, conversations_with_unanswered=4)) == 4 / 6
+    # older data without the per-conversation count falls back to the question count
+    assert dashboard._unanswered_share(_solo(solo_analysed_conversations=6, unanswered_questions=3)) == 3 / 6
+    assert dashboard._unanswered_share(_solo(solo_analysed_conversations=0)) is None
+    assert spread.rating != "strong"
+
+
+def test_buckets_count_conversations_with_an_unanswered_question(tmp_path):
+    storage = LocalStorage(tmp_path / "s")
+    report = _sample_report()
+    job_id = _add_custom_job(storage, tmp_path, "2026-10-14T10:00:00+00:00", report)
+    dashboard.set_name(storage, job_id, "A", "Meena")
+    t = dashboard.build_dashboard(storage, "month", NOW).people[0].total
+    assert t.conversations_with_unanswered is not None
+    assert t.conversations_with_unanswered <= t.solo_analysed_conversations
+    assert t.conversations_with_unanswered <= t.unanswered_questions

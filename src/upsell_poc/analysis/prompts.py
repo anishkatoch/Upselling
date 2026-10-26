@@ -1,6 +1,6 @@
 """System prompts. Bump PROMPT_VERSION on any change so cached stage results refresh."""
 
-PROMPT_VERSION = "2026-10-22.1"
+PROMPT_VERSION = "2026-10-26.1"
 
 _TRANSCRIPT_NOTE = """\
 Transcript lines look like: [#<segment_id> <start>-<end> <speaker>] <text>
@@ -115,12 +115,7 @@ frustration, complaint or pushback (use the mood notes and the transcript), summ
 they were unhappy about in one sentence, in their own terms. customer_feedback_segment_id is \
 REQUIRED whenever customer_feedback is set - point to the specific line where they expressed \
 it (or the strongest of several). Both null if they showed no dissatisfaction.
-- unanswered_questions: every question or request from the other person that the salesperson \
-never actually answered - ignored it, talked over it, or changed the subject instead of \
-addressing it. For each: segment_id, speaker (who asked), the exact question/request, and a \
-short note on what happened instead. Do not include a question a later reply clearly answers, \
-or a rhetorical/confirmation one ("theek hai?", "okay?") that needs no real answer. Empty list \
-if none.
+- unanswered_questions: real questions or requests from the customer that the salesperson never dealt with while the conversation was still going on. List one only if ALL of these are true: (1) it is a genuine question, or a request for something to be done or given, that needs an answer or an action; (2) the salesperson ignored it, talked over it or changed the subject, and no later line answers it or does what was asked; (3) the conversation carried on after it. NEVER list: polite closing lines (thanks, goodbye, "okay", "see you") or any customer line the recording simply ends on, because you cannot tell whether it was answered; a question answered later or in other words; a rhetorical or confirmation one ("theek hai?", "okay?"); a refusal or complaint ("no extras", "I don't want it", "why aren't you listening") - pressure after a refusal is reported as pushy_upsell, not here. If the customer asks the same thing several times, list it ONCE, at its first segment_id. For each: segment_id, speaker (who asked), the exact question/request, and a short note on what happened instead. Empty list if none - most good conversations have none.
 - coaching_feedback: 2-3 sentences of specific, actionable coaching for the salesperson on \
 THIS conversation - what they did well and the single most useful thing to change next time. \
 Point to concrete moments (a specific line, a missed objection, an unanswered question, a \
