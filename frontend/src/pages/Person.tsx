@@ -201,10 +201,6 @@ function PersonDetail({
         </Reveal>
       )}
 
-      <Reveal>
-        <RecentConversations calls={p.recent_calls} />
-      </Reveal>
-
       {p.recent_coaching.length > 0 && (
         <Reveal className="flat-card coaching">
           <h3>
@@ -217,6 +213,11 @@ function PersonDetail({
           </ul>
         </Reveal>
       )}
+
+      <Reveal>
+        <RecentConversations calls={p.recent_calls} period={t.period} />
+      </Reveal>
+
       <p className="ai-note">AI-generated and indicative - check the evidence in the recordings before using it in a review.</p>
     </div>
   );

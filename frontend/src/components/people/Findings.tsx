@@ -32,7 +32,6 @@ function Card({
           {tone === "good" ? <Check size={14} /> : <AlertTriangle size={14} />}
         </span>
         <h3>{title}</h3>
-        {items.length > 0 && <span className="f-count">{items.length}</span>}
       </header>
       {items.length ? (
         <ul className="f-list">

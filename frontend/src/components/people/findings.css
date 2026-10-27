@@ -4,7 +4,6 @@
 .finding-card header { display: flex; align-items: center; gap: 10px; padding: 0 20px 12px; }
 .finding-card h3 { margin: 0; font-size: 15px; font-weight: 600; color: var(--ink); letter-spacing: 0; text-transform: none; }
 .f-ico { width: 24px; height: 24px; border-radius: 50%; background: var(--tone-soft); color: var(--tone); display: inline-flex; align-items: center; justify-content: center; flex: none; }
-.f-count { margin-left: auto; font-size: 12px; font-weight: 600; color: var(--tone); background: var(--tone-soft); border-radius: 999px; padding: 2px 9px; }
 .f-list { list-style: none; margin: 0; padding: 0; flex: 1; }
 .f-list li { display: flex; align-items: flex-start; gap: 12px; padding: 11px 20px; border-top: 1px solid var(--line-soft); }
 .f-mark { width: 6px; height: 6px; border-radius: 50%; background: var(--tone); margin-top: 8px; flex: none; }
