@@ -54,6 +54,8 @@ class Bucket(BaseModel):
     greeted: int = 0
     greeting_rate: float | None = None
     unanswered_questions: int = 0
+    # Conversations (not questions) with at least one unanswered customer question; None: not measured.
+    conversations_with_unanswered: int | None = None
     # Single-salesperson conversations where the customer asked for something (None: not measured).
     # Listening only earns its points when customers actually asked, so silence is not a pass.
     customer_requests: int | None = None
@@ -81,6 +83,7 @@ class Assessment(BaseModel):
     rating: Rating
     headline: str
     low_sample: bool
+    early_read: bool = False  # rated, but on fewer conversations than EARLY_READ_BELOW: shown as an early read
     insufficient_data: bool = False  # too few analysed conversations to rate; the UI should not show the rating
     effort_level: EffortLevel
     effort_summary: str
@@ -297,6 +300,7 @@ class _Acc:
         self.efforts: list[float] = []
         self.greeted = 0
         self.unanswered = 0
+        self.unanswered_convs = 0
         self.requests = 0
         self.pushy = 0
         self.frustration: list[float] = []
@@ -330,6 +334,7 @@ class _Acc:
                 self.solo_analysed += 1
                 self.greeted += bool(u.greeting_given)
                 self.unanswered += len(u.unanswered_questions)
+                self.unanswered_convs += bool(u.unanswered_questions)
                 self.requests += bool(u.customer_requested or u.unanswered_questions)
                 self.pushy += bool(u.pushy_upsell)
         outcome = call_outcome(conv)
@@ -359,6 +364,7 @@ class _Acc:
             greeted=self.greeted,
             greeting_rate=ratio(self.greeted, self.solo_analysed),
             unanswered_questions=self.unanswered,
+            conversations_with_unanswered=self.unanswered_convs,
             customer_requests=self.requests,
             pushy_conversations=self.pushy,
             avg_customer_frustration=mean(self.frustration),
@@ -382,7 +388,17 @@ class _Acc:
 # rating stands on. Conversations shared with a colleague do not count toward it.
 MIN_CONVERSATIONS = 3
 MIN_ANSWERED_OFFERS = 3  # "customers say yes" is only judged once this many offers got a clear answer
+ASPECT_NAMES = {
+    "greeting": "greeting customers",
+    "listening": "answering customer questions",
+    "mood": "customer mood",
+    "pressure": "pressure after a 'no'",
+    "upselling": "offering add-ons",
+    "conversion": "customers saying yes",
+}
 SEVERE_FRUSTRATION = 7  # one customer this frustrated keeps the rating from being "Excelling"
+MIN_FOR_EXCELLING = 6  # "Excelling" needs this many single-salesperson conversations; a few good ones prove little
+EARLY_READ_BELOW = 5  # with fewer single-salesperson conversations than this, every label is only an early read
 MIN_REPEATED = 2  # pitching after a 'no' or ignoring questions stops "Excelling" once it happened this often
 
 
@@ -456,12 +472,18 @@ def assess(t: Bucket, series: list[Bucket]) -> Assessment:
     upsell_tips: list[str] = []
     points = 0.0
     available = 0.0
+    aspects: dict[str, tuple[float, float]] = {}  # aspect -> (points earned, points possible)
+    before = 0.0
     pushy_share = t.pushy_conversations / d if d else 0.0
-    unanswered_per = t.unanswered_questions / d if d else 0.0
+    # Two ignored questions in one conversation is one bad conversation, not two: count conversations.
+    flagged = t.unanswered_questions if t.conversations_with_unanswered is None else t.conversations_with_unanswered
+    unanswered_convs = min(d, flagged)
+    unanswered_per = unanswered_convs / d if d else 0.0
 
     if d:
         # listening
         available += W_LISTENING
+        before = points
         if unanswered_per <= 0.1:
             if t.customer_requests != 0:  # nobody asked for anything = nothing was answered either
                 points += W_LISTENING
@@ -475,8 +497,10 @@ def assess(t: Bucket, series: list[Bucket]) -> Assessment:
             improvements.append(
                 f"{t.unanswered_questions} customer question{'s' if t.unanswered_questions != 1 else ''} went unanswered across {d} conversation{'s' if d != 1 else ''} - answer every question before anything else."
             )
+        aspects["listening"] = (points - before, W_LISTENING)
         # pushiness
         available += W_PUSHY
+        before = points
         if pushy_share <= 0.1:
             if t.attempts:  # nobody can be pushy without making an offer, so no offers is no evidence
                 points += W_PUSHY
@@ -490,9 +514,11 @@ def assess(t: Bucket, series: list[Bucket]) -> Assessment:
             improvements.append(
                 f"Kept pitching after a clear 'no' in {t.pushy_conversations} of {d} conversations - when a customer declines, accept it and move on."
             )
+        aspects["pressure"] = (points - before, W_PUSHY)
     # customer mood
     if t.avg_customer_frustration is not None:
         available += W_MOOD
+        before = points
         avg = t.avg_customer_frustration
         if avg < 3:
             points += W_MOOD
@@ -512,9 +538,11 @@ def assess(t: Bucket, series: list[Bucket]) -> Assessment:
             improvements.append(
                 f"A customer got {how} (worst conversation {worst:g}/10) - go through that conversation together."
             )
+        aspects["mood"] = (points - before, W_MOOD)
     # greeting
     if t.greeting_rate is not None:
         available += W_GREETING
+        before = points
         if t.greeting_rate >= 0.8:
             points += W_GREETING
             handling_good.insert(0, f"Greets customers consistently ({_pct(t.greeting_rate)} of conversations).")
@@ -525,6 +553,7 @@ def assess(t: Bucket, series: list[Bucket]) -> Assessment:
             )
         else:
             improvements.append(f"Start each conversation with a greeting - only {_pct(t.greeting_rate)} had one.")
+        aspects["greeting"] = (points - before, W_GREETING)
     if t.objections_handled:
         handling_good.append(
             f"Answered customer objections while offering ({t.objections_handled} time{'s' if t.objections_handled != 1 else ''})."
@@ -532,6 +561,7 @@ def assess(t: Bucket, series: list[Bucket]) -> Assessment:
     # upselling: counts towards the rating, but the advice about it comes last and is optional
     if t.upsell_rate is not None:
         available += W_UPSELL_REACH
+        before = points
         if t.upsell_rate >= 0.6:
             points += W_UPSELL_REACH
             sales_good.append(f"Looks for add-on sales in most conversations ({_pct(t.upsell_rate)}).")
@@ -544,7 +574,9 @@ def assess(t: Bucket, series: list[Bucket]) -> Assessment:
             upsell_tips.append(
                 f"Rarely offers an add-on ({_pct(t.upsell_rate)} of conversations) - suggest something relevant once the customer's own request is handled."
             )
+        aspects["upselling"] = (points - before, W_UPSELL_REACH)
     # conversion (no answered offers = nothing to judge, not a free point)
+    before = points
     if t.upsell_rate is not None:
         available += W_CONVERSION  # always at stake: too few answered offers earns nothing rather than being skipped
     if t.acceptance_rate is not None and t.answered_offers >= MIN_ANSWERED_OFFERS:
@@ -557,6 +589,8 @@ def assess(t: Bucket, series: list[Bucket]) -> Assessment:
             upsell_tips.append(
                 f"Only {_pct(t.acceptance_rate)} of offers are accepted - tie the add-on to what the customer just asked for."
             )
+    if t.upsell_rate is not None:
+        aspects["conversion"] = (points - before, W_CONVERSION)
     if t.attempts >= 3 and len(t.techniques) <= 1:
         upsell_tips.append("Uses a single sales technique - mix in bundles, upgrades or protection plans.")
     strengths = handling_good + sales_good
@@ -564,6 +598,11 @@ def assess(t: Bucket, series: list[Bucket]) -> Assessment:
     low_sample = d < MIN_CONVERSATIONS
     insufficient = low_sample or available == 0
     rating: Rating
+    held_back: list[str] = []
+    early_read = False
+    early_kind: Rating = "solid"  # what the points said before the early-read cap
+    thin_for_excelling = False
+    min_for_excelling = MIN_FOR_EXCELLING
     if available == 0:
         rating = "solid"  # nothing to judge; insufficient_data is what tells the reader so
     else:
@@ -573,15 +612,60 @@ def assess(t: Bucket, series: list[Bucket]) -> Assessment:
             rating = "solid"  # an average can hide one customer who left very upset
         if rating == "strong" and (
             (pushy_share > 0.3 and t.pushy_conversations >= MIN_REPEATED)
-            or (unanswered_per > 0.3 and t.unanswered_questions >= MIN_REPEATED)
+            or (unanswered_per > 0.3 and unanswered_convs >= MIN_REPEATED)
         ):
             rating = "solid"  # strengths do not buy back a problem that keeps happening
+        weak = [ASPECT_NAMES[k] for k, (got, possible) in aspects.items() if got * 2 < possible]
+        if rating == "strong" and weak:
+            rating = "solid"  # "Excelling" means a good score overall and no weak spot
+            held_back = weak
+        if not insufficient:
+            if d < EARLY_READ_BELOW:
+                early_kind, early_read = rating, True  # too few conversations for any firm label
+                rating = "solid"
+            elif rating == "strong" and d < min_for_excelling:
+                rating, thin_for_excelling = "solid", True  # a few good conversations are an early read, not proof
+    if rating == "solid" and available and points * 4 >= available * 3:
+        # Good on points but held below "Excelling": say why, the most serious thing first.
+        reasons: list[str] = []
+        worst_seen = t.max_customer_frustration
+        if worst_seen is not None and worst_seen >= SEVERE_FRUSTRATION:
+            reasons.append(f"a very frustrated customer ({worst_seen:g}/10)")
+        if pushy_share > 0.3 and t.pushy_conversations >= MIN_REPEATED:
+            reasons.append(f"pitching again after a 'no' in {t.pushy_conversations} conversations")
+        if unanswered_per > 0.3 and unanswered_convs >= MIN_REPEATED:
+            reasons.append(f"customer questions left unanswered in {unanswered_convs} conversations")
+        reasons += held_back
+        if held_back:  # a weak spot: also point at anything serious that did not reach the limits above
+            if t.pushy_conversations and not any(r.startswith("pitching") for r in reasons):
+                plural = "s" if t.pushy_conversations != 1 else ""
+                reasons.append(f"pitching again after a 'no' in {t.pushy_conversations} conversation{plural}")
+            if worst_seen is not None and 5 <= worst_seen < SEVERE_FRUSTRATION:
+                reasons.append(f"a customer who got frustrated ({worst_seen:g}/10)")
+        held_back = reasons
     if insufficient and n == 0:
         headline = f"Not enough analysed data to rate this person yet (0 of {MIN_CONVERSATIONS} conversations analysed)."
     elif insufficient:
         headline = (
             f"Not enough conversations to rate this person yet ({d} of {MIN_CONVERSATIONS} where they were the only "
             f"salesperson)."
+        )
+    elif early_read:
+        verdict = {
+            "strong": "looking good so far",
+            "solid": "on track so far",
+            "needs_work": "some things to look at",
+        }[early_kind]
+        headline = (
+            f"Early read: {verdict}, but {d} conversations are too few for a firm rating "
+            f"({EARLY_READ_BELOW} needed)"
+        )
+    elif held_back:
+        headline = "On track, held back by " + "; ".join(held_back[:3])
+    elif thin_for_excelling:
+        headline = (
+            f"On track so far - {min_for_excelling} conversations are needed before anyone is rated Excelling "
+            f"({d} so far)"
         )
     else:
         headline = {
@@ -637,6 +721,7 @@ def assess(t: Bucket, series: list[Bucket]) -> Assessment:
         trend=trend,
         strengths=strengths,
         improvements=improvements,
+        early_read=early_read,
         upsell_tips=upsell_tips,
     )
 

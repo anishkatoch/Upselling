@@ -333,15 +333,15 @@ def test_unanalysed_conversations_do_not_dilute_rates_or_earn_points(tmp_path):
 
 
 def test_assess_scores_only_categories_with_data():
-    base = {"period": "p", "conversations": 5, "analysed_conversations": 5}
+    base = {"period": "p", "conversations": 10, "analysed_conversations": 10}
     # no solo conversations = nothing about how they treat customers to judge, so no rating (never upselling alone)
     sparse = dashboard.assess(dashboard.Bucket(**base, upsell_rate=0.0), [])
     assert sparse.insufficient_data and sparse.low_sample
     assert not any("Answers what customers ask" in s for s in sparse.strengths)
 
     full = dashboard.Bucket(
-        **base, solo_analysed_conversations=5, greeting_rate=1.0, upsell_rate=0.8, acceptance_rate=0.5,
-        answered_offers=6,
+        **base, solo_analysed_conversations=10, greeting_rate=1.0, upsell_rate=0.8, acceptance_rate=0.5,
+        answered_offers=6, attempts=8,
     )
     assert dashboard.assess(full, []).rating == "strong"  # every available point, not a share of a fixed total
 
@@ -541,12 +541,13 @@ def test_unanswered_question_advice_uses_the_right_singular_and_plural():
 
 def _solo(**kw) -> dashboard.Bucket:
     base = {
-        "period": "p", "conversations": 3, "analysed_conversations": 3, "solo_analysed_conversations": 3,
+        "period": "p", "conversations": 10, "analysed_conversations": 10, "solo_analysed_conversations": 10,
         "greeting_rate": 1.0, "unanswered_questions": 0, "pushy_conversations": 0,
         "avg_customer_frustration": 0.0, "max_customer_frustration": 0.0, "customer_requests": 3,
     }  # fmt: skip
     if kw.get("upsell_rate"):
         base["attempts"] = 3  # a rate with no offers behind it would be a contradiction
+        base["acceptance_rate"], base["answered_offers"] = 0.5, 4  # customers said yes to some of them
     return dashboard.Bucket(**{**base, **kw})
 
 
@@ -578,7 +579,7 @@ def test_one_very_upset_customer_keeps_a_good_average_from_being_excelling():
 def test_a_declined_offer_does_not_lower_the_rating_until_there_are_enough_answers():
     none = dashboard.assess(_solo(upsell_rate=0.0), [])
     one_no = dashboard.assess(_solo(upsell_rate=0.7, attempts=1, acceptance_rate=0.0, answered_offers=1), [])
-    assert none.rating == "solid" and one_no.rating == "strong"  # trying once and hearing "no" beats never trying
+    assert none.rating == one_no.rating == "solid"  # one "no" is no evidence of selling, and does not count against
     assert not any("accepted" in tip for tip in one_no.upsell_tips)
     # with enough answers the yes-rate does count
     many_no = dashboard.assess(_solo(upsell_rate=0.7, attempts=5, acceptance_rate=0.0, answered_offers=5), [])
@@ -595,10 +596,97 @@ def test_doing_only_one_thing_is_not_rated_well():
 def test_a_problem_that_keeps_happening_keeps_a_good_score_from_being_excelling():
     base = {"upsell_rate": 0.8, "attempts": 8, "acceptance_rate": 0.5, "answered_offers": 8}
     assert dashboard.assess(_solo(**base), []).rating == "strong"
-    pushy = dashboard.assess(_solo(**base, pushy_conversations=3), [])
+    pushy = dashboard.assess(_solo(**base, pushy_conversations=4), [])
     assert pushy.rating == "solid"
-    ignored = dashboard.assess(_solo(**base, unanswered_questions=3), [])
+    ignored = dashboard.assess(_solo(**base, unanswered_questions=4, conversations_with_unanswered=4), [])
     assert ignored.rating == "solid"
     # one slip in a few conversations is not a pattern
     ten = {"conversations": 10, "analysed_conversations": 10, "solo_analysed_conversations": 10}
     assert dashboard.assess(_solo(**ten, **base, pushy_conversations=1), []).rating == "strong"
+
+
+def test_excelling_needs_every_aspect_to_earn_at_least_half_its_points():
+    ten = {"conversations": 10, "analysed_conversations": 10, "solo_analysed_conversations": 10}
+    good = {"upsell_rate": 0.8, "attempts": 9, "answered_offers": 9, **ten}
+    strong = dashboard.assess(_solo(**good, acceptance_rate=0.5), [])
+    assert strong.rating == "strong" and strong.headline.startswith("Excelling")
+    # high total (12 of 15) but customers almost never say yes: not excelling, and it says why
+    weak = dashboard.assess(_solo(**good, acceptance_rate=0.11), [])
+    assert weak.rating == "solid" and weak.headline == "On track, held back by customers saying yes"
+    # half the points on an aspect is enough
+    half = dashboard.assess(_solo(**good, acceptance_rate=0.25), [])
+    assert half.rating == "strong"
+
+
+def test_two_ignored_questions_in_one_conversation_count_as_one_conversation():
+    ten = {"conversations": 10, "analysed_conversations": 10, "solo_analysed_conversations": 10}
+    base = {"upsell_rate": 0.8, "attempts": 9, "answered_offers": 9, "acceptance_rate": 0.5, **ten}
+    # 3 ignored questions, all in one conversation of ten: a bad conversation, not a pattern
+    one_bad = dashboard.assess(_solo(**base, unanswered_questions=3, conversations_with_unanswered=1), [])
+    assert one_bad.rating == "strong"
+    # the same kind of problem in 4 of 10 conversations is a pattern
+    spread = dashboard.assess(_solo(**base, unanswered_questions=4, conversations_with_unanswered=4), [])
+    assert spread.rating == "solid" and "unanswered in 4 conversations" in spread.headline
+
+
+def test_headline_names_the_most_serious_reason_first():
+    base = {"upsell_rate": 0.8, "attempts": 9, "answered_offers": 9, "conversations": 10,
+            "analysed_conversations": 10, "solo_analysed_conversations": 10}  # fmt: skip
+    # weak spot (customers rarely say yes) plus a pushed conversation and an irritated customer: all three are named
+    a = dashboard.assess(_solo(**base, acceptance_rate=0.1, pushy_conversations=1, max_customer_frustration=6.0), [])
+    assert a.rating == "solid"
+    h = a.headline
+    assert h.index("customers saying yes") < h.index("pitching again") < h.index("frustrated")
+    # one very upset customer comes first
+    b = dashboard.assess(_solo(**base, acceptance_rate=0.5, max_customer_frustration=8.0), [])
+    assert b.headline == "On track, held back by a very frustrated customer (8/10)"
+
+
+def test_needs_support_is_only_an_early_read_below_five_conversations():
+    bad = {
+        "greeting_rate": 0.0, "unanswered_questions": 3, "conversations_with_unanswered": 3, "pushy_conversations": 3,
+        "avg_customer_frustration": 6.0, "max_customer_frustration": 6.0, "upsell_rate": 0.0,
+    }  # fmt: skip
+    three = {"conversations": 3, "analysed_conversations": 3, "solo_analysed_conversations": 3}
+    early = dashboard.assess(_solo(**bad, **three), [])
+    assert early.rating == "solid" and early.early_read and early.headline.startswith("Early read")
+    five = {"conversations": 5, "analysed_conversations": 5, "solo_analysed_conversations": 5}
+    assert dashboard.assess(_solo(**bad, **five), []).rating == "needs_work"
+
+
+def test_mood_labels_with_a_role_suffix_still_match_the_conversations_customers():
+    from upsell_poc.schemas import FrustrationMoment, SpeakerMood
+
+    # The model sometimes writes "B (customer)"; it must still be read as customer "B".
+    mood = SpeakerMood(
+        speaker="B (customer)", overall_mood="frustrated", frustration_level=6, trend="worsening", summary="x"
+    )
+    assert mood.speaker == "B"
+    moment = FrustrationMoment(
+        segment_id=3, speaker="@ (other)", quote="q", evidence_source="words", evidence="e"
+    )
+    assert moment.speaker == "@"
+    assert SpeakerMood(speaker="A", overall_mood="calm", frustration_level=0, trend="stable", summary="").speaker == "A"
+
+
+def test_every_label_is_only_an_early_read_below_five_conversations():
+    four = {"conversations": 4, "analysed_conversations": 4, "solo_analysed_conversations": 4}
+    good = _solo(**four, upsell_rate=0.8, attempts=8, acceptance_rate=0.5, answered_offers=8)
+    a = dashboard.assess(good, [])
+    assert a.rating == "solid" and a.early_read and "looking good so far" in a.headline  # not "Excelling" on 4
+    middling = dashboard.assess(_solo(**four, greeting_rate=0.6), [])
+    assert middling.early_read and middling.rating == "solid"
+    # five or more is a real rating again
+    five = {"conversations": 5, "analysed_conversations": 5, "solo_analysed_conversations": 5}
+    firm = dashboard.assess(_solo(**five, upsell_rate=0.8, attempts=8, acceptance_rate=0.5, answered_offers=8), [])
+    assert not firm.early_read
+
+
+def test_excelling_needs_a_minimum_number_of_conversations():
+    five = {"conversations": 5, "analysed_conversations": 5, "solo_analysed_conversations": 5}
+    six = {"conversations": 6, "analysed_conversations": 6, "solo_analysed_conversations": 6}
+    strong = {"upsell_rate": 0.8, "attempts": 8, "acceptance_rate": 0.5, "answered_offers": 8}
+    assert dashboard.MIN_FOR_EXCELLING == 6
+    a = dashboard.assess(_solo(**strong, **five), [])  # a real rating, but not enough for the top label
+    assert a.rating == "solid" and not a.early_read and "6 conversations are needed" in a.headline
+    assert dashboard.assess(_solo(**strong, **six), []).rating == "strong"

@@ -8,9 +8,10 @@ and clamped in code.
 
 from __future__ import annotations
 
+import re
 from typing import Literal
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 # ---------------------------------------------------------------- transcript
 
@@ -121,12 +122,20 @@ class ToneAnalysis(BaseModel):
     turns: list[TurnTone]
 
 
+def _bare_label(label: str) -> str:
+    """'B (customer)' -> 'B': the model sometimes echoes the role it was shown, but every other part of the report
+    (and every comparison with a conversation's customers/salespeople) uses the bare speaker label."""
+    return re.sub(r"\s*\([^)]*\)\s*$", "", label).strip() or label
+
+
 class SpeakerMood(BaseModel):
     speaker: str
     overall_mood: Mood
     frustration_level: int = Field(description="0 (none) to 10 (extreme): the worst it got during the conversation.")
     trend: Literal["improving", "stable", "worsening"]
     summary: str
+
+    _bare = field_validator("speaker")(lambda v: _bare_label(v))
 
 
 class FrustrationMoment(BaseModel):
@@ -135,6 +144,8 @@ class FrustrationMoment(BaseModel):
     quote: str
     evidence_source: Literal["words", "voice", "both"]
     evidence: str
+
+    _bare = field_validator("speaker")(lambda v: _bare_label(v))
 
 
 class MoodAnalysis(BaseModel):
