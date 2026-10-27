@@ -213,7 +213,7 @@ function PersonDetail({
 
       {(a.factors?.length ?? 0) > 0 && (
         <Reveal>
-          <RatingFactors factors={a.factors ?? []} />
+          <RatingFactors factors={a.factors ?? []} early={a.early_read} count={t.solo_analysed_conversations} />
         </Reveal>
       )}
 

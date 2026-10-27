@@ -7,7 +7,7 @@ const WORD: Record<RatingFactor["status"], string> = { good: "Strong", fair: "Fa
  * What the rating looks at, one cell per thing: how it went, in words, with the count behind it.
  * Deliberately no points, weights or cut-offs: it explains the rating without publishing the formula.
  */
-export default function RatingFactors({ factors }: { factors: RatingFactor[] }) {
+export default function RatingFactors({ factors, early, count }: { factors: RatingFactor[]; early?: boolean; count?: number }) {
   if (!factors.length) return null;
   return (
     <section className="flat-card factors-card" aria-label="What shaped this rating">
@@ -26,6 +26,11 @@ export default function RatingFactors({ factors }: { factors: RatingFactor[] }) 
           </li>
         ))}
       </ul>
+      {early && (
+        <p className="factors-note">
+          Based on {count ?? "few"} {count === 1 ? "conversation" : "conversations"}, so this is an early read.
+        </p>
+      )}
     </section>
   );
 }

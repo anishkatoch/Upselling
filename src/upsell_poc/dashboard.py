@@ -505,15 +505,15 @@ def _factors(t: Bucket, d: int, unanswered_convs: int, aspects: dict[str, tuple[
         worst = t.max_customer_frustration
         extra = f", worst {worst:g}/10" if worst is not None and worst >= 5 else ""
         detail = f"Customers' frustration averaged {t.avg_customer_frustration}/10{extra}"
-        add("mood", "Customer mood", status("mood"), detail)
+        add("mood", "Customers stay calm", status("mood"), detail)
     if "pressure" in aspects:
         if t.attempts == 0:
-            add("pressure", "Pressure after a 'no'", "none", "No offers made, so nothing to judge")
+            add("pressure", "Accepts a 'no'", "none", "No offers made, so nothing to judge")
         elif t.pushy_conversations == 0:
-            add("pressure", "Pressure after a 'no'", status("pressure"), "Never pitched again after a clear 'no'")
+            add("pressure", "Accepts a 'no'", status("pressure"), "Never pitched again after a clear 'no'")
         else:
             detail = f"Pitched again after a clear 'no' in {t.pushy_conversations} of {d} conversations"
-            add("pressure", "Pressure after a 'no'", status("pressure"), detail)
+            add("pressure", "Accepts a 'no'", status("pressure"), detail)
     if "upselling" in aspects:
         detail = f"Made an offer in {t.conversations_with_upsell} of {t.analysed_conversations} conversations"
         add("offers", "Offers", status("upselling"), detail)
