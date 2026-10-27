@@ -46,6 +46,9 @@ def test_sentiment_rules():
         )
         return outcomes.call_outcome(conv.model_copy(update={"mood": mood, "upsell": upsell}))
 
+    # the same cut-offs as the screens: 5 and over is frustrated (a call that needs attention), 3-4 is some tension
+    assert with_(5, False, False).sentiment == "negative" and "frustrated (5/10)" in " ".join(with_(5, False, False).sentiment_reasons)
+    assert with_(4, False, False).sentiment == "neutral" and with_(2, False, False).sentiment == "neutral"
     assert with_(1, True, False).sentiment == "positive"
     assert with_(1, False, False).sentiment == "neutral"
     assert with_(7, True, False).sentiment == "negative"

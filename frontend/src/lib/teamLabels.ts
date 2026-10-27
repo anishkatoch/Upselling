@@ -21,11 +21,6 @@ export function moodFromFrustration(v: number | null): { label: string; tone: "g
   if (v < 5) return { label: "Some tension", tone: "warn" };
   return { label: "Frustrated", tone: "bad" };
 }
-export const TREND_SENTENCE: Record<NonNullable<Person["assessment"]["trend"]>, string> = {
-  improving: "effort is improving",
-  steady: "effort is steady",
-  declining: "effort is dropping",
-};
 // The numbers below are scoped to the selected period (today / this week / this month), not
 // all-time - this says so wherever a bare count could otherwise read as "ever".
 export const PERIOD_LABEL: Record<Period, string> = { day: "today", week: "this week", month: "this month" };

@@ -31,8 +31,8 @@ export default function SummaryTab({ ctx }: { ctx: RecCtx }) {
     );
     (c.mood?.speakers ?? []).forEach((m) => {
       const role = r.speakers.find((s) => s.speaker === canon(m.speaker))?.role;
-      if (m.frustration_level >= 6 && role === "customer") {
-        notes.push({ sev: "bad", title: `${who(m.speaker)} highly frustrated (${m.frustration_level}/10)`, conv: c.conversation_id, text: `${t}: ${m.summary}` });
+      if (m.frustration_level >= 5 && role === "customer") {
+        notes.push({ sev: "bad", title: `${who(m.speaker)} ${m.frustration_level >= 7 ? "highly frustrated" : "frustrated"} (${m.frustration_level}/10)`, conv: c.conversation_id, text: `${t}: ${m.summary}` });
       }
     });
   });
