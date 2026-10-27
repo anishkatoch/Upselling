@@ -80,6 +80,7 @@ class Bucket(BaseModel):
 
 
 class Assessment(BaseModel):
+    aspect_scores: dict[str, tuple[float, float]] = {}
     rating: Rating
     headline: str
     low_sample: bool
@@ -94,6 +95,7 @@ class Assessment(BaseModel):
 
 
 class RecentCall(BaseModel):
+    period: str = ""
     when: str  # upload time of the recording
     job_id: str
     filename: str
@@ -712,6 +714,7 @@ def assess(t: Bucket, series: list[Bucket]) -> Assessment:
         else:
             improvements.append(f"None of the {t.conversations} conversation(s) could be analysed yet.")
     return Assessment(
+        aspect_scores=aspects,
         rating=rating,
         headline=headline,
         low_sample=low_sample,
@@ -844,6 +847,7 @@ def build_dashboard(storage: Storage, period: Period = "day", now: datetime | No
             mine = [p for p in o.pitched if p.salesperson == sp]
             calls[name].append(
                 RecentCall(
+                    period=label,
                     when=status.created_at,
                     job_id=status.job_id,
                     filename=status.filename,

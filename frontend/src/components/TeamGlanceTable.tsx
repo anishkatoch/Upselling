@@ -172,6 +172,7 @@ export default function TeamGlanceTable({ people, collapsedRows }: { people: Per
                   </th>
                   <td>
                     <RatingChip person={p} short />
+                    <div className="sub small">{t.solo_analysed_conversations ?? "—"} solo conversations</div>
                   </td>
                   <td className="num">{pct(t.greeting_rate)}</td>
                   <td>

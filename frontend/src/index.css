@@ -476,3 +476,7 @@ body { font-feature-settings: "cv08" 1, "cv11" 0; }
   .seg button { padding: 8px 14px; }
 }
 
+:root { accent-color: var(--accent); }
+.recording-audio { margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--line); }
+.recording-audio h3 { margin-top: 0; }
+.recording-audio audio { width: 100%; }

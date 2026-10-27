@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Link, useParams, useSearchParams } from "react-router-dom";
 import { AlertTriangle, ArrowLeft, Check } from "../icons/Icons";
 import { api, type Job, type Report, type Segment } from "../lib/api";
@@ -156,8 +156,14 @@ function Results({ job }: { job: Job }) {
   const [tab, setTab] = useState<Tab>(initial.tab);
   const [scrollConv, setScrollConv] = useState<number | null>(initial.tab === "conversations" ? initial.conv : null);
   const [scrollSeg, setScrollSeg] = useState<number | null>(null);
-  // The POC shows transcripts and findings only; there is no audio playback, so times are just labels.
-  const seek = () => {};
+  const audio = useRef<HTMLAudioElement>(null);
+  const [audioError, setAudioError] = useState(false);
+  const [playNotice, setPlayNotice] = useState("");
+  const seek = (time: number) => {
+    if (!audio.current || audioError) return;
+    audio.current.currentTime = Math.max(0, time);
+    audio.current.play().then(() => setPlayNotice("")).catch(() => setPlayNotice("Press play on the recording to listen."));
+  };
 
   if (outcomes.error || report.error)
     return (
@@ -205,6 +211,20 @@ function Results({ job }: { job: Job }) {
   return (
     <>
       <div className="card">
+        <div className="recording-audio">
+          <h3>Listen to the recording</h3>
+          <audio ref={audio} controls preload="metadata" aria-label="Recording audio" src={`/api/jobs/${id}/audio`}
+            onError={() => setAudioError(true)}
+            onLoadedMetadata={() => {
+              const value = params.get("t");
+              const time = value === null ? NaN : Number(value);
+              if (audio.current && Number.isFinite(time) && time >= 0) {
+                audio.current.currentTime = Math.min(time, Number.isFinite(audio.current.duration) ? audio.current.duration : time);
+              }
+            }} />
+          {audioError ? <p role="status">Audio is unavailable for this recording. The transcript and findings are still available below.</p> : <p className="sub small">Use a timestamp to listen in context. Linked examples start a few seconds before the highlighted moment; press play to listen.</p>}
+          {playNotice && <p role="status">{playNotice}</p>}
+        </div>
         <div className="row">
           <h2 style={{ marginBottom: 0, flex: 1 }}>Shift recording</h2>
           <span className="pill good">Ready</span>

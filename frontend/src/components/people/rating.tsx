@@ -17,11 +17,11 @@ export function RatingChip({ person, short }: { person: Person; short?: boolean 
     );
   }
   const r = RATING[person.assessment.rating];
-  const early = person.assessment.early_read;
+  const early = person.assessment.early_read || (person.total.solo_analysed_conversations != null && person.total.solo_analysed_conversations < 5);
   return (
     <span className={`pill ${r.tone}`} title={early ? "Early read: too few conversations for a firm rating" : undefined}>
       {r.label}
-      {early && " · early"}
+      {early && " · Early read"}
     </span>
   );
 }

@@ -290,6 +290,7 @@ export interface RecordingSummary {
 }
 
 export interface RecentCall {
+  period?: string;
   when: string;
   job_id: string;
   filename: string;
@@ -308,6 +309,8 @@ export interface Person {
   total: Bucket;
   series: Bucket[];
   assessment: {
+    /** Earned / available points, supplied by the existing scoring rules. */
+    aspect_scores?: Record<string, [number, number]>;
     rating: "strong" | "solid" | "needs_work";
     headline: string;
     low_sample: boolean;

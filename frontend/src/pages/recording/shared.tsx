@@ -55,8 +55,9 @@ export function RoleNote({ speaker, report, who, role }: { speaker: string; repo
   return <span className="sub small"> {r}</span>;
 }
 
-/** A timestamp label (there is no audio playback in this app, so it is not clickable). */
-export function TimeBtn({ t }: { t: number; seek?: (t: number) => void }) {
+/** Jump to a moment in the recording when playback is available. */
+export function TimeBtn({ t, seek }: { t: number; seek?: (t: number) => void }) {
+  if (seek) return <button type="button" className="chip" aria-label={`Play recording at ${clock(t)}`} onClick={() => seek(Math.max(0, t - 3))}>{clock(t)}</button>;
   return (
     <span className="chip" style={{ fontVariantNumeric: "tabular-nums" }}>
       {clock(t)}

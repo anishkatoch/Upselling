@@ -106,7 +106,7 @@ function ConversationBody({ c, ctx }: { c: Conversation; ctx: RecCtx }) {
                 variants={{ hidden: { opacity: 0, y: 6 }, show: { opacity: 1, y: 0, transition: { duration: 0.25, ease: EASE } } }}
               >
                 <div className="cv-mhead">
-                  <span className="cv-mtime">{clock(m.t)}</span>
+                  <button type="button" className="link cv-mtime" aria-label={`Play ${m.title} at ${clock(m.t)}`} onClick={() => ctx.seek(Math.max(0, m.t - 3))}>{clock(m.t)}</button>
                   <span>
                     <span className="cv-mtitle">{m.title}</span>
                     {m.tag && <span className="cv-mtag"> - {m.tag}</span>}

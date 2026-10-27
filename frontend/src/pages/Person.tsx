@@ -13,6 +13,7 @@ import { EFFORT, moodFromFrustration, PERIOD_LABEL } from "../lib/teamLabels";
 import VsTeamBars from "../components/people/VsTeamBars";
 import PersonSentiment from "../components/people/PersonSentiment";
 import RecentConversations from "../components/people/RecentConversations";
+import RatingReview from "../components/people/RatingReview";
 import { RatingChip, SampleNote, seriesDelta, StalePeriodNotice } from "../components/people/rating";
 import "../components/people/people.css";
 
@@ -107,7 +108,7 @@ function PersonDetail({
             <h1>{p.name}</h1>
             <div className="sub small">
               {t.recordings} recording{t.recordings !== 1 ? "s" : ""} · {t.conversations} customer conversation
-              {t.conversations !== 1 ? "s" : ""} · {PERIOD_LABEL[period]}
+              {t.conversations !== 1 ? "s" : ""} · {p.is_current === false ? `period starting ${formatPeriod(t.period)}` : PERIOD_LABEL[period]}
             </div>
           </div>
           {a.trend && (
@@ -131,12 +132,10 @@ function PersonDetail({
           </div>
         )}
 
-        <p style={{ marginTop: 12 }}>
-          {a.headline}
-          {a.low_sample && <span className="sub"> (based on very few conversations so far)</span>}
-        </p>
-        <SampleNote bucket={t} when={PERIOD_LABEL[period]} />
+        <SampleNote bucket={t} when={`in the period starting ${formatPeriod(t.period)}`} />
       </Reveal>
+
+      <RatingReview person={p} />
 
       <Reveal className="metric-group" delay={0.06}>
         {hasChange && <p className="sub small metric-caption">Arrows show the change compared with {comparedWith}.</p>}
