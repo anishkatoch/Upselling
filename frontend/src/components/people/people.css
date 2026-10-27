@@ -199,3 +199,7 @@ a.recent-row:hover .recent-go { transform: translateX(3px); }
 .person-flat .flat-card.coaching .card-head h3::before { display: none; }
 .person-flat .flat-card .vs-list { padding: 0; list-style: none; display: flex; flex-direction: column; gap: 0; }
 .person-flat .flat-card .sent-legend { padding: 0; list-style: none; }
+
+/* Dashboard tile row: three tiles about how customers are treated, two about selling */
+.metric-groups.dash-groups { grid-template-columns: 3fr 2fr; margin: 0 0 8px; }
+@media (max-width: 860px) { .metric-groups.dash-groups { display: none; } }

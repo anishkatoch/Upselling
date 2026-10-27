@@ -268,6 +268,8 @@ export interface Bucket {
   solo_analysed_conversations?: number;
   greeting_rate: number | null;
   unanswered_questions: number;
+  /** Conversations (not questions) with at least one unanswered customer question. */
+  conversations_with_unanswered?: number | null;
   pushy_conversations: number;
   avg_customer_frustration: number | null;
   max_customer_frustration?: number | null;

@@ -62,6 +62,7 @@ export default function Dashboard() {
       greeted: a.greeted + p.total.greeted,
       solo: a.solo + (p.total.solo_analysed_conversations ?? 0),
       unanswered: a.unanswered + p.total.unanswered_questions,
+      unansweredConvs: a.unansweredConvs + (p.total.conversations_with_unanswered ?? p.total.unanswered_questions),
       withUpsell: a.withUpsell + p.total.conversations_with_upsell,
       won: a.won + p.total.conversations_won,
       attempts: a.attempts + p.total.attempts,
@@ -70,7 +71,7 @@ export default function Dashboard() {
       frustSum: a.frustSum + (p.total.avg_customer_frustration ?? 0) * analysedCount(p.total),
       frustN: a.frustN + (p.total.avg_customer_frustration != null ? analysedCount(p.total) : 0),
     }),
-    { recordings: 0, analysed: 0, shared: 0, greeted: 0, solo: 0, unanswered: 0, withUpsell: 0, won: 0, attempts: 0, accepted: 0, answered: 0, frustSum: 0, frustN: 0 },
+    { recordings: 0, analysed: 0, shared: 0, greeted: 0, solo: 0, unanswered: 0, unansweredConvs: 0, withUpsell: 0, won: 0, attempts: 0, accepted: 0, answered: 0, frustSum: 0, frustN: 0 },
   );
   const upsellRate = totals && totals.analysed ? totals.withUpsell / totals.analysed : null;
   // Of the offers that got a clear yes or no (the same base the Team table and Person page use).
@@ -156,6 +157,10 @@ export default function Dashboard() {
         </p>
       )}
       <StaggerItem>
+      <div className="metric-groups dash-groups">
+        <span>How customers are treated</span>
+        <span>Selling</span>
+      </div>
       <MetricRow>
         <Metric
           label="Customer mood"
@@ -166,6 +171,7 @@ export default function Dashboard() {
             </>
           }
           value={mood.label}
+          tone={frustration != null ? mood.tone : undefined}
           foot={<DeltaChip value={diff("frust", 1)} lowerIsBetter upText="more tense" downText="calmer" />}
         />
         <Metric
@@ -173,25 +179,41 @@ export default function Dashboard() {
           info={METRIC_INFO.greeting_rate}
           value={pctNum(greetRate)}
           unit={greetRate != null ? "of conversations" : undefined}
+          meter={greetRate}
+          foot={greetRate != null ? <span className="m-count">{totals.greeted} of {totals.solo}</span> : null}
         />
         <Metric
-          label="Questions left unanswered"
+          label="Unanswered questions"
           info={METRIC_INFO.unanswered}
-          value={totals && totals.analysed > 0 ? <Num value={totals.unanswered} /> : "–"}
+          value={totals && totals.solo > 0 ? <Num value={totals.unansweredConvs} /> : "–"}
+          unit={totals && totals.solo > 0 ? `of ${totals.solo} conversations` : undefined}
+          foot={totals && totals.solo > 0 ? <span className="m-count">{totals.unanswered} {totals.unanswered === 1 ? "question" : "questions"} in total</span> : null}
         />
         <Metric
           label="Tries to upsell"
           info={METRIC_INFO.upsell_rate}
           value={pctNum(upsellRate)}
           unit={upsellRate != null ? "of conversations" : undefined}
-          foot={<DeltaChip value={diff("rate", 100)} />}
+          meter={upsellRate}
+          foot={
+            <>
+              {upsellRate != null && <span className="m-count">{totals.withUpsell} of {totals.analysed}</span>}
+              <DeltaChip value={diff("rate", 100)} />
+            </>
+          }
         />
         <Metric
           label="Customers say yes"
           info={METRIC_INFO.acceptance_rate}
           value={pctNum(acceptRate)}
           unit={acceptRate != null ? "of offers" : undefined}
-          foot={<DeltaChip value={diff("accept", 100)} />}
+          meter={acceptRate}
+          foot={
+            <>
+              {acceptRate != null && <span className="m-count">{totals.accepted} of {totals.answered} answered</span>}
+              <DeltaChip value={diff("accept", 100)} />
+            </>
+          }
         />
       </MetricRow>
       </StaggerItem>
