@@ -291,6 +291,8 @@ export interface RecordingSummary {
 
 export interface RecentCall {
   when: string;
+  /** The day / week / month the conversation falls in (same labels as Bucket.period). */
+  period?: string;
   job_id: string;
   filename: string;
   conversation_id: number;

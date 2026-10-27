@@ -147,3 +147,5 @@ a.recent-row:hover .recent-go { transform: translateX(3px); }
 .optional-tips { margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--line); }
 .optional-tips h4 { margin: 0 0 6px; font-size: 12.5px; font-weight: 600; color: var(--muted); }
 .optional-tips ul { color: var(--muted); font-size: 13.5px; }
+
+.recent-more { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }

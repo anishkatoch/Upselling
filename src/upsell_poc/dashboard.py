@@ -95,6 +95,7 @@ class Assessment(BaseModel):
 
 class RecentCall(BaseModel):
     when: str  # upload time of the recording
+    period: str = ""  # the day / week / month it falls in, same labels as Bucket.period
     job_id: str
     filename: str
     conversation_id: int
@@ -845,6 +846,7 @@ def build_dashboard(storage: Storage, period: Period = "day", now: datetime | No
             calls[name].append(
                 RecentCall(
                     when=status.created_at,
+                    period=label,
                     job_id=status.job_id,
                     filename=status.filename,
                     conversation_id=c.conversation_id,

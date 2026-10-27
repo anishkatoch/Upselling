@@ -23,14 +23,24 @@ const sentence = (s: string) => {
  * opens the call (deep-linked to that conversation) - the path from a person's numbers to the
  * proof.
  */
-export default function RecentConversations({ calls }: { calls: RecentCall[] }) {
+export default function RecentConversations({ calls, period }: { calls: RecentCall[]; period?: string }) {
   const [all, setAll] = useState(false);
-  const shown = all ? calls : calls.slice(0, SHOWN);
+  const [earlier, setEarlier] = useState(false);
+  // The conversations behind the figures above (the selected period) come first; older ones sit behind a button.
+  const inPeriod = period ? calls.filter((c) => c.period === period) : calls;
+  const before = period ? calls.filter((c) => c.period !== period) : [];
+  const base = inPeriod.length || !before.length ? inPeriod : before; // nothing in the period: show what there is
+  const rows = earlier ? [...base, ...(base === inPeriod ? before : [])] : base;
+  const shown = all ? rows : rows.slice(0, SHOWN);
 
   return (
     <div>
       <h3 className="section-title">Recent conversations</h3>
-      <p className="sub small recent-hint">Open one to read the conversation and see what the figures above are based on.</p>
+      <p className="sub small recent-hint">
+        {inPeriod.length
+          ? `The ${inPeriod.length} conversation${inPeriod.length === 1 ? "" : "s"} the figures above are based on. Open one to read it.`
+          : "Open one to read the conversation."}
+      </p>
 
       {calls.length === 0 ? (
         <p className="sub small">No conversations to show for this period yet.</p>
@@ -70,11 +80,18 @@ export default function RecentConversations({ calls }: { calls: RecentCall[] }) 
               );
             })}
           </ul>
-          {calls.length > SHOWN && (
-            <button className="btn ghost small" style={{ marginTop: 10 }} onClick={() => setAll((v) => !v)}>
-              {all ? "Show fewer" : `Show all ${calls.length}`}
-            </button>
-          )}
+          <div className="recent-more">
+            {rows.length > SHOWN && (
+              <button className="btn ghost small" onClick={() => setAll((v) => !v)}>
+                {all ? "Show fewer" : `Show all ${rows.length}`}
+              </button>
+            )}
+            {base === inPeriod && before.length > 0 && (
+              <button className="btn ghost small" onClick={() => setEarlier((v) => !v)}>
+                {earlier ? "Hide earlier conversations" : `Show ${before.length} earlier conversation${before.length === 1 ? "" : "s"}`}
+              </button>
+            )}
+          </div>
         </>
       )}
     </div>

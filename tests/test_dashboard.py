@@ -690,3 +690,19 @@ def test_excelling_needs_a_minimum_number_of_conversations():
     a = dashboard.assess(_solo(**strong, **five), [])  # a real rating, but not enough for the top label
     assert a.rating == "solid" and not a.early_read and "6 conversations are needed" in a.headline
     assert dashboard.assess(_solo(**strong, **six), []).rating == "strong"
+
+
+def test_recent_calls_say_which_period_they_belong_to():
+    from pathlib import Path
+
+    from upsell_poc.storage import LocalStorage
+
+    store = Path(__file__).parents[1] / "sample_data" / "store"
+    for period in ("day", "week", "month"):
+        board = dashboard.build_dashboard(LocalStorage(store), period)
+        for person in board.people:
+            labels = {b.period for b in person.series}
+            assert person.recent_calls and all(c.period in labels for c in person.recent_calls)
+            # the conversations behind the headline figures are exactly the ones carrying the latest label
+            behind = [c for c in person.recent_calls if c.period == person.total.period]
+            assert len(behind) == person.total.conversations or len(person.recent_calls) == 8
