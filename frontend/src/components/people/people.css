@@ -203,3 +203,7 @@ a.recent-row:hover .recent-go { transform: translateX(3px); }
 /* Dashboard tile row: three tiles about how customers are treated, two about selling */
 .metric-groups.dash-groups { grid-template-columns: 3fr 2fr; margin: 0 0 8px; }
 @media (max-width: 860px) { .metric-groups.dash-groups { display: none; } }
+
+/* Group titles above each tile row on the person page */
+.metric-group-title { margin: 10px 0 -4px; padding-left: 4px; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
+.person-flat .metric-group > .metric-group-title:first-of-type { margin-top: 2px; }

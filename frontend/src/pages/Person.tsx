@@ -3,13 +3,12 @@ import { Link, useParams } from "react-router-dom";
 import LineChart from "../components/LineChart";
 import { describePrevious, formatPeriod, type Period } from "../lib/period";
 import { AlertTriangle, ArrowLeft, Minus, TrendDown, TrendUp } from "../icons/Icons";
-import { api, type Person } from "../lib/api";
+import { api, type Person, type RatingFactor } from "../lib/api";
 import { pct } from "../lib/format";
 import { useLoad } from "../lib/hooks";
 import { METRIC_INFO } from "../lib/metricInfo";
 import { Reveal } from "../components/motion";
 import Findings from "../components/people/Findings";
-import RatingFactors from "../components/people/RatingFactors";
 import { DeltaChip, Metric, MetricRow } from "../components/ui";
 import { EFFORT, moodFromFrustration, PERIOD_LABEL } from "../lib/teamLabels";
 import VsTeamBars from "../components/people/VsTeamBars";
@@ -101,6 +100,12 @@ function PersonDetail({
   const before = p.series.length >= 2 ? p.series[p.series.length - 2] : null;
   const comparedWith = before ? describePrevious(period, before.period) : "";
   const hasChange = p.series.length >= 2;
+  // Each rating factor's tile gets a dot from the same status the rating was built on (nothing shows when there is no rating).
+  const factorState = Object.fromEntries((a.factors ?? []).map((f) => [f.key, f.status]));
+  const factorTone = (key: RatingFactor["key"]) =>
+    ({ good: "good", fair: "warn", weak: "bad", none: "neutral" } as const)[factorState[key] as RatingFactor["status"]];
+  const solo = t.solo_analysed_conversations ?? 0;
+  const unansweredConvs = t.conversations_with_unanswered ?? t.unanswered_questions;
 
   return (
     <div className="person-flat">
@@ -143,10 +148,7 @@ function PersonDetail({
 
       <Reveal className="metric-group" delay={0.06}>
         {hasChange && <p className="sub small metric-caption">Arrows show the change compared with {comparedWith}.</p>}
-        <div className="metric-groups">
-          <span>How they treat customers</span>
-          <span>Selling</span>
-        </div>
+        <p className="metric-group-title">How they treat customers</p>
         <MetricRow>
           <Metric
             label="Greets customers"
@@ -154,7 +156,16 @@ function PersonDetail({
             value={num(t.greeting_rate, "pct")}
             unit={t.greeting_rate != null ? "of conversations" : undefined}
             meter={t.greeting_rate}
+            tone={factorTone("greeting")}
             foot={countFoot(t.greeting_rate != null ? `${t.greeted} of ${t.solo_analysed_conversations}` : null, seriesDelta(p.series, "greeting_rate", 100))}
+          />
+          <Metric
+            label="Unanswered questions"
+            info={METRIC_INFO.unanswered}
+            value={solo > 0 ? String(unansweredConvs) : "–"}
+            unit={solo > 0 ? `of ${solo} conversations` : undefined}
+            tone={factorTone("listening")}
+            foot={solo > 0 ? <span className="m-count">{t.unanswered_questions} {t.unanswered_questions === 1 ? "question" : "questions"} in total</span> : null}
           />
           <Metric
             label="Customer mood"
@@ -166,7 +177,7 @@ function PersonDetail({
               </>
             }
             value={mood.label}
-            tone={mood.tone}
+            tone={factorTone("mood") ?? mood.tone}
             foot={
               moodChange == null && !showWorst ? null : (
                 <>
@@ -181,11 +192,23 @@ function PersonDetail({
             }
           />
           <Metric
+            label="Pitched after a 'no'"
+            info={METRIC_INFO.pitch_after_no}
+            value={t.attempts > 0 ? String(t.pushy_conversations) : "–"}
+            unit={t.attempts > 0 ? `of ${solo} conversations` : undefined}
+            tone={factorTone("pressure")}
+            foot={<span className="m-count">{t.attempts > 0 ? `${t.re_offers} ${t.re_offers === 1 ? "offer" : "offers"} repeated` : "No offers made"}</span>}
+          />
+        </MetricRow>
+        <p className="metric-group-title">Selling</p>
+        <MetricRow>
+          <Metric
             label="Tries to upsell"
             info={METRIC_INFO.upsell_rate}
             value={num(t.upsell_rate, "pct")}
             unit={t.upsell_rate != null ? "of conversations" : undefined}
             meter={t.upsell_rate}
+            tone={factorTone("offers")}
             foot={countFoot(t.upsell_rate != null ? `${t.conversations_with_upsell} of ${t.analysed_conversations}` : null, seriesDelta(p.series, "upsell_rate", 100))}
           />
           <Metric
@@ -194,6 +217,7 @@ function PersonDetail({
             value={num(t.acceptance_rate, "pct")}
             unit={t.acceptance_rate != null ? "of offers" : undefined}
             meter={t.acceptance_rate}
+            tone={factorTone("yes")}
             foot={countFoot(t.acceptance_rate != null ? `${t.accepted} of ${t.answered_offers ?? 0} answered` : null, seriesDelta(p.series, "acceptance_rate", 100))}
           />
         </MetricRow>
@@ -206,16 +230,9 @@ function PersonDetail({
             />
             <Metric label="Offers per conversation" info={METRIC_INFO.offers_per_conversation} value={num(t.attempts_per_conversation, "dec")} />
             <Metric label="Different approaches used" info={METRIC_INFO.techniques} value={num(t.techniques.length, "int")} />
-            <Metric label="Offers repeated after a 'no'" info={METRIC_INFO.reoffers} value={num(t.re_offers, "int")} />
           </MetricRow>
         </div>
       </Reveal>
-
-      {(a.factors?.length ?? 0) > 0 && (
-        <Reveal>
-          <RatingFactors factors={a.factors ?? []} early={a.early_read} count={t.solo_analysed_conversations} />
-        </Reveal>
-      )}
 
       {(people.length >= 2 || t.calls_positive + t.calls_neutral + t.calls_negative > 0) && (
         <Reveal className="insight-row">
