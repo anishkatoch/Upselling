@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import json
 import shutil
+import time
 from pathlib import Path
 from typing import Any, Protocol
 
@@ -26,6 +27,20 @@ class Storage(Protocol):
     def media_location(self, key: str) -> Path | str:
         """Local path to stream, or a temporary URL to redirect the browser to."""
         ...
+
+
+def _retry(action, attempts: int = 12, pause: float = 0.025):  # type: ignore[no-untyped-def]
+    """Run a file operation, retrying briefly when Windows says the file is busy (another thread is replacing it).
+
+    A status file is rewritten often while the page reads it; on Windows that can collide for a few milliseconds and
+    must not fail a job. Linux never raises here, so nothing changes there."""
+    for i in range(attempts):
+        try:
+            return action()
+        except PermissionError:
+            if i == attempts - 1:
+                raise
+            time.sleep(pause)
 
 
 class LocalStorage:
@@ -55,13 +70,13 @@ class LocalStorage:
         dst.parent.mkdir(parents=True, exist_ok=True)
         tmp = dst.with_suffix(dst.suffix + ".tmp")
         tmp.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
-        tmp.replace(dst)
+        _retry(lambda: tmp.replace(dst))
 
     def get_json(self, key: str) -> Any | None:
         path = self._path(key)
         if not path.exists():
             return None
-        return json.loads(path.read_text(encoding="utf-8"))
+        return json.loads(_retry(lambda: path.read_text(encoding="utf-8")))
 
     def exists(self, key: str) -> bool:
         return self._path(key).exists()

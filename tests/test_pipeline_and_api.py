@@ -197,3 +197,31 @@ def test_interrupted_jobs_can_be_retried_after_a_restart(tmp_path):
     stale = jobs.get_status(storage, done.job_id).model_copy(update={"status": "running", "updated_at": old})
     assert jobs.is_stuck(stale)
     assert not jobs.is_stuck(stale.model_copy(update={"updated_at": datetime.now(UTC).isoformat()}))
+
+
+def test_local_storage_retries_when_windows_says_the_file_is_busy(tmp_path, monkeypatch):
+    from pathlib import Path
+
+    from upsell_poc.storage import LocalStorage
+
+    storage = LocalStorage(tmp_path)
+    storage.put_json("a/status.json", {"n": 1})
+    real_replace, real_read = Path.replace, Path.read_text
+    busy = {"replace": 2, "read": 2}
+
+    def flaky_replace(self, target):
+        if busy["replace"]:
+            busy["replace"] -= 1
+            raise PermissionError("busy")
+        return real_replace(self, target)
+
+    def flaky_read(self, *a, **k):
+        if busy["read"]:
+            busy["read"] -= 1
+            raise PermissionError("busy")
+        return real_read(self, *a, **k)
+
+    monkeypatch.setattr(Path, "replace", flaky_replace)
+    monkeypatch.setattr(Path, "read_text", flaky_read)
+    storage.put_json("a/status.json", {"n": 2})  # two busy moments, then it works
+    assert storage.get_json("a/status.json") == {"n": 2} and busy == {"replace": 0, "read": 0}
