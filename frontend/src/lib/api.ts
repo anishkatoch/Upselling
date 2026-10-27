@@ -303,6 +303,14 @@ export interface RecentCall {
   accepted: number;
 }
 
+export interface RatingFactor {
+  key: "greeting" | "listening" | "mood" | "pressure" | "offers" | "yes";
+  label: string;
+  /** "none": nothing happened that could be judged (no offers, no questions, too few answers). */
+  status: "good" | "fair" | "weak" | "none";
+  detail: string;
+}
+
 export type EffortLevel = "high" | "moderate" | "low" | "none";
 
 export interface Person {
@@ -323,6 +331,8 @@ export interface Person {
     improvements: string[];
     /** Optional ideas about upselling, shown after the advice about how they treat customers. */
     upsell_tips?: string[];
+    /** What the rating looks at, in words with the counts behind each (no points or cut-offs). */
+    factors?: RatingFactor[];
   };
   recent_coaching: string[];
   recent_calls: RecentCall[];

@@ -9,6 +9,7 @@ import { useLoad } from "../lib/hooks";
 import { METRIC_INFO } from "../lib/metricInfo";
 import { Reveal } from "../components/motion";
 import Findings from "../components/people/Findings";
+import RatingFactors from "../components/people/RatingFactors";
 import { DeltaChip, Metric, MetricRow } from "../components/ui";
 import { EFFORT, moodFromFrustration, PERIOD_LABEL } from "../lib/teamLabels";
 import VsTeamBars from "../components/people/VsTeamBars";
@@ -209,6 +210,12 @@ function PersonDetail({
           </MetricRow>
         </div>
       </Reveal>
+
+      {(a.factors?.length ?? 0) > 0 && (
+        <Reveal>
+          <RatingFactors factors={a.factors ?? []} />
+        </Reveal>
+      )}
 
       {(people.length >= 2 || t.calls_positive + t.calls_neutral + t.calls_negative > 0) && (
         <Reveal className="insight-row">
