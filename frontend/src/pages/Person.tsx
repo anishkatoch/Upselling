@@ -207,7 +207,7 @@ function PersonDetail({
             }
           />
           <Metric
-            label="Accepts a 'no'"
+            label="Respects a 'no'"
             info={METRIC_INFO.pitch_after_no}
             value={t.attempts > 0 ? String(solo - t.pushy_conversations) : "–"}
             unit={t.attempts > 0 ? `of ${solo} conversations` : undefined}

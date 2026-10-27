@@ -509,12 +509,12 @@ def _factors(t: Bucket, d: int, unanswered_convs: int, aspects: dict[str, tuple[
         add("mood", "Customers stay calm", status("mood"), detail)
     if "pressure" in aspects:
         if t.attempts == 0:
-            add("pressure", "Accepts a 'no'", "none", "No offers made, so nothing to judge")
+            add("pressure", "Respects a 'no'", "none", "No offers made, so nothing to judge")
         elif t.pushy_conversations == 0:
-            add("pressure", "Accepts a 'no'", status("pressure"), "Never pitched again after a clear 'no'")
+            add("pressure", "Respects a 'no'", status("pressure"), "Never pitched again after a clear 'no'")
         else:
             detail = f"Pitched again after a clear 'no' in {t.pushy_conversations} of {d} conversations"
-            add("pressure", "Accepts a 'no'", status("pressure"), detail)
+            add("pressure", "Respects a 'no'", status("pressure"), detail)
     if "upselling" in aspects:
         detail = f"Made an offer in {t.conversations_with_upsell} of {t.analysed_conversations} conversations"
         add("offers", "Offers", status("upselling"), detail)
