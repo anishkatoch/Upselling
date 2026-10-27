@@ -36,9 +36,11 @@ export default function PersonSentiment({ total }: { total: Bucket }) {
   const aria = `How customers felt across ${n} calls: ${parts.map((p) => `${p.count} ${p.label.toLowerCase()}`).join(", ")}`;
   return (
     <section className="flat-card sentiment" aria-label="How their customers felt">
-      <h3>
-        How their customers felt <span className="ai-badge">✦ AI</span>
-      </h3>
+      <div className="card-head">
+        <h3>
+          How their customers felt <span className="ai-badge">✦ AI</span>
+        </h3>
+      </div>
       <div className="sent-body">
         <svg ref={ref} className="sent-donut" viewBox="0 0 100 100" role="img" aria-label={aria}>
           <circle cx="50" cy="50" r={R} fill="none" stroke="var(--line-soft)" strokeWidth="6" />
@@ -55,7 +57,7 @@ export default function PersonSentiment({ total }: { total: Bucket }) {
                 stroke={p.color}
                 strokeWidth="6"
                 initial={reduce ? false : { strokeDasharray: `0 ${C}` }}
-                animate={inView || reduce ? { strokeDasharray: `${len} ${C - len}` } : undefined}
+                animate={{ strokeDasharray: inView || reduce ? `${len} ${C - len}` : `0 ${C}` }}
                 transition={{ duration: DUR.slow, ease: EASE, delay: idx * 0.1 }}
                 strokeDashoffset={-offset}
                 transform="rotate(-90 50 50)"
@@ -73,10 +75,12 @@ export default function PersonSentiment({ total }: { total: Bucket }) {
               <i style={{ background: p.color }} aria-hidden="true" />
               <span>{p.label}</span>
               <b>{p.count}</b>
+              <em>{Math.round((p.count / n) * 100)}%</em>
             </li>
           ))}
         </ul>
       </div>
+      <p className="sent-foot">The AI reads the mood of each call from the words and the voice.</p>
     </section>
   );
 }

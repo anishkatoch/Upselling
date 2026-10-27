@@ -2,7 +2,7 @@
 .attn-card { --tone: var(--warn); --tone-soft: var(--warn-soft); padding: 0; display: flex; flex-direction: column; overflow: hidden; }
 .attn-card.is-good { --tone: var(--good); --tone-soft: var(--good-soft); }
 .card.attn-card { padding: 0; }
-.attn-h { display: flex; align-items: center; gap: 10px; padding: 16px 20px 12px; }
+.attn-h { display: flex; align-items: center; gap: 10px; padding: 16px 20px 12px; background: linear-gradient(180deg, var(--tone-soft), transparent); }
 .attn-h h3 { margin: 0; font-size: 15px; font-weight: 600; color: var(--ink); letter-spacing: 0; text-transform: none; }
 .attn-ico { width: 24px; height: 24px; border-radius: 50%; background: var(--tone-soft); color: var(--tone); display: inline-flex; align-items: center; justify-content: center; flex: none; }
 .attn-dots { margin-left: auto; display: flex; gap: 6px; }

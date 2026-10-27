@@ -30,3 +30,12 @@
 a.metric { transition: background-color 0.15s; }
 a.metric:hover { background: var(--accent-soft); }
 .metric-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--radius-md); overflow: hidden; }
+
+/* Metric extras: a thin share bar and a state dot */
+.m-meter { margin-top: 10px; height: 4px; border-radius: 2px; background: var(--line-soft); overflow: hidden; }
+.m-meter i { display: block; height: 100%; border-radius: 2px; background: var(--accent); }
+.m-dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 9px; vertical-align: 2px; background: var(--faint); }
+.tone-good .m-dot { background: var(--good); }
+.tone-warn .m-dot { background: #c08a2b; }
+.tone-bad .m-dot { background: var(--bad); }
+.metric-foot .m-count { color: var(--muted); }

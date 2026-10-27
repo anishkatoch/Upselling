@@ -69,9 +69,23 @@ export default function VsTeamBars({ person, people }: { person: Person; people:
     return { r, mine, team, verdict, n: vals.length };
   });
 
+  const first = person.name.split(" ")[0];
   return (
     <section className="flat-card vs-card" aria-label="Compared with the team">
-      <h3>Compared with the team</h3>
+      <div className="card-head">
+        <h3>Compared with the team</h3>
+        <span className="vs-key" aria-hidden="true">
+          <i className="vs-key-bar" /> {first}
+          <i className="vs-key-tick" /> Team average
+        </span>
+      </div>
+      <div className="vs-cols" aria-hidden="true">
+        <span />
+        <span />
+        <span>{first}</span>
+        <span>Team</span>
+        <span />
+      </div>
       <ul className="vs-list">
         {rows.map(({ r, mine, team, verdict }, idx) => {
           const aria =
@@ -80,47 +94,45 @@ export default function VsTeamBars({ person, people }: { person: Person; people:
               : `${r.label} ${r.say(mine)}${team != null ? `, team ${r.say(team)}` : ""}${verdict ? `, ${verdictText(verdict, r.lowerIsBetter).toLowerCase()}` : ""}`;
           return (
             <li key={r.key} className="vs-row" aria-label={aria}>
-              <div className="vs-top">
-                <span className="vs-lbl">
-                  {r.label}
-                  <InfoTip label={`About ${r.label}`}>{r.info}</InfoTip>
-                </span>
-                <span className="vs-val" title={mine != null ? r.hover?.(mine) : undefined}>{mine == null ? "-" : r.fmt(mine)}</span>
+              <span className="vs-lbl">
+                {r.label}
+                <InfoTip label={`About ${r.label}`}>{r.info}</InfoTip>
+              </span>
+              <div className="vs-track" aria-hidden="true">
+                {mine != null && (
+                  <motion.div
+                    className="vs-fill"
+                    initial={reduce ? false : { width: "0%" }}
+                    whileInView={{ width: `${Math.min(100, Math.max(0, r.pos(mine) * 100))}%` }}
+                    viewport={{ once: true }}
+                    transition={{ duration: DUR.slow, ease: EASE, delay: idx * 0.06 }}
+                  />
+                )}
+                {team != null && (
+                  <motion.span
+                    className="vs-tick"
+                    style={{ left: `${Math.min(100, Math.max(0, r.pos(team) * 100))}%` }}
+                    title={`Team average: ${r.fmt(team)}`}
+                    initial={reduce ? false : { opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: DUR.base, ease: EASE, delay: DUR.slow * 0.8 + idx * 0.06 }}
+                  />
+                )}
               </div>
-              <div className="vs-mid">
-                <div className="vs-track" aria-hidden="true">
-                  {mine != null && (
-                    <motion.div
-                      className="vs-fill"
-                      initial={reduce ? false : { width: "0%" }}
-                      whileInView={{ width: `${Math.min(100, Math.max(0, r.pos(mine) * 100))}%` }}
-                      viewport={{ once: true }}
-                      transition={{ duration: DUR.slow, ease: EASE, delay: idx * 0.06 }}
-                    />
-                  )}
-                  {team != null && (
-                    <motion.span
-                      className="vs-tick"
-                      style={{ left: `${Math.min(100, Math.max(0, r.pos(team) * 100))}%` }}
-                      title={`Team average: ${r.fmt(team)}`}
-                      initial={reduce ? false : { opacity: 0 }}
-                      whileInView={{ opacity: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: DUR.base, ease: EASE, delay: DUR.slow * 0.8 + idx * 0.06 }}
-                    />
-                  )}
-                </div>
-                <span className="vs-team" title={team != null ? `Team average: ${r.fmt(team)}` : undefined}>
-                  {team != null ? `Team: ${r.fmt(team)}` : "Team: –"}
-                </span>
-              </div>
-              <div className="vs-verdict-line">
+              <span className="vs-val" title={mine != null ? r.hover?.(mine) : undefined}>
+                {mine == null ? "–" : r.fmt(mine)}
+              </span>
+              <span className="vs-team" title={team != null ? `Team average: ${r.fmt(team)}` : undefined}>
+                {team != null ? r.fmt(team) : "–"}
+              </span>
+              <span className="vs-verdict-cell" aria-hidden="true">
                 {verdict && (
-                  <span className={`vs-verdict ${verdict === "above" ? "good" : verdict === "below" ? "bad" : ""}`} aria-hidden="true">
+                  <span className={`vs-verdict ${verdict === "above" ? "good" : verdict === "below" ? "bad" : ""}`}>
                     <span className="ar">{ARROW[verdict]}</span> {verdictText(verdict, r.lowerIsBetter)}
                   </span>
                 )}
-              </div>
+              </span>
             </li>
           );
         })}

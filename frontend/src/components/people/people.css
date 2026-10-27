@@ -82,22 +82,7 @@ a.recent-row:focus-visible { outline: 2px solid var(--accent); outline-offset: -
 .recent-list { box-shadow: none; }
 
 /* Person page: compared with the team + customer mood */
-.person-flat .insight-row { display: grid; grid-template-columns: 2fr 1fr; gap: 12px; align-items: start; }
-.vs-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
-.vs-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 12px; row-gap: 6px; align-items: center; }
-.vs-top { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-size: 13.5px; }
-.vs-lbl { color: var(--ink); display: inline-flex; align-items: center; gap: 6px; }
-.vs-val { font-weight: 500; font-variant-numeric: tabular-nums; color: var(--ink); }
-.vs-mid { display: flex; align-items: center; gap: 10px; min-width: 0; }
-.vs-track { position: relative; flex: 1; height: 6px; border-radius: 3px; background: var(--line-soft); }
-.vs-fill { height: 100%; border-radius: 3px; background: var(--accent); opacity: .85; min-width: 2px; }
-.vs-tick { position: absolute; top: -4px; width: 2px; height: 14px; margin-left: -1px; background: var(--ink); border-radius: 1px; }
-.vs-team { flex: none; min-width: 74px; white-space: nowrap; font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
-.vs-verdict-line { display: flex; align-items: center; justify-content: flex-end; min-width: 92px; }
-.vs-verdict { font-size: 12px; font-weight: 400; color: var(--muted); white-space: nowrap; }
-.vs-verdict .ar { font-size: 9px; margin-right: 2px; }
-.vs-verdict.good .ar { color: var(--good); }
-.vs-verdict.bad .ar { color: var(--bad); }
+.person-flat .insight-row { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 16px; align-items: stretch; }
 .vs-cap { margin: 14px 0 0; font-size: 12px; color: var(--muted); }
 .sent-body { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
 .sent-donut { width: 104px; height: 104px; flex: none; }
@@ -111,8 +96,6 @@ a.recent-row:focus-visible { outline: 2px solid var(--accent); outline-offset: -
 .person-flat .flat-card.vs-card h3::before, .person-flat .flat-card.sentiment h3::before { display: none; }
 @media (max-width: 760px) {
   .person-flat .insight-row { grid-template-columns: 1fr; }
-  .vs-row { grid-template-columns: 1fr; }
-  .vs-verdict-line { justify-content: flex-start; }
 }
 
 /* Plain-word values (customer mood, selling effort) */
@@ -150,3 +133,69 @@ a.recent-row:hover .recent-go { transform: translateX(3px); }
 
 .recent-more { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
 .coach-from { margin: -4px 0 10px; display: block; width: fit-content; }
+
+/* Metric tiles on the person page: grouped, with the lower strip kept quiet */
+.metric-groups { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 2px 0 -4px; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
+.metric-groups span { padding-left: 4px; }
+.person-flat .metric-group > .metric-row .metric-value { font-size: 28px; }
+.person-flat .metric-group > .metric-row .metric-value small { font-size: 13px; }
+.person-flat .metric-compact .metric-row::before { display: none; }
+.person-flat .metric-compact .metric-row { box-shadow: none; background: var(--line-soft); }
+.person-flat .metric-compact .metric { background: transparent; }
+.person-flat .metric-compact .metric-label { font-size: 12.5px; }
+@media (max-width: 860px) { .metric-groups { display: none; } }
+
+/* The sentence that explains the rating, straight under the name */
+.person-flat .person-headline { margin: 12px 0 0; max-width: 70ch; font-size: 15px; line-height: 1.5; }
+
+/* Compared with the team: one aligned table (name | bar | person | team | verdict), and a mood card that matches it */
+.person-flat .flat-card.vs-card, .person-flat .flat-card.sentiment { padding: 16px 20px 14px; display: flex; flex-direction: column; }
+.card-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+.person-flat .flat-card .card-head h3 { margin: 0; font-size: 15px; font-weight: 600; }
+.vs-key { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); white-space: nowrap; }
+.vs-key-bar { width: 16px; height: 6px; border-radius: 3px; background: var(--accent); opacity: .85; }
+.vs-key-tick { width: 2px; height: 12px; border-radius: 1px; background: var(--ink); margin-left: 10px; }
+.vs-cols, .vs-row { display: grid; grid-template-columns: minmax(168px, 1.25fr) minmax(90px, 1.8fr) 62px 62px minmax(138px, auto); column-gap: 14px; align-items: center; }
+.vs-cols { font-size: 11.5px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); padding-bottom: 6px; }
+.vs-cols span:nth-child(3), .vs-cols span:nth-child(4) { text-align: right; }
+.vs-list { list-style: none; margin: 0; padding: 0; flex: 1; display: flex; flex-direction: column; }
+.vs-row { flex: 1; min-height: 52px; border-top: 1px solid var(--line-soft); }
+.vs-lbl { color: var(--ink); font-size: 14px; display: inline-flex; align-items: center; gap: 6px; }
+.vs-track { position: relative; height: 6px; border-radius: 3px; background: var(--line-soft); }
+.vs-fill { height: 100%; border-radius: 3px; background: var(--accent); opacity: .85; min-width: 2px; }
+.vs-tick { position: absolute; top: -4px; width: 2px; height: 14px; margin-left: -1px; background: var(--ink); border-radius: 1px; }
+.vs-val { text-align: right; font-size: 15px; font-weight: 600; color: var(--ink); font-variant-numeric: tabular-nums; }
+.vs-team { text-align: right; font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.vs-verdict { display: inline-flex; align-items: center; gap: 4px; padding: 2px 9px; border-radius: 999px; font-size: 12px; font-weight: 500; white-space: nowrap; background: var(--line-soft); color: var(--muted); }
+.vs-verdict .ar { font-size: 9px; }
+.vs-verdict.good { background: var(--good-soft); color: var(--good); }
+.vs-verdict.good .ar { color: var(--good); }
+.vs-verdict.bad { background: var(--bad-soft); color: var(--bad); }
+.vs-verdict.bad .ar { color: var(--bad); }
+.vs-cap { margin: 10px 0 0; font-size: 12px; color: var(--muted); }
+.person-flat .flat-card.sentiment .sent-body { flex: 1; display: flex; align-items: center; justify-content: center; gap: 22px; flex-wrap: wrap; }
+.sent-donut { width: 120px; height: 120px; }
+.sent-legend { gap: 10px; flex: 0 1 240px; min-width: 200px; }
+.sent-legend em { font-style: normal; width: 38px; text-align: right; font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.sent-legend b { min-width: 16px; text-align: right; }
+.sent-foot { margin: 10px 0 0; font-size: 12px; color: var(--muted); }
+@media (max-width: 860px) {
+  .vs-cols { display: none; }
+  .vs-row { grid-template-columns: 1fr auto; grid-template-areas: "lbl val" "track track" "team verdict"; row-gap: 8px; padding: 12px 0; }
+  .vs-lbl { grid-area: lbl; } .vs-val { grid-area: val; } .vs-track { grid-area: track; } .vs-team { grid-area: team; text-align: left; } .vs-verdict-cell { grid-area: verdict; text-align: right; }
+  .vs-team::before { content: "Team "; }
+  .vs-key { display: none; }
+}
+
+/* Tinted card headers (colour means something: green good, amber to look at, blue information, violet AI-written) */
+.person-flat .flat-card.vs-card .card-head,
+.person-flat .flat-card.sentiment .card-head,
+.person-flat .flat-card.coaching .card-head {
+  margin: -16px -20px 12px; padding: 16px 20px 12px; border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  background: linear-gradient(180deg, var(--accent-soft), transparent);
+}
+.person-flat .flat-card.coaching .card-head { background: linear-gradient(180deg, rgba(138, 92, 246, 0.1), transparent); }
+.person-flat .flat-card.coaching { border-left: 1px solid var(--line); }
+.person-flat .flat-card.coaching .card-head h3::before { display: none; }
+.person-flat .flat-card .vs-list { padding: 0; list-style: none; display: flex; flex-direction: column; gap: 0; }
+.person-flat .flat-card .sent-legend { padding: 0; list-style: none; }

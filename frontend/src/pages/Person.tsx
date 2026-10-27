@@ -86,6 +86,13 @@ function PersonDetail({
   const num = (v: number | null | undefined, kind: "pct" | "dec" | "int") =>
     v == null ? "–" : kind === "pct" ? `${Math.round(v * 100)}%` : kind === "dec" ? (Math.round(v * 10) / 10).toFixed(1) : String(v);
   const vs = (value: number | null | undefined) => (value == null ? null : <DeltaChip value={value} />);
+  // "3 of 4 offers" under a share, so a percentage on a few cases can be read for what it is.
+  const countFoot = (count: string | null, value: number | null | undefined) => (
+    <>
+      {count && <span className="m-count">{count}</span>}
+      {vs(value)}
+    </>
+  );
   const mood = moodFromFrustration(t.avg_customer_frustration);
   const moodChange = seriesDelta(p.series, "avg_customer_frustration");
   const worst = t.max_customer_frustration != null ? moodFromFrustration(t.max_customer_frustration) : null;
@@ -129,13 +136,25 @@ function PersonDetail({
           </div>
         )}
 
+        <p className="person-headline">{a.headline}</p>
         <SampleNote bucket={t} when={`in the period starting ${formatPeriod(t.period)}`} />
       </Reveal>
 
       <Reveal className="metric-group" delay={0.06}>
         {hasChange && <p className="sub small metric-caption">Arrows show the change compared with {comparedWith}.</p>}
+        <div className="metric-groups">
+          <span>How they treat customers</span>
+          <span>Selling</span>
+        </div>
         <MetricRow>
-          <Metric label="Greets customers" info={METRIC_INFO.greeting_rate} value={num(t.greeting_rate, "pct")} unit={t.greeting_rate != null ? "of conversations" : undefined} foot={vs(seriesDelta(p.series, "greeting_rate", 100))} />
+          <Metric
+            label="Greets customers"
+            info={METRIC_INFO.greeting_rate}
+            value={num(t.greeting_rate, "pct")}
+            unit={t.greeting_rate != null ? "of conversations" : undefined}
+            meter={t.greeting_rate}
+            foot={countFoot(t.greeting_rate != null ? `${t.greeted} of ${t.solo_analysed_conversations}` : null, seriesDelta(p.series, "greeting_rate", 100))}
+          />
           <Metric
             label="Customer mood"
             info={
@@ -146,6 +165,7 @@ function PersonDetail({
               </>
             }
             value={mood.label}
+            tone={mood.tone}
             foot={
               moodChange == null && !showWorst ? null : (
                 <>
@@ -159,8 +179,22 @@ function PersonDetail({
               )
             }
           />
-          <Metric label="Tries to upsell" info={METRIC_INFO.upsell_rate} value={num(t.upsell_rate, "pct")} unit={t.upsell_rate != null ? "of conversations" : undefined} foot={vs(seriesDelta(p.series, "upsell_rate", 100))} />
-          <Metric label="Customers say yes" info={METRIC_INFO.acceptance_rate} value={num(t.acceptance_rate, "pct")} unit={t.acceptance_rate != null ? "of offers" : undefined} foot={vs(seriesDelta(p.series, "acceptance_rate", 100))} />
+          <Metric
+            label="Tries to upsell"
+            info={METRIC_INFO.upsell_rate}
+            value={num(t.upsell_rate, "pct")}
+            unit={t.upsell_rate != null ? "of conversations" : undefined}
+            meter={t.upsell_rate}
+            foot={countFoot(t.upsell_rate != null ? `${t.conversations_with_upsell} of ${t.analysed_conversations}` : null, seriesDelta(p.series, "upsell_rate", 100))}
+          />
+          <Metric
+            label="Customers say yes"
+            info={METRIC_INFO.acceptance_rate}
+            value={num(t.acceptance_rate, "pct")}
+            unit={t.acceptance_rate != null ? "of offers" : undefined}
+            meter={t.acceptance_rate}
+            foot={countFoot(t.acceptance_rate != null ? `${t.accepted} of ${t.answered_offers ?? 0} answered` : null, seriesDelta(p.series, "acceptance_rate", 100))}
+          />
         </MetricRow>
         <div className="metric-compact" aria-label="More detail">
           <MetricRow>
@@ -204,9 +238,11 @@ function PersonDetail({
 
       {p.recent_coaching.length > 0 && (
         <Reveal className="flat-card coaching">
-          <h3>
-            What to coach <span className="ai-badge">✦ AI</span>
-          </h3>
+          <div className="card-head">
+            <h3>
+              What to coach <span className="ai-badge">✦ AI</span>
+            </h3>
+          </div>
           <p className="small coach-from ai-glow-text">
             From their {p.recent_coaching.length === 1 ? "latest conversation" : `${p.recent_coaching.length} latest conversations`}, whichever
             tab is open.
