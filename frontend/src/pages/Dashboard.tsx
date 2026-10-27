@@ -186,7 +186,7 @@ export default function Dashboard() {
           foot={greetRate != null ? <span className="m-count">{totals.greeted} of {totals.solo}</span> : null}
         />
         <Metric
-          label="Questions answered"
+          label="Every question answered"
           icon={<MessageQuestion />}
           pips={{ on: totals.solo - totals.unansweredConvs, total: totals.solo }}
           info={METRIC_INFO.unanswered}

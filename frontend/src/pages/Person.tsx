@@ -164,7 +164,7 @@ function PersonDetail({
             foot={countFoot(t.greeting_rate != null ? `${t.greeted} of ${t.solo_analysed_conversations}` : null, seriesDelta(p.series, "greeting_rate", 100))}
           />
           <Metric
-            label="Questions answered"
+            label="Every question answered"
             info={METRIC_INFO.unanswered}
             value={solo > 0 && factorState.listening !== "none" ? String(solo - unansweredConvs) : "–"}
             unit={solo > 0 && factorState.listening !== "none" ? `of ${solo} conversations` : undefined}
