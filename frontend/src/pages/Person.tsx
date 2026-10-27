@@ -204,8 +204,12 @@ function PersonDetail({
       {p.recent_coaching.length > 0 && (
         <Reveal className="flat-card coaching">
           <h3>
-            Recent coaching <span className="ai-badge">✦ AI</span>
+            What to coach <span className="ai-badge">✦ AI</span>
           </h3>
+          <p className="small coach-from ai-glow-text">
+            From their {p.recent_coaching.length === 1 ? "latest conversation" : `${p.recent_coaching.length} latest conversations`}, whichever
+            tab is open.
+          </p>
           <ul>
             {p.recent_coaching.map((c, i) => (
               <li key={i}>{c}</li>

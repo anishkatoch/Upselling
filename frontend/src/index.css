@@ -94,6 +94,23 @@ body::after {
   font-size: 11px; font-weight: 600; line-height: 16px; letter-spacing: 0.02em; white-space: nowrap; vertical-align: middle;
 }
 .ai-badge svg { width: 10px; height: 10px; flex: none; }
+/* AI-written content: the blue-purple-pink shimmer people know from Gemini and other AI tools */
+:root { --ai-blue: #3b6ef0; --ai-violet: #8a5cf6; --ai-pink: #d6409f; }
+@keyframes ai-shimmer { to { background-position: 200% 50%; } }
+.ai-badge {
+  border: 1.5px solid transparent; color: var(--ai-violet);
+  background:
+    linear-gradient(var(--card), var(--card)) padding-box,
+    linear-gradient(90deg, var(--ai-blue), var(--ai-violet), var(--ai-pink), var(--ai-violet), var(--ai-blue)) border-box;
+  background-size: auto, 200% 100%; animation: ai-shimmer 3.5s linear infinite;
+}
+.ai-glow-text {
+  display: inline-block;
+  background: linear-gradient(90deg, var(--ai-blue), var(--ai-violet), var(--ai-pink), var(--ai-violet), var(--ai-blue)) 0 0 / 200% 100%;
+  -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent;
+  animation: ai-shimmer 5s linear infinite; font-weight: 500;
+}
+@media (prefers-reduced-motion: reduce) { .ai-badge, .ai-glow-text { animation: none; } }
 .ai-note { display: flex; align-items: flex-start; gap: 8px; color: var(--muted); font-size: 13px; line-height: 1.5; }
 .ai-note .ai-badge { margin-top: 1px; }
 .page { max-width: 1180px; margin: 0 auto; padding: 32px 32px 80px; }

@@ -149,3 +149,4 @@ a.recent-row:hover .recent-go { transform: translateX(3px); }
 .optional-tips ul { color: var(--muted); font-size: 13.5px; }
 
 .recent-more { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+.coach-from { margin: -4px 0 10px; display: block; width: fit-content; }
