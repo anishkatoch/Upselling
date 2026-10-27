@@ -1,22 +1,28 @@
 .attn { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; align-items: stretch; }
-.attn-card { padding: 0; display: flex; flex-direction: column; }
-.attn-h { padding: 16px 20px 4px; font-weight: 600; display: flex; justify-content: space-between; align-items: baseline; }
-.attn-range { font-size: 12px; font-weight: 400; color: var(--muted); }
-.attn-list { list-style: none; margin: 0; padding: 4px 0; flex: 1; animation: attn-in 0.35s ease; }
+.attn-card { --tone: var(--warn); --tone-soft: var(--warn-soft); padding: 0; display: flex; flex-direction: column; overflow: hidden; }
+.attn-card.is-good { --tone: var(--good); --tone-soft: var(--good-soft); }
+.card.attn-card { padding: 0; }
+.attn-h { display: flex; align-items: center; gap: 10px; padding: 16px 20px 12px; }
+.attn-h h3 { margin: 0; font-size: 15px; font-weight: 600; color: var(--ink); letter-spacing: 0; text-transform: none; }
+.attn-ico { width: 24px; height: 24px; border-radius: 50%; background: var(--tone-soft); color: var(--tone); display: inline-flex; align-items: center; justify-content: center; flex: none; }
+.attn-dots { margin-left: auto; display: flex; gap: 6px; }
+.attn-dots button { width: 8px; height: 8px; padding: 0; border: 0; border-radius: 50%; background: var(--line); cursor: pointer; transition: background-color 0.2s, width 0.2s; }
+.attn-dots button:hover { background: var(--faint); }
+.attn-dots button.on { width: 18px; border-radius: 999px; background: var(--tone); }
+/* a page with two names keeps the card the same height as one with three */
+.attn-list { list-style: none; margin: 0; padding: 0; flex: 1; min-height: calc(3 * 84px); animation: attn-in 0.35s ease; }
 @keyframes attn-in { from { opacity: 0; } to { opacity: 1; } }
-@media (prefers-reduced-motion: reduce) { .attn-list { animation: none; } }
-.attn-row { transition: background-color 0.15s; display: flex; gap: 12px; justify-content: space-between; align-items: center; min-height: 84px; padding: 10px 20px; border-top: 1px solid var(--line-soft); }
+@media (prefers-reduced-motion: reduce) { .attn-list { animation: none; } .attn-dots button { transition: none; } }
+.attn-row { display: flex; align-items: center; gap: 12px; min-height: 84px; padding: 10px 20px; border-top: 1px solid var(--line-soft); transition: background-color 0.15s; }
 .attn-row:hover { background: var(--accent-soft); }
-.attn-list li:first-child { border-top: 0; }
+.attn-avatar { width: 34px; height: 34px; border-radius: 50%; flex: none; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; background: var(--tone-soft); color: var(--tone); }
+.attn-main { flex: 1; min-width: 0; }
 .attn-name { font-weight: 600; color: var(--ink); }
 .attn-name:hover { color: var(--accent-ink); text-decoration: underline; }
 .attn-why { color: var(--muted); font-size: 13px; margin-top: 2px; line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.attn-trend { flex: none; font-size: 12px; color: var(--muted); white-space: nowrap; padding-top: 2px; }
-.attn-empty { padding: 12px 20px 18px; color: var(--muted); margin: 0; flex: 1; }
+.attn-row .pill { flex: none; }
+.attn-empty { padding: 14px 20px 20px; color: var(--muted); margin: 0; flex: 1; border-top: 1px solid var(--line-soft); }
 .attn-more { grid-column: 1 / -1; margin-top: -4px; font-size: 13px; font-weight: 500; }
 .attn-more a { color: var(--accent-ink); }
 .attn-more a:hover { text-decoration: underline; }
-@media (max-width: 860px) { .attn { grid-template-columns: 1fr; } }
-
-/* Polish: the card's own padding is removed so rows and headings line up with the other cards */
-.card.attn-card { padding: 0; }
+@media (max-width: 860px) { .attn { grid-template-columns: 1fr; } .attn-row { min-height: 0; } .attn-list { min-height: 0; } }

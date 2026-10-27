@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { AlertTriangle, Check } from "../../icons/Icons";
 import type { Person } from "../../lib/api";
 import { RatingChip, isNotRated } from "../people/rating";
 import { fadeUp, stagger } from "../../lib/motion";
 import "./attention.css";
-
-const WORDS = { declining: "Slipping", improving: "Improving", steady: "Steady" } as const;
-const ARROWS = { declining: "↓", improving: "↑", steady: "→" } as const;
 
 function shorten(text: string | undefined, max = 110) {
   const t = text?.trim();
@@ -18,23 +16,28 @@ function shorten(text: string | undefined, max = 110) {
   return (i > 40 ? cut.slice(0, i) : cut).replace(/[\s,.;:–-]+$/, "") + "…";
 }
 
-function Row({ p, reason, chip }: { p: Person; reason: string | undefined; chip?: boolean }) {
+const initials = (name: string) =>
+  name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((w) => w[0]!.toUpperCase())
+    .join("");
+
+function Row({ p, reason }: { p: Person; reason: string | undefined }) {
   const why = shorten(reason);
-  const t = p.assessment.trend;
   return (
     <li className="attn-row">
-      <div style={{ minWidth: 0 }}>
+      <span className="attn-avatar" aria-hidden="true">
+        {initials(p.name)}
+      </span>
+      <div className="attn-main">
         <Link to={`/team/${encodeURIComponent(p.name)}`} className="attn-name">
           {p.name}
         </Link>
         {why && <div className="attn-why">{why}</div>}
       </div>
-      {chip && <RatingChip person={p} short />}
-      {!chip && t && (
-        <span className="attn-trend">
-          <span aria-hidden="true">{ARROWS[t]}</span> {WORDS[t]}
-        </span>
-      )}
+      <RatingChip person={p} short />
     </li>
   );
 }
@@ -57,25 +60,80 @@ function highlights(p: Person): string | undefined {
 // Who needs attention first is judged on how customers were treated (their worst conversation), not on upselling.
 const worstMood = (p: Person) => p.total.max_customer_frustration ?? p.total.avg_customer_frustration ?? 0;
 
-const SHOWN = 3; // rows in each card; with more people the card rotates through them
+const SHOWN = 3; // rows in each card; with more people the card moves through them in pages
 const ROTATE_MS = 7000;
 
-/** The next `SHOWN` items from a ring, advancing every few seconds (paused on hover/focus, and for reduced motion). */
-function useRotating<T>(items: T[]) {
-  const [start, setStart] = useState(0);
+/** The list in pages of `SHOWN` (1-3, then 4-5, then back to 1-3). Moves on every few seconds; hover, focus or "reduce motion" hold it. */
+function usePages<T>(items: T[]) {
+  const [page, setPage] = useState(0);
   const [paused, setPaused] = useState(false);
-  const n = items.length;
+  const pages = Math.max(1, Math.ceil(items.length / SHOWN));
   useEffect(() => {
     const still = typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
-    if (n <= SHOWN || paused || still) return;
-    const id = window.setInterval(() => setStart((s) => (s + SHOWN) % n), ROTATE_MS);
+    if (pages <= 1 || paused || still) return;
+    const id = window.setInterval(() => setPage((x) => (x + 1) % pages), ROTATE_MS);
     return () => window.clearInterval(id);
-  }, [n, paused]);
-  const first = n ? start % n : 0;
-  const visible = n <= SHOWN ? items : Array.from({ length: SHOWN }, (_, i) => items[(first + i) % n]!);
-  const hold = { onMouseEnter: () => setPaused(true), onMouseLeave: () => setPaused(false), onFocus: () => setPaused(true), onBlur: () => setPaused(false) };
-  const range = n > SHOWN ? `${SHOWN} of ${n}` : null;
-  return { visible, hold, range, key: first };
+  }, [pages, paused]);
+  const current = page % pages; // the list can shrink while a later page is showing
+  const from = current * SHOWN;
+  const hold = {
+    onMouseEnter: () => setPaused(true),
+    onMouseLeave: () => setPaused(false),
+    onFocus: () => setPaused(true),
+    onBlur: () => setPaused(false),
+  };
+  return { visible: items.slice(from, from + SHOWN), current, pages, setPage, hold };
+}
+
+function Card({
+  tone,
+  id,
+  title,
+  items,
+  reason,
+  empty,
+}: {
+  tone: "todo" | "good";
+  id: string;
+  title: string;
+  items: Person[];
+  reason: (p: Person) => string | undefined;
+  empty: React.ReactNode;
+}) {
+  const v = usePages(items);
+  return (
+    <motion.section className={`card attn-card is-${tone}`} variants={fadeUp} aria-labelledby={id}>
+      <div className="attn-h">
+        <span className="attn-ico" aria-hidden="true">
+          {tone === "good" ? <Check size={14} /> : <AlertTriangle size={14} />}
+        </span>
+        <h3 id={id}>{title}</h3>
+        {v.pages > 1 && (
+          <div className="attn-dots" role="group" aria-label={`${title}: page`}>
+            {Array.from({ length: v.pages }, (_, i) => (
+              <button
+                key={i}
+                type="button"
+                className={i === v.current ? "on" : ""}
+                aria-label={`Show page ${i + 1} of ${v.pages}`}
+                aria-current={i === v.current}
+                onClick={() => v.setPage(i)}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+      {items.length ? (
+        <ul className="attn-list" key={v.current} {...v.hold}>
+          {v.visible.map((p) => (
+            <Row key={p.name} p={p} reason={reason(p)} />
+          ))}
+        </ul>
+      ) : (
+        <p className="attn-empty">{empty}</p>
+      )}
+    </motion.section>
+  );
 }
 
 export default function Attention({ people }: { people: Person[] }) {
@@ -88,49 +146,32 @@ export default function Attention({ people }: { people: Person[] }) {
     ...rated.filter((p) => p.assessment.rating === "solid" && p.assessment.improvements.length).sort(byConcern),
   ];
   const excelling = rated.filter((p) => p.assessment.rating === "strong").length;
-  const well = rated
-    .filter((p) => p.assessment.rating === "strong")
-    .sort((a, b) => worstMood(a) - worstMood(b));
-  const needsView = useRotating(needs);
-  const wellView = useRotating(well);
+  // Excelling first; then the steadiest people on track, so the card is not left with one or two names.
+  const well = [
+    ...rated.filter((p) => p.assessment.rating === "strong").sort((a, b) => worstMood(a) - worstMood(b)),
+    ...rated
+      .filter((p) => p.assessment.rating === "solid" && worstMood(p) < 5 && highlights(p))
+      .sort((a, b) => a.assessment.improvements.length - b.assessment.improvements.length || worstMood(a) - worstMood(b)),
+  ];
 
   return (
     <motion.div className="attn" variants={stagger(0.06)}>
-      <motion.section className="card attn-card" variants={fadeUp} aria-labelledby="attn-need">
-        <div className="attn-h" id="attn-need">
-          Worth a look
-          {needsView.range && <span className="attn-range">{needsView.range}</span>}
-        </div>
-        {needs.length ? (
-          <ul className="attn-list" key={needsView.key} {...needsView.hold}>
-            {needsView.visible.map((p) => (
-              <Row key={p.name} p={p} chip reason={p.assessment.improvements[0] ?? p.assessment.upsell_tips?.[0]} />
-            ))}
-          </ul>
-        ) : (
-          <p className="attn-empty">
+      <Card
+        tone="todo"
+        id="attn-need"
+        title="Worth a look"
+        items={needs}
+        reason={(p) => p.assessment.improvements[0] ?? p.assessment.upsell_tips?.[0]}
+        empty={
+          <>
             <strong>All clear.</strong>{" "}
             {rated.length
               ? `Everyone rated is on track or better (${excelling} of ${rated.length} excelling), and nothing specific needs following up.`
               : "Nobody has enough conversations to be rated yet."}
-          </p>
-        )}
-      </motion.section>
-      <motion.section className="card attn-card" variants={fadeUp} aria-labelledby="attn-well">
-        <div className="attn-h" id="attn-well">
-          Doing well
-          {wellView.range && <span className="attn-range">{wellView.range}</span>}
-        </div>
-        {well.length ? (
-          <ul className="attn-list" key={wellView.key} {...wellView.hold}>
-            {wellView.visible.map((p) => (
-              <Row key={p.name} p={p} reason={highlights(p)} />
-            ))}
-          </ul>
-        ) : (
-          <p className="attn-empty">Nobody is standing out yet.</p>
-        )}
-      </motion.section>
+          </>
+        }
+      />
+      <Card tone="good" id="attn-well" title="Doing well" items={well} reason={highlights} empty="Nobody is standing out yet." />
       <div className="attn-more">
         <Link to="/team?period=month">See everyone in Team →</Link>
       </div>
