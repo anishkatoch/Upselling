@@ -79,6 +79,18 @@ class Bucket(BaseModel):
     solo_analysed_conversations: int = 0
 
 
+FactorStatus = Literal["good", "fair", "weak", "none"]
+
+
+class Factor(BaseModel):
+    """One thing the rating looks at, in plain words, with the counts behind it. Never carries points or cut-offs."""
+
+    key: Literal["greeting", "listening", "mood", "pressure", "offers", "yes"]
+    label: str
+    status: FactorStatus  # "none": nothing happened that could be judged (no offers, no questions, too few answers)
+    detail: str
+
+
 class Assessment(BaseModel):
     rating: Rating
     headline: str
@@ -91,6 +103,7 @@ class Assessment(BaseModel):
     strengths: list[str]
     improvements: list[str]  # about how they treat customers
     upsell_tips: list[str] = []  # optional ideas about upselling, shown last
+    factors: list[Factor] = []  # what the rating looks at, one line each; empty when there is too little to rate
 
 
 class RecentCall(BaseModel):
@@ -464,6 +477,57 @@ W_GREETING, W_LISTENING, W_MOOD, W_PUSHY = 3, 3, 3, 2
 W_UPSELL_REACH, W_CONVERSION = 2, 2
 
 
+def _factors(t: Bucket, d: int, unanswered_convs: int, aspects: dict[str, tuple[float, float]]) -> list[Factor]:
+    """The factors behind the rating as words: how it went and the count, never the points."""
+
+    def status(key: str) -> FactorStatus:
+        got, possible = aspects[key]
+        return "good" if got >= possible else "fair" if got * 2 >= possible else "weak"
+
+    out: list[Factor] = []
+
+    def add(key: str, label: str, state: FactorStatus, detail: str) -> None:
+        out.append(Factor(key=key, label=label, status=state, detail=detail))  # type: ignore[arg-type]
+
+    if "greeting" in aspects:
+        add("greeting", "Greeting", status("greeting"), f"Greeted the customer in {t.greeted} of {d} conversations")
+    if "listening" in aspects:
+        if t.customer_requests == 0:
+            add("listening", "Listening", "none", "No customer questions or requests to judge")
+        elif unanswered_convs == 0:
+            detail = f"Every customer question was answered across {d} conversations"
+            add("listening", "Listening", status("listening"), detail)
+        else:
+            word = "conversation" if d == 1 else "conversations"
+            detail = f"A customer question went unanswered in {unanswered_convs} of {d} {word}"
+            add("listening", "Listening", status("listening"), detail)
+    if "mood" in aspects and t.avg_customer_frustration is not None:
+        worst = t.max_customer_frustration
+        extra = f", worst {worst:g}/10" if worst is not None and worst >= 5 else ""
+        detail = f"Customers' frustration averaged {t.avg_customer_frustration}/10{extra}"
+        add("mood", "Customer mood", status("mood"), detail)
+    if "pressure" in aspects:
+        if t.attempts == 0:
+            add("pressure", "Pressure after a 'no'", "none", "No offers made, so nothing to judge")
+        elif t.pushy_conversations == 0:
+            add("pressure", "Pressure after a 'no'", status("pressure"), "Never pitched again after a clear 'no'")
+        else:
+            detail = f"Pitched again after a clear 'no' in {t.pushy_conversations} of {d} conversations"
+            add("pressure", "Pressure after a 'no'", status("pressure"), detail)
+    if "upselling" in aspects:
+        detail = f"Made an offer in {t.conversations_with_upsell} of {t.analysed_conversations} conversations"
+        add("offers", "Offers", status("upselling"), detail)
+    if "conversion" in aspects:
+        answered = t.answered_offers or 0
+        if answered < MIN_ANSWERED_OFFERS:
+            word = "offer" if answered == 1 else "offers"
+            add("yes", "Customers say yes", "none", f"Only {answered} {word} got a clear answer, too few to judge")
+        else:
+            detail = f"{t.accepted} of {answered} answered offers accepted"
+            add("yes", "Customers say yes", status("conversion"), detail)
+    return out
+
+
 def assess(t: Bucket, series: list[Bucket]) -> Assessment:
     """Plain, explainable rules over the totals - no model call. Every line cites the number behind it.
 
@@ -730,6 +794,7 @@ def assess(t: Bucket, series: list[Bucket]) -> Assessment:
         improvements=improvements,
         early_read=early_read,
         upsell_tips=upsell_tips,
+        factors=[] if insufficient else _factors(t, d, unanswered_convs, aspects),
     )
 
 

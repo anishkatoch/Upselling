@@ -785,3 +785,51 @@ def test_the_writing_rules_for_managers_are_in_the_prompts():
     for rule in ('Never say "you"', "speaker letter", "he, she, him or her", "in English in brackets", "segment numbers"):
         assert rule in upsell
     assert "never a speaker letter" in prompts.MOOD_FUSION and "segment numbers" in prompts.MOOD_FUSION
+
+
+def _factor(a, key):
+    return next(f for f in a.factors if f.key == key)
+
+
+def test_factors_say_how_each_thing_went_in_words_with_the_counts():
+    six = {"conversations": 6, "analysed_conversations": 6, "solo_analysed_conversations": 6}
+    # a seller whose tiles look good but who left questions unanswered (the "Mohammed" case)
+    a = dashboard.assess(
+        _solo(
+            **six, greeted=5, greeting_rate=5 / 6, conversations_with_unanswered=2, unanswered_questions=2,
+            conversations_with_upsell=3, upsell_rate=0.5, attempts=3, accepted=3, answered_offers=3,
+            acceptance_rate=1.0,
+        ),
+        [],
+    )  # fmt: skip
+    assert [f.key for f in a.factors] == ["greeting", "listening", "mood", "pressure", "offers", "yes"]
+    assert _factor(a, "greeting").status == "good" and "5 of 6" in _factor(a, "greeting").detail
+    listening = _factor(a, "listening")
+    assert listening.status == "weak" and "2 of 6" in listening.detail
+    assert _factor(a, "offers").status == "fair" and "3 of 6" in _factor(a, "offers").detail
+    assert _factor(a, "yes").status == "good" and "3 of 3" in _factor(a, "yes").detail
+    # the explanation never carries the scoring: no points, weights or cut-offs in anything a reader sees
+    text = " ".join(f"{f.label} {f.detail}" for f in a.factors).lower()
+    assert not any(word in text for word in ("point", "weight", "cut-off", "%"))
+
+
+def test_factors_say_so_when_there_is_nothing_to_judge():
+    quiet = dashboard.assess(_solo(customer_requests=0, upsell_rate=0.0, attempts=0), [])
+    by = {f.key: f for f in quiet.factors}
+    assert by["listening"].status == "none" and by["pressure"].status == "none"
+    few = _solo(upsell_rate=0.7, attempts=3, answered_offers=2, accepted=1, acceptance_rate=0.5)
+    two_answers = dashboard.assess(few, [])
+    assert _factor(two_answers, "yes").status == "none" and "too few" in _factor(two_answers, "yes").detail
+    # nothing is shown for someone who is not rated at all
+    assert dashboard.assess(_solo(solo_analysed_conversations=1), []).factors == []
+
+
+def test_factor_status_follows_the_rating_inputs():
+    ten = {"conversations": 10, "analysed_conversations": 10, "solo_analysed_conversations": 10}
+    strong = {"upsell_rate": 0.8, "attempts": 9, "answered_offers": 9, "acceptance_rate": 0.5, "accepted": 4, **ten}
+    assert all(f.status == "good" for f in dashboard.assess(_solo(**strong), []).factors)
+    # pitching again after a "no" in 3 of 10 conversations is a fair, 5 of 10 a weak, spot
+    fair = dashboard.assess(_solo(**strong, pushy_conversations=3), [])
+    assert _factor(fair, "pressure").status == "fair"
+    weak = dashboard.assess(_solo(**strong, pushy_conversations=5), [])
+    assert _factor(weak, "pressure").status == "weak" and "5 of 10" in _factor(weak, "pressure").detail
