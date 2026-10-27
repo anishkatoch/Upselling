@@ -99,7 +99,7 @@ export default function TeamGlanceTable({ people, collapsedRows }: { people: Per
         <h2>Salespeople</h2>
         <span className="sub small">Select a person to see their full profile</span>
       </div>
-      <div className="table-wrap">
+      <div className="table-wrap" tabIndex={0} role="region" aria-label="Team at a glance">
         <table>
           <caption className="sr-only">Team at a glance: one row per salesperson</caption>
           <thead>

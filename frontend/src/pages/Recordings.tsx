@@ -46,7 +46,7 @@ export default function Recordings() {
       )}
       {jobs && jobs.length > 0 && (
         <section className="card tg rec-card">
-          <div className="table-wrap rec-wrap">
+          <div className="table-wrap rec-wrap" tabIndex={0} role="region" aria-label="Recordings table">
             <table className="rec-table">
               <caption className="sr-only">Every conversation, newest first</caption>
               <thead>

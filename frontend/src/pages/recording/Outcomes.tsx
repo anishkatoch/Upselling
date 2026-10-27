@@ -58,7 +58,7 @@ export default function Outcomes({ ctx }: { ctx: RecCtx }) {
                 success {pct(p.success_rate)}
               </span>
             </div>
-            <div className="table-wrap" style={{ marginTop: 12 }}>
+            <div className="table-wrap" tabIndex={0} role="region" aria-label="Outcomes table" style={{ marginTop: 12 }}>
               <table>
                 <thead>
                   <tr>
@@ -126,7 +126,7 @@ export default function Outcomes({ ctx }: { ctx: RecCtx }) {
                       ))}
                     </ul>
                     {c.pitched.length > 0 ? (
-                      <div className="table-wrap" style={{ marginTop: 10 }}>
+                      <div className="table-wrap" tabIndex={0} role="region" aria-label="Outcomes table" style={{ marginTop: 10 }}>
                         <table>
                           <thead>
                             <tr>

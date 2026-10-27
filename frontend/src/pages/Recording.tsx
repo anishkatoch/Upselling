@@ -242,9 +242,9 @@ function Results({ job }: { job: Job }) {
         </div>
       </div>
 
-      <div className="tabs" style={{ flexWrap: "wrap" }}>
+      <div className="tabs" role="tablist" aria-label="Recording sections" style={{ flexWrap: "wrap" }}>
         {TABS.map((t) => (
-          <button key={t} className={tab === t ? "on" : ""} onClick={() => setTab(t)}>
+          <button key={t} role="tab" aria-selected={tab === t} className={tab === t ? "on" : ""} onClick={() => setTab(t)}>
             {labels[t]}
           </button>
         ))}

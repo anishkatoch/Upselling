@@ -30,7 +30,7 @@ export default function Overview({ ctx }: { ctx: RecCtx }) {
 
       <h2 style={{ marginTop: 28 }}>Salespeople</h2>
       {r.salespeople.length > 0 ? (
-        <div className="table-wrap">
+        <div className="table-wrap" tabIndex={0} role="region" aria-label="Recording overview table">
           <table>
             <thead>
               <tr>
@@ -82,7 +82,7 @@ export default function Overview({ ctx }: { ctx: RecCtx }) {
       )}
 
       <h2 style={{ marginTop: 28 }}>Who spoke</h2>
-      <div className="table-wrap">
+      <div className="table-wrap" tabIndex={0} role="region" aria-label="Recording overview table">
         <table>
           <thead>
             <tr>
