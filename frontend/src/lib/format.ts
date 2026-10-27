@@ -89,7 +89,7 @@ export const STEPS = [
   { key: "transcribing", label: "Writing out the conversation" },
   { key: "detecting_roles", label: "Finding who is who" },
   { key: "splitting_conversations", label: "Separating customer conversations" },
-  { key: "analyzing_conversations", label: "Analysing each customer conversation" },
+  { key: "analyzing_conversations", label: "Analysing conversations" },
   { key: "building_report", label: "Putting the report together" },
 ] as const;
 
