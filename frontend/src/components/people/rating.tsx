@@ -17,7 +17,13 @@ export function RatingChip({ person, short }: { person: Person; short?: boolean 
     );
   }
   const r = RATING[person.assessment.rating];
-  return <span className={`pill ${r.tone}`}>{r.label}</span>;
+  const early = person.assessment.early_read;
+  return (
+    <span className={`pill ${r.tone}`} title={early ? "Early read: too few conversations for a firm rating" : undefined}>
+      {r.label}
+      {early && " · early"}
+    </span>
+  );
 }
 
 /** Small badge for lists when `total` is an earlier period, not the current one. */

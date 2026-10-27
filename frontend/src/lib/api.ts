@@ -312,6 +312,7 @@ export interface Person {
     headline: string;
     low_sample: boolean;
     /** True when fewer than 3 conversations had this person as the only salesperson; do not show the rating label. */
+    early_read?: boolean;
     insufficient_data?: boolean;
     effort_level: EffortLevel;
     effort_summary: string;
