@@ -1,7 +1,7 @@
 """Live transcript preview: a few seconds of audio in, plain text out.
 
 Only a preview while someone is recording. The saved recording is analysed afterwards by the normal pipeline,
-which also works out who is speaking. Hindi is returned in English letters (Hinglish), like everywhere else.
+which also works out who is speaking. Arabic stays in Arabic script; Hindi is returned in English letters (Hinglish), like everywhere else.
 """
 
 from __future__ import annotations
@@ -20,8 +20,8 @@ MAX_CLIP_BYTES = 3 * 1024 * 1024
 CONTEXT_CHARS = 200
 
 PROMPT = (
-    "A sales conversation in a shop, in English, Hindi or Hinglish. Write Hindi words in English letters "
-    "(Hinglish), never in Devanagari script. Write only the words spoken."
+    "A sales conversation in a shop, in English, Arabic, Hindi or Hinglish. Write Arabic in Arabic script. "
+    "Write Hindi words in English letters (Hinglish), never in Devanagari script. Write only the words spoken."
 )
 
 

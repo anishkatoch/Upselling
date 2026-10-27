@@ -29,6 +29,7 @@ def test_clip_text_comes_back_trimmed_and_the_model_is_told_to_use_english_lette
     sent = fake.calls[0]
     assert sent["model"] == settings.live_transcribe_model and sent["file"] == ("c.webm", b"audio")
     assert "never in Devanagari" in sent["prompt"] and "earlier words" in sent["prompt"]
+    assert "Write Arabic in Arabic script" in sent["prompt"]  # not transliterated into English letters
 
 
 def test_any_hindi_script_left_in_the_answer_is_shown_in_english_letters(settings):
