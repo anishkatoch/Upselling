@@ -164,15 +164,21 @@ function PersonDetail({
             foot={countFoot(t.greeting_rate != null ? `${t.greeted} of ${t.solo_analysed_conversations}` : null, seriesDelta(p.series, "greeting_rate", 100))}
           />
           <Metric
-            label="Unanswered questions"
+            label="Questions answered"
             info={METRIC_INFO.unanswered}
-            value={solo > 0 ? String(unansweredConvs) : "–"}
-            unit={solo > 0 ? `of ${solo} conversations` : undefined}
+            value={solo > 0 && factorState.listening !== "none" ? String(solo - unansweredConvs) : "–"}
+            unit={solo > 0 && factorState.listening !== "none" ? `of ${solo} conversations` : undefined}
             tone={factorTone("listening")}
             status={factorWord("listening")}
             icon={<MessageQuestion />}
-            pips={{ on: unansweredConvs, total: solo, bad: true }}
-            foot={solo > 0 ? <span className="m-count">{t.unanswered_questions} {t.unanswered_questions === 1 ? "question" : "questions"} in total</span> : null}
+            pips={{ on: solo - unansweredConvs, total: solo }}
+            foot={
+              solo > 0 ? (
+                <span className="m-count">
+                  {unansweredConvs === 0 ? "Every question was answered" : `${t.unanswered_questions} ${t.unanswered_questions === 1 ? "question" : "questions"} went unanswered`}
+                </span>
+              ) : null
+            }
           />
           <Metric
             label="Customer mood"
@@ -201,15 +207,23 @@ function PersonDetail({
             }
           />
           <Metric
-            label="Pitched after a 'no'"
+            label="Accepts a 'no'"
             info={METRIC_INFO.pitch_after_no}
-            value={t.attempts > 0 ? String(t.pushy_conversations) : "–"}
+            value={t.attempts > 0 ? String(solo - t.pushy_conversations) : "–"}
             unit={t.attempts > 0 ? `of ${solo} conversations` : undefined}
             tone={factorTone("pressure")}
             status={factorWord("pressure")}
             icon={<Ban />}
-            pips={{ on: t.pushy_conversations, total: solo, bad: true }}
-            foot={<span className="m-count">{t.attempts > 0 ? `${t.re_offers} ${t.re_offers === 1 ? "offer" : "offers"} repeated` : "No offers made"}</span>}
+            pips={{ on: solo - t.pushy_conversations, total: solo }}
+            foot={
+              <span className="m-count">
+                {t.attempts === 0
+                  ? "No offers made"
+                  : t.pushy_conversations === 0
+                    ? "Never pitched again after a 'no'"
+                    : `Pitched again in ${t.pushy_conversations} · ${t.re_offers} ${t.re_offers === 1 ? "offer" : "offers"} repeated`}
+              </span>
+            }
           />
         </MetricRow>
         <p className="metric-group-title">Selling</p>

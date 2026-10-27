@@ -186,13 +186,19 @@ export default function Dashboard() {
           foot={greetRate != null ? <span className="m-count">{totals.greeted} of {totals.solo}</span> : null}
         />
         <Metric
-          label="Unanswered questions"
+          label="Questions answered"
           icon={<MessageQuestion />}
-          pips={{ on: totals.unansweredConvs, total: totals.solo, bad: true }}
+          pips={{ on: totals.solo - totals.unansweredConvs, total: totals.solo }}
           info={METRIC_INFO.unanswered}
-          value={totals && totals.solo > 0 ? <Num value={totals.unansweredConvs} /> : "–"}
+          value={totals && totals.solo > 0 ? <Num value={totals.solo - totals.unansweredConvs} /> : "–"}
           unit={totals && totals.solo > 0 ? `of ${totals.solo} conversations` : undefined}
-          foot={totals && totals.solo > 0 ? <span className="m-count">{totals.unanswered} {totals.unanswered === 1 ? "question" : "questions"} in total</span> : null}
+          foot={
+            totals && totals.solo > 0 ? (
+              <span className="m-count">
+                {totals.unanswered === 0 ? "Every question was answered" : `${totals.unanswered} ${totals.unanswered === 1 ? "question" : "questions"} went unanswered`}
+              </span>
+            ) : null
+          }
         />
         <Metric
           label="Tries to upsell"
