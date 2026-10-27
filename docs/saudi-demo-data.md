@@ -13,6 +13,9 @@ Demo content is now Saudi. Nothing needed live API keys: all text is hand-author
   - `TeamGlanceTable.tsx`: "Earlier period" badge hidden when every person is on an earlier period.
 - Generator (not in the repo): `saudi_engine.py`, `saudi_content_a.py`, `saudi_content_b.py`, `build_saudi.py` in the shared notes folder `side-session-notes/local_a40c37f4-.../`. Run from repo root with `PYTHONPATH=src uv run python <dir>/build_saudi.py`. It validates every report against `JobReport` and recomputes metrics with the repo's own `salesperson_metrics` / `effort_score`.
 
+## Keeping the dates current
+The demo recordings are dated 14 and 21 October 2026. The Dashboard counts only people with recordings in the current month, so from 1 November it would show nothing. Before a demo run `python scripts/redate_demo_data.py` (newest recording becomes today; `--to YYYY-MM-DD` for another day, `--dry-run` to preview). It shifts every recording by the same number of days, so the week-by-week gaps stay the same.
+
 ## Review issues
 - 100% vs 14% greeting rate: could not reproduce in the API (backend greeting_rate = greeted / solo analysed conversations, consistent everywhere). Most likely cause: `AnimatedNumber` counts up from 0 and a capture mid-animation shows a partial figure (14%). Not confirmed by an actual capture. Fix: Person page shows final values. `Dashboard.tsx` still uses `AnimatedNumber` for its tiles.
 - "Salesperson A/D" labels: `speakerName()` falls back to these only when a recording has several salespeople or no employee name. Saudi jobs have one salesperson and a `salesperson_name`, so the UI shows the name. Code unchanged.

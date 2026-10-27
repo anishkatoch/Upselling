@@ -194,6 +194,19 @@ def list_jobs(limit: int = 50) -> list[dict]:
     return [public.public_status(s) for s in jobs.list_statuses(get_storage(settings), max(1, min(limit, 200)))]
 
 
+MEDIA_SUFFIXES = {
+    ".mp3", ".wav", ".m4a", ".aac", ".ogg", ".oga", ".opus", ".flac", ".webm", ".weba",
+    ".mp4", ".m4v", ".mov", ".mkv", ".avi", ".3gp", ".amr", ".wma", ".caf",
+}  # fmt: skip
+
+
+def _looks_like_media(filename: str | None, content_type: str | None) -> bool:
+    """A recording is audio or video: judged by the file ending, or the type the browser reports."""
+    if Path(filename or "").suffix.lower() in MEDIA_SUFFIXES:
+        return True
+    return (content_type or "").lower().startswith(("audio/", "video/"))
+
+
 @app.post("/api/jobs", status_code=202)
 async def create_job(
     request: Request,
@@ -203,6 +216,10 @@ async def create_job(
     salesperson_name: Annotated[str | None, Form()] = None,
 ) -> dict:
     _limit(request, "upload", 10, 600.0)
+    if not _looks_like_media(file.filename, file.content_type):
+        raise HTTPException(
+            415, "That does not look like an audio or video file. Upload a recording such as .mp3, .wav, .m4a or .mp4."
+        )
     limit = settings.max_upload_mb * CHUNK
     size = 0
     with tempfile.NamedTemporaryFile(delete=False, suffix=Path(file.filename or "").suffix) as tmp:

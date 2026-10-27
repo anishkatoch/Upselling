@@ -225,3 +225,49 @@ def test_local_storage_retries_when_windows_says_the_file_is_busy(tmp_path, monk
     monkeypatch.setattr(Path, "read_text", flaky_read)
     storage.put_json("a/status.json", {"n": 2})  # two busy moments, then it works
     assert storage.get_json("a/status.json") == {"n": 2} and busy == {"replace": 0, "read": 0}
+
+
+def test_upload_only_accepts_audio_or_video_files(tmp_path, settings, models_config, monkeypatch):
+    from fastapi.testclient import TestClient
+
+    from upsell_poc.api import main
+
+    monkeypatch.setattr(main, "settings", settings)
+    client = TestClient(main.app)
+    before = len(client.get("/api/jobs").json())
+    not_media = [("notes.txt", "text/plain"), ("report.pdf", "application/pdf"), ("run.exe", "application/octet-stream")]
+    for name, mime in not_media:
+        files = {"file": (name, b"hello", mime)}
+        res = client.post("/api/jobs", files=files, data={"salesperson_name": "Zed Not Real"})
+        assert res.status_code == 415, (name, res.status_code)
+        assert "audio or video" in res.json()["detail"]
+    # nothing was created, and the typed name did not reach the roster
+    assert len(client.get("/api/jobs").json()) == before
+    assert "Zed Not Real" not in [p["name"] for p in client.get("/api/people/roster").json()]
+    # what the recorder and the usual phone/desktop formats send is still accepted by the check
+    media = [("recording-2026-10-27-10-00.webm", "audio/webm"), ("call.m4a", ""), ("x.bin", "video/mp4"), ("A.MP3", "")]
+    for name, mime in media:
+        assert main._looks_like_media(name, mime), (name, mime)
+    assert not main._looks_like_media(None, None) and not main._looks_like_media("noext", "")
+
+
+def test_redate_script_moves_every_recording_by_the_same_days(tmp_path):
+    import json
+    import subprocess
+    import sys
+    from pathlib import Path
+
+    store = tmp_path / "store"
+    for name, created in [("a", "2026-10-14T10:30:00+00:00"), ("b", "2026-10-21T09:00:00+00:00")]:
+        (store / "jobs" / name).mkdir(parents=True)
+        doc = {"job_id": name, "created_at": created, "updated_at": created}
+        (store / "jobs" / name / "status.json").write_text(json.dumps(doc), "utf-8")
+    script = Path(__file__).resolve().parents[1] / "scripts" / "redate_demo_data.py"
+    args = [sys.executable, str(script), "--store", str(store), "--to", "2026-11-10"]
+    subprocess.run([*args, "--dry-run"], check=True, capture_output=True)
+    before = json.loads((store / "jobs" / "b" / "status.json").read_text("utf-8"))
+    assert before["created_at"].startswith("2026-10-21")  # a dry run changes nothing
+    subprocess.run(args, check=True, capture_output=True)
+    moved = {n: json.loads((store / "jobs" / n / "status.json").read_text("utf-8")) for n in "ab"}
+    assert moved["b"]["created_at"].startswith("2026-11-10") and moved["b"]["updated_at"].startswith("2026-11-10")
+    assert moved["a"]["created_at"].startswith("2026-11-03")  # still a week earlier
