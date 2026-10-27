@@ -1,5 +1,5 @@
-import { animate, motion, useInView, useMotionValue, useReducedMotion, useTransform } from "framer-motion";
-import { useEffect, useRef } from "react";
+import { motion, useInView, useReducedMotion } from "framer-motion";
+import { useRef } from "react";
 import { DUR, EASE } from "../../lib/motion";
 import type { Bucket } from "../../lib/api";
 
@@ -15,17 +15,6 @@ export default function PersonSentiment({ total }: { total: Bucket }) {
   const reduce = useReducedMotion();
   const ref = useRef<SVGSVGElement>(null);
   const inView = useInView(ref, { once: true });
-  const mv = useMotionValue(reduce ? n : 0);
-  const shown = useTransform(mv, (v) => Math.round(v));
-  useEffect(() => {
-    if (reduce) {
-      mv.set(n);
-      return;
-    }
-    if (!inView) return;
-    const c = animate(mv, n, { duration: DUR.slow + 0.2, ease: EASE });
-    return () => c.stop();
-  }, [inView, n, reduce, mv]);
   if (n === 0) return null;
   const parts = [
     { label: "Went well", count: good, color: "var(--accent)" },
@@ -66,7 +55,7 @@ export default function PersonSentiment({ total }: { total: Bucket }) {
             offset += len;
             return el;
           })}
-          <motion.text x="50" y="49" textAnchor="middle" className="sent-n">{shown}</motion.text>
+          <text x="50" y="49" textAnchor="middle" className="sent-n">{n}</text>
           <text x="50" y="63" textAnchor="middle" className="sent-w">{n === 1 ? "call" : "calls"}</text>
         </svg>
         <ul className="sent-legend">

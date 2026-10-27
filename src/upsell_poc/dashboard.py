@@ -403,13 +403,13 @@ class _Acc:
 # rating stands on. Conversations shared with a colleague do not count toward it.
 MIN_CONVERSATIONS = 3
 MIN_ANSWERED_OFFERS = 3  # "customers say yes" is only judged once this many offers got a clear answer
-ASPECT_NAMES = {
-    "greeting": "greeting customers",
-    "listening": "answering customer questions",
-    "mood": "customer mood",
-    "pressure": "pressure after a 'no'",
-    "upselling": "offering add-ons",
-    "conversion": "customers saying yes",
+ASPECT_NAMES = {  # read after "held back by", so each says what is lacking, not just the topic
+    "greeting": "missed greetings",
+    "listening": "unanswered customer questions",
+    "mood": "customers getting frustrated",
+    "pressure": "pitching after a 'no'",
+    "upselling": "too few offers",
+    "conversion": "too few customers saying yes",
 }
 SEVERE_FRUSTRATION = 7  # one customer this frustrated keeps the rating from being "Excelling"
 MIN_FOR_EXCELLING = 6  # "Excelling" needs this many single-salesperson conversations; a few good ones prove little
@@ -478,6 +478,25 @@ W_GREETING, W_LISTENING, W_MOOD, W_PUSHY = 3, 3, 3, 2
 W_UPSELL_REACH, W_CONVERSION = 2, 2
 
 
+UNJUDGED_TEXT = {
+    "listening": "no customer questions recorded, so listening can't be judged",
+    "pressure": "no offers made yet, so pressure after a 'no' can't be judged",
+    "conversion": "too few answered offers to judge whether customers say yes",
+}
+
+
+def _unjudged(t: Bucket) -> set[str]:
+    """Aspects with nothing to judge yet (they earn no points, but that is missing evidence, not a weak spot)."""
+    out: set[str] = set()
+    if t.customer_requests == 0:
+        out.add("listening")
+    if t.attempts == 0:
+        out.add("pressure")
+    if (t.answered_offers or 0) < MIN_ANSWERED_OFFERS:
+        out.add("conversion")
+    return out
+
+
 def _factors(t: Bucket, d: int, unanswered_convs: int, aspects: dict[str, tuple[float, float]]) -> list[Factor]:
     """The factors behind the rating as words: how it went and the count, never the points."""
 
@@ -506,7 +525,10 @@ def _factors(t: Bucket, d: int, unanswered_convs: int, aspects: dict[str, tuple[
         worst = t.max_customer_frustration
         extra = f", worst {worst:g}/10" if worst is not None and worst >= 5 else ""
         detail = f"Customers' frustration averaged {t.avg_customer_frustration}/10{extra}"
-        add("mood", "Customers stay calm", status("mood"), detail)
+        mood_status = status("mood")
+        if mood_status == "good" and worst is not None and worst >= 5:
+            mood_status = "fair"  # one customer was clearly irritated, whatever the average says
+        add("mood", "Customers stay calm", mood_status, detail)
     if "pressure" in aspects:
         if t.attempts == 0:
             add("pressure", "Respects a 'no'", "none", "No offers made, so nothing to judge")
@@ -594,7 +616,8 @@ def assess(t: Bucket, series: list[Bucket]) -> Assessment:
         avg = t.avg_customer_frustration
         if avg < 3:
             points += W_MOOD
-            handling_good.append(f"Most customers stay calm (average {avg}/10).")
+            if t.max_customer_frustration is None or t.max_customer_frustration < 5:  # nobody clearly irritated
+                handling_good.append(f"Most customers stay calm (average frustration {avg}/10).")
         elif avg < 5:
             points += W_MOOD / 2
             improvements.append(
@@ -687,10 +710,13 @@ def assess(t: Bucket, series: list[Bucket]) -> Assessment:
             or (unanswered_per > 0.3 and unanswered_convs >= MIN_REPEATED)
         ):
             rating = "solid"  # strengths do not buy back a problem that keeps happening
-        weak = [ASPECT_NAMES[k] for k, (got, possible) in aspects.items() if got * 2 < possible]
-        if rating == "strong" and weak:
-            rating = "solid"  # "Excelling" means a good score overall and no weak spot
-            held_back = weak
+        unjudged = _unjudged(t)
+        low = [k for k, (got, possible) in aspects.items() if got * 2 < possible]
+        weak = [ASPECT_NAMES[k] for k in low if k not in unjudged]
+        waiting = [UNJUDGED_TEXT[k] for k in low if k in unjudged]
+        if rating == "strong" and (weak or waiting):
+            rating = "solid"  # "Excelling" means a good score overall, no weak spot and evidence for every part
+            held_back = weak + waiting
         if not insufficient:
             if d < EARLY_READ_BELOW:
                 early_kind, early_read = rating, True  # too few conversations for any firm label
@@ -732,6 +758,8 @@ def assess(t: Bucket, series: list[Bucket]) -> Assessment:
             f"Early read: {verdict}, but {d} conversations are too few for a firm rating "
             f"({EARLY_READ_BELOW} needed)"
         )
+    elif held_back and all(h in UNJUDGED_TEXT.values() for h in held_back):
+        headline = "On track so far - " + "; ".join(held_back[:3])  # nothing is wrong, something cannot be judged yet
     elif held_back:
         headline = "On track, held back by " + "; ".join(held_back[:3])
     elif thin_for_excelling:
@@ -873,6 +901,18 @@ def _speaker_lines(storage: Storage, job_id: str) -> dict[str, list[tuple[float,
         return {}
 
 
+def _recent_calls(calls: list[RecentCall], latest_period: str, others: int = 8) -> list[RecentCall]:
+    """All conversations of the period the figures describe, plus the newest earlier ones."""
+
+    def newest(c: RecentCall) -> tuple[str, int]:
+        return (c.when, c.conversation_id)
+
+    ordered = sorted(calls, key=newest, reverse=True)
+    mine = [c for c in ordered if c.period == latest_period]
+    earlier = [c for c in ordered if c.period != latest_period][:others]
+    return sorted(mine + earlier, key=newest, reverse=True)
+
+
 def build_dashboard(storage: Storage, period: Period = "day", now: datetime | None = None) -> Dashboard:
     identity = _Identity.load(storage, _all_statuses(storage))
     current = period_label(now or datetime.now(UTC), period)
@@ -961,7 +1001,7 @@ def build_dashboard(storage: Storage, period: Period = "day", now: datetime | No
                 series=series,
                 assessment=assess(total, series),
                 recent_coaching=[t for _, t in sorted(coaching[name], reverse=True)[:3]],
-                recent_calls=sorted(calls[name], key=lambda x: (x.when, x.conversation_id), reverse=True)[:8],
+                recent_calls=_recent_calls(calls[name], total.period),
                 is_current=total.period == current,
             )
         )

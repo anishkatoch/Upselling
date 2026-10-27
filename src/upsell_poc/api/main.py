@@ -195,7 +195,7 @@ def list_jobs(limit: int = 50) -> list[dict]:
 
 
 MEDIA_SUFFIXES = {
-    ".mp3", ".wav", ".m4a", ".aac", ".ogg", ".oga", ".opus", ".flac", ".webm", ".weba",
+    ".mp3", ".mp2", ".mpga", ".mpeg", ".wav", ".m4a", ".aac", ".ogg", ".oga", ".opus", ".flac", ".webm", ".weba",
     ".mp4", ".m4v", ".mov", ".mkv", ".avi", ".3gp", ".amr", ".wma", ".caf",
 }  # fmt: skip
 

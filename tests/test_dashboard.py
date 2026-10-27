@@ -612,7 +612,7 @@ def test_excelling_needs_every_aspect_to_earn_at_least_half_its_points():
     assert strong.rating == "strong" and strong.headline.startswith("Excelling")
     # high total (12 of 15) but customers almost never say yes: not excelling, and it says why
     weak = dashboard.assess(_solo(**good, acceptance_rate=0.11), [])
-    assert weak.rating == "solid" and weak.headline == "On track, held back by customers saying yes"
+    assert weak.rating == "solid" and weak.headline == "On track, held back by too few customers saying yes"
     # half the points on an aspect is enough
     half = dashboard.assess(_solo(**good, acceptance_rate=0.25), [])
     assert half.rating == "strong"
@@ -835,3 +835,55 @@ def test_factor_status_follows_the_rating_inputs():
     assert _factor(fair, "pressure").status == "fair"
     weak = dashboard.assess(_solo(**strong, pushy_conversations=5), [])
     assert _factor(weak, "pressure").status == "weak" and "5 of 10" in _factor(weak, "pressure").detail
+
+
+def test_a_missing_piece_of_evidence_is_not_blamed_on_the_person():
+    def good(**kw):
+        n = 8
+        base = dict(
+            conversations=n, analysed_conversations=n, solo_analysed_conversations=n, greeted=n, greeting_rate=1.0,
+            conversations_with_unanswered=0, customer_requests=n, avg_customer_frustration=0.5,
+            max_customer_frustration=2.0, upsell_rate=0.8, conversations_with_upsell=6, attempts=n, accepted=3,
+            answered_offers=6, acceptance_rate=0.5,
+        )  # fmt: skip
+        return dashboard.assess(dashboard.Bucket(period="p", **{**base, **kw}), [])
+
+    assert good().headline == "Excelling across the board"
+    # only 2 offers got a clear answer: not "Excelling" yet, and the sentence says it cannot be judged (not "weak")
+    few = good(answered_offers=2, accepted=1)
+    assert few.rating == "solid" and few.headline.startswith("On track so far - too few answered offers")
+    assert _factor(few, "yes").status == "none"
+    # customers never asked anything: nothing to judge for listening
+    quiet = good(customer_requests=0)
+    assert quiet.rating == "solid" and "listening can't be judged" in quiet.headline
+    # a genuinely weak yes-rate is still called weak
+    weak = good(acceptance_rate=0.1, accepted=1, answered_offers=9)
+    assert weak.headline == "On track, held back by too few customers saying yes"
+
+
+def test_the_recent_list_includes_every_conversation_of_the_period_the_figures_describe():
+    from upsell_poc.dashboard import RecentCall, _recent_calls
+
+    def call(i: int, period: str) -> RecentCall:
+        return RecentCall(
+            when=f"2026-10-{i:02d}T10:00:00+00:00", period=period, job_id=f"j{i}", filename="f", conversation_id=1,
+            topic="t", sentiment="neutral", upsell_result="none", tried=0, accepted=0,
+        )  # fmt: skip
+
+    latest = [call(i, "2026-10") for i in range(10, 22)]  # 12 conversations in the latest period
+    older = [call(i, "2026-09") for i in range(1, 7)]
+    got = _recent_calls(latest + older, "2026-10")
+    assert sum(c.period == "2026-10" for c in got) == 12  # not cut to 8
+    assert len(got) == 18 and got == sorted(got, key=lambda c: c.when, reverse=True)
+    backlog = [call(i, "2026-09") for i in range(1, 15)]
+    assert len(_recent_calls(backlog, "2026-10")) == 8  # an old backlog is still capped
+
+
+def test_one_clearly_irritated_customer_stops_the_calm_praise_and_the_strong_mood_status():
+    ten = {"conversations": 10, "analysed_conversations": 10, "solo_analysed_conversations": 10}
+    calm = dashboard.assess(_solo(**ten, avg_customer_frustration=0.5, max_customer_frustration=2.0), [])
+    assert _factor(calm, "mood").status == "good"
+    assert any("Most customers stay calm (average frustration 0.5/10)" in s for s in calm.strengths)
+    irritated = dashboard.assess(_solo(**ten, avg_customer_frustration=0.5, max_customer_frustration=5.0), [])
+    assert _factor(irritated, "mood").status == "fair"  # "Strong" beside a 5/10 customer would contradict the page
+    assert not any("stay calm" in s for s in irritated.strengths)

@@ -7,6 +7,9 @@ export const NOT_RATED_TEXT = "Not enough conversations to rate yet";
 /** True when the backend says there is too little data to rate this person. */
 export const isNotRated = (p: Person) => p.assessment.insufficient_data === true;
 
+/** Not rated, or only an early read: no firm label yet, so it is not counted under Needs support / On track / Excelling. */
+export const isProvisional = (p: Person) => isNotRated(p) || p.assessment.early_read === true;
+
 /** The rating chip, or a neutral "not enough data" chip. `short` is for tight table cells. */
 export function RatingChip({ person, short }: { person: Person; short?: boolean }) {
   if (isNotRated(person)) {

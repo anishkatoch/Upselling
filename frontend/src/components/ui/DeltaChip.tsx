@@ -24,7 +24,7 @@ export default function DeltaChip({
   const flat = whole === 0;
   const good = lowerIsBetter ? value < 0 : value > 0;
   const cls = flat ? "flat" : good ? "up" : "down";
-  const arrow = flat ? "–" : value > 0 ? "▲" : "▼";
+  const arrow = flat ? "–" : good ? "▲" : "▼"; // up is always the better direction, whichever way the number moved
   const words = value > 0 ? upText : downText;
   const unitText = unit === "points" && whole === 1 ? "point" : unit;
   const text = flat ? "no change" : (words ?? `${whole}${unitText ? ` ${unitText}` : ""}`);

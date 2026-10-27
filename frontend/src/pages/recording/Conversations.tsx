@@ -78,7 +78,7 @@ function ConversationBody({ c, ctx }: { c: Conversation; ctx: RecCtx }) {
   const moments = buildMoments(c, (id) => segById.get(id)?.start);
   const custKeys = new Set(c.customers.map(canon));
   const customerMoods = (c.mood?.speakers ?? []).filter((m) => custKeys.has(canon(m.speaker)));
-  const lang = c.language ? c.language.charAt(0).toUpperCase() + c.language.slice(1) : "";
+  const lang = c.language === "other" ? "another language" : c.language ? c.language.charAt(0).toUpperCase() + c.language.slice(1) : "";
   const sales = c.salespeople.map((p) => who(p)).join(", ");
   const meta = [sales && `Salesperson: ${sales}`, lang && `spoken in ${lang}`].filter(Boolean).join(" - ");
 

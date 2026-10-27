@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import type { Period } from "../lib/period";
 import { useMemo, useState, type ReactNode } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Minus, TrendDown, TrendUp } from "../icons/Icons";
@@ -7,7 +8,7 @@ import { pct } from "../lib/format";
 import { DUR, EASE } from "../lib/motion";
 import { METRIC_INFO } from "../lib/metricInfo";
 import { EFFORT, EFFORT_TONE, moodFromFrustration } from "../lib/teamLabels";
-import { analysedCount, isNotRated, RatingChip, seriesDelta, StalePeriodBadge } from "./people/rating";
+import { analysedCount, isNotRated, isProvisional, RatingChip, seriesDelta, StalePeriodBadge } from "./people/rating";
 import { DeltaChip, InfoTip } from "./ui";
 import "./people/people.css";
 
@@ -69,7 +70,7 @@ function Th({
  * `collapsedRows`, when set, shows only the first N people plus a "Show full team table" button
  * that reveals the rest in place. Omit it (Team.tsx's usage) for the unchanged, always-full table.
  */
-export default function TeamGlanceTable({ people, collapsedRows }: { people: Person[]; collapsedRows?: number }) {
+export default function TeamGlanceTable({ people, collapsedRows, period }: { people: Person[]; collapsedRows?: number; period?: Period }) {
   const [expanded, setExpanded] = useState(false);
   const [sort, setSort] = useState<SortState>({ key: "rating", dir: "asc" });
   const navigate = useNavigate();
@@ -78,7 +79,7 @@ export default function TeamGlanceTable({ people, collapsedRows }: { people: Per
     const m = sort.dir === "asc" ? 1 : -1;
     return [...people].sort((a, b) => {
       // People who could not be rated stay at the bottom whichever way the rating column is sorted.
-      if (sort.key === "rating" && isNotRated(a) !== isNotRated(b)) return isNotRated(a) ? 1 : -1;
+      if (sort.key === "rating" && isProvisional(a) !== isProvisional(b)) return isProvisional(a) ? 1 : -1;
       const x = sortValue(a, sort.key);
       const y = sortValue(b, sort.key);
       return (x < y ? -1 : x > y ? 1 : 0) * m;
@@ -137,7 +138,7 @@ export default function TeamGlanceTable({ people, collapsedRows }: { people: Per
               const TrendIcon = trend === "improving" ? TrendUp : trend === "declining" ? TrendDown : Minus;
               const trendText = trend === "improving" ? "Improving" : trend === "declining" ? "Slipping" : "Steady";
               const justRevealed = expanded && collapsedRows != null && i >= collapsedRows;
-              const href = `/team/${encodeURIComponent(p.name)}`;
+              const href = `/team/${encodeURIComponent(p.name)}${period ? `?period=${period}` : ""}`;
               const shared = t.shared_conversations ?? 0;
               const mood = moodFromFrustration(t.avg_customer_frustration);
               return (

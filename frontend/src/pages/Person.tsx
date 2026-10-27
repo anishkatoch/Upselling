@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 import LineChart from "../components/LineChart";
 import { describePrevious, formatPeriod, type Period } from "../lib/period";
 import { AlertTriangle, ArrowLeft, Ban, Check, Hand, MessageQuestion, Minus, Smile, Target, TrendDown, TrendUp } from "../icons/Icons";
@@ -28,7 +28,11 @@ export default function PersonPage() {
   // react-router already decodes path params (see its decodePath()), so this is the real
   // name as-is - decoding it again here would throw on a name containing a literal "%".
   const name = rawName ?? "";
-  const [period, setPeriod] = useState<Period>("week");
+  // The period lives in the address (?period=month), so a view can be reloaded and linked.
+  const [params, setParams] = useSearchParams();
+  const asked = params.get("period");
+  const period: Period = asked === "day" || asked === "week" || asked === "month" ? asked : "week";
+  const setPeriod = (p: Period) => setParams({ period: p }, { replace: true });
 
   // Jumping into a fresh profile page should land at the top, same as Team.tsx did when
   // switching between an inline person card and "all salespeople".
@@ -61,7 +65,7 @@ export default function PersonPage() {
         </div>
       )}
 
-      {board && person && <PersonDetail person={person} people={board.people} period={period} setPeriod={setPeriod} />}
+      {board && person && <PersonDetail key={person.name} person={person} people={board.people} period={period} setPeriod={setPeriod} />}
     </>
   );
 }
@@ -106,6 +110,7 @@ function PersonDetail({
     ({ good: "good", fair: "warn", weak: "bad", none: "neutral" } as const)[factorState[key] as RatingFactor["status"]];
   const factorWord = (key: RatingFactor["key"]) => ({ good: "Strong", fair: "Fair", weak: "Needs work", none: undefined } as const)[factorState[key] as RatingFactor["status"]];
   const solo = t.solo_analysed_conversations ?? 0;
+  const judgedNo = t.attempts > 0 && solo > 0; // offers in shared conversations alone leave nothing to judge
   const unansweredConvs = t.conversations_with_unanswered ?? t.unanswered_questions;
 
   return (
@@ -173,7 +178,7 @@ function PersonDetail({
             icon={<MessageQuestion />}
             pips={{ on: solo - unansweredConvs, total: solo }}
             foot={
-              solo > 0 ? (
+              solo > 0 && factorState.listening !== "none" ? (
                 <span className="m-count">
                   {unansweredConvs === 0 ? "Every question was answered" : `${t.unanswered_questions} ${t.unanswered_questions === 1 ? "question" : "questions"} went unanswered`}
                 </span>
@@ -209,16 +214,16 @@ function PersonDetail({
           <Metric
             label="Respects a 'no'"
             info={METRIC_INFO.pitch_after_no}
-            value={t.attempts > 0 ? String(solo - t.pushy_conversations) : "–"}
-            unit={t.attempts > 0 ? `of ${solo} conversations` : undefined}
+            value={judgedNo ? String(solo - t.pushy_conversations) : "–"}
+            unit={judgedNo ? `of ${solo} conversations` : undefined}
             tone={factorTone("pressure")}
             status={factorWord("pressure")}
             icon={<Ban />}
             pips={{ on: solo - t.pushy_conversations, total: solo }}
             foot={
               <span className="m-count">
-                {t.attempts === 0
-                  ? "No offers made"
+                {!judgedNo
+                  ? "No offers to judge"
                   : t.pushy_conversations === 0
                     ? "Never pitched again after a 'no'"
                     : `Pitched again in ${t.pushy_conversations} · ${t.re_offers} ${t.re_offers === 1 ? "offer" : "offers"} repeated`}

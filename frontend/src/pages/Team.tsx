@@ -5,12 +5,12 @@ import TeamGlanceTable from "../components/TeamGlanceTable";
 import "../components/people/people.css";
 import { AlertTriangle, Users } from "../icons/Icons";
 import { api } from "../lib/api";
-import type { Period } from "../lib/period";
+import { formatPeriod, type Period } from "../lib/period";
 import { PERIOD_LABEL } from "../lib/teamLabels";
 import { useLoad } from "../lib/hooks";
 import { DUR, EASE } from "../lib/motion";
 import { Reveal } from "../components/motion";
-import { isNotRated } from "../components/people/rating";
+import { isProvisional } from "../components/people/rating";
 import type { Person } from "../lib/api";
 
 type RatingFilter = "all" | "needs_work" | "solid" | "strong" | "not_rated";
@@ -19,10 +19,10 @@ const FILTERS: { key: RatingFilter; label: string }[] = [
   { key: "needs_work", label: "Needs support" },
   { key: "solid", label: "On track" },
   { key: "strong", label: "Excelling" },
-  { key: "not_rated", label: "Not rated" },
+  { key: "not_rated", label: "Not rated yet" },
 ];
 const matches = (p: Person, f: RatingFilter) =>
-  f === "all" ? true : f === "not_rated" ? isNotRated(p) : !isNotRated(p) && p.assessment.rating === f;
+  f === "all" ? true : f === "not_rated" ? isProvisional(p) : !isProvisional(p) && p.assessment.rating === f;
 
 export default function Team() {
   // The Dashboard links here with ?period=month&rating=needs_work: open on that period, filtered to that group.
@@ -46,6 +46,9 @@ export default function Team() {
   };
   const { data, error } = useLoad(() => api.dashboard(period), [period]);
   const people = data?.people ?? [];
+  // With nothing recorded in the current day/week/month, everyone is shown on their latest period: say so.
+  const allStale = people.length > 0 && people.every((p) => p.is_current === false);
+  const latest = people.map((p) => p.total.period).sort()[people.length - 1];
   const shown = people.filter((p) => matches(p, rating));
 
   return (
@@ -55,7 +58,11 @@ export default function Team() {
           <div className="row" style={{ gap: 10 }}>
             <h1>Your team</h1>
           </div>
-          <p className="sub">How each salesperson did {PERIOD_LABEL[period]}.</p>
+          <p className="sub">
+            {allStale
+              ? `Nothing was recorded ${PERIOD_LABEL[period]}, so this shows each person's latest ${period === "day" ? "day" : period === "week" ? "week" : "month"} with recordings (${formatPeriod(latest)}).`
+              : `How each salesperson did ${PERIOD_LABEL[period]}.`}
+          </p>
         </div>
         <div className="row" style={{ gap: 10 }}>
           <div className="seg">
@@ -109,7 +116,7 @@ export default function Team() {
           })}
         </div>
         {shown.length > 0 ? (
-          <TeamGlanceTable people={shown} />
+          <TeamGlanceTable period={period} people={shown} />
         ) : (
           <div className="card empty">
             <p>Nobody is in this group for {PERIOD_LABEL[period]}.</p>

@@ -14,7 +14,7 @@ import { api, type Job } from "../lib/api";
 import { pct } from "../lib/format";
 import { moodFromFrustration } from "../lib/teamLabels";
 import { useLoad } from "../lib/hooks";
-import { analysedCount, isNotRated } from "../components/people/rating";
+import { analysedCount, isProvisional } from "../components/people/rating";
 import "../components/people/people.css";
 
 /** A count-up number with its width reserved (tabular digits) so nothing shifts while it counts. */
@@ -81,7 +81,7 @@ export default function Dashboard() {
 
   const ratingCounts = (board?.people ?? []).reduce(
     (acc, p) => {
-      if (isNotRated(p)) acc.not_rated += 1;
+      if (isProvisional(p)) acc.not_rated += 1;
       else acc[p.assessment.rating] += 1;
       return acc;
     },
@@ -124,7 +124,7 @@ export default function Dashboard() {
     { key: "needs_work", label: "Needs support", n: ratingCounts.needs_work, color: "var(--bad)" },
     { key: "solid", label: "On track", n: ratingCounts.solid, color: "var(--warn)" },
     { key: "strong", label: "Excelling", n: ratingCounts.strong, color: "var(--good)" },
-    { key: "not_rated", label: "Not rated", n: ratingCounts.not_rated, color: "var(--faint)" },
+    { key: "not_rated", label: "Not rated yet", n: ratingCounts.not_rated, color: "var(--faint)" },
   ];
 
   return (

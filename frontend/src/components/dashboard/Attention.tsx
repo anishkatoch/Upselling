@@ -145,12 +145,14 @@ export default function Attention({ people }: { people: Person[] }) {
     ...rated.filter((p) => p.assessment.rating === "needs_work").sort(byConcern),
     ...rated.filter((p) => p.assessment.rating === "solid" && p.assessment.improvements.length).sort(byConcern),
   ];
+  const needNames = new Set(needs.map((p) => p.name)); // nobody is listed both under "Worth a look" and "Doing well"
   const excelling = rated.filter((p) => p.assessment.rating === "strong").length;
   // Excelling first; then the steadiest people on track, so the card is not left with one or two names.
   const well = [
     ...rated.filter((p) => p.assessment.rating === "strong").sort((a, b) => worstMood(a) - worstMood(b)),
     ...rated
-      .filter((p) => p.assessment.rating === "solid" && worstMood(p) < 5 && highlights(p))
+      // an early read that leans towards "needs a look" does not belong under "Doing well" whatever its held-back label
+      .filter((p) => !needNames.has(p.name) && p.assessment.rating === "solid" && !(p.assessment.early_read && p.assessment.early_leaning === "needs_work") && worstMood(p) < 5 && highlights(p))
       .sort((a, b) => a.assessment.improvements.length - b.assessment.improvements.length || worstMood(a) - worstMood(b)),
   ];
 

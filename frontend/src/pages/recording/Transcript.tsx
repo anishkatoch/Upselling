@@ -176,7 +176,7 @@ export default function TranscriptTab({
         {segments.length} lines · {convs.length} conversation{convs.length === 1 ? "" : "s"} · {r.speakers.length} speakers
       </p>
       <p className="sub small" style={{ marginBottom: 10 }}>
-        <span className="pill info">Upsell attempt</span> accent edge · <span className="pill bad">Frustration</span> red edge · salesperson on the right
+        <span className="pill info">Offer made</span> blue bar · <span className="pill bad">Frustration</span> red bar · salesperson on the right
       </p>
 
       {rows.length === 0 && <p className="sub">No matching lines.</p>}
