@@ -230,6 +230,7 @@ function PersonDetail({
             />
             <Metric label="Offers per conversation" info={METRIC_INFO.offers_per_conversation} value={num(t.attempts_per_conversation, "dec")} />
             <Metric label="Different approaches used" info={METRIC_INFO.techniques} value={num(t.techniques.length, "int")} />
+            <Metric label="Objections answered" info={METRIC_INFO.objections} value={num(t.objections_handled, "int")} />
           </MetricRow>
         </div>
       </Reveal>

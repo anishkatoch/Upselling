@@ -10,6 +10,7 @@ export const METRIC_INFO = {
   effort: "How hard the salesperson works at selling: how many offers they make, how many different approaches they try, whether they try again after a no, and how they handle objections.",
   offers_per_conversation: "How many offers the salesperson makes in an average customer conversation.",
   pitch_after_no: "Conversations where the salesperson kept pitching after the customer had clearly said no. Fewer is better.",
+  objections: "Times a customer pushed back on an offer and the salesperson answered the concern. Shown for information; it does not change the rating.",
   reoffers: "How many times the salesperson offered the same thing again after the customer had said no.",
   techniques: "How many different ways of selling they have used, such as a bundle, an upgrade or a warranty.",
   pushy: "Conversations where the salesperson kept pushing after a clear no, or while the customer was getting unhappy.",
