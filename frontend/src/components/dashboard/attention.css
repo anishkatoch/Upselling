@@ -1,16 +1,19 @@
-.attn { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; align-items: start; }
+.attn { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; align-items: stretch; }
 .attn-card { padding: 0; display: flex; flex-direction: column; }
-.attn-h { padding: 16px 20px 4px; font-weight: 600; }
-.attn-list { list-style: none; margin: 0; padding: 4px 0; flex: 1; }
-.attn-row { transition: background-color 0.15s; display: flex; gap: 12px; justify-content: space-between; align-items: flex-start; padding: 10px 20px; border-top: 1px solid var(--line-soft); }
+.attn-h { padding: 16px 20px 4px; font-weight: 600; display: flex; justify-content: space-between; align-items: baseline; }
+.attn-range { font-size: 12px; font-weight: 400; color: var(--muted); }
+.attn-list { list-style: none; margin: 0; padding: 4px 0; flex: 1; animation: attn-in 0.35s ease; }
+@keyframes attn-in { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .attn-list { animation: none; } }
+.attn-row { transition: background-color 0.15s; display: flex; gap: 12px; justify-content: space-between; align-items: center; min-height: 84px; padding: 10px 20px; border-top: 1px solid var(--line-soft); }
 .attn-row:hover { background: var(--accent-soft); }
 .attn-list li:first-child { border-top: 0; }
 .attn-name { font-weight: 600; color: var(--ink); }
 .attn-name:hover { color: var(--accent-ink); text-decoration: underline; }
-.attn-why { color: var(--muted); font-size: 13px; margin-top: 2px; line-height: 1.45; }
+.attn-why { color: var(--muted); font-size: 13px; margin-top: 2px; line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .attn-trend { flex: none; font-size: 12px; color: var(--muted); white-space: nowrap; padding-top: 2px; }
 .attn-empty { padding: 12px 20px 18px; color: var(--muted); margin: 0; flex: 1; }
-.attn-more { padding: 12px 20px 16px; border-top: 1px solid var(--line-soft); font-size: 13px; font-weight: 500; }
+.attn-more { grid-column: 1 / -1; margin-top: -4px; font-size: 13px; font-weight: 500; }
 .attn-more a { color: var(--accent-ink); }
 .attn-more a:hover { text-decoration: underline; }
 @media (max-width: 860px) { .attn { grid-template-columns: 1fr; } }
