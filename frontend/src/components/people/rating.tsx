@@ -1,6 +1,6 @@
 import type { Bucket, Person } from "../../lib/api";
 import { formatPeriod } from "../../lib/period";
-import { RATING } from "../../lib/teamLabels";
+import { EARLY, RATING } from "../../lib/teamLabels";
 
 export const NOT_RATED_TEXT = "Not enough conversations to rate yet";
 
@@ -16,8 +16,10 @@ export function RatingChip({ person, short }: { person: Person; short?: boolean 
       </span>
     );
   }
-  const r = RATING[person.assessment.rating];
   const early = person.assessment.early_read || (person.total.solo_analysed_conversations != null && person.total.solo_analysed_conversations < 5);
+  // On a thin sample the pill says what the points point to, softly, instead of a firm-sounding label.
+  const leaning = early ? person.assessment.early_leaning : null;
+  const r = leaning ? EARLY[leaning] : RATING[person.assessment.rating];
   return (
     <span className={`pill ${r.tone}`} title={early ? "Early read: too few conversations for a firm rating" : undefined}>
       {r.label}

@@ -175,7 +175,7 @@ label.f input:focus { outline: none; border-color: var(--accent); box-shadow: va
 .pill::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--pd); flex: none; }
 .pill.good { --pd: var(--good); }
 .pill.bad { --pd: var(--bad); }
-.pill.warn { --pd: #c08a2b; }
+.pill.warn, .pill.caution { --pd: #c08a2b; }
 .pill.accent, .pill.info { --pd: var(--accent); }
 .pill.neutral { color: var(--muted); }
 .pill.neutral::before { display: none; }

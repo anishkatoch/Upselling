@@ -325,6 +325,8 @@ export interface Person {
     low_sample: boolean;
     /** True when fewer than 3 conversations had this person as the only salesperson; do not show the rating label. */
     early_read?: boolean;
+    /** For an early read: what the points point to, so the pill can say more than "On track". */
+    early_leaning?: "strong" | "solid" | "needs_work" | null;
     insufficient_data?: boolean;
     effort_level: EffortLevel;
     effort_summary: string;

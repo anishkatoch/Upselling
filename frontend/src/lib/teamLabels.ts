@@ -6,6 +6,12 @@ export const RATING: Record<Person["assessment"]["rating"], { label: string; ton
   solid: { label: "On track", tone: "accent" },
   needs_work: { label: "Needs support", tone: "bad" },
 };
+// What an early read says: the direction the points lean, without a firm-sounding label.
+export const EARLY: Record<Person["assessment"]["rating"], { label: string; tone: "accent" | "caution" }> = {
+  strong: { label: "Looking good", tone: "accent" },
+  solid: { label: "On track", tone: "accent" },
+  needs_work: { label: "Needs a look", tone: "caution" },
+};
 export const EFFORT: Record<EffortLevel, { label: string; short: string; tone: "good" | "warn" | "bad" }> = {
   high: { label: "High effort", short: "High", tone: "good" },
   moderate: { label: "Moderate effort", short: "Moderate", tone: "warn" },

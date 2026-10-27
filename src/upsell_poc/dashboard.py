@@ -96,6 +96,7 @@ class Assessment(BaseModel):
     headline: str
     low_sample: bool
     early_read: bool = False  # rated, but on fewer conversations than EARLY_READ_BELOW: shown as an early read
+    early_leaning: Rating | None = None  # for an early read: where the points lean, so the pill can say more
     insufficient_data: bool = False  # too few analysed conversations to rate; the UI should not show the rating
     effort_level: EffortLevel
     effort_summary: str
@@ -793,6 +794,7 @@ def assess(t: Bucket, series: list[Bucket]) -> Assessment:
         strengths=strengths,
         improvements=improvements,
         early_read=early_read,
+        early_leaning=early_kind if early_read else None,
         upsell_tips=upsell_tips,
         factors=[] if insufficient else _factors(t, d, unanswered_convs, aspects),
     )

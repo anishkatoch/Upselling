@@ -650,6 +650,7 @@ def test_needs_support_is_only_an_early_read_below_five_conversations():
     three = {"conversations": 3, "analysed_conversations": 3, "solo_analysed_conversations": 3}
     early = dashboard.assess(_solo(**bad, **three), [])
     assert early.rating == "solid" and early.early_read and early.headline.startswith("Early read")
+    assert early.early_leaning == "needs_work"
     five = {"conversations": 5, "analysed_conversations": 5, "solo_analysed_conversations": 5}
     assert dashboard.assess(_solo(**bad, **five), []).rating == "needs_work"
 
@@ -674,6 +675,7 @@ def test_every_label_is_only_an_early_read_below_five_conversations():
     good = _solo(**four, upsell_rate=0.8, attempts=8, acceptance_rate=0.5, answered_offers=8)
     a = dashboard.assess(good, [])
     assert a.rating == "solid" and a.early_read and "looking good so far" in a.headline  # not "Excelling" on 4
+    assert a.early_leaning == "strong"  # the pill can say "Looking good", not "On track"
     middling = dashboard.assess(_solo(**four, greeting_rate=0.6), [])
     assert middling.early_read and middling.rating == "solid"
     # five or more is a real rating again
