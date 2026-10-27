@@ -19,21 +19,21 @@ const toRow = (p: Person): Row => {
   return { name: p.name, n, accepted, declined: tried - accepted, none: n - tried };
 };
 
-/** One 100% stacked bar per salesperson: accepted / declined / no upsell tried. */
+/** One 100% stacked bar per salesperson: how the offers went in each conversation (accepted / turned down / none made). */
 export default function OutcomeBars({ people }: { people: Person[] }) {
   const rows = people
     .map(toRow)
     .filter((r) => r.n > 0)
-    .sort((a, b) => b.accepted / b.n - a.accepted / a.n || b.n - a.n);
+    .sort((a, b) => a.name.localeCompare(b.name)); // alphabetical: ranking people by yes would reward whoever pushes hardest
   const segs = [
-    { key: "accepted", label: "Said yes", cls: "ok" },
-    { key: "declined", label: "Said no", cls: "no" },
-    { key: "none", label: "No upsell offered", cls: "none" },
+    { key: "accepted", label: "Customer accepted an offer", short: "accepted", cls: "ok" },
+    { key: "declined", label: "Customer turned every offer down", short: "turned down", cls: "no" },
+    { key: "none", label: "No offer made", short: "no offer", cls: "none" },
   ] as const;
   return (
-    <section className="card hbar-card" aria-label="How each conversation ended">
-      <h3>How each conversation ended</h3>
-      <p className="hint">This month, per salesperson, with the most "yes" results first.</p>
+    <section className="card hbar-card" aria-label="How offers went in each conversation">
+      <h3>How offers went in each conversation</h3>
+      <p className="hint">This month, one bar per salesperson. Each bar adds up to their conversations.</p>
       <ul className="legend-inline" aria-hidden="true">
         {segs.map((s) => (
           <li key={s.key}>
@@ -51,11 +51,12 @@ export default function OutcomeBars({ people }: { people: Person[] }) {
               <Link className="ob-name" to={`/team/${encodeURIComponent(r.name)}`}>
                 {r.name}
               </Link>
+              <div className="ob-main">
               <Wipe
                 delay={i * 0.06}
                 className="ob-bar"
                 role="img"
-                aria-label={`${r.name}: ${r.accepted} said yes, ${r.declined} said no, ${r.none} with no upsell offered, out of ${r.n} conversations`}
+                aria-label={`${r.name}: customer accepted an offer in ${r.accepted}, turned every offer down in ${r.declined}, no offer made in ${r.none}, out of ${r.n} conversations`}
               >
                 {segs.map((s) =>
                   r[s.key] > 0 ? (
@@ -70,6 +71,8 @@ export default function OutcomeBars({ people }: { people: Person[] }) {
                   ) : null,
                 )}
               </Wipe>
+              <p className="ob-text">{segs.filter((s) => r[s.key] > 0).map((s) => `${r[s.key]} ${s.short}`).join(" · ")}</p>
+              </div>
               <span className="ob-n">{r.n} {r.n === 1 ? "conversation" : "conversations"}</span>
             </li>
           ))}
