@@ -358,11 +358,12 @@ def test_upselling_is_one_part_of_the_rating_not_all_of_it():
         "greeting_rate": 1.0,
         "avg_customer_frustration": 1.0,
     }
-    # Greets, no pressure, answers every question, customers stay calm - but never upsells: still doing the job well.
-    assert dashboard.assess(dashboard.Bucket(**base, upsell_rate=0.0), []).rating == "strong"
-    # The same person with unhappy customers drops to "on track": customer handling outweighs the upsell figures.
+    # Greets, answers every question, customers stay calm - but never upsells. Selling is a minority of the points,
+    # so this is a solid person, but with no offers there is no evidence of selling: "on track", not "excelling".
+    assert dashboard.assess(dashboard.Bucket(**base, upsell_rate=0.0), []).rating == "solid"
+    # The same person with unhappy customers drops further: customer handling outweighs the upsell figures.
     tense = {**base, "avg_customer_frustration": 6.0}
-    assert dashboard.assess(dashboard.Bucket(**tense, upsell_rate=0.0), []).rating == "solid"
+    assert dashboard.assess(dashboard.Bucket(**tense, upsell_rate=0.0), []).rating == "needs_work"
 
 
 def test_a_strong_upseller_who_treats_customers_badly_is_not_rated_well():
@@ -519,7 +520,7 @@ def test_someone_with_nothing_to_fix_about_customers_has_only_optional_upsell_ti
         max_customer_frustration=0.0,
     )
     a = dashboard.assess(t, [])
-    assert a.rating == "strong" and a.improvements == []
+    assert a.rating == "solid" and a.improvements == []  # no offers at all: no evidence of selling
     assert len(a.upsell_tips) == 1 and "Rarely offers an add-on" in a.upsell_tips[0]
 
 
@@ -542,8 +543,10 @@ def _solo(**kw) -> dashboard.Bucket:
     base = {
         "period": "p", "conversations": 3, "analysed_conversations": 3, "solo_analysed_conversations": 3,
         "greeting_rate": 1.0, "unanswered_questions": 0, "pushy_conversations": 0,
-        "avg_customer_frustration": 0.0, "max_customer_frustration": 0.0,
+        "avg_customer_frustration": 0.0, "max_customer_frustration": 0.0, "customer_requests": 3,
     }  # fmt: skip
+    if kw.get("upsell_rate"):
+        base["attempts"] = 3  # a rate with no offers behind it would be a contradiction
     return dashboard.Bucket(**{**base, **kw})
 
 
@@ -575,8 +578,27 @@ def test_one_very_upset_customer_keeps_a_good_average_from_being_excelling():
 def test_a_declined_offer_does_not_lower_the_rating_until_there_are_enough_answers():
     none = dashboard.assess(_solo(upsell_rate=0.0), [])
     one_no = dashboard.assess(_solo(upsell_rate=0.7, attempts=1, acceptance_rate=0.0, answered_offers=1), [])
-    assert none.rating == one_no.rating == "strong"  # trying once and hearing "no" is not worse than never trying
+    assert none.rating == "solid" and one_no.rating == "strong"  # trying once and hearing "no" beats never trying
     assert not any("accepted" in tip for tip in one_no.upsell_tips)
     # with enough answers the yes-rate does count
     many_no = dashboard.assess(_solo(upsell_rate=0.7, attempts=5, acceptance_rate=0.0, answered_offers=5), [])
     assert any("accepted" in tip for tip in many_no.upsell_tips)
+
+
+def test_doing_only_one_thing_is_not_rated_well():
+    # Greets every customer, but nobody asked for anything, no offers were made, nothing was sold.
+    ten = {"conversations": 10, "analysed_conversations": 10, "solo_analysed_conversations": 10}
+    quiet = _solo(**ten, customer_requests=0, upsell_rate=0.0)
+    assert dashboard.assess(quiet, []).rating == "needs_work"
+
+
+def test_a_problem_that_keeps_happening_keeps_a_good_score_from_being_excelling():
+    base = {"upsell_rate": 0.8, "attempts": 8, "acceptance_rate": 0.5, "answered_offers": 8}
+    assert dashboard.assess(_solo(**base), []).rating == "strong"
+    pushy = dashboard.assess(_solo(**base, pushy_conversations=3), [])
+    assert pushy.rating == "solid"
+    ignored = dashboard.assess(_solo(**base, unanswered_questions=3), [])
+    assert ignored.rating == "solid"
+    # one slip in a few conversations is not a pattern
+    ten = {"conversations": 10, "analysed_conversations": 10, "solo_analysed_conversations": 10}
+    assert dashboard.assess(_solo(**ten, **base, pushy_conversations=1), []).rating == "strong"

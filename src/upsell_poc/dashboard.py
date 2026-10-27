@@ -54,6 +54,9 @@ class Bucket(BaseModel):
     greeted: int = 0
     greeting_rate: float | None = None
     unanswered_questions: int = 0
+    # Single-salesperson conversations where the customer asked for something (None: not measured).
+    # Listening only earns its points when customers actually asked, so silence is not a pass.
+    customer_requests: int | None = None
     pushy_conversations: int = 0
     avg_customer_frustration: float | None = None
     max_customer_frustration: float | None = None  # the worst single conversation in the period
@@ -294,6 +297,7 @@ class _Acc:
         self.efforts: list[float] = []
         self.greeted = 0
         self.unanswered = 0
+        self.requests = 0
         self.pushy = 0
         self.frustration: list[float] = []
         self.re_offers = 0
@@ -326,6 +330,7 @@ class _Acc:
                 self.solo_analysed += 1
                 self.greeted += bool(u.greeting_given)
                 self.unanswered += len(u.unanswered_questions)
+                self.requests += bool(u.customer_requested or u.unanswered_questions)
                 self.pushy += bool(u.pushy_upsell)
         outcome = call_outcome(conv)
         self.sentiment[outcome.sentiment] += 1
@@ -354,6 +359,7 @@ class _Acc:
             greeted=self.greeted,
             greeting_rate=ratio(self.greeted, self.solo_analysed),
             unanswered_questions=self.unanswered,
+            customer_requests=self.requests,
             pushy_conversations=self.pushy,
             avg_customer_frustration=mean(self.frustration),
             max_customer_frustration=max(self.frustration) if self.frustration else None,
@@ -377,6 +383,7 @@ class _Acc:
 MIN_CONVERSATIONS = 3
 MIN_ANSWERED_OFFERS = 3  # "customers say yes" is only judged once this many offers got a clear answer
 SEVERE_FRUSTRATION = 7  # one customer this frustrated keeps the rating from being "Excelling"
+MIN_REPEATED = 2  # pitching after a 'no' or ignoring questions stops "Excelling" once it happened this often
 
 
 def _pct(v: float | None) -> str:
@@ -456,8 +463,9 @@ def assess(t: Bucket, series: list[Bucket]) -> Assessment:
         # listening
         available += W_LISTENING
         if unanswered_per <= 0.1:
-            points += W_LISTENING
-            handling_good.append("Answers what customers ask.")
+            if t.customer_requests != 0:  # nobody asked for anything = nothing was answered either
+                points += W_LISTENING
+                handling_good.append("Answers what customers ask.")
         elif unanswered_per <= 0.3:
             points += W_LISTENING / 2
             improvements.append(
@@ -470,8 +478,8 @@ def assess(t: Bucket, series: list[Bucket]) -> Assessment:
         # pushiness
         available += W_PUSHY
         if pushy_share <= 0.1:
-            points += W_PUSHY
-            if t.attempts:
+            if t.attempts:  # nobody can be pushy without making an offer, so no offers is no evidence
+                points += W_PUSHY
                 handling_good.append("Accepts a 'no' without pressuring the customer.")
         elif pushy_share <= 0.3:
             points += W_PUSHY / 2
@@ -537,8 +545,9 @@ def assess(t: Bucket, series: list[Bucket]) -> Assessment:
                 f"Rarely offers an add-on ({_pct(t.upsell_rate)} of conversations) - suggest something relevant once the customer's own request is handled."
             )
     # conversion (no answered offers = nothing to judge, not a free point)
+    if t.upsell_rate is not None:
+        available += W_CONVERSION  # always at stake: too few answered offers earns nothing rather than being skipped
     if t.acceptance_rate is not None and t.answered_offers >= MIN_ANSWERED_OFFERS:
-        available += W_CONVERSION
         if t.acceptance_rate >= 0.4:
             points += W_CONVERSION
             sales_good.append(f"Customers accept {_pct(t.acceptance_rate)} of the offers that get an answer.")
@@ -562,6 +571,11 @@ def assess(t: Bucket, series: list[Bucket]) -> Assessment:
         worst_seen = t.max_customer_frustration
         if rating == "strong" and worst_seen is not None and worst_seen >= SEVERE_FRUSTRATION:
             rating = "solid"  # an average can hide one customer who left very upset
+        if rating == "strong" and (
+            (pushy_share > 0.3 and t.pushy_conversations >= MIN_REPEATED)
+            or (unanswered_per > 0.3 and t.unanswered_questions >= MIN_REPEATED)
+        ):
+            rating = "solid"  # strengths do not buy back a problem that keeps happening
     if insufficient and n == 0:
         headline = f"Not enough analysed data to rate this person yet (0 of {MIN_CONVERSATIONS} conversations analysed)."
     elif insufficient:
