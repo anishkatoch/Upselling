@@ -154,3 +154,31 @@ export const Sparkle = ({ size = 10, className, style }: P) => (
     <path d="M12 1.5c.6 5.6 4.9 9.9 10.5 10.5-5.6.6-9.9 4.9-10.5 10.5C11.4 16.9 7.1 12.6 1.5 12 7.1 11.4 11.4 7.1 12 1.5z" />
   </svg>
 );
+
+export const Smile = ({ size, className, style }: P) => (
+  <svg {...base(size)} className={className} style={style}>
+    <circle cx="12" cy="12" r="8.5" />
+    <path d="M8.5 14.2s1.3 1.8 3.5 1.8 3.5-1.8 3.5-1.8" />
+    <path d="M9.2 9.7h.01M14.8 9.7h.01" />
+  </svg>
+);
+
+export const MessageQuestion = ({ size, className, style }: P) => (
+  <svg {...base(size)} className={className} style={style}>
+    <path d="M20.5 12a7.5 7.5 0 0 1-7.5 7.5H6l-2.5 2V12A7.5 7.5 0 0 1 11 4.5h2a7.5 7.5 0 0 1 7.5 7.5Z" />
+    <path d="M10.2 10a1.9 1.9 0 1 1 2.8 1.7c-.6.3-1 .8-1 1.5M12 15.8h.01" />
+  </svg>
+);
+
+export const Hand = ({ size, className, style }: P) => (
+  <svg {...base(size)} className={className} style={style}>
+    <path d="M8 11.5V6.2a1.5 1.5 0 0 1 3 0V11M11 10.5V4.7a1.5 1.5 0 0 1 3 0V10.5M14 10.5V6.2a1.5 1.5 0 0 1 3 0v8.3a6 6 0 0 1-6 6h-.5a5 5 0 0 1-4-2L4 14.5a1.5 1.5 0 0 1 2.4-1.8L8 14.2" />
+  </svg>
+);
+
+export const Ban = ({ size, className, style }: P) => (
+  <svg {...base(size)} className={className} style={style}>
+    <circle cx="12" cy="12" r="8.5" />
+    <path d="m6 6 12 12" />
+  </svg>
+);

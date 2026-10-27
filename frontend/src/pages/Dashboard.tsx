@@ -7,7 +7,7 @@ import Funnel from "../components/dashboard/Funnel";
 import OutcomeBars from "../components/dashboard/OutcomeBars";
 import SentimentDonut from "../components/dashboard/SentimentDonut";
 import TechniqueBars from "../components/dashboard/TechniqueBars";
-import { AlertTriangle, Headset } from "../icons/Icons";
+import { AlertTriangle, Check, Hand, Headset, MessageQuestion, Smile, Target } from "../icons/Icons";
 import { Metric, MetricRow, DeltaChip } from "../components/ui";
 import { METRIC_INFO } from "../lib/metricInfo";
 import { api, type Job } from "../lib/api";
@@ -164,6 +164,7 @@ export default function Dashboard() {
       <MetricRow>
         <Metric
           label="Customer mood"
+          icon={<Smile />}
           info={
             <>
               {METRIC_INFO.frustration}
@@ -176,6 +177,8 @@ export default function Dashboard() {
         />
         <Metric
           label="Greets customers"
+          icon={<Hand />}
+          pips={{ on: totals.greeted, total: totals.solo }}
           info={METRIC_INFO.greeting_rate}
           value={pctNum(greetRate)}
           unit={greetRate != null ? "of conversations" : undefined}
@@ -184,6 +187,8 @@ export default function Dashboard() {
         />
         <Metric
           label="Unanswered questions"
+          icon={<MessageQuestion />}
+          pips={{ on: totals.unansweredConvs, total: totals.solo, bad: true }}
           info={METRIC_INFO.unanswered}
           value={totals && totals.solo > 0 ? <Num value={totals.unansweredConvs} /> : "–"}
           unit={totals && totals.solo > 0 ? `of ${totals.solo} conversations` : undefined}
@@ -191,6 +196,8 @@ export default function Dashboard() {
         />
         <Metric
           label="Tries to upsell"
+          icon={<Target />}
+          pips={{ on: totals.withUpsell, total: totals.analysed }}
           info={METRIC_INFO.upsell_rate}
           value={pctNum(upsellRate)}
           unit={upsellRate != null ? "of conversations" : undefined}
@@ -204,6 +211,8 @@ export default function Dashboard() {
         />
         <Metric
           label="Customers say yes"
+          icon={<Check />}
+          pips={{ on: totals.accepted, total: totals.answered }}
           info={METRIC_INFO.acceptance_rate}
           value={pctNum(acceptRate)}
           unit={acceptRate != null ? "of offers" : undefined}

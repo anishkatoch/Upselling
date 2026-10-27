@@ -39,3 +39,30 @@ a.metric:hover { background: var(--accent-soft); }
 .tone-warn .m-dot { background: #c08a2b; }
 .tone-bad .m-dot { background: var(--bad); }
 .metric-foot .m-count { color: var(--muted); }
+
+/* Tile look: icon, status word, a soft tint that follows how it is going, one square per conversation */
+.metric-head { display: flex; align-items: center; gap: 10px; }
+.metric-head .metric-label { flex: 1; min-width: 0; }
+.m-ico { width: 30px; height: 30px; border-radius: 9px; flex: none; display: inline-flex; align-items: center; justify-content: center; background: var(--line-soft); color: var(--muted); }
+.m-ico svg { width: 17px; height: 17px; }
+.m-status { flex: none; font-size: 11.5px; font-weight: 600; line-height: 1; padding: 4px 9px; border-radius: 999px; background: var(--line-soft); color: var(--muted); white-space: nowrap; }
+.metric.tone-good.has-icon { background: linear-gradient(180deg, var(--good-soft), var(--card) 74px); }
+.metric.tone-warn.has-icon { background: linear-gradient(180deg, var(--warn-soft), var(--card) 74px); }
+.metric.tone-bad.has-icon { background: linear-gradient(180deg, var(--bad-soft), var(--card) 74px); box-shadow: inset 3px 0 0 var(--bad); }
+.tone-good .m-ico, .tone-good .m-status { background: var(--good-soft); color: var(--good); }
+.tone-warn .m-ico, .tone-warn .m-status { background: var(--warn-soft); color: var(--warn); }
+.tone-bad .m-ico, .tone-bad .m-status { background: var(--bad-soft); color: var(--bad); }
+.metric.tone-good.has-icon .m-ico { background: #fff; }
+.metric.tone-warn.has-icon .m-ico { background: #fff; }
+.metric.tone-bad.has-icon .m-ico { background: #fff; }
+.metric-valuebar { display: flex; align-items: flex-end; justify-content: space-between; gap: 10px; margin-top: 12px; }
+.metric-valuebar .metric-value { margin-top: 0; min-width: 0; }
+.metric-valuebar .m-status { margin-bottom: 4px; }
+.m-pips { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 12px; }
+.m-pips i { width: 14px; height: 14px; border-radius: 4px; background: var(--line); }
+.m-pips i.on { background: var(--accent); }
+.m-pips.bad i.on { background: var(--bad); }
+
+.metric.tone-good .m-status { box-shadow: inset 0 0 0 1px rgba(59, 122, 87, 0.35); }
+.metric.tone-warn .m-status { box-shadow: inset 0 0 0 1px rgba(192, 138, 43, 0.45); }
+.metric.tone-bad .m-status { box-shadow: inset 0 0 0 1px rgba(164, 73, 63, 0.45); }

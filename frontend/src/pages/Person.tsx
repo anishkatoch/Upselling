@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import LineChart from "../components/LineChart";
 import { describePrevious, formatPeriod, type Period } from "../lib/period";
-import { AlertTriangle, ArrowLeft, Minus, TrendDown, TrendUp } from "../icons/Icons";
+import { AlertTriangle, ArrowLeft, Ban, Check, Hand, MessageQuestion, Minus, Smile, Target, TrendDown, TrendUp } from "../icons/Icons";
 import { api, type Person, type RatingFactor } from "../lib/api";
 import { pct } from "../lib/format";
 import { useLoad } from "../lib/hooks";
@@ -104,6 +104,7 @@ function PersonDetail({
   const factorState = Object.fromEntries((a.factors ?? []).map((f) => [f.key, f.status]));
   const factorTone = (key: RatingFactor["key"]) =>
     ({ good: "good", fair: "warn", weak: "bad", none: "neutral" } as const)[factorState[key] as RatingFactor["status"]];
+  const factorWord = (key: RatingFactor["key"]) => ({ good: "Strong", fair: "Fair", weak: "Needs work", none: undefined } as const)[factorState[key] as RatingFactor["status"]];
   const solo = t.solo_analysed_conversations ?? 0;
   const unansweredConvs = t.conversations_with_unanswered ?? t.unanswered_questions;
 
@@ -157,6 +158,9 @@ function PersonDetail({
             unit={t.greeting_rate != null ? "of conversations" : undefined}
             meter={t.greeting_rate}
             tone={factorTone("greeting")}
+            status={factorWord("greeting")}
+            icon={<Hand />}
+            pips={{ on: t.greeted, total: solo }}
             foot={countFoot(t.greeting_rate != null ? `${t.greeted} of ${t.solo_analysed_conversations}` : null, seriesDelta(p.series, "greeting_rate", 100))}
           />
           <Metric
@@ -165,6 +169,9 @@ function PersonDetail({
             value={solo > 0 ? String(unansweredConvs) : "–"}
             unit={solo > 0 ? `of ${solo} conversations` : undefined}
             tone={factorTone("listening")}
+            status={factorWord("listening")}
+            icon={<MessageQuestion />}
+            pips={{ on: unansweredConvs, total: solo, bad: true }}
             foot={solo > 0 ? <span className="m-count">{t.unanswered_questions} {t.unanswered_questions === 1 ? "question" : "questions"} in total</span> : null}
           />
           <Metric
@@ -178,6 +185,8 @@ function PersonDetail({
             }
             value={mood.label}
             tone={factorTone("mood") ?? mood.tone}
+            status={factorWord("mood")}
+            icon={<Smile />}
             foot={
               moodChange == null && !showWorst ? null : (
                 <>
@@ -197,6 +206,9 @@ function PersonDetail({
             value={t.attempts > 0 ? String(t.pushy_conversations) : "–"}
             unit={t.attempts > 0 ? `of ${solo} conversations` : undefined}
             tone={factorTone("pressure")}
+            status={factorWord("pressure")}
+            icon={<Ban />}
+            pips={{ on: t.pushy_conversations, total: solo, bad: true }}
             foot={<span className="m-count">{t.attempts > 0 ? `${t.re_offers} ${t.re_offers === 1 ? "offer" : "offers"} repeated` : "No offers made"}</span>}
           />
         </MetricRow>
@@ -209,6 +221,9 @@ function PersonDetail({
             unit={t.upsell_rate != null ? "of conversations" : undefined}
             meter={t.upsell_rate}
             tone={factorTone("offers")}
+            status={factorWord("offers")}
+            icon={<Target />}
+            pips={{ on: t.conversations_with_upsell, total: t.analysed_conversations ?? 0 }}
             foot={countFoot(t.upsell_rate != null ? `${t.conversations_with_upsell} of ${t.analysed_conversations}` : null, seriesDelta(p.series, "upsell_rate", 100))}
           />
           <Metric
@@ -218,6 +233,9 @@ function PersonDetail({
             unit={t.acceptance_rate != null ? "of offers" : undefined}
             meter={t.acceptance_rate}
             tone={factorTone("yes")}
+            status={factorWord("yes")}
+            icon={<Check />}
+            pips={{ on: t.accepted, total: t.answered_offers ?? 0 }}
             foot={countFoot(t.acceptance_rate != null ? `${t.accepted} of ${t.answered_offers ?? 0} answered` : null, seriesDelta(p.series, "acceptance_rate", 100))}
           />
         </MetricRow>
