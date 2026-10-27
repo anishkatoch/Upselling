@@ -1,0 +1,19 @@
+.findings { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: stretch; }
+.finding-card { --tone: var(--good); --tone-soft: var(--good-soft); background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 16px 0 6px; display: flex; flex-direction: column; }
+.finding-card.is-todo { --tone: var(--warn); --tone-soft: var(--warn-soft); }
+.finding-card header { display: flex; align-items: center; gap: 10px; padding: 0 20px 12px; }
+.finding-card h3 { margin: 0; font-size: 15px; font-weight: 600; color: var(--ink); letter-spacing: 0; text-transform: none; }
+.f-ico { width: 24px; height: 24px; border-radius: 50%; background: var(--tone-soft); color: var(--tone); display: inline-flex; align-items: center; justify-content: center; flex: none; }
+.f-count { margin-left: auto; font-size: 12px; font-weight: 600; color: var(--tone); background: var(--tone-soft); border-radius: 999px; padding: 2px 9px; }
+.f-list { list-style: none; margin: 0; padding: 0; flex: 1; }
+.f-list li { display: flex; align-items: flex-start; gap: 12px; padding: 11px 20px; border-top: 1px solid var(--line-soft); }
+.f-mark { width: 6px; height: 6px; border-radius: 50%; background: var(--tone); margin-top: 8px; flex: none; }
+.f-text { flex: 1; min-width: 0; }
+.f-lead { color: var(--ink); font-size: 14px; line-height: 1.45; }
+.f-advice { color: var(--muted); font-size: 13px; line-height: 1.45; margin-top: 2px; }
+.f-fig { flex: none; max-width: 42%; text-align: right; color: var(--muted); font-size: 12.5px; line-height: 1.45; padding-top: 1px; font-variant-numeric: tabular-nums; }
+.f-empty { margin: 0; padding: 14px 20px 18px; border-top: 1px solid var(--line-soft); color: var(--muted); font-size: 14px; flex: 1; }
+.f-tips { margin-top: auto; padding: 12px 20px 14px; border-top: 1px dashed var(--line); }
+.f-tips h4 { margin: 0 0 6px; font-size: 12.5px; font-weight: 600; color: var(--muted); }
+.f-tips ul { margin: 0; padding-left: 18px; display: grid; gap: 4px; color: var(--muted); font-size: 13.5px; }
+@media (max-width: 860px) { .findings { grid-template-columns: 1fr; } .f-fig { max-width: 45%; } }

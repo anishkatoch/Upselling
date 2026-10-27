@@ -8,6 +8,7 @@ import { pct } from "../lib/format";
 import { useLoad } from "../lib/hooks";
 import { METRIC_INFO } from "../lib/metricInfo";
 import { Reveal } from "../components/motion";
+import Findings from "../components/people/Findings";
 import { DeltaChip, Metric, MetricRow } from "../components/ui";
 import { EFFORT, moodFromFrustration, PERIOD_LABEL } from "../lib/teamLabels";
 import VsTeamBars from "../components/people/VsTeamBars";
@@ -79,8 +80,6 @@ function PersonDetail({
   const a = p.assessment;
   const t = p.total;
   const TrendIcon = a.trend === "improving" ? TrendUp : a.trend === "declining" ? TrendDown : Minus;
-  const [showAllStrengths, setShowAllStrengths] = useState(false);
-  const [showAllImprovements, setShowAllImprovements] = useState(false);
 
   // The sample size is stated once in the caption under the headline (SampleNote), and "compared with ..." once above the tiles.
   // Shown as final values (a count-up could be captured mid-animation as a wrong figure).
@@ -93,8 +92,6 @@ function PersonDetail({
   const showWorst = worst != null && worst.label !== mood.label;
   const comparedWith = period === "day" ? "yesterday" : period === "week" ? "last week" : "last month";
   const hasChange = p.series.length >= 2;
-  const shownStrengths = showAllStrengths ? a.strengths : a.strengths.slice(0, 2);
-  const shownImprovements = showAllImprovements ? a.improvements : a.improvements.slice(0, 2);
 
   return (
     <div className="person-flat">
@@ -199,45 +196,8 @@ function PersonDetail({
       )}
 
       {(a.strengths.length > 0 || a.improvements.length > 0 || (a.upsell_tips?.length ?? 0) > 0) && (
-        <Reveal className="two">
-          <section className="flat-card good">
-            <h3>Doing well</h3>
-            <ul>
-              {shownStrengths.map((s) => (
-                <li key={s}>{s}</li>
-              ))}
-              {a.strengths.length === 0 && <li className="sub">Nothing stands out yet</li>}
-            </ul>
-            {a.strengths.length > 2 && (
-              <button className="link small" style={{ marginTop: 8 }} onClick={() => setShowAllStrengths((v) => !v)}>
-                {showAllStrengths ? "Show fewer" : `+${a.strengths.length - 2} more`}
-              </button>
-            )}
-          </section>
-          <section className="flat-card warn">
-            <h3>To work on</h3>
-            <ul>
-              {shownImprovements.map((s) => (
-                <li key={s}>{s}</li>
-              ))}
-              {a.improvements.length === 0 && <li className="sub">Nothing urgent - keep it up.</li>}
-            </ul>
-            {a.improvements.length > 2 && (
-              <button className="link small" style={{ marginTop: 8 }} onClick={() => setShowAllImprovements((v) => !v)}>
-                {showAllImprovements ? "Show fewer" : `+${a.improvements.length - 2} more`}
-              </button>
-            )}
-            {(a.upsell_tips?.length ?? 0) > 0 && (
-              <div className="optional-tips">
-                <h4>Upselling (optional)</h4>
-                <ul>
-                  {a.upsell_tips!.map((s) => (
-                    <li key={s}>{s}</li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </section>
+        <Reveal>
+          <Findings strengths={a.strengths} improvements={a.improvements} upsellTips={a.upsell_tips ?? []} />
         </Reveal>
       )}
 
