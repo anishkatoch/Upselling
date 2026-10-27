@@ -13,7 +13,6 @@ import { EFFORT, moodFromFrustration, PERIOD_LABEL } from "../lib/teamLabels";
 import VsTeamBars from "../components/people/VsTeamBars";
 import PersonSentiment from "../components/people/PersonSentiment";
 import RecentConversations from "../components/people/RecentConversations";
-import RatingReview from "../components/people/RatingReview";
 import { RatingChip, SampleNote, seriesDelta, StalePeriodNotice } from "../components/people/rating";
 import "../components/people/people.css";
 
@@ -134,8 +133,6 @@ function PersonDetail({
 
         <SampleNote bucket={t} when={`in the period starting ${formatPeriod(t.period)}`} />
       </Reveal>
-
-      <RatingReview person={p} />
 
       <Reveal className="metric-group" delay={0.06}>
         {hasChange && <p className="sub small metric-caption">Arrows show the change compared with {comparedWith}.</p>}
