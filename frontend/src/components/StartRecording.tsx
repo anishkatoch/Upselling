@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../lib/api";
 import { Mic } from "../icons/Icons";
+import PersonPicker from "./PersonPicker";
 import "./recorder.css";
 
 type Phase = "idle" | "recording" | "saving";
@@ -57,7 +58,7 @@ export default function StartRecording() {
   const [phase, setPhase] = useState<Phase>("idle");
   const [secs, setSecs] = useState(0);
   const [who, setWho] = useState("");
-  const [names, setNames] = useState<string[]>([]);
+  const [people, setPeople] = useState<{ name: string; recordings: number }[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [lines, setLines] = useState<Line[]>([]);
   const [note, setNote] = useState<string | null>(null);
@@ -173,10 +174,10 @@ export default function StartRecording() {
     setPhase("idle");
     api
       .roster()
-      .then((r) => setNames(r.map((x) => x.name)))
-      .catch(() => setNames([]));
+      .then(setPeople)
+      .catch(() => setPeople([]));
     dlg.current?.showModal();
-    requestAnimationFrame(() => nameBox.current?.focus()); // start typing the salesperson straight away
+    requestAnimationFrame(() => nameBox.current?.focus()); // start searching for the salesperson straight away
   };
 
   const close = () => dlg.current?.close();
@@ -296,28 +297,7 @@ export default function StartRecording() {
         {phase === "idle" && (
           <>
             <p className="rec-lead">Record a conversation with the microphone and watch the words appear as people speak. When you stop, we analyse it and add it to Conversations.</p>
-            <label className="rec-field">
-              <span>
-                Salesperson <em className="rec-req">required</em>
-              </span>
-              <input
-                list="rec-people"
-                value={who}
-                onChange={(e) => setWho(e.target.value)}
-                placeholder="Choose or type a name"
-                maxLength={80}
-                autoComplete="off"
-                required
-                aria-required="true"
-                ref={nameBox}
-              />
-              <small className="rec-help">Pick a name from the list, or type a new one.</small>
-              <datalist id="rec-people">
-                {names.map((n) => (
-                  <option key={n} value={n} />
-                ))}
-              </datalist>
-            </label>
+            <PersonPicker people={people} value={who} onChange={setWho} inputRef={nameBox} />
             {unsaved && (
               <div className="rec-unsaved" role="alert">
                 <p>Your recording is finished but was not saved. It is still here, so you can try again.</p>
