@@ -1,8 +1,11 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import type { Person } from "../../lib/api";
 import { analysedCount } from "../people/rating";
 import { Wipe } from "./GrowBar";
 import "./dashcharts.css";
+
+const SHOWN = 8; // a longer team is folded behind "Show all" so the card cannot grow without limit
 
 interface Row {
   name: string;
@@ -21,10 +24,13 @@ const toRow = (p: Person): Row => {
 
 /** One 100% stacked bar per salesperson: how the offers went in each conversation (accepted / turned down / none made). */
 export default function OutcomeBars({ people }: { people: Person[] }) {
-  const rows = people
+  const [all, setAll] = useState(false);
+  const everyone = people
     .map(toRow)
     .filter((r) => r.n > 0)
-    .sort((a, b) => a.name.localeCompare(b.name)); // alphabetical: ranking people by yes would reward whoever pushes hardest
+    // Most conversations first (their bars rest on the most data), then by name. Never by who got the most yes: that rewards pushing.
+    .sort((a, b) => b.n - a.n || a.name.localeCompare(b.name));
+  const rows = all ? everyone : everyone.slice(0, SHOWN);
   const segs = [
     { key: "accepted", label: "Customer accepted an offer", short: "accepted", cls: "ok" },
     { key: "declined", label: "Customer turned every offer down", short: "turned down", cls: "no" },
@@ -42,7 +48,7 @@ export default function OutcomeBars({ people }: { people: Person[] }) {
           </li>
         ))}
       </ul>
-      {rows.length === 0 ? (
+      {everyone.length === 0 ? (
         <p className="sub small">No conversations yet.</p>
       ) : (
         <ul className="ob-list">
@@ -77,6 +83,11 @@ export default function OutcomeBars({ people }: { people: Person[] }) {
             </li>
           ))}
         </ul>
+      )}
+      {everyone.length > SHOWN && (
+        <button className="btn ghost small ob-more" onClick={() => setAll((v) => !v)}>
+          {all ? "Show fewer" : `Show all ${everyone.length} salespeople`}
+        </button>
       )}
     </section>
   );
