@@ -1,0 +1,1896 @@
+{
+  "day": {
+    "period": "day",
+    "generated_at": "2026-10-14T18:00:00+00:00",
+    "insights": [
+      {
+        "id": "pushy-rate",
+        "severity": "warning",
+        "category": "risk",
+        "title": "18% of conversations were pushy",
+        "detail": "3 of 17 conversations kept pushing after a clear no or visible frustration (target is under 10%). Most of them (3) involve Neha Kapoor.",
+        "metric": "pushy_rate",
+        "person": "Neha Kapoor",
+        "link": {
+          "kind": "person",
+          "name": "Neha Kapoor",
+          "job_id": null,
+          "segment_id": null
+        }
+      },
+      {
+        "id": "missed-opportunities",
+        "severity": "warning",
+        "category": "coverage",
+        "title": "35% of conversations had a missed opportunity",
+        "detail": "In 6 of 17 conversations the customer asked for something (for example: home delivery) but no upsell was attempted.",
+        "metric": "missed_opportunity_rate",
+        "person": null,
+        "link": {
+          "kind": "recording",
+          "name": null,
+          "job_id": "aad9de18f0744abcbfb833c638df0e91",
+          "segment_id": null
+        }
+      },
+      {
+        "id": "upsell-rate-change",
+        "severity": "warning",
+        "category": "performance",
+        "title": "Upsell rate down 12 points on the previous period",
+        "detail": "Offers were made in 53% of conversations this period (n=17) versus 65% last period (n=17).",
+        "metric": "upsell_rate",
+        "person": null,
+        "link": {
+          "kind": "team",
+          "name": null,
+          "job_id": null,
+          "segment_id": null
+        }
+      },
+      {
+        "id": "technique-weakest",
+        "severity": "warning",
+        "category": "performance",
+        "title": "Bundle offers are rarely accepted",
+        "detail": "Only 25% accepted across 5 offers (team best is 50% for upgrade).",
+        "metric": "acceptance_rate",
+        "person": null,
+        "link": {
+          "kind": "team",
+          "name": null,
+          "job_id": null,
+          "segment_id": null
+        }
+      },
+      {
+        "id": "technique-best",
+        "severity": "positive",
+        "category": "performance",
+        "title": "Upgrade is the technique that lands best",
+        "detail": "50% accepted across 6 offers by 4 people.",
+        "metric": "acceptance_rate",
+        "person": null,
+        "link": {
+          "kind": "team",
+          "name": null,
+          "job_id": null,
+          "segment_id": null
+        }
+      },
+      {
+        "id": "low-sample-person",
+        "severity": "info",
+        "category": "coverage",
+        "title": "Thin data for Sneha Iyer",
+        "detail": "Only 2 conversations for Sneha Iyer - treat rates as indicative.",
+        "metric": null,
+        "person": "Sneha Iyer",
+        "link": {
+          "kind": "person",
+          "name": "Sneha Iyer",
+          "job_id": null,
+          "segment_id": null
+        }
+      }
+    ],
+    "targets": [
+      {
+        "metric": "upsell_rate",
+        "label": "Upsell rate",
+        "target": 0.6,
+        "actual": 0.529,
+        "unit": "ratio",
+        "direction": "higher",
+        "status": "off_track",
+        "gap": -0.071,
+        "n": 17
+      },
+      {
+        "metric": "acceptance_rate",
+        "label": "Acceptance rate",
+        "target": 0.35,
+        "actual": 0.286,
+        "unit": "ratio",
+        "direction": "higher",
+        "status": "off_track",
+        "gap": -0.064,
+        "n": 14
+      },
+      {
+        "metric": "greeting_rate",
+        "label": "Greeting rate",
+        "target": 0.9,
+        "actual": 0.706,
+        "unit": "ratio",
+        "direction": "higher",
+        "status": "off_track",
+        "gap": -0.194,
+        "n": 17
+      },
+      {
+        "metric": "avg_customer_frustration",
+        "label": "Customer frustration",
+        "target": 3.0,
+        "actual": 3.3,
+        "unit": "score",
+        "direction": "lower",
+        "status": "at_risk",
+        "gap": 0.3,
+        "n": 17
+      },
+      {
+        "metric": "pushy_rate",
+        "label": "Pushy conversations",
+        "target": 0.05,
+        "actual": 0.176,
+        "unit": "ratio",
+        "direction": "lower",
+        "status": "off_track",
+        "gap": 0.126,
+        "n": 17
+      },
+      {
+        "metric": "score",
+        "label": "Performance score",
+        "target": 70.0,
+        "actual": 53.6,
+        "unit": "score",
+        "direction": "higher",
+        "status": "off_track",
+        "gap": -16.4,
+        "n": 17
+      }
+    ],
+    "techniques": [
+      {
+        "technique": "upgrade",
+        "attempts": 6,
+        "accepted": 3,
+        "rejected": 3,
+        "acceptance_rate": 0.5,
+        "people": 4,
+        "best_example": {
+          "quote": "Sir, premium plan bhi dekh lijiye, abhi ke saath sasta padega.",
+          "salesperson": "Priya Sharma",
+          "job_id": "fedcf654995846a28a118ca7b31d2d47",
+          "segment_id": 6
+        }
+      },
+      {
+        "technique": "bundle",
+        "attempts": 5,
+        "accepted": 1,
+        "rejected": 3,
+        "acceptance_rate": 0.25,
+        "people": 2,
+        "best_example": {
+          "quote": "Sir, screen guard bhi dekh lijiye, abhi ke saath sasta padega.",
+          "salesperson": "Priya Sharma",
+          "job_id": "fedcf654995846a28a118ca7b31d2d47",
+          "segment_id": 6
+        }
+      },
+      {
+        "technique": "social_proof",
+        "attempts": 3,
+        "accepted": 0,
+        "rejected": 1,
+        "acceptance_rate": 0.0,
+        "people": 1,
+        "best_example": null
+      },
+      {
+        "technique": "plan_upgrade",
+        "attempts": 2,
+        "accepted": 0,
+        "rejected": 2,
+        "acceptance_rate": 0.0,
+        "people": 1,
+        "best_example": null
+      },
+      {
+        "technique": "warranty_protection",
+        "attempts": 2,
+        "accepted": 0,
+        "rejected": 1,
+        "acceptance_rate": 0.0,
+        "people": 1,
+        "best_example": null
+      },
+      {
+        "technique": "cross_sell",
+        "attempts": 1,
+        "accepted": 0,
+        "rejected": 0,
+        "acceptance_rate": null,
+        "people": 1,
+        "best_example": null
+      }
+    ],
+    "items": [
+      {
+        "item": "premium plan",
+        "pitched": 4,
+        "accepted": 2,
+        "rate": 0.5
+      },
+      {
+        "item": "premium data plan",
+        "pitched": 3,
+        "accepted": 0,
+        "rate": 0.0
+      },
+      {
+        "item": "screen guard",
+        "pitched": 3,
+        "accepted": 1,
+        "rate": 0.333
+      },
+      {
+        "item": "carry case",
+        "pitched": 2,
+        "accepted": 0,
+        "rate": 0.0
+      },
+      {
+        "item": "extended warranty",
+        "pitched": 2,
+        "accepted": 0,
+        "rate": 0.0
+      },
+      {
+        "item": "pro version",
+        "pitched": 2,
+        "accepted": 1,
+        "rate": 0.5
+      },
+      {
+        "item": "annual plan",
+        "pitched": 1,
+        "accepted": 0,
+        "rate": 0.0
+      },
+      {
+        "item": "protection plan",
+        "pitched": 1,
+        "accepted": 0,
+        "rate": null
+      },
+      {
+        "item": "waterproof spray",
+        "pitched": 1,
+        "accepted": 0,
+        "rate": null
+      }
+    ],
+    "missed_opportunities": {
+      "count": 6,
+      "conversations": 17,
+      "rate": 0.353,
+      "examples": [
+        {
+          "job_id": "aad9de18f0744abcbfb833c638df0e91",
+          "conversation_id": 2,
+          "topic": "Wireless headphones",
+          "salesperson": "Rahul Verma",
+          "requested": [
+            "home delivery",
+            "a charger"
+          ],
+          "segment_id": null
+        },
+        {
+          "job_id": "fedcf654995846a28a118ca7b31d2d47",
+          "conversation_id": 3,
+          "topic": "Insurance renewal",
+          "salesperson": "Priya Sharma",
+          "requested": [
+            "home delivery",
+            "a phone case"
+          ],
+          "segment_id": null
+        },
+        {
+          "job_id": "7444cdbb5ea343bfaa849a1e0b2dd7f5",
+          "conversation_id": 3,
+          "topic": "Laptop enquiry",
+          "salesperson": "Vikram Singh",
+          "requested": [
+            "a faster plan"
+          ],
+          "segment_id": null
+        },
+        {
+          "job_id": "d62e8a0a7ff44eb497e36782affab4f8",
+          "conversation_id": 3,
+          "topic": "Insurance renewal",
+          "salesperson": "Ankit Mehta",
+          "requested": [
+            "home delivery",
+            "a faster plan"
+          ],
+          "segment_id": null
+        },
+        {
+          "job_id": "7444cdbb5ea343bfaa849a1e0b2dd7f5",
+          "conversation_id": 2,
+          "topic": "Mobile plan renewal",
+          "salesperson": "Vikram Singh",
+          "requested": [
+            "a faster plan",
+            "a charger"
+          ],
+          "segment_id": null
+        },
+        {
+          "job_id": "7444cdbb5ea343bfaa849a1e0b2dd7f5",
+          "conversation_id": 1,
+          "topic": "Wireless headphones",
+          "salesperson": "Vikram Singh",
+          "requested": [
+            "a faster plan"
+          ],
+          "segment_id": null
+        }
+      ]
+    },
+    "review_queue": [
+      {
+        "job_id": "3b32c1d69b9549a7ada42b2ad9a978cc",
+        "filename": "neha_Oct14.wav",
+        "conversation_id": 3,
+        "topic": "Phone bill payment",
+        "salesperson": "Neha Kapoor",
+        "reasons": [
+          "Pushy after a clear no",
+          "Customer frustration 10/10",
+          "Customer rejected 3 offers"
+        ],
+        "severity": "critical",
+        "start_s": 200.0,
+        "segment_id": 6
+      },
+      {
+        "job_id": "3b32c1d69b9549a7ada42b2ad9a978cc",
+        "filename": "neha_Oct14.wav",
+        "conversation_id": 1,
+        "topic": "Credit card offer",
+        "salesperson": "Neha Kapoor",
+        "reasons": [
+          "Pushy after a clear no",
+          "Customer frustration 7/10"
+        ],
+        "severity": "critical",
+        "start_s": 0.0,
+        "segment_id": 2
+      },
+      {
+        "job_id": "3b32c1d69b9549a7ada42b2ad9a978cc",
+        "filename": "neha_Oct14.wav",
+        "conversation_id": 2,
+        "topic": "Mobile plan renewal",
+        "salesperson": "Neha Kapoor",
+        "reasons": [
+          "Pushy after a clear no",
+          "Customer frustration 9/10"
+        ],
+        "severity": "critical",
+        "start_s": 100.0,
+        "segment_id": 4
+      },
+      {
+        "job_id": "7444cdbb5ea343bfaa849a1e0b2dd7f5",
+        "filename": "vikram_Oct14.wav",
+        "conversation_id": 2,
+        "topic": "Mobile plan renewal",
+        "salesperson": "Vikram Singh",
+        "reasons": [
+          "2 customer questions unanswered"
+        ],
+        "severity": "warning",
+        "start_s": 100.0,
+        "segment_id": 1
+      }
+    ],
+    "voice_of_customer": [
+      {
+        "job_id": "3b32c1d69b9549a7ada42b2ad9a978cc",
+        "conversation_id": 3,
+        "salesperson": "Neha Kapoor",
+        "feedback": "Customer said the offers kept coming before their question was answered.",
+        "mood": "irritated",
+        "segment_id": 5
+      },
+      {
+        "job_id": "aad9de18f0744abcbfb833c638df0e91",
+        "conversation_id": 3,
+        "salesperson": "Rahul Verma",
+        "feedback": "Customer found the pricing unclear and wanted a simple quote first.",
+        "mood": "calm",
+        "segment_id": 5
+      },
+      {
+        "job_id": "3b32c1d69b9549a7ada42b2ad9a978cc",
+        "conversation_id": 2,
+        "salesperson": "Neha Kapoor",
+        "feedback": "Customer found the pricing unclear and wanted a simple quote first.",
+        "mood": "irritated",
+        "segment_id": 5
+      },
+      {
+        "job_id": "aad9de18f0744abcbfb833c638df0e91",
+        "conversation_id": 2,
+        "salesperson": "Rahul Verma",
+        "feedback": "Customer said the offers kept coming before their question was answered.",
+        "mood": "calm",
+        "segment_id": 5
+      },
+      {
+        "job_id": "3b32c1d69b9549a7ada42b2ad9a978cc",
+        "conversation_id": 1,
+        "salesperson": "Neha Kapoor",
+        "feedback": "Customer was unhappy about a long wait before being served.",
+        "mood": "irritated",
+        "segment_id": 5
+      },
+      {
+        "job_id": "aad9de18f0744abcbfb833c638df0e91",
+        "conversation_id": 1,
+        "salesperson": "Rahul Verma",
+        "feedback": "Customer asked to be left alone to decide and felt pressured.",
+        "mood": "irritated",
+        "segment_id": 5
+      },
+      {
+        "job_id": "fedcf654995846a28a118ca7b31d2d47",
+        "conversation_id": 1,
+        "salesperson": "Priya Sharma",
+        "feedback": "Customer found the pricing unclear and wanted a simple quote first.",
+        "mood": "calm",
+        "segment_id": 5
+      },
+      {
+        "job_id": "7444cdbb5ea343bfaa849a1e0b2dd7f5",
+        "conversation_id": 3,
+        "salesperson": "Vikram Singh",
+        "feedback": "Customer felt pushed to buy more than they wanted.",
+        "mood": "calm",
+        "segment_id": 5
+      },
+      {
+        "job_id": "7444cdbb5ea343bfaa849a1e0b2dd7f5",
+        "conversation_id": 1,
+        "salesperson": "Vikram Singh",
+        "feedback": "Customer felt pushed to buy more than they wanted.",
+        "mood": "calm",
+        "segment_id": 5
+      }
+    ],
+    "languages": [
+      {
+        "language": "hinglish",
+        "conversations": 11,
+        "share": 0.647
+      },
+      {
+        "language": "english",
+        "conversations": 6,
+        "share": 0.353
+      }
+    ],
+    "cost": {
+      "total_usd": 1.9127,
+      "recordings": 6,
+      "per_recording_usd": 0.3188
+    }
+  },
+  "week": {
+    "period": "week",
+    "generated_at": "2026-10-14T18:00:00+00:00",
+    "insights": [
+      {
+        "id": "pushy-rate",
+        "severity": "warning",
+        "category": "risk",
+        "title": "12% of conversations were pushy",
+        "detail": "6 of 49 conversations kept pushing after a clear no or visible frustration (target is under 10%). Most of them (5) involve Neha Kapoor.",
+        "metric": "pushy_rate",
+        "person": "Neha Kapoor",
+        "link": {
+          "kind": "person",
+          "name": "Neha Kapoor",
+          "job_id": null,
+          "segment_id": null
+        }
+      },
+      {
+        "id": "unanswered-questions",
+        "severity": "warning",
+        "category": "quality",
+        "title": "Customer questions are going unanswered",
+        "detail": "16 customer questions were left without a real answer across 49 conversations (0.3 per conversation).",
+        "metric": "unanswered_per_conversation",
+        "person": null,
+        "link": {
+          "kind": "team",
+          "name": null,
+          "job_id": null,
+          "segment_id": null
+        }
+      },
+      {
+        "id": "missed-opportunities",
+        "severity": "warning",
+        "category": "coverage",
+        "title": "31% of conversations had a missed opportunity",
+        "detail": "In 15 of 49 conversations the customer asked for something (for example: home delivery) but no upsell was attempted.",
+        "metric": "missed_opportunity_rate",
+        "person": null,
+        "link": {
+          "kind": "recording",
+          "name": null,
+          "job_id": "aad9de18f0744abcbfb833c638df0e91",
+          "segment_id": null
+        }
+      },
+      {
+        "id": "person-low",
+        "severity": "warning",
+        "category": "performance",
+        "title": "Rahul Verma is well below the team on upsell rate",
+        "detail": "Rahul Verma's upsell rate is 11% (n=9) against a peer median of 67%, 56 points lower.",
+        "metric": "upsell_rate",
+        "person": "Rahul Verma",
+        "link": {
+          "kind": "person",
+          "name": "Rahul Verma",
+          "job_id": null,
+          "segment_id": null
+        }
+      },
+      {
+        "id": "technique-weakest",
+        "severity": "warning",
+        "category": "performance",
+        "title": "Bundle offers are rarely accepted",
+        "detail": "Only 11% accepted across 11 offers (team best is 43% for cross sell).",
+        "metric": "acceptance_rate",
+        "person": null,
+        "link": {
+          "kind": "team",
+          "name": null,
+          "job_id": null,
+          "segment_id": null
+        }
+      },
+      {
+        "id": "person-leading",
+        "severity": "positive",
+        "category": "performance",
+        "title": "Ankit Mehta is leading the team on upsell rate",
+        "detail": "Ankit Mehta's upsell rate is 89% (n=9) against a peer median of 67%, 22 points higher.",
+        "metric": "upsell_rate",
+        "person": "Ankit Mehta",
+        "link": {
+          "kind": "person",
+          "name": "Ankit Mehta",
+          "job_id": null,
+          "segment_id": null
+        }
+      },
+      {
+        "id": "technique-best",
+        "severity": "positive",
+        "category": "performance",
+        "title": "Cross sell is the technique that lands best",
+        "detail": "43% accepted across 8 offers by 4 people.",
+        "metric": "acceptance_rate",
+        "person": null,
+        "link": {
+          "kind": "team",
+          "name": null,
+          "job_id": null,
+          "segment_id": null
+        }
+      },
+      {
+        "id": "low-sample-person",
+        "severity": "info",
+        "category": "coverage",
+        "title": "Thin data for Sneha Iyer",
+        "detail": "Only 4 conversations for Sneha Iyer - treat rates as indicative.",
+        "metric": null,
+        "person": "Sneha Iyer",
+        "link": {
+          "kind": "person",
+          "name": "Sneha Iyer",
+          "job_id": null,
+          "segment_id": null
+        }
+      }
+    ],
+    "targets": [
+      {
+        "metric": "upsell_rate",
+        "label": "Upsell rate",
+        "target": 0.6,
+        "actual": 0.551,
+        "unit": "ratio",
+        "direction": "higher",
+        "status": "at_risk",
+        "gap": -0.049,
+        "n": 49
+      },
+      {
+        "metric": "acceptance_rate",
+        "label": "Acceptance rate",
+        "target": 0.35,
+        "actual": 0.3,
+        "unit": "ratio",
+        "direction": "higher",
+        "status": "off_track",
+        "gap": -0.05,
+        "n": 40
+      },
+      {
+        "metric": "greeting_rate",
+        "label": "Greeting rate",
+        "target": 0.9,
+        "actual": 0.776,
+        "unit": "ratio",
+        "direction": "higher",
+        "status": "off_track",
+        "gap": -0.124,
+        "n": 49
+      },
+      {
+        "metric": "avg_customer_frustration",
+        "label": "Customer frustration",
+        "target": 3.0,
+        "actual": 3.7,
+        "unit": "score",
+        "direction": "lower",
+        "status": "off_track",
+        "gap": 0.7,
+        "n": 49
+      },
+      {
+        "metric": "pushy_rate",
+        "label": "Pushy conversations",
+        "target": 0.05,
+        "actual": 0.122,
+        "unit": "ratio",
+        "direction": "lower",
+        "status": "off_track",
+        "gap": 0.072,
+        "n": 49
+      },
+      {
+        "metric": "score",
+        "label": "Performance score",
+        "target": 70.0,
+        "actual": 53.5,
+        "unit": "score",
+        "direction": "higher",
+        "status": "off_track",
+        "gap": -16.5,
+        "n": 49
+      }
+    ],
+    "techniques": [
+      {
+        "technique": "upgrade",
+        "attempts": 12,
+        "accepted": 5,
+        "rejected": 7,
+        "acceptance_rate": 0.417,
+        "people": 4,
+        "best_example": {
+          "quote": "Sir, premium plan bhi dekh lijiye, abhi ke saath sasta padega.",
+          "salesperson": "Priya Sharma",
+          "job_id": "fedcf654995846a28a118ca7b31d2d47",
+          "segment_id": 6
+        }
+      },
+      {
+        "technique": "bundle",
+        "attempts": 11,
+        "accepted": 1,
+        "rejected": 8,
+        "acceptance_rate": 0.111,
+        "people": 3,
+        "best_example": {
+          "quote": "Sir, screen guard bhi dekh lijiye, abhi ke saath sasta padega.",
+          "salesperson": "Priya Sharma",
+          "job_id": "fedcf654995846a28a118ca7b31d2d47",
+          "segment_id": 6
+        }
+      },
+      {
+        "technique": "cross_sell",
+        "attempts": 8,
+        "accepted": 3,
+        "rejected": 4,
+        "acceptance_rate": 0.429,
+        "people": 4,
+        "best_example": {
+          "quote": "Sir, charger bhi dekh lijiye, abhi ke saath sasta padega.",
+          "salesperson": "Priya Sharma",
+          "job_id": "010809fd860e45a2aaf0f20eebcf104f",
+          "segment_id": 4
+        }
+      },
+      {
+        "technique": "plan_upgrade",
+        "attempts": 8,
+        "accepted": 2,
+        "rejected": 5,
+        "acceptance_rate": 0.286,
+        "people": 1,
+        "best_example": {
+          "quote": "Sir, premium data plan bhi dekh lijiye, abhi ke saath sasta padega.",
+          "salesperson": "Ankit Mehta",
+          "job_id": "97588b04a7ad4f2c8ede0c3ae9fd5137",
+          "segment_id": 4
+        }
+      },
+      {
+        "technique": "social_proof",
+        "attempts": 4,
+        "accepted": 0,
+        "rejected": 2,
+        "acceptance_rate": 0.0,
+        "people": 1,
+        "best_example": null
+      },
+      {
+        "technique": "warranty_protection",
+        "attempts": 4,
+        "accepted": 1,
+        "rejected": 2,
+        "acceptance_rate": 0.333,
+        "people": 2,
+        "best_example": {
+          "quote": "Sir, protection plan bhi dekh lijiye, abhi ke saath sasta padega.",
+          "salesperson": "Ankit Mehta",
+          "job_id": "0d9719cc35ce451cbf2ca7d03b7d5d78",
+          "segment_id": 6
+        }
+      }
+    ],
+    "items": [
+      {
+        "item": "premium data plan",
+        "pitched": 8,
+        "accepted": 2,
+        "rate": 0.333
+      },
+      {
+        "item": "premium plan",
+        "pitched": 6,
+        "accepted": 3,
+        "rate": 0.5
+      },
+      {
+        "item": "screen guard",
+        "pitched": 6,
+        "accepted": 1,
+        "rate": 0.2
+      },
+      {
+        "item": "pro version",
+        "pitched": 4,
+        "accepted": 1,
+        "rate": 0.25
+      },
+      {
+        "item": "annual plan",
+        "pitched": 3,
+        "accepted": 0,
+        "rate": 0.0
+      },
+      {
+        "item": "carry case",
+        "pitched": 3,
+        "accepted": 0,
+        "rate": 0.0
+      },
+      {
+        "item": "charger",
+        "pitched": 3,
+        "accepted": 2,
+        "rate": 0.667
+      },
+      {
+        "item": "protection plan",
+        "pitched": 3,
+        "accepted": 1,
+        "rate": 0.5
+      },
+      {
+        "item": "waterproof spray",
+        "pitched": 3,
+        "accepted": 1,
+        "rate": 0.5
+      },
+      {
+        "item": "256gb model",
+        "pitched": 2,
+        "accepted": 1,
+        "rate": 0.5
+      },
+      {
+        "item": "earphones",
+        "pitched": 2,
+        "accepted": 0,
+        "rate": 0.0
+      },
+      {
+        "item": "extended warranty",
+        "pitched": 2,
+        "accepted": 0,
+        "rate": 0.0
+      }
+    ],
+    "missed_opportunities": {
+      "count": 15,
+      "conversations": 49,
+      "rate": 0.306,
+      "examples": [
+        {
+          "job_id": "aad9de18f0744abcbfb833c638df0e91",
+          "conversation_id": 2,
+          "topic": "Wireless headphones",
+          "salesperson": "Rahul Verma",
+          "requested": [
+            "home delivery",
+            "a charger"
+          ],
+          "segment_id": null
+        },
+        {
+          "job_id": "fedcf654995846a28a118ca7b31d2d47",
+          "conversation_id": 3,
+          "topic": "Insurance renewal",
+          "salesperson": "Priya Sharma",
+          "requested": [
+            "home delivery",
+            "a phone case"
+          ],
+          "segment_id": null
+        },
+        {
+          "job_id": "7444cdbb5ea343bfaa849a1e0b2dd7f5",
+          "conversation_id": 3,
+          "topic": "Laptop enquiry",
+          "salesperson": "Vikram Singh",
+          "requested": [
+            "a faster plan"
+          ],
+          "segment_id": null
+        },
+        {
+          "job_id": "d62e8a0a7ff44eb497e36782affab4f8",
+          "conversation_id": 3,
+          "topic": "Insurance renewal",
+          "salesperson": "Ankit Mehta",
+          "requested": [
+            "home delivery",
+            "a faster plan"
+          ],
+          "segment_id": null
+        },
+        {
+          "job_id": "7444cdbb5ea343bfaa849a1e0b2dd7f5",
+          "conversation_id": 2,
+          "topic": "Mobile plan renewal",
+          "salesperson": "Vikram Singh",
+          "requested": [
+            "a faster plan",
+            "a charger"
+          ],
+          "segment_id": null
+        },
+        {
+          "job_id": "7444cdbb5ea343bfaa849a1e0b2dd7f5",
+          "conversation_id": 1,
+          "topic": "Wireless headphones",
+          "salesperson": "Vikram Singh",
+          "requested": [
+            "a faster plan"
+          ],
+          "segment_id": null
+        },
+        {
+          "job_id": "91471d81b3b540bead89dada8e54c249",
+          "conversation_id": 3,
+          "topic": "Running shoes purchase",
+          "salesperson": "Rahul Verma",
+          "requested": [
+            "a phone case",
+            "home delivery"
+          ],
+          "segment_id": null
+        },
+        {
+          "job_id": "91471d81b3b540bead89dada8e54c249",
+          "conversation_id": 1,
+          "topic": "Running shoes purchase",
+          "salesperson": "Rahul Verma",
+          "requested": [
+            "a phone case"
+          ],
+          "segment_id": null
+        },
+        {
+          "job_id": "a8c48797729f469cb7e69b47accdb54d",
+          "conversation_id": 1,
+          "topic": "Phone bill payment",
+          "salesperson": "Vikram Singh",
+          "requested": [
+            "an EMI option"
+          ],
+          "segment_id": null
+        },
+        {
+          "job_id": "326d907e8ccf48acb3358b3694f2c785",
+          "conversation_id": 2,
+          "topic": "Credit card offer",
+          "salesperson": "Vikram Singh",
+          "requested": [
+            "a phone case",
+            "a faster plan"
+          ],
+          "segment_id": null
+        }
+      ]
+    },
+    "review_queue": [
+      {
+        "job_id": "3b32c1d69b9549a7ada42b2ad9a978cc",
+        "filename": "neha_Oct14.wav",
+        "conversation_id": 3,
+        "topic": "Phone bill payment",
+        "salesperson": "Neha Kapoor",
+        "reasons": [
+          "Pushy after a clear no",
+          "Customer frustration 10/10",
+          "Customer rejected 3 offers"
+        ],
+        "severity": "critical",
+        "start_s": 200.0,
+        "segment_id": 6
+      },
+      {
+        "job_id": "3b32c1d69b9549a7ada42b2ad9a978cc",
+        "filename": "neha_Oct14.wav",
+        "conversation_id": 1,
+        "topic": "Credit card offer",
+        "salesperson": "Neha Kapoor",
+        "reasons": [
+          "Pushy after a clear no",
+          "Customer frustration 7/10"
+        ],
+        "severity": "critical",
+        "start_s": 0.0,
+        "segment_id": 2
+      },
+      {
+        "job_id": "3b32c1d69b9549a7ada42b2ad9a978cc",
+        "filename": "neha_Oct14.wav",
+        "conversation_id": 2,
+        "topic": "Mobile plan renewal",
+        "salesperson": "Neha Kapoor",
+        "reasons": [
+          "Pushy after a clear no",
+          "Customer frustration 9/10"
+        ],
+        "severity": "critical",
+        "start_s": 100.0,
+        "segment_id": 4
+      },
+      {
+        "job_id": "97588b04a7ad4f2c8ede0c3ae9fd5137",
+        "filename": "ankit_Oct13.wav",
+        "conversation_id": 1,
+        "topic": "Television purchase",
+        "salesperson": "Ankit Mehta",
+        "reasons": [
+          "Pushy after a clear no"
+        ],
+        "severity": "critical",
+        "start_s": 0.0,
+        "segment_id": 4
+      },
+      {
+        "job_id": "a9a25b7f54d84218841a333fd7afde75",
+        "filename": "neha_Oct13.wav",
+        "conversation_id": 1,
+        "topic": "Television purchase",
+        "salesperson": "Neha Kapoor",
+        "reasons": [
+          "Pushy after a clear no",
+          "Customer frustration 8/10"
+        ],
+        "severity": "critical",
+        "start_s": 0.0,
+        "segment_id": 4
+      },
+      {
+        "job_id": "11b068bbea904b3f8c1d42418bcd8fe7",
+        "filename": "neha_Oct12.wav",
+        "conversation_id": 3,
+        "topic": "Insurance renewal",
+        "salesperson": "Neha Kapoor",
+        "reasons": [
+          "Pushy after a clear no",
+          "Customer frustration 7/10"
+        ],
+        "severity": "critical",
+        "start_s": 200.0,
+        "segment_id": 6
+      },
+      {
+        "job_id": "11b068bbea904b3f8c1d42418bcd8fe7",
+        "filename": "neha_Oct12.wav",
+        "conversation_id": 1,
+        "topic": "Running shoes purchase",
+        "salesperson": "Neha Kapoor",
+        "reasons": [
+          "Customer frustration 8/10"
+        ],
+        "severity": "critical",
+        "start_s": 0.0,
+        "segment_id": 5
+      },
+      {
+        "job_id": "7444cdbb5ea343bfaa849a1e0b2dd7f5",
+        "filename": "vikram_Oct14.wav",
+        "conversation_id": 2,
+        "topic": "Mobile plan renewal",
+        "salesperson": "Vikram Singh",
+        "reasons": [
+          "2 customer questions unanswered"
+        ],
+        "severity": "warning",
+        "start_s": 100.0,
+        "segment_id": 1
+      },
+      {
+        "job_id": "97588b04a7ad4f2c8ede0c3ae9fd5137",
+        "filename": "ankit_Oct13.wav",
+        "conversation_id": 2,
+        "topic": "Credit card offer",
+        "salesperson": "Ankit Mehta",
+        "reasons": [
+          "Customer rejected 3 offers"
+        ],
+        "severity": "warning",
+        "start_s": 100.0,
+        "segment_id": 4
+      },
+      {
+        "job_id": "a9a25b7f54d84218841a333fd7afde75",
+        "filename": "neha_Oct13.wav",
+        "conversation_id": 2,
+        "topic": "Television purchase",
+        "salesperson": "Neha Kapoor",
+        "reasons": [
+          "Customer frustration 6/10"
+        ],
+        "severity": "warning",
+        "start_s": 100.0,
+        "segment_id": 5
+      }
+    ],
+    "voice_of_customer": [
+      {
+        "job_id": "3b32c1d69b9549a7ada42b2ad9a978cc",
+        "conversation_id": 3,
+        "salesperson": "Neha Kapoor",
+        "feedback": "Customer said the offers kept coming before their question was answered.",
+        "mood": "irritated",
+        "segment_id": 5
+      },
+      {
+        "job_id": "aad9de18f0744abcbfb833c638df0e91",
+        "conversation_id": 3,
+        "salesperson": "Rahul Verma",
+        "feedback": "Customer found the pricing unclear and wanted a simple quote first.",
+        "mood": "calm",
+        "segment_id": 5
+      },
+      {
+        "job_id": "3b32c1d69b9549a7ada42b2ad9a978cc",
+        "conversation_id": 2,
+        "salesperson": "Neha Kapoor",
+        "feedback": "Customer found the pricing unclear and wanted a simple quote first.",
+        "mood": "irritated",
+        "segment_id": 5
+      },
+      {
+        "job_id": "aad9de18f0744abcbfb833c638df0e91",
+        "conversation_id": 2,
+        "salesperson": "Rahul Verma",
+        "feedback": "Customer said the offers kept coming before their question was answered.",
+        "mood": "calm",
+        "segment_id": 5
+      },
+      {
+        "job_id": "3b32c1d69b9549a7ada42b2ad9a978cc",
+        "conversation_id": 1,
+        "salesperson": "Neha Kapoor",
+        "feedback": "Customer was unhappy about a long wait before being served.",
+        "mood": "irritated",
+        "segment_id": 5
+      },
+      {
+        "job_id": "aad9de18f0744abcbfb833c638df0e91",
+        "conversation_id": 1,
+        "salesperson": "Rahul Verma",
+        "feedback": "Customer asked to be left alone to decide and felt pressured.",
+        "mood": "irritated",
+        "segment_id": 5
+      },
+      {
+        "job_id": "fedcf654995846a28a118ca7b31d2d47",
+        "conversation_id": 1,
+        "salesperson": "Priya Sharma",
+        "feedback": "Customer found the pricing unclear and wanted a simple quote first.",
+        "mood": "calm",
+        "segment_id": 5
+      },
+      {
+        "job_id": "7444cdbb5ea343bfaa849a1e0b2dd7f5",
+        "conversation_id": 3,
+        "salesperson": "Vikram Singh",
+        "feedback": "Customer felt pushed to buy more than they wanted.",
+        "mood": "calm",
+        "segment_id": 5
+      },
+      {
+        "job_id": "7444cdbb5ea343bfaa849a1e0b2dd7f5",
+        "conversation_id": 1,
+        "salesperson": "Vikram Singh",
+        "feedback": "Customer felt pushed to buy more than they wanted.",
+        "mood": "calm",
+        "segment_id": 5
+      },
+      {
+        "job_id": "97588b04a7ad4f2c8ede0c3ae9fd5137",
+        "conversation_id": 1,
+        "salesperson": "Ankit Mehta",
+        "feedback": "Customer found the pricing unclear and wanted a simple quote first.",
+        "mood": "calm",
+        "segment_id": 5
+      }
+    ],
+    "languages": [
+      {
+        "language": "hinglish",
+        "conversations": 35,
+        "share": 0.714
+      },
+      {
+        "language": "english",
+        "conversations": 14,
+        "share": 0.286
+      }
+    ],
+    "cost": {
+      "total_usd": 6.2916,
+      "recordings": 17,
+      "per_recording_usd": 0.3701
+    }
+  },
+  "month": {
+    "period": "month",
+    "generated_at": "2026-10-14T18:00:00+00:00",
+    "insights": [
+      {
+        "id": "pushy-rate",
+        "severity": "warning",
+        "category": "risk",
+        "title": "13% of conversations were pushy",
+        "detail": "15 of 113 conversations kept pushing after a clear no or visible frustration (target is under 10%). Most of them (12) involve Neha Kapoor.",
+        "metric": "pushy_rate",
+        "person": "Neha Kapoor",
+        "link": {
+          "kind": "person",
+          "name": "Neha Kapoor",
+          "job_id": null,
+          "segment_id": null
+        }
+      },
+      {
+        "id": "unanswered-questions",
+        "severity": "warning",
+        "category": "quality",
+        "title": "Customer questions are going unanswered",
+        "detail": "40 customer questions were left without a real answer across 113 conversations (0.4 per conversation).",
+        "metric": "unanswered_per_conversation",
+        "person": null,
+        "link": {
+          "kind": "team",
+          "name": null,
+          "job_id": null,
+          "segment_id": null
+        }
+      },
+      {
+        "id": "missed-opportunities",
+        "severity": "warning",
+        "category": "coverage",
+        "title": "28% of conversations had a missed opportunity",
+        "detail": "In 32 of 113 conversations the customer asked for something (for example: home delivery) but no upsell was attempted.",
+        "metric": "missed_opportunity_rate",
+        "person": null,
+        "link": {
+          "kind": "recording",
+          "name": null,
+          "job_id": "aad9de18f0744abcbfb833c638df0e91",
+          "segment_id": null
+        }
+      },
+      {
+        "id": "person-low",
+        "severity": "warning",
+        "category": "performance",
+        "title": "Vikram Singh is well below the team on upsell rate",
+        "detail": "Vikram Singh's upsell rate is 10% (n=21) against a peer median of 76%, 67 points lower.",
+        "metric": "upsell_rate",
+        "person": "Vikram Singh",
+        "link": {
+          "kind": "person",
+          "name": "Vikram Singh",
+          "job_id": null,
+          "segment_id": null
+        }
+      },
+      {
+        "id": "technique-weakest",
+        "severity": "warning",
+        "category": "performance",
+        "title": "Social proof offers are rarely accepted",
+        "detail": "Only 0% accepted across 13 offers (team best is 44% for upgrade).",
+        "metric": "acceptance_rate",
+        "person": null,
+        "link": {
+          "kind": "team",
+          "name": null,
+          "job_id": null,
+          "segment_id": null
+        }
+      },
+      {
+        "id": "person-leading",
+        "severity": "positive",
+        "category": "performance",
+        "title": "Neha Kapoor is leading the team on upsell rate",
+        "detail": "Neha Kapoor's upsell rate is 90% (n=21) against a peer median of 76%, 14 points higher.",
+        "metric": "upsell_rate",
+        "person": "Neha Kapoor",
+        "link": {
+          "kind": "person",
+          "name": "Neha Kapoor",
+          "job_id": null,
+          "segment_id": null
+        }
+      },
+      {
+        "id": "technique-best",
+        "severity": "positive",
+        "category": "performance",
+        "title": "Upgrade is the technique that lands best",
+        "detail": "44% accepted across 20 offers by 4 people.",
+        "metric": "acceptance_rate",
+        "person": null,
+        "link": {
+          "kind": "team",
+          "name": null,
+          "job_id": null,
+          "segment_id": null
+        }
+      }
+    ],
+    "targets": [
+      {
+        "metric": "upsell_rate",
+        "label": "Upsell rate",
+        "target": 0.6,
+        "actual": 0.584,
+        "unit": "ratio",
+        "direction": "higher",
+        "status": "at_risk",
+        "gap": -0.016,
+        "n": 113
+      },
+      {
+        "metric": "acceptance_rate",
+        "label": "Acceptance rate",
+        "target": 0.35,
+        "actual": 0.257,
+        "unit": "ratio",
+        "direction": "higher",
+        "status": "off_track",
+        "gap": -0.093,
+        "n": 101
+      },
+      {
+        "metric": "greeting_rate",
+        "label": "Greeting rate",
+        "target": 0.9,
+        "actual": 0.673,
+        "unit": "ratio",
+        "direction": "higher",
+        "status": "off_track",
+        "gap": -0.227,
+        "n": 113
+      },
+      {
+        "metric": "avg_customer_frustration",
+        "label": "Customer frustration",
+        "target": 3.0,
+        "actual": 3.8,
+        "unit": "score",
+        "direction": "lower",
+        "status": "off_track",
+        "gap": 0.8,
+        "n": 113
+      },
+      {
+        "metric": "pushy_rate",
+        "label": "Pushy conversations",
+        "target": 0.05,
+        "actual": 0.133,
+        "unit": "ratio",
+        "direction": "lower",
+        "status": "off_track",
+        "gap": 0.083,
+        "n": 113
+      },
+      {
+        "metric": "score",
+        "label": "Performance score",
+        "target": 70.0,
+        "actual": 51.9,
+        "unit": "score",
+        "direction": "higher",
+        "status": "off_track",
+        "gap": -18.1,
+        "n": 113
+      }
+    ],
+    "techniques": [
+      {
+        "technique": "bundle",
+        "attempts": 38,
+        "accepted": 6,
+        "rejected": 29,
+        "acceptance_rate": 0.171,
+        "people": 5,
+        "best_example": {
+          "quote": "Sir, screen guard bhi dekh lijiye, abhi ke saath sasta padega.",
+          "salesperson": "Priya Sharma",
+          "job_id": "fedcf654995846a28a118ca7b31d2d47",
+          "segment_id": 6
+        }
+      },
+      {
+        "technique": "cross_sell",
+        "attempts": 20,
+        "accepted": 6,
+        "rejected": 13,
+        "acceptance_rate": 0.316,
+        "people": 4,
+        "best_example": {
+          "quote": "Sir, charger bhi dekh lijiye, abhi ke saath sasta padega.",
+          "salesperson": "Priya Sharma",
+          "job_id": "010809fd860e45a2aaf0f20eebcf104f",
+          "segment_id": 4
+        }
+      },
+      {
+        "technique": "upgrade",
+        "attempts": 20,
+        "accepted": 8,
+        "rejected": 10,
+        "acceptance_rate": 0.444,
+        "people": 4,
+        "best_example": {
+          "quote": "Sir, premium plan bhi dekh lijiye, abhi ke saath sasta padega.",
+          "salesperson": "Priya Sharma",
+          "job_id": "fedcf654995846a28a118ca7b31d2d47",
+          "segment_id": 6
+        }
+      },
+      {
+        "technique": "social_proof",
+        "attempts": 13,
+        "accepted": 0,
+        "rejected": 10,
+        "acceptance_rate": 0.0,
+        "people": 1,
+        "best_example": null
+      },
+      {
+        "technique": "plan_upgrade",
+        "attempts": 11,
+        "accepted": 3,
+        "rejected": 7,
+        "acceptance_rate": 0.3,
+        "people": 1,
+        "best_example": {
+          "quote": "Sir, premium data plan bhi dekh lijiye, abhi ke saath sasta padega.",
+          "salesperson": "Ankit Mehta",
+          "job_id": "97588b04a7ad4f2c8ede0c3ae9fd5137",
+          "segment_id": 4
+        }
+      },
+      {
+        "technique": "warranty_protection",
+        "attempts": 11,
+        "accepted": 3,
+        "rejected": 6,
+        "acceptance_rate": 0.333,
+        "people": 2,
+        "best_example": {
+          "quote": "Sir, protection plan bhi dekh lijiye, abhi ke saath sasta padega.",
+          "salesperson": "Ankit Mehta",
+          "job_id": "0d9719cc35ce451cbf2ca7d03b7d5d78",
+          "segment_id": 6
+        }
+      }
+    ],
+    "items": [
+      {
+        "item": "screen guard",
+        "pitched": 15,
+        "accepted": 4,
+        "rate": 0.286
+      },
+      {
+        "item": "carry case",
+        "pitched": 14,
+        "accepted": 0,
+        "rate": 0.0
+      },
+      {
+        "item": "premium data plan",
+        "pitched": 13,
+        "accepted": 3,
+        "rate": 0.273
+      },
+      {
+        "item": "waterproof spray",
+        "pitched": 11,
+        "accepted": 4,
+        "rate": 0.4
+      },
+      {
+        "item": "extended warranty",
+        "pitched": 10,
+        "accepted": 0,
+        "rate": 0.0
+      },
+      {
+        "item": "premium plan",
+        "pitched": 9,
+        "accepted": 4,
+        "rate": 0.5
+      },
+      {
+        "item": "socks",
+        "pitched": 9,
+        "accepted": 2,
+        "rate": 0.222
+      },
+      {
+        "item": "pro version",
+        "pitched": 8,
+        "accepted": 2,
+        "rate": 0.286
+      },
+      {
+        "item": "protection plan",
+        "pitched": 7,
+        "accepted": 3,
+        "rate": 0.6
+      },
+      {
+        "item": "annual plan",
+        "pitched": 5,
+        "accepted": 0,
+        "rate": 0.0
+      },
+      {
+        "item": "charger",
+        "pitched": 5,
+        "accepted": 2,
+        "rate": 0.4
+      },
+      {
+        "item": "earphones",
+        "pitched": 4,
+        "accepted": 0,
+        "rate": 0.0
+      }
+    ],
+    "missed_opportunities": {
+      "count": 32,
+      "conversations": 113,
+      "rate": 0.283,
+      "examples": [
+        {
+          "job_id": "aad9de18f0744abcbfb833c638df0e91",
+          "conversation_id": 2,
+          "topic": "Wireless headphones",
+          "salesperson": "Rahul Verma",
+          "requested": [
+            "home delivery",
+            "a charger"
+          ],
+          "segment_id": null
+        },
+        {
+          "job_id": "fedcf654995846a28a118ca7b31d2d47",
+          "conversation_id": 3,
+          "topic": "Insurance renewal",
+          "salesperson": "Priya Sharma",
+          "requested": [
+            "home delivery",
+            "a phone case"
+          ],
+          "segment_id": null
+        },
+        {
+          "job_id": "7444cdbb5ea343bfaa849a1e0b2dd7f5",
+          "conversation_id": 3,
+          "topic": "Laptop enquiry",
+          "salesperson": "Vikram Singh",
+          "requested": [
+            "a faster plan"
+          ],
+          "segment_id": null
+        },
+        {
+          "job_id": "d62e8a0a7ff44eb497e36782affab4f8",
+          "conversation_id": 3,
+          "topic": "Insurance renewal",
+          "salesperson": "Ankit Mehta",
+          "requested": [
+            "home delivery",
+            "a faster plan"
+          ],
+          "segment_id": null
+        },
+        {
+          "job_id": "7444cdbb5ea343bfaa849a1e0b2dd7f5",
+          "conversation_id": 2,
+          "topic": "Mobile plan renewal",
+          "salesperson": "Vikram Singh",
+          "requested": [
+            "a faster plan",
+            "a charger"
+          ],
+          "segment_id": null
+        },
+        {
+          "job_id": "7444cdbb5ea343bfaa849a1e0b2dd7f5",
+          "conversation_id": 1,
+          "topic": "Wireless headphones",
+          "salesperson": "Vikram Singh",
+          "requested": [
+            "a faster plan"
+          ],
+          "segment_id": null
+        },
+        {
+          "job_id": "91471d81b3b540bead89dada8e54c249",
+          "conversation_id": 3,
+          "topic": "Running shoes purchase",
+          "salesperson": "Rahul Verma",
+          "requested": [
+            "a phone case",
+            "home delivery"
+          ],
+          "segment_id": null
+        },
+        {
+          "job_id": "91471d81b3b540bead89dada8e54c249",
+          "conversation_id": 1,
+          "topic": "Running shoes purchase",
+          "salesperson": "Rahul Verma",
+          "requested": [
+            "a phone case"
+          ],
+          "segment_id": null
+        },
+        {
+          "job_id": "a8c48797729f469cb7e69b47accdb54d",
+          "conversation_id": 1,
+          "topic": "Phone bill payment",
+          "salesperson": "Vikram Singh",
+          "requested": [
+            "an EMI option"
+          ],
+          "segment_id": null
+        },
+        {
+          "job_id": "326d907e8ccf48acb3358b3694f2c785",
+          "conversation_id": 2,
+          "topic": "Credit card offer",
+          "salesperson": "Vikram Singh",
+          "requested": [
+            "a phone case",
+            "a faster plan"
+          ],
+          "segment_id": null
+        }
+      ]
+    },
+    "review_queue": [
+      {
+        "job_id": "3b32c1d69b9549a7ada42b2ad9a978cc",
+        "filename": "neha_Oct14.wav",
+        "conversation_id": 3,
+        "topic": "Phone bill payment",
+        "salesperson": "Neha Kapoor",
+        "reasons": [
+          "Pushy after a clear no",
+          "Customer frustration 10/10",
+          "Customer rejected 3 offers"
+        ],
+        "severity": "critical",
+        "start_s": 200.0,
+        "segment_id": 6
+      },
+      {
+        "job_id": "3b32c1d69b9549a7ada42b2ad9a978cc",
+        "filename": "neha_Oct14.wav",
+        "conversation_id": 1,
+        "topic": "Credit card offer",
+        "salesperson": "Neha Kapoor",
+        "reasons": [
+          "Pushy after a clear no",
+          "Customer frustration 7/10"
+        ],
+        "severity": "critical",
+        "start_s": 0.0,
+        "segment_id": 2
+      },
+      {
+        "job_id": "3b32c1d69b9549a7ada42b2ad9a978cc",
+        "filename": "neha_Oct14.wav",
+        "conversation_id": 2,
+        "topic": "Mobile plan renewal",
+        "salesperson": "Neha Kapoor",
+        "reasons": [
+          "Pushy after a clear no",
+          "Customer frustration 9/10"
+        ],
+        "severity": "critical",
+        "start_s": 100.0,
+        "segment_id": 4
+      },
+      {
+        "job_id": "97588b04a7ad4f2c8ede0c3ae9fd5137",
+        "filename": "ankit_Oct13.wav",
+        "conversation_id": 1,
+        "topic": "Television purchase",
+        "salesperson": "Ankit Mehta",
+        "reasons": [
+          "Pushy after a clear no"
+        ],
+        "severity": "critical",
+        "start_s": 0.0,
+        "segment_id": 4
+      },
+      {
+        "job_id": "a9a25b7f54d84218841a333fd7afde75",
+        "filename": "neha_Oct13.wav",
+        "conversation_id": 1,
+        "topic": "Television purchase",
+        "salesperson": "Neha Kapoor",
+        "reasons": [
+          "Pushy after a clear no",
+          "Customer frustration 8/10"
+        ],
+        "severity": "critical",
+        "start_s": 0.0,
+        "segment_id": 4
+      },
+      {
+        "job_id": "11b068bbea904b3f8c1d42418bcd8fe7",
+        "filename": "neha_Oct12.wav",
+        "conversation_id": 3,
+        "topic": "Insurance renewal",
+        "salesperson": "Neha Kapoor",
+        "reasons": [
+          "Pushy after a clear no",
+          "Customer frustration 7/10"
+        ],
+        "severity": "critical",
+        "start_s": 200.0,
+        "segment_id": 6
+      },
+      {
+        "job_id": "11b068bbea904b3f8c1d42418bcd8fe7",
+        "filename": "neha_Oct12.wav",
+        "conversation_id": 1,
+        "topic": "Running shoes purchase",
+        "salesperson": "Neha Kapoor",
+        "reasons": [
+          "Customer frustration 8/10"
+        ],
+        "severity": "critical",
+        "start_s": 0.0,
+        "segment_id": 5
+      },
+      {
+        "job_id": "ae6c6aadb190435698d868f1b48f82a8",
+        "filename": "neha_Oct09.wav",
+        "conversation_id": 3,
+        "topic": "Laptop enquiry",
+        "salesperson": "Neha Kapoor",
+        "reasons": [
+          "Pushy after a clear no",
+          "Customer frustration 7/10",
+          "Customer rejected 3 offers"
+        ],
+        "severity": "critical",
+        "start_s": 200.0,
+        "segment_id": 4
+      },
+      {
+        "job_id": "ae6c6aadb190435698d868f1b48f82a8",
+        "filename": "neha_Oct09.wav",
+        "conversation_id": 2,
+        "topic": "Laptop enquiry",
+        "salesperson": "Neha Kapoor",
+        "reasons": [
+          "Pushy after a clear no",
+          "Customer frustration 7/10"
+        ],
+        "severity": "critical",
+        "start_s": 100.0,
+        "segment_id": 6
+      },
+      {
+        "job_id": "0e296cdbd2074448bba9c4737be1f2a9",
+        "filename": "neha_Oct08.wav",
+        "conversation_id": 2,
+        "topic": "Television purchase",
+        "salesperson": "Neha Kapoor",
+        "reasons": [
+          "Pushy after a clear no",
+          "Customer frustration 8/10",
+          "2 customer questions unanswered"
+        ],
+        "severity": "critical",
+        "start_s": 100.0,
+        "segment_id": 2
+      }
+    ],
+    "voice_of_customer": [
+      {
+        "job_id": "3b32c1d69b9549a7ada42b2ad9a978cc",
+        "conversation_id": 3,
+        "salesperson": "Neha Kapoor",
+        "feedback": "Customer said the offers kept coming before their question was answered.",
+        "mood": "irritated",
+        "segment_id": 5
+      },
+      {
+        "job_id": "aad9de18f0744abcbfb833c638df0e91",
+        "conversation_id": 3,
+        "salesperson": "Rahul Verma",
+        "feedback": "Customer found the pricing unclear and wanted a simple quote first.",
+        "mood": "calm",
+        "segment_id": 5
+      },
+      {
+        "job_id": "3b32c1d69b9549a7ada42b2ad9a978cc",
+        "conversation_id": 2,
+        "salesperson": "Neha Kapoor",
+        "feedback": "Customer found the pricing unclear and wanted a simple quote first.",
+        "mood": "irritated",
+        "segment_id": 5
+      },
+      {
+        "job_id": "aad9de18f0744abcbfb833c638df0e91",
+        "conversation_id": 2,
+        "salesperson": "Rahul Verma",
+        "feedback": "Customer said the offers kept coming before their question was answered.",
+        "mood": "calm",
+        "segment_id": 5
+      },
+      {
+        "job_id": "3b32c1d69b9549a7ada42b2ad9a978cc",
+        "conversation_id": 1,
+        "salesperson": "Neha Kapoor",
+        "feedback": "Customer was unhappy about a long wait before being served.",
+        "mood": "irritated",
+        "segment_id": 5
+      },
+      {
+        "job_id": "aad9de18f0744abcbfb833c638df0e91",
+        "conversation_id": 1,
+        "salesperson": "Rahul Verma",
+        "feedback": "Customer asked to be left alone to decide and felt pressured.",
+        "mood": "irritated",
+        "segment_id": 5
+      },
+      {
+        "job_id": "fedcf654995846a28a118ca7b31d2d47",
+        "conversation_id": 1,
+        "salesperson": "Priya Sharma",
+        "feedback": "Customer found the pricing unclear and wanted a simple quote first.",
+        "mood": "calm",
+        "segment_id": 5
+      },
+      {
+        "job_id": "7444cdbb5ea343bfaa849a1e0b2dd7f5",
+        "conversation_id": 3,
+        "salesperson": "Vikram Singh",
+        "feedback": "Customer felt pushed to buy more than they wanted.",
+        "mood": "calm",
+        "segment_id": 5
+      },
+      {
+        "job_id": "7444cdbb5ea343bfaa849a1e0b2dd7f5",
+        "conversation_id": 1,
+        "salesperson": "Vikram Singh",
+        "feedback": "Customer felt pushed to buy more than they wanted.",
+        "mood": "calm",
+        "segment_id": 5
+      },
+      {
+        "job_id": "97588b04a7ad4f2c8ede0c3ae9fd5137",
+        "conversation_id": 1,
+        "salesperson": "Ankit Mehta",
+        "feedback": "Customer found the pricing unclear and wanted a simple quote first.",
+        "mood": "calm",
+        "segment_id": 5
+      }
+    ],
+    "languages": [
+      {
+        "language": "hinglish",
+        "conversations": 79,
+        "share": 0.699
+      },
+      {
+        "language": "english",
+        "conversations": 34,
+        "share": 0.301
+      }
+    ],
+    "cost": {
+      "total_usd": 14.2813,
+      "recordings": 39,
+      "per_recording_usd": 0.3662
+    }
+  }
+}

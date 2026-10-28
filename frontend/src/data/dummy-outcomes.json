@@ -1,0 +1,144 @@
+{
+  "job_id": "dummy",
+  "calls": [
+    {
+      "conversation_id": 1,
+      "topic": "Running shoes purchase",
+      "start": 0.0,
+      "end": 44.0,
+      "salespeople": [
+        "A"
+      ],
+      "sentiment": "neutral",
+      "sentiment_reasons": [
+        "Customer showed some frustration (4/10)",
+        "Customer accepted 1 offer"
+      ],
+      "upsell_result": "won",
+      "pitched": [
+        {
+          "salesperson": "A",
+          "segment_id": 2,
+          "item": "socks",
+          "technique": "bundle",
+          "response": "rejected",
+          "quote": "Sir, socks bhi le lijiye, combo mein 20% off hai.",
+          "after_rejection": false
+        },
+        {
+          "salesperson": "A",
+          "segment_id": 4,
+          "item": "waterproof spray",
+          "technique": "cross_sell",
+          "response": "accepted",
+          "quote": "Waterproof spray bhi aata hai, shoes zyada chalenge.",
+          "after_rejection": true
+        }
+      ],
+      "accepted": 1,
+      "rejected": 1,
+      "open": 0,
+      "products_discussed": [
+        "running shoes",
+        "socks",
+        "waterproof spray"
+      ],
+      "customer_max_frustration": 4
+    },
+    {
+      "conversation_id": 2,
+      "topic": "Phone bill payment",
+      "start": 70.0,
+      "end": 104.0,
+      "salespeople": [
+        "A"
+      ],
+      "sentiment": "negative",
+      "sentiment_reasons": [
+        "Customer became very frustrated (7/10)",
+        "Salesperson kept pushing after a clear no"
+      ],
+      "upsell_result": "lost",
+      "pitched": [
+        {
+          "salesperson": "A",
+          "segment_id": 9,
+          "item": "premium data plan",
+          "technique": "plan_upgrade",
+          "response": "rejected",
+          "quote": "would you like to upgrade to our premium data plan? Only 200 rupees more for double data.",
+          "after_rejection": false
+        },
+        {
+          "salesperson": "A",
+          "segment_id": 11,
+          "item": "premium data plan",
+          "technique": "social_proof",
+          "response": "rejected",
+          "quote": "most customers who switch never go back - should I just add it for you?",
+          "after_rejection": true
+        }
+      ],
+      "accepted": 0,
+      "rejected": 2,
+      "open": 0,
+      "products_discussed": [
+        "phone bill payment",
+        "premium data plan"
+      ],
+      "customer_max_frustration": 7
+    },
+    {
+      "conversation_id": 4,
+      "topic": "Protection plan enquiry",
+      "start": 160.0,
+      "end": 174.0,
+      "salespeople": [
+        "A"
+      ],
+      "sentiment": "neutral",
+      "sentiment_reasons": [
+        "Customer stayed calm"
+      ],
+      "upsell_result": "unknown",
+      "pitched": [],
+      "accepted": 0,
+      "rejected": 0,
+      "open": 0,
+      "products_discussed": [],
+      "customer_max_frustration": 1
+    }
+  ],
+  "positive": 0,
+  "neutral": 2,
+  "negative": 1,
+  "won": 1,
+  "lost": 1,
+  "by_salesperson": [
+    {
+      "speaker": "A",
+      "tried": 4,
+      "accepted": 1,
+      "rejected": 3,
+      "open": 0,
+      "success_rate": 0.25,
+      "items": [
+        {
+          "item": "premium data plan",
+          "tried": 2,
+          "accepted": 0
+        },
+        {
+          "item": "socks",
+          "tried": 1,
+          "accepted": 0
+        },
+        {
+          "item": "waterproof spray",
+          "tried": 1,
+          "accepted": 1
+        }
+      ]
+    }
+  ]
+}

@@ -16,6 +16,7 @@ wheels/
 
 # App data (the committed sample data lives in sample_data/; only its regenerable caches are ignored)
 data/
+!frontend/src/data/
 sample_data/store/cache/
 sample_data/store/**/*.tmp
 sample_data/audio/**/.work_*

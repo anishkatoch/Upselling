@@ -1,0 +1,191 @@
+{
+  "transcript": {
+    "duration": 185.0,
+    "segments": [
+      {
+        "id": 0,
+        "speaker": "A",
+        "start": 0.0,
+        "end": 4.5,
+        "text": "Namaste sir, main Arjun, kaise help kar sakta hoon?"
+      },
+      {
+        "id": 1,
+        "speaker": "B",
+        "start": 5.0,
+        "end": 11.0,
+        "text": "Mujhe running shoes chahiye, size nine. Kitna time lagega agar order karna pade?"
+      },
+      {
+        "id": 2,
+        "speaker": "A",
+        "start": 11.5,
+        "end": 19.0,
+        "text": "Ye dekhiye, 2999 ke hain. Sir, socks bhi le lijiye, combo mein 20% off hai."
+      },
+      {
+        "id": 3,
+        "speaker": "B",
+        "start": 19.5,
+        "end": 23.0,
+        "text": "Nahi, sirf shoes chahiye abhi."
+      },
+      {
+        "id": 4,
+        "speaker": "A",
+        "start": 23.5,
+        "end": 29.0,
+        "text": "Waterproof spray bhi aata hai, shoes zyada chalenge."
+      },
+      {
+        "id": 5,
+        "speaker": "B",
+        "start": 29.5,
+        "end": 36.0,
+        "text": "Theek hai, par itni baar push mat kijiye, mujhe thoda irritate ho raha hai."
+      },
+      {
+        "id": 6,
+        "speaker": "B",
+        "start": 36.5,
+        "end": 40.0,
+        "text": "Spray de do, aur billing kar do jaldi."
+      },
+      {
+        "id": 7,
+        "speaker": "A",
+        "start": 40.5,
+        "end": 44.0,
+        "text": "Bill ready hai sir, total 3599."
+      },
+      {
+        "id": 8,
+        "speaker": "C",
+        "start": 70.0,
+        "end": 74.0,
+        "text": "Hi, I wanted to just pay my bill."
+      },
+      {
+        "id": 9,
+        "speaker": "A",
+        "start": 74.5,
+        "end": 83.0,
+        "text": "Sure. While I have you, would you like to upgrade to our premium data plan? Only 200 rupees more for double data."
+      },
+      {
+        "id": 10,
+        "speaker": "C",
+        "start": 83.5,
+        "end": 86.5,
+        "text": "No thanks, just the bill please."
+      },
+      {
+        "id": 11,
+        "speaker": "A",
+        "start": 87.0,
+        "end": 96.0,
+        "text": "This plan really is a great deal, most customers who switch never go back - should I just add it for you?"
+      },
+      {
+        "id": 12,
+        "speaker": "C",
+        "start": 96.5,
+        "end": 101.0,
+        "text": "I already said no. Can we please just process the payment?"
+      },
+      {
+        "id": 13,
+        "speaker": "A",
+        "start": 101.5,
+        "end": 104.0,
+        "text": "Of course, right away."
+      },
+      {
+        "id": 14,
+        "speaker": "A",
+        "start": 130.0,
+        "end": 132.5,
+        "text": "Chai peene chalein?"
+      },
+      {
+        "id": 15,
+        "speaker": "D",
+        "start": 133.0,
+        "end": 136.0,
+        "text": "Haan, do minute mein aata hoon."
+      },
+      {
+        "id": 16,
+        "speaker": "A",
+        "start": 136.5,
+        "end": 138.0,
+        "text": "Theek hai, chalo."
+      },
+      {
+        "id": 17,
+        "speaker": "A",
+        "start": 160.0,
+        "end": 166.0,
+        "text": "Sir ek protection plan bhi hai is product ke saath, bahut accha coverage milta hai."
+      },
+      {
+        "id": 18,
+        "speaker": "E",
+        "start": 166.5,
+        "end": 170.0,
+        "text": "Pehle bataiye ye kya hai, kitna cost hoga?"
+      },
+      {
+        "id": 19,
+        "speaker": "A",
+        "start": 170.5,
+        "end": 174.0,
+        "text": "Ye extra protection hai jo..."
+      }
+    ],
+    "provider": "openai:gpt-4o-transcribe-diarize",
+    "model": "gpt-4o-transcribe-diarize",
+    "chunks": 1
+  },
+  "roles": {
+    "has_sales_activity": true,
+    "speakers": [
+      {
+        "speaker": "A",
+        "canonical_speaker": "A",
+        "role": "salesperson",
+        "title": "Senior Sales Associate",
+        "reasoning": "Quotes prices, offers products across every conversation."
+      },
+      {
+        "speaker": "B",
+        "canonical_speaker": "B",
+        "role": "customer",
+        "title": "Walk-in customer",
+        "reasoning": "Asks for shoes, decides what to buy."
+      },
+      {
+        "speaker": "C",
+        "canonical_speaker": "C",
+        "role": "customer",
+        "title": "Returning customer (phone)",
+        "reasoning": "Calls in to pay a bill, declines upsells."
+      },
+      {
+        "speaker": "D",
+        "canonical_speaker": "D",
+        "role": "other",
+        "title": "Co-worker",
+        "reasoning": "Casual break-time chat, not a customer."
+      },
+      {
+        "speaker": "E",
+        "canonical_speaker": "E",
+        "role": "customer",
+        "title": "New lead (online enquiry)",
+        "reasoning": "Asks what the product is and its cost."
+      }
+    ]
+  },
+  "acoustics": []
+}
