@@ -235,9 +235,9 @@
         "pushy_reason": "A single upgrade offer, though badly timed: the customer was still waiting to have the problem fixed.",
         "confidence": 0.86,
         "summary": "The customer returned a faulty cable and was offered a paid upgrade before the replacement. The customer's question about the invoice went unanswered and he left impatient.",
-        "greeting_given": false,
-        "greeting_quote": null,
-        "greeting_segment_id": null,
+        "greeting_given": true,
+        "greeting_quote": "هلا والله. خلني أشوفه. أيوه، المنفذ فيه مشكلة.",
+        "greeting_segment_id": 15,
         "products_discussed": [
           "USB cable 35 SAR",
           "braided cable 59 SAR"
@@ -581,6 +581,52 @@
           "start": 119.2,
           "end": 122.3,
           "text": "ولا يهمك، تفضل الكيبل الجديد.",
+          "is_highlighted": false
+        }
+      ]
+    },
+    {
+      "kind": "greeting",
+      "conversation_id": 3,
+      "index": 0,
+      "speaker": "A",
+      "segment_id": 15,
+      "quote_found": true,
+      "lines": [
+        {
+          "segment_id": 14,
+          "speaker": "D",
+          "role": "customer",
+          "start": 79.8,
+          "end": 85.56,
+          "text": "السلام عليكم. اشتريت هذا الكيبل من عندكم قبل ثلاثة أيام وما يشحن.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 15,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 86.46,
+          "end": 90.7,
+          "text": "هلا والله. خلني أشوفه. أيوه، المنفذ فيه مشكلة.",
+          "is_highlighted": true
+        },
+        {
+          "segment_id": 16,
+          "speaker": "D",
+          "role": "customer",
+          "start": 91.6,
+          "end": 95.08,
+          "text": "طيب أبي أبدله اليوم، وعندي مشوار.",
+          "is_highlighted": false
+        },
+        {
+          "segment_id": 17,
+          "speaker": "A",
+          "role": "salesperson",
+          "start": 95.98,
+          "end": 102.88,
+          "text": "أكيد، نبدله لك. فيه نوع أقوى بـ 59 ريال بدل 35، وبعدها ما تحتاج تغيره.",
           "is_highlighted": false
         }
       ]

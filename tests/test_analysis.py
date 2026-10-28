@@ -26,6 +26,57 @@ def test_effort_score():
     assert effort_score(_upsell().model_copy(update={"upsell_attempts": []})) == 0.0
 
 
+def test_customer_initiated_purchase_is_excluded_before_scoring():
+    from upsell_poc.analysis.conversation import _clean
+
+    segments = fake_transcript().segments
+    analysis = _upsell()
+    requested = analysis.upsell_attempts[0].model_copy(update={"salesperson_initiated": False})
+    cleaned = _clean(analysis.model_copy(update={"upsell_attempts": [requested]}), segments)
+    assert cleaned.upsell_attempts == []
+    assert effort_score(cleaned) == 0
+    # Fulfilling one request must not hide a separate proactive add-on in the same exchange.
+    proactive = analysis.upsell_attempts[1]
+    mixed = _clean(analysis.model_copy(update={"upsell_attempts": [requested, proactive]}), segments)
+    assert mixed.upsell_attempts == [proactive]
+    assert effort_score(mixed) > 0
+
+
+def test_reviewed_arabic_greeting_has_transcript_evidence():
+    import json
+    from pathlib import Path
+
+    from upsell_poc.schemas import JobReport
+
+    folder = Path(__file__).parents[1] / "sample_data/store/jobs/53a0bd2fbdb388593d05eebc356e5802"
+    report = JobReport.model_validate_json((folder / "report.json").read_text(encoding="utf-8"))
+    segments = json.loads((folder / "transcript.json").read_text(encoding="utf-8"))["transcript"]["segments"]
+    conversation = next(c for c in report.conversations if c.conversation_id == 3)
+    assert conversation.upsell.greeting_given
+    line = next(s for s in segments if s["id"] == conversation.upsell.greeting_segment_id)
+    assert line["speaker"] in conversation.salespeople
+    assert line["text"].startswith("هلا والله")
+    assert conversation.upsell.greeting_quote == line["text"]
+    assert any(e.kind == "greeting" and e.conversation_id == 3 and e.quote_found for e in report.evidence)
+
+
+def test_reviewed_requested_kettle_is_not_an_upsell_or_sales_win():
+    from pathlib import Path
+
+    from upsell_poc.outcomes import call_outcome
+    from upsell_poc.schemas import JobReport
+
+    folder = Path(__file__).parents[1] / "sample_data/store/jobs/0ebecfd6624a084ea46ced7ccf197c86"
+    report = JobReport.model_validate_json((folder / "report.json").read_text(encoding="utf-8"))
+    conversation = next(c for c in report.conversations if c.conversation_id == 2)
+    assert len(conversation.upsell.customer_requested) == 2
+    assert conversation.upsell.upsell_attempts == []
+    assert not conversation.attempted_upsell
+    assert conversation.effort_score == 0
+    assert call_outcome(conversation).upsell_result == "none"
+    assert not any(e.kind == "upsell_attempt" and e.conversation_id == 2 for e in report.evidence)
+
+
 def test_salesperson_metrics():
     t = fake_transcript()
     conv = ConversationResult(

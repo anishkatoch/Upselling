@@ -145,25 +145,14 @@
           "A coffee machine.",
           "Something for Saudi coffee."
         ],
-        "upsell_attempts": [
-          {
-            "salesperson": "A",
-            "segment_id": 9,
-            "quote": "أنصحك بهذي، ماكينة اسبريسو بـ 799 ريال. وللقهوة السعودية عندنا غلاية كهربائية للدلة بـ 189 ريال.",
-            "technique": "bundle",
-            "offered_item": "Electric dallah kettle for 189 SAR with 10% off the pair",
-            "salesperson_initiated": false,
-            "after_customer_rejection": false,
-            "handled_objection": false,
-            "customer_response": "accepted",
-            "customer_mood": "happy"
-          }
+        "upsell_attempts": [],
+        "excluded_candidates": [
+          "أنصحك بهذي، ماكينة اسبريسو بـ 799 ريال. وللقهوة السعودية عندنا غلاية كهربائية للدلة بـ 189 ريال. -> The customer explicitly requested both an espresso machine and something for Saudi coffee; the kettle fulfils that request."
         ],
-        "excluded_candidates": [],
         "pushy_upsell": false,
         "pushy_reason": "No offer was repeated after a customer said no.",
         "confidence": 0.9,
-        "summary": "The customer mentioned Saudi coffee, and the salesperson offered a product for that and a pair discount. Accepted.",
+        "summary": "The customer requested a coffee machine and something for Saudi coffee. The salesperson explained an espresso machine and a dallah kettle, answered the question about the kettle, and applied a discount after the customer accepted both. No proactive extra purchase was offered.",
         "greeting_given": true,
         "greeting_quote": "السلام عليكم، حياك الله.",
         "greeting_segment_id": 7,
@@ -174,10 +163,10 @@
         "customer_feedback": null,
         "customer_feedback_segment_id": null,
         "unanswered_questions": [],
-        "coaching_feedback": "Local, relevant add-on that matched what the customer said she wanted."
+        "coaching_feedback": "The salesperson addressed both stated needs and explained the kettle before the customer accepted it. Keep distinguishing a requested product from an optional add-on; this exchange fulfils the request rather than demonstrating an upsell."
       },
-      "attempted_upsell": true,
-      "effort_score": 2.2,
+      "attempted_upsell": false,
+      "effort_score": 0.0,
       "analyzed_by": "hand-authored:saudi-demo-sample",
       "escalated": false,
       "budget_note": null
@@ -262,16 +251,15 @@
     {
       "speaker": "A",
       "conversations": 3,
-      "conversations_with_upsell": 3,
-      "upsell_rate": 1.0,
-      "attempts_total": 3,
-      "attempts_per_conversation": 1.0,
-      "avg_effort_score": 2.2,
-      "upsell_talk_time_share": 0.314,
-      "acceptance_rate": 0.333,
+      "conversations_with_upsell": 2,
+      "upsell_rate": 0.667,
+      "attempts_total": 2,
+      "attempts_per_conversation": 0.67,
+      "avg_effort_score": 1.5,
+      "upsell_talk_time_share": 0.2,
+      "acceptance_rate": 0.0,
       "pushy_conversations": 0,
       "techniques_used": [
-        "bundle",
         "cross_sell",
         "warranty_protection"
       ]
@@ -404,61 +392,6 @@
           "start": 56.64,
           "end": 63.92,
           "text": "أنصحك بهذي، ماكينة اسبريسو بـ 799 ريال. وللقهوة السعودية عندنا غلاية كهربائية للدلة بـ 189 ريال.",
-          "is_highlighted": false
-        }
-      ]
-    },
-    {
-      "kind": "upsell_attempt",
-      "conversation_id": 2,
-      "index": 0,
-      "speaker": "A",
-      "segment_id": 9,
-      "quote_found": true,
-      "lines": [
-        {
-          "segment_id": 7,
-          "speaker": "A",
-          "role": "salesperson",
-          "start": 47.12,
-          "end": 49.84,
-          "text": "السلام عليكم، حياك الله.",
-          "is_highlighted": false
-        },
-        {
-          "segment_id": 8,
-          "speaker": "C",
-          "role": "customer",
-          "start": 50.74,
-          "end": 55.74,
-          "text": "وعليكم السلام. أبي ماكينة قهوة، وأبي أسوي دلة سعودية بعد.",
-          "is_highlighted": false
-        },
-        {
-          "segment_id": 9,
-          "speaker": "A",
-          "role": "salesperson",
-          "start": 56.64,
-          "end": 63.92,
-          "text": "أنصحك بهذي، ماكينة اسبريسو بـ 799 ريال. وللقهوة السعودية عندنا غلاية كهربائية للدلة بـ 189 ريال.",
-          "is_highlighted": true
-        },
-        {
-          "segment_id": 10,
-          "speaker": "C",
-          "role": "customer",
-          "start": 64.82,
-          "end": 67.54,
-          "text": "الاثنين؟ وش فيها الغلاية؟",
-          "is_highlighted": false
-        },
-        {
-          "segment_id": 11,
-          "speaker": "A",
-          "role": "salesperson",
-          "start": 68.44,
-          "end": 72.68,
-          "text": "تحافظ على حرارة القهوة وتسخن بسرعة. جربها لك.",
           "is_highlighted": false
         }
       ]

@@ -1,6 +1,6 @@
 """System prompts. Bump PROMPT_VERSION on any change so cached stage results refresh."""
 
-PROMPT_VERSION = "2026-10-26.2"
+PROMPT_VERSION = "2026-10-28.1"
 
 _TRANSCRIPT_NOTE = """\
 Transcript lines look like: [#<segment_id> <start>-<end> <speaker>] <text>
@@ -79,6 +79,10 @@ asked for. Techniques:
 
 NOT an upsell (list these under excluded_candidates as "quote -> reason"):
 - The customer asked for an item and the salesperson provides or shows it.
+- Evaluate every item against ALL needs the customer stated before the offer. Supplying \
+multiple requested items is request fulfilment, even when sold together or discounted. \
+A bundle label or later discount alone does not make it an upsell. Count only a proactive \
+addition or upgrade beyond those needs; put requested items in excluded_candidates.
 - Answering the customer's own question about price, features or alternatives they requested.
 - Selling or recommending the main item the customer came for, including choosing between \
 options of what they asked for, unless the salesperson pushes a pricier tier than needed.
@@ -107,6 +111,9 @@ the start of the conversation (a hello, introducing themselves, a warm opener)? 
 greeting_given is true, greeting_quote and greeting_segment_id are REQUIRED - never set \
 greeting_given true without also giving the exact quote and the segment_id it starts at. If \
 you cannot point to a specific line, set greeting_given to false instead.
+Recognize local and informal greetings, including Arabic "هلا والله", "هلا", "حياك الله", \
+"أهلاً", and "السلام عليكم". A salesperson's reply to a customer who greets first also counts. \
+For example, "هلا والله. خلني أشوفه" is a greeting even during a return or complaint.
 - products_discussed: the main products or services actually talked about or sold in this \
 conversation, not just the upsell add-ons - e.g. ["running shoes", "extended warranty"]. Use \
 the names as said in the conversation.
@@ -116,6 +123,12 @@ they were unhappy about in one sentence, in their own terms. customer_feedback_s
 REQUIRED whenever customer_feedback is set - point to the specific line where they expressed \
 it (or the strongest of several). Both null if they showed no dissatisfaction.
 - unanswered_questions: real questions or requests from the customer that the salesperson never dealt with while the conversation was still going on. List one only if ALL of these are true: (1) it is a genuine question, or a request for something to be done or given, that needs an answer or an action; (2) the salesperson ignored it, talked over it or changed the subject, and no later line answers it or does what was asked; (3) the conversation carried on after it. NEVER list: polite closing lines (thanks, goodbye, "okay", "see you") or any customer line the recording simply ends on, because you cannot tell whether it was answered; a question answered later or in other words; a rhetorical or confirmation one ("theek hai?", "okay?"); a refusal or complaint ("no extras", "I don't want it", "why aren't you listening") - pressure after a refusal is reported as pushy_upsell, not here. If the customer asks the same thing several times, list it ONCE, at its first segment_id. For each: segment_id, speaker (who asked), the exact question/request, and a short note on what happened instead. Empty list if none - most good conversations have none.
+- Before listing an unanswered question, distinguish IGNORED from PENDING. "I have to check \
+with my manager", "let me check", or an explicit handover acknowledges and acts on the \
+request. If the recording ends before the decision, describe the outcome as unresolved \
+if relevant; do not penalize it as ignored. A request to ask the arriving manager is part \
+of that same pending request, not a second ignored question. Only flag it if later dialogue \
+clearly shows the salesperson abandoned it or changed the subject instead of following up.
 - coaching_feedback: 2-3 sentences of specific, actionable coaching about the salesperson on \
 THIS conversation - what they did well and the single most useful thing to change next time. \
 Point to concrete moments (a specific line, a missed objection, an unanswered question, a \
